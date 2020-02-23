@@ -1,0 +1,56 @@
+{
+  "name": "concretecms-bedrock",
+  "version": "0.9.0",
+  "description": "The asset framework and dependencies for Concrete CMS.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch-poll": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --watch-poll",
+    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.11.2",
+    "backstretch": "^1.2.2",
+    "blueimp-file-upload": "^10.2.0",
+    "bootstrap": "^4.3.1",
+    "bootstrap-tourist": "^0.2.1",
+    "dropzone": "^5.5.1",
+    "jquery": "^3.4.1",
+    "jquery-backstretch": "^2.1.18",
+    "jquery-form": "^4.2.2",
+    "jquery-text-counter": "^0.8.0",
+    "jquery-ui": "^1.12.1",
+    "jquery.cookie": "^1.4.1",
+    "jquery.fancytree": "^2.32.0",
+    "json5": "^2.1.1",
+    "magnific-popup": "^1.1.0",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.26",
+    "nprogress": "^0.2.0",
+    "pnotify": "^4.0.0",
+    "popper.js": "^1.15.0",
+    "selectize": "^0.12.6",
+    "spectrum-colorpicker": "^1.8.0",
+    "tristate": "^1.2.0",
+    "underscore": "^1.9.1",
+    "vue": "^2.5.7"
+  },
+  "devDependencies": {
+    "cross-env": "^5.1.1",
+    "laravel-mix": "^2.1.11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/concrete5/concretecms-bedrock.git"
+  },
+  "author": "Andrew Embler",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/concrete5/concrete5/issues"
+  },
+  "homepage": "https://github.com/concrete5/concrete5#readme"
+}

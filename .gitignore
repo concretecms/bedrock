@@ -1,0 +1,4 @@
+.DS_Store
+.idea
+mix-manifest.json
+node_modules
