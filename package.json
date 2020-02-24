@@ -43,10 +43,6 @@
     "underscore": "^1.9.1",
     "vue": "^2.5.7"
   },
-  "devDependencies": {
-    "cross-env": "^5.1.1",
-    "laravel-mix": "^2.1.11"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/concrete5/concretecms-bedrock.git"
