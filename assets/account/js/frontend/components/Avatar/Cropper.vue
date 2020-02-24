@@ -37,4 +37,4 @@
 </template>
 
 <script src='./Cropper.js'></script>
-<style src='./Cropper.less' lang="less" scoped></style>
+<style src='./Cropper.scss' lang="scss" scoped></style>

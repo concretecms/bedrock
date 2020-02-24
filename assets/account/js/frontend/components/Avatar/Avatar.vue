@@ -14,5 +14,5 @@
     </div>
 </template>
 
-<style src='./Avatar.less' scoped></style>
+<style src='./Avatar.scss' lang="scss" scoped></style>
 <script src='./Avatar.js'></script>
