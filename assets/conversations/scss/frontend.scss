@@ -1,3 +1,21 @@
+// 01. Bootstrap Functions go first.
+@import "~bootstrap/scss/functions";
+
+// 02. Bootstrap overrides, have to be done BEFORE bootstrap. 
+@import "../../cms/scss/bootstrap-overrides";
+
+// 03. Bootstrap Variables
+@import "~bootstrap/scss/variables";
+
+// 04. Theme variables, some of which can now be based on bootstrap variable/constants/
+@import "../../cms/scss/variables";
+
+// Import the bootstrap mixins, variables and functions
+@import "~bootstrap/scss/mixins";
+
+// Import the base classes like core utilities and variables
+@import "~@fortawesome/fontawesome-free/scss/variables";
+
 // Components
 @import "./frontend/conversations";
 
