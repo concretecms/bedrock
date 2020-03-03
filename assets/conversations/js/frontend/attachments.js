@@ -1,3 +1,5 @@
+import Dropzone from 'dropzone/dist/dropzone';
+
 /* jshint unused:vars, undef:true, browser:true, jquery:true */
 /* global CCM_TOOLS_PATH */
 

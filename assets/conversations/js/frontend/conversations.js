@@ -1,3 +1,8 @@
+import '../../../cms/js/events';
+import * as _ from 'underscore';
+
+window._ = _;
+
 /* jshint unused:vars, undef:true, browser:true, jquery:true */
 /* global ConcreteEvent, CCM_TOOLS_PATH */
 
