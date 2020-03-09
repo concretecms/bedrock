@@ -1,6 +1,6 @@
 {
-  "name": "concretecms-bedrock",
-  "version": "0.9.0",
+  "name": "@concretecms/bedrock",
+  "version": "0.9.1",
   "description": "The asset framework and dependencies for Concrete CMS.",
   "main": "index.js",
   "scripts": {
@@ -46,7 +46,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/concrete5/concretecms-bedrock.git"
+    "url": "git+https://github.com/concrete5/bedrock.git"
   },
   "author": "Andrew Embler",
   "license": "MIT",
