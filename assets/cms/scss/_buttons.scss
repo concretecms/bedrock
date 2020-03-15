@@ -1,0 +1,27 @@
+div.ccm-ui {
+  .btn {
+    letter-spacing: 0.02rem;
+  }
+
+  /*
+  .btn-secondary {
+    @include button-variant($gray-700, $gray-700, $secondary, $secondary, #fff, $secondary);
+  }*/
+
+  .btn-secondary {
+    @include button-variant(#fff, $secondary, $secondary, $secondary, $gray-700, $gray-700);
+  }
+
+
+.btn-primary {
+    @include button-variant($blue, $blue, #2276D7, #2276D7);
+  }
+
+  .btn-success {
+    @include button-variant($green, $green, #1F8035, #1F8035);
+  }
+
+  .btn-danger {
+    @include button-variant($red, $red, #972121, #972121);
+  }
+}

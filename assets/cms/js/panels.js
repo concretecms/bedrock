@@ -60,7 +60,7 @@ function ConcretePanel(options) {
 
         this.setupSubPanels();
         this.setupPanelDetails();
-        $link.removeClass().addClass('ccm-launch-panel-active');
+        jQuery.fn.dialog.hideLoader();
         if (hasTooltip) {
             $link.addClass('launch-tooltip');
         }
@@ -70,9 +70,10 @@ function ConcretePanel(options) {
     this.hide = function (callback) {
         callback = callback || $.noop;
         var me = this;
+        var $link = $('a[data-launch-panel=' + this.getIdentifier() + ']');
+        $link.toggleClass('ccm-launch-panel-active');
         this.closePanelDetail(function () {
             var obj = this;
-            var $link = $('a[data-launch-panel=' + this.getIdentifier() + ']');
             $link.removeClass();
             $('#' + obj.getDOMID()).removeClass('ccm-panel-active');
             $('#ccm-panel-overlay').queue(function () {
@@ -422,6 +423,9 @@ function ConcretePanel(options) {
 
     this.show = function(callback) {
         callback = callback || $.noop;
+        var $link = $('a[data-launch-panel=' + this.getIdentifier() + ']');
+        jQuery.fn.dialog.showLoader();
+        $link.toggleClass('ccm-launch-panel-active');
         var element = $('#' + this.getDOMID()),
             obj = this,
             show = function() {

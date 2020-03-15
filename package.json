@@ -1,6 +1,6 @@
 {
   "name": "@concretecms/bedrock",
-  "version": "0.9.1",
+  "version": "0.9.3",
   "description": "The asset framework and dependencies for Concrete CMS.",
   "main": "index.js",
   "scripts": {

@@ -1,6 +1,43 @@
-$btn-border-radius: 2px;
-$blue: #3f9edc;
+/* colors */
+$gray-100: #fafafa;
+$gray-500: #d8d8d8;
+$gray-600: #6A6F7B;
+$gray-700: #4C4F56;
 
-$hr-margin-y: 40px;
-$hr-border-width: 1px;
+$cyan: #027893;
+$blue: #4A90E2;
+$secondary: $gray-500;
+$green: #28A745;
+$red: #C32A2A;
 
+/* borders */
+$border-radius: 3px;
+$border-radius-sm: 2px;
+
+/* buttons */
+$btn-font-weight: bold;
+$btn-padding-y: 8px;
+$btn-padding-x: 40px;
+
+/* gradients */
+$enable-gradients: false;
+
+/* transitions */
+$btn-transition: color .25s ease-in-out, background-color .25s ease-in-out, border-color .25s ease-in-out, box-shadow .25s ease-in-out;
+
+/* dialogs */
+$modal-xl: 940px;                  
+$modal-lg: 810px;                   
+$modal-md: 675px;                  
+$modal-sm: 420px;                   
+$modal-header-border-width: 0px;
+$modal-content-border-width: 0px;
+$modal-footer-border-width: 0px;
+$modal-content-border-radius: 0px;
+$modal-content-inner-border-radius: 0px;
+$modal-header-padding-y: 1.25rem;
+$modal-header-padding-x: 1.8rem;
+$modal-title-line-height: 1.25em;
+$modal-inner-padding: 1.8rem;
+$modal-fade-transform: none;
+$modal-transition: .25s ease-in-out;
