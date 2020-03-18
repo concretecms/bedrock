@@ -23,6 +23,8 @@ $btn-padding-x: 40px;
 $enable-gradients: false;
 
 /* transitions */
+$transition-base: all .25s ease-in-out;
+$transition-fade: opacity .1s ease-in-out;
 $btn-transition: color .25s ease-in-out, background-color .25s ease-in-out, border-color .25s ease-in-out, box-shadow .25s ease-in-out;
 
 /* dialogs */
@@ -40,4 +42,5 @@ $modal-header-padding-x: 1.8rem;
 $modal-title-line-height: 1.25em;
 $modal-inner-padding: 1.8rem;
 $modal-fade-transform: none;
-$modal-transition: .25s ease-in-out;
+$modal-transition: .1s ease-in-out;
+

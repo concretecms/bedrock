@@ -15,7 +15,85 @@ html.ccm-toolbar-visible {
     }
 
     z-index: $index-level-dialog;
+    box-shadow: $modal-box-shadow;
+    padding: 0;
+    
+    &.ui-widget-content {
+      border: none;
+      border-radius: $modal-content-border-radius;
+    }
 
+    .ui-dialog-content {
+      padding: $modal-inner-padding;
+    }
+
+    .ui-dialog-titlebar {
+      padding: $modal-header-padding-y $modal-header-padding-x;
+      background-color: $modal-header-bg;
+      color: $modal-title-color;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      
+      span {
+        font-size: $modal-title-font-size;
+        font-weight: $modal-title-font-weight;
+        letter-spacing: $modal-title-letter-spacing;
+        line-height: $modal-title-line-height;
+      }
+      
+      &.ui-widget-header {
+        border: 0px;
+      }
+      
+      &.ui-corner-all {
+        border-radius: 0px;
+      }
+      
+      .ui-dialog-title {
+        float: none;
+        margin: 0px;
+      }
+      
+      button.ui-dialog-titlebar-close {
+        position: static;
+        border: 0px;
+        background: transparent;
+        float: right;
+        font-size: 1.5rem;
+        width: auto;
+        height: auto;
+        line-height: 1;
+        padding: $modal-header-padding;
+        margin: (-$modal-header-padding-y) (-$modal-header-padding-x) (-$modal-header-padding-y) auto;
+
+
+        opacity: 1;
+        color: white;
+        transition: color 0.1s ease-in-out;
+
+        &:not(:disabled):not(.disabled) {
+          @include hover-focus() {
+            opacity: 1;
+            color: $gray-600;
+
+            svg {
+              fill: $gray-600;
+            }
+
+          }
+        }
+
+        svg {
+          width: 24px;
+          height: 24px;
+          fill: white;
+          transition: fill 0.1s ease-in-out;
+        }
+
+      }
+
+    }
   }
 
   .ui-widget {
@@ -31,13 +109,30 @@ html.ccm-toolbar-visible {
   }
   
   .ui-widget-overlay {
-    background-color: rgba($modal-backdrop-bg, $modal-backdrop-opacity); 
+    transition: $transition-fade;
+    opacity: 0;
+    
+    &.ui-widget-overlay-active {
+      background: $modal-backdrop-bg;
+      opacity: $modal-backdrop-opacity;
+    }
   }
   
   .ui-dialog-buttonpane {
+    // copied from the .modal-footer in bootstrap
     padding: 0px;
     margin-top: 0px;
     border-width: 0px;
-  
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    padding: $modal-inner-padding - $modal-footer-margin-between / 2;
+    border-top: $modal-footer-border-width solid $modal-footer-border-color;
+
+    button {
+      margin: $modal-footer-margin-between / 2;
+    }
+
   }
 }

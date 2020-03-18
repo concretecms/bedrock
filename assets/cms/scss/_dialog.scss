@@ -1,25 +1,25 @@
-.ccm-ui {
+div.ccm-ui {
   
-  div.modal-dialog {
-    box-shadow: 0px 2px 4px 2px rgba(0,0,0,0.2);
+  .modal-dialog {
+    box-shadow: $modal-box-shadow;
   }
   
   .modal-header {
     background-color: $blue;
     font-weight: 400;
-    color: white;
+    color: $modal-title-color;
     
     .modal-title {
-      font-size: 1.5rem;
-      font-weight: 300;
-      letter-spacing: 0.02rem;
+      font-size: $modal-title-font-size;
+      font-weight: $modal-title-font-weight;
+      letter-spacing: $modal-title-letter-spacing;
     }
     
     button {
 
       opacity: 1;
       color: white;
-      transition: color 0.25s ease-in-out;
+      transition: color 0.1s ease-in-out;
 
       &:not(:disabled):not(.disabled) {
         @include hover-focus() {
@@ -37,7 +37,7 @@
         width: 24px;
         height: 24px;
         fill: white;
-        transition: fill 0.25s ease-in-out;
+        transition: fill 0.1s ease-in-out;
       }
 
     }
