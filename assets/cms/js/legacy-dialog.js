@@ -331,9 +331,9 @@
             } else {
                 helpText = 'Help';
             }
-            var button = $('<button class="ui-dialog-titlebar-help ccm-menu-help-trigger"><i class="fa fa-info-circle"></i></button>'),
+            var button = $('<button class="ui-dialog-titlebar-help ccm-menu-help-trigger"><svg><use xlink:href="#icon-dialog-help" /></svg></button>'),
                 container = $('#ccm-tooltip-holder');
-            $dialog.parent().find('.ui-dialog-titlebar').append(button);
+            button.insertBefore($dialog.parent().find('.ui-dialog-titlebar-close'));
 
             button.popover({
                 content: function() {

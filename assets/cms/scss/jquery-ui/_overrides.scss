@@ -17,7 +17,7 @@ html.ccm-toolbar-visible {
     z-index: $index-level-dialog;
     box-shadow: $modal-box-shadow;
     padding: 0;
-    
+
     &.ui-widget-content {
       border: none;
       border-radius: $modal-content-border-radius;
@@ -34,28 +34,44 @@ html.ccm-toolbar-visible {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      
+
       span {
         font-size: $modal-title-font-size;
         font-weight: $modal-title-font-weight;
         letter-spacing: $modal-title-letter-spacing;
         line-height: $modal-title-line-height;
       }
-      
+
       &.ui-widget-header {
         border: 0px;
       }
-      
+
       &.ui-corner-all {
         border-radius: 0px;
       }
-      
+
       .ui-dialog-title {
         float: none;
         margin: 0px;
       }
-      
+
+
       button.ui-dialog-titlebar-close {
+        svg {
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      button.ui-dialog-titlebar-help {
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+
+      button {
         position: static;
         border: 0px;
         background: transparent;
@@ -85,8 +101,6 @@ html.ccm-toolbar-visible {
         }
 
         svg {
-          width: 24px;
-          height: 24px;
           fill: white;
           transition: fill 0.1s ease-in-out;
         }
@@ -99,25 +113,25 @@ html.ccm-toolbar-visible {
   .ui-widget {
     font-family: inherit;
   }
-  
+
   .ui-widget-header {
     color: inherit;
   }
-  
+
   .ui-widget-content {
     color: inherit; // These inherits ensure that this comes from bootstrap not jQuery UI
   }
-  
+
   .ui-widget-overlay {
     transition: $transition-fade;
     opacity: 0;
-    
+
     &.ui-widget-overlay-active {
       background: $modal-backdrop-bg;
       opacity: $modal-backdrop-opacity;
     }
   }
-  
+
   .ui-dialog-buttonpane {
     // copied from the .modal-footer in bootstrap
     padding: 0px;
