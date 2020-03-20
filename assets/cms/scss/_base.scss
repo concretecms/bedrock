@@ -72,7 +72,7 @@
 @import "./selectize";
 
 // Miscellaneous components
-//@import "./tabs"; - this isn't working well let's just not use it right now
+@import "./tabs";
 @import "./item-selector";
 @import "./item-select-list";
 @import "./permission-grid";

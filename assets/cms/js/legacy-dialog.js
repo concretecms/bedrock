@@ -182,11 +182,7 @@
                 }
 
                 var overlays = $('.ui-widget-overlay').length;
-                $('.ui-widget-overlay').each(function(i, obj) {
-                    if ((i + 1) < overlays) {
-                        $(this).removeClass('ui-widget-overlay-active');
-                    }
-                });
+
                 if (overlays == 1) {
                     $('.ui-widget-overlay').addClass('ui-widget-overlay-active');
                 }
@@ -249,14 +245,6 @@
                         eval(options.onDestroy);
                     }
                 }
-                var overlays = $('.ui-widget-overlay').length;
-                $('.ui-widget-overlay').each(function(i, obj) {
-                    if ((i + 1) < overlays) {
-                        $(this).css('opacity', 0);
-                    } else {
-                        $(this).css('opacity', 1);
-                    }
-                });
             }
         };
 

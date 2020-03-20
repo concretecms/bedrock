@@ -1,14 +1,19 @@
 /* colors */
 $gray-100: #fafafa;
-$gray-500: #d8d8d8;
+$gray-200: #d8d8d8;
+$gray-500: #7C8088;
 $gray-600: #6A6F7B;
 $gray-700: #4C4F56;
+
 
 $cyan: #027893;
 $blue: #4A90E2;
 $secondary: $gray-500;
 $green: #28A745;
 $red: #C32A2A;
+
+/* typography */
+$body-color: $gray-700;
 
 /* borders */
 $border-radius: 3px;
@@ -28,10 +33,10 @@ $transition-fade: opacity .1s ease-in-out;
 $btn-transition: color .25s ease-in-out, background-color .25s ease-in-out, border-color .25s ease-in-out, box-shadow .25s ease-in-out;
 
 /* dialogs */
-$modal-xl: 940px;                  
-$modal-lg: 810px;                   
-$modal-md: 675px;                  
-$modal-sm: 420px;                   
+$modal-xl: 940px;
+$modal-lg: 810px;
+$modal-md: 675px;
+$modal-sm: 420px;
 $modal-header-border-width: 0px;
 $modal-content-border-width: 0px;
 $modal-footer-border-width: 0px;
@@ -44,3 +49,8 @@ $modal-inner-padding: 1.8rem;
 $modal-fade-transform: none;
 $modal-transition: .1s ease-in-out;
 
+/* tabs */
+$nav-tabs-border-width: 0px;
+$nav-tabs-link-active-color: $gray-700;
+$nav-tabs-link-active-border-color: $blue;
+$nav-tabs-link-hover-border-color: $gray-200;
