@@ -29,7 +29,7 @@ import './concrete5';
 // CMS UI Components
 import './panels';
 import './toolbar';
-import './dialog';
+import './legacy-dialog';
 import './alert';
 
 // Edit Mode

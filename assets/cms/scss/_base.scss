@@ -1,12 +1,14 @@
 // Basics
-@import "./variables";
 @import "./mixins/item-select-list-hover";
+@import "type";
+@import "buttons";
 
 // Support classes
 @import "./animate";
 
 // jQuery UI
 @import "~jquery-ui/themes/base/core.css";
+@import "~jquery-ui/themes/base/resizable.css";
 @import "~jquery-ui/themes/base/dialog.css";
 @import "~jquery-ui/themes/base/datepicker.css";
 @import "~jquery-ui/themes/base/draggable.css";
@@ -70,7 +72,7 @@
 @import "./selectize";
 
 // Miscellaneous components
-//@import "./tabs"; - this isn't working well let's just not use it right now
+@import "./tabs";
 @import "./item-selector";
 @import "./item-select-list";
 @import "./permission-grid";

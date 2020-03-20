@@ -73,9 +73,6 @@
 
 	function setupPanels() {
 		$('<div />', {'id': 'ccm-panel-overlay'}).appendTo($(document.body));
-        $('[data-launch-panel]').each(function() {
-            $(this).prepend('<span class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></span>');
-        });
 
 		$('[data-launch-panel]').unbind().on('click', function(e) {
             var $this = $(this);
@@ -103,11 +100,9 @@
 						panel.isPinned = false;
 						parent.removeClass('ccm-toolbar-page-edit-mode-pinned');
 					}
-                    $this.toggleClass('ccm-launch-panel-loading');
 					panel.toggle();
 				}
 			} else {
-                $this.toggleClass('ccm-launch-panel-loading');
                 panel.toggle();
 			}
 			return false;
@@ -356,7 +351,6 @@
 			var $link = $('li.ccm-toolbar-page-edit a');
 			if ($link.attr('data-launch-panel') != 'check-in' && $link.attr('data-disable-panel') != 'check-in') {
 				$link.attr('data-launch-panel', 'check-in').on('click', function() {
-					$(this).toggleClass('ccm-launch-panel-active');
 					var panel = ConcretePanelManager.getByIdentifier('check-in');
 					panel.toggle();
 					return false;

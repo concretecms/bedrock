@@ -5,7 +5,7 @@ div.ccm-item-selector {
   min-height: 40px;
   border-radius: 2px;
   color: #ffffff;
-  background-color: #3f9edc;
+  background-color: $blue;
   text-align: center;
   padding: 8px 12px 8px 8px;
   transition: .3s;
@@ -21,7 +21,7 @@ div.ccm-item-selector {
   }
 
   &:hover {
-    background-color: darken(#3f9edc, 10%);
+    background-color: darken($blue, 10%);
   }
 
   div.ccm-item-selector-item-selected-thumbnail {

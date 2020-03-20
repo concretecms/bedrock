@@ -1,26 +1,20 @@
 
 div#ccm-toolbar {
 
-  box-shadow: 0px 2px 2px rgba(90, 90, 90, 0.1);
-  border-bottom: 1px solid #999;
-  background-color: #FEFEFE;
+  background-color: $gray-100;
   background: linear-gradient(to bottom, #f2f2f2 0%,#ffffff 4%,#ffffff 50%,#eeeeee 100%);
   position: fixed;
   top: 0;
   left: 0;
   height: 48px;
   width: 100%;
+  border-bottom: 1px solid #d8d8d8;
   z-index: $index-level-main-bar; /* over the top of the highlighter, which is 1000 */
 
   &.ccm-toolbar-tour-guide {
     z-index: $index-level-toolbar-tour-guide;
   }
-
-  .ccm-toolbar-item-list {
-    height: 48px;
-    overflow: hidden;
-  }
-
+  
   .ccm-toolbar-accessibility-title {
     display: none;
     margin-left: 5px;
@@ -67,9 +61,9 @@ div#ccm-toolbar {
         box-sizing: border-box;
         text-align: center;
         position: relative;
-        color: #999;
-        border-right: 1px solid #ccc;
-        border-left: 1px solid #ccc;
+        color: $gray-600;
+        border-right: 1px solid #D8D8D8;
+        border-left: 1px solid #D8D8D8;
         margin-left: -1px; /* we have to do this tomfoolery because of user-added menus */
         text-decoration: none;
 
@@ -80,79 +74,64 @@ div#ccm-toolbar {
           width: 14px;
           height: 14px;
         }
-
-        .spinner {
-          opacity: 0;
-          width: 24px;
-          height: 24px;
-          display: inline-block;
-
+        
+        svg {
           position: absolute;
-          top: 12px;
-          left: 18px;
-          z-index: $index-level-main-bar-loading;
-          transition: opacity cubic-bezier(0.355, 0, 1.000, 0.035) 0.5s;
+          top: 17px;
+          left: 23px;
+          width: 20px;
+          height: 20px;
+          fill: $gray-600;
+          
+          transition: fill 0.25s ease-in-out;
         }
-
-        .double-bounce1, .double-bounce2 {
-          width: 100%;
-          height: 100%;
-          border-radius: 50%;
-          background-color: #0099ff;
-          opacity: 0.6;
-          position: absolute;
-          top: 0;
-          left: 0;
-
-          -webkit-animation: loader-bounce 2.0s infinite ease-in-out;
-          animation: loader-bounce 2.0s infinite ease-in-out;
-        }
-
-        .double-bounce2 {
-          -webkit-animation-delay: -1.0s;
-          animation-delay: -1.0s;
-        }
-        i {
-          transition: opacity cubic-bezier(0.355, 0, 1.000, 0.035) 0.5s;
-        }
+        
       }
 
       > a:hover {
-        color: #333;
-        background-color: #dddddd;
-        @include gradient-y(#ededed, #dddddd);
-      }
-
-      > a.ccm-launch-panel-loading {
-        .spinner {
-          opacity: 1;
-        }
-
-        i {
-          opacity: 0;
-        }
-
+        color: $gray-900;
+        background-color: $gray-200;
       }
 
       > a.ccm-launch-panel-active, > a.ccm-launch-panel-active:hover {
-        color: #105192;
+        color: #ffffff;
+        transition: background-color 0.25s ease-in-out;
 
         i {
           display: inline-block;
         }
-        background-color: #dddddd;
-        @include gradient-y(#ededed, #dddddd);
+        
+        svg {
+          fill: #ffffff;
+        }
+        background-color: $blue;
       }
+
+
     }
+    
+    li.ccm-toolbar-button-with-text {
+    
+      > a {
+        width: auto;
+        padding: 10px 18px 0px 50px;
 
-
+        span {
+          font-weight: bold;
+          text-transform: uppercase;
+          font-size: 0.8rem;
+        }
+      }
+      
+    }
+    
     li.ccm-logo {
       span {
-        padding: 12px 18px 0px 18px;
-        height: 36px;
+        padding: 10px 18px 0px 18px;
         display: block;
         height: 47px;
-        border-right: 1px solid #ccc;
+        width: 60px;
+        border-right: 1px solid #D8D8D8;
 
         img {
           height: 23px;
@@ -165,20 +144,24 @@ div#ccm-toolbar {
       padding: 0px;
       height: 47px;
       white-space: nowrap;
-      border-left: 1px solid #ccc;
+      border-left: 1px solid #D8D8D8;
       color: #888;
       position: relative;
       margin-left: -1px;
 
-      i.fa-search {
+      svg {
         position: absolute;
         top: 16px;
         left: 16px;
+        width: 20px;
+        height: 20px;
+        fill: $gray-600;
       }
 
       input {
-        border-right: 1px solid #ccc;
+        border-right: 1px solid #D8D8D8;
         margin-right: 0px;
+        padding-right: 10px;
         background-color: transparent;
       }
 
@@ -186,9 +169,10 @@ div#ccm-toolbar {
 
     li.ccm-toolbar-page-edit-mode-active {
       > a {
-        background-color: #b5eeb5;
-        @include gradient-y(#c2ffc2, #b5eeb5);
-        color: #333;
+        background-color: $green;
+        svg {
+          fill: white;
+        }
       }
     }
 
@@ -207,7 +191,7 @@ div#ccm-toolbar {
         border: 0px;
         text-decoration: underline;
         padding: 0px;
-        color: #ccc;
+        color: #D8D8D8;
       }
 
       > a:hover {
@@ -252,7 +236,7 @@ div#ccm-toolbar {
   }
 
   li.ccm-toolbar-last-left-child {
-    border-right: 1px solid #ccc;
+    border-right: 1px solid #D8D8D8;
   }
 
   /* Multisite List Item Menu Component */
@@ -309,26 +293,6 @@ div#ccm-toolbar {
 }
 
 
-@-webkit-keyframes loader-bounce {
-  0%, 100% {
-    -webkit-transform: scale(0.0)
-  }
-  50% {
-    -webkit-transform: scale(1.0)
-  }
-}
-
-@keyframes loader-bounce {
-  0%, 100% {
-    transform: scale(0.0);
-    -webkit-transform: scale(0.0);
-  }
-  50% {
-    transform: scale(1.0);
-    -webkit-transform: scale(1.0);
-  }
-}
-
 /* Disabling the toolbar */
 div#ccm-toolbar-disabled {
   height: 49px;
@@ -349,7 +313,7 @@ div#ccm-toolbar-disabled {
   }
   padding: 14px 18px;
   height: 47px;
-  border-left: 1px solid #ccc;
+  border-left: 1px solid #D8D8D8;
   cursor: pointer;
   &:hover,
   &.ccm-mobile-close {
