@@ -14,11 +14,13 @@ import 'jquery.cookie';
 import 'jquery-form';
 
 // jQuery UI components
+import 'jquery-ui/ui/widgets/button';
 import 'jquery-ui/ui/widgets/dialog';
 import 'jquery-ui/ui/widgets/datepicker';
 import 'jquery-ui/ui/widgets/draggable';
 import 'jquery-ui/ui/widgets/droppable';
 import 'jquery-ui/ui/widgets/sortable';
+import 'jquery-ui/ui/widgets/slider';
 
 // Core concrete5 backend
 import './events';
