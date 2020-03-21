@@ -46,13 +46,13 @@ ConcreteLayout.prototype._setupDOM = function () {
     this.$selectgridtype = this.$toolbar.find('select[name=gridType]');
 
     // choosetype + custom
-    this.$selectcolumnscustom = this.$toolbar.find('input[type=text][name=columns]');
+    this.$selectcolumnscustom = this.$toolbar.find('input[name=columns]');
     this.$customspacing = this.$toolbar.find('input[name=spacing]');
     this.$customautomatedfrm = this.$toolbar.find('input[name=isautomated]');
     this.$customautomated = this.$toolbar.find('[data-layout-button=toggleautomated]');
 
     // choosetype + themegrid
-    this.$selectgridcolumns = this.$toolbar.find('input[type=text][name=themeGridColumns]');
+    this.$selectgridcolumns = this.$toolbar.find('input[name=themeGridColumns]');
 
     // all
     this.$savebtn = this.$toolbar.find(this.options.btnsave);
@@ -143,10 +143,10 @@ ConcreteLayout.prototype._updateChooseTypeForm = function () {
 
 ConcreteLayout.prototype._setupFormEvents = function () {
     var obj = this;
-    this.$selectcolumnscustom.on('keyup', function () {
+    this.$selectcolumnscustom.on('change', function () {
         obj._updateCustomView();
     });
-    this.$customspacing.on('keyup', function () {
+    this.$customspacing.on('change', function () {
         obj._updateCustomView();
     });
     this.$customautomatedfrm.on('change', function () {
@@ -163,7 +163,7 @@ ConcreteLayout.prototype._setupFormEvents = function () {
         obj.$customautomatedfrm.trigger("change");
         return false;
     });
-    this.$selectgridcolumns.on('keyup', function () {
+    this.$selectgridcolumns.on('change', function () {
         obj._updateThemeGridView();
     });
     this.$selectgridtype.on('change', function () {
@@ -198,7 +198,7 @@ ConcreteLayout.prototype._updateThemeGridView = function (presetLoad) {
 
     // load the current elements from forms
     this.columns = parseInt(this.$selectgridcolumns.val());
-    this.maxcolumns = parseInt(this.$selectgridcolumns.attr('data-maximum'));
+    this.maxcolumns = parseInt(this.$selectgridcolumns.attr('max'));
 
     if (!this.options.editing) {
         this.buildThemeGridGrid();
@@ -232,7 +232,7 @@ ConcreteLayout.prototype._buildThemeGridGridFromPresetColumns = function (arLayo
     this.$element.append(row);
 
     this.columns = arLayoutColumns.length;
-    this.maxcolumns = parseInt(this.$selectgridcolumns.attr('data-maximum'));
+    this.maxcolumns = parseInt(this.$selectgridcolumns.attr('max'));
 
     this._resetSlider();
     this._redrawThemeGrid();
