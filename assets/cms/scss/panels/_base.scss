@@ -124,7 +124,7 @@ div.ccm-panel-right.ccm-panel-transition-slide.ccm-panel-active {
  */
 
 div.ccm-panel-right {
-  box-shadow: inset 10px 10px 10px rgba(0, 0, 0, 0.12)
+  box-shadow: inset 4px 4px 4px rgba(0, 0, 0, 0.12)
 }
 
 div.ccm-panel-left {
@@ -247,11 +247,11 @@ div.ccm-panel-content-inner {
  * Dashboard Panel
  */
 div#ccm-panel-dashboard {
-  background-color: #dde2e7;
+  background-color: #FAFBFC;
   color: #5d6a78;
   header {
     color: #97aabc;
-    background-color: #414d59;
+    //background-color: #414d59;
 
     aside a {
       color: #7a838e;
@@ -262,22 +262,23 @@ div#ccm-panel-dashboard {
     li {
       &.nav-selected {
         > a {
-          color: #0c253e;
+          color: #4197CE;
+          font-weight: bold;
         }
       }
 
       a {
-        color: #4674a1;
+        color: #7C8088;
 
         &:hover {
-          color: #0c253e;
+          color: #4197CE;
         }
       }
     }
 
     > li.nav-selected > a,
     > li.nav-path-selected {
-      background-color: rgba(201,212,222, 0.7);
+      background-color: rgb(243, 245, 248);
       border-radius: 4px;
 
       ul {
@@ -314,32 +315,34 @@ div#ccm-panel-dashboard {
     nav {
 
       li > a:hover {
-        background-color: #3f4750;
+        //background-color: #3f4750;
       }
 
       li > a {
-        color: #fff;
-        background-color: #525d69;
+        //color: #fff;
+        //background-color: #525d69;
       }
 
       span {
-        color: #97aabc;
-        background-color: #414d59;
-        box-shadow: inset 10px 1px 10px rgba(0, 0, 0, 0.12);
+        font-size: 15px;
+        color: #6F737B;
+        letter-spacing: 0;
+        //background-color: #414d59;
+        //box-shadow: inset 10px 1px 10px rgba(0, 0, 0, 0.12);
 
         &:after {
           border-color: #97aabc transparent;
         }
 
         &:hover {
-          background-color: #333c46;
+          //background-color: #333c46;
         }
       }
     }
 
     &.ccm-panel-header-accordion-dropdown-visible {
       span {
-        background-color: #333c46;
+        //background-color: #333c46;
       }
     }
   }
@@ -851,7 +854,7 @@ div#ccm-panel-detail-form-actions-wrapper {
     background-color: rgba(40,40,40,0.85);
     padding: 20px 25px 20px 25px;
     border-radius: 4px;
-    
+
   }
 }
 
@@ -1236,7 +1239,7 @@ div.ccm-panel-header-accordion {
   nav {
 
     li > a:hover {
-      background-color: #111215;
+      //background-color: #111215;
     }
 
     li > a {
@@ -1244,15 +1247,15 @@ div.ccm-panel-header-accordion {
     }
 
     span {
-      color: #999;
-      background-color: #202226;
+      //color: #999;
+      //background-color: #202226;
 
       &:after {
         border-color: #999 transparent;
       }
 
       &:hover {
-        background-color: #111215;
+        //background-color: #111215;
       }
     }
   }
@@ -1269,12 +1272,12 @@ div.ccm-panel-header-accordion-dropdown-visible {
 /* Containers */
 ul#ccm-panel-add-container-list {
   @include list-unstyled();
-  
+
   img {
     max-width: 40px;
     margin-right: 10px;
   }
-  
+
   a {
     font-size: 0.9rem;
     border-bottom: 1px solid #333;
