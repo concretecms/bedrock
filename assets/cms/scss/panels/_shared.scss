@@ -128,7 +128,11 @@ div.ccm-panel-right.ccm-panel-active {
   box-shadow: -2px 0px 4px rgba(0, 0, 0, 0.12)
 }
 
-div.ccm-panel-left.ccm-panel-active {
+div.ccm-panel-right {
+  box-shadow: -2px 0px 4px rgba(0, 0, 0, 0.12)
+}
+
+div.ccm-panel-left {
   box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.12)
 }
 
@@ -157,7 +161,6 @@ div.ccm-panel-content {
   section {
     padding: 0px;
   }
-
 }
 
 div.ccm-panel-content {
@@ -197,12 +200,14 @@ div.ccm-panel-content {
     li {
 
       list-style-type: none;
+
       &.active {
         a {
           color: $blue;
           font-weight: 700;
         }
       }
+
       a {
         display: block;
         text-decoration: none;
@@ -210,6 +215,7 @@ div.ccm-panel-content {
         border-radius: $border-radius;
         color: $gray-600;
         line-height: 1.8em;
+
         &:hover {
           background-color: #D2EAFA;
         }
@@ -291,11 +297,10 @@ html.ccm-panel-right div.ccm-panel-detail {
 }
 
 div.ccm-panel-detail-content {
-  padding: 40px;
+  padding: 40px 40px 80px 40px;
   background-color: white;
   min-width: 100%;
   min-height: 100%;
-  padding-bottom: 80px;
 
   div.ccm-notification-help {
     position: absolute;
@@ -382,6 +387,7 @@ html.ccm-panel-ready div.ccm-page.ccm-panel-detail-disable-transition {
 div.ccm-panel-dashboard-footer {
   margin:20px 0;
 }
+
 /**
  * Panel Drill Down
  */
@@ -458,4 +464,3 @@ div.ccm-panel-detail-form-actions {
   left: 0px;
   width: 100%;
 }
-
