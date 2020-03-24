@@ -25,19 +25,7 @@
 @import "./dialog";
 
 // Panels
-@import "./panels/mixins/ccm-panel-dark";
-@import "./panels/base";
-@import "./panels/add-block";
-@import "./panels/attributes";
-@import "./panels/check-in";
-@import "./panels/design";
-@import "./panels/devices";
-@import "./panels/multilingual";
-@import "./panels/seo";
-@import "./panels/sitemap";
-@import "./panels/view-as-user";
-@import "./panels/versions";
-
+@import "./panels";
 
 // In page editing
 @import "page-areas";
