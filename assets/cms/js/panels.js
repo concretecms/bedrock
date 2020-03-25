@@ -211,14 +211,6 @@ function ConcretePanel(options) {
             callback.call(me);
         });
 
-        $('#ccm-panel-detail-form-actions-wrapper .ccm-panel-detail-form-actions').queue(function () {
-            $(this).css('opacity', 0);
-            $(this).dequeue(0);
-        }).delay(550).queue(function () {
-            $(this).remove();
-            $(this).dequeue();
-        });
-
         Concrete.event.publish('PanelCloseDetail', this.detail);
         this.detail = false;
 
@@ -234,7 +226,6 @@ function ConcretePanel(options) {
         }
         html.removeClass('ccm-panel-detail-open');
         $('.ccm-panel-detail').remove();
-        $('.ccm-panel-detail-form-actions').remove();
         $('.ccm-page').removeClass().addClass(baseClasses);
         Concrete.event.publish('PanelCloseDetail', this.detail);
         this.detail = false;
@@ -314,42 +305,21 @@ function ConcretePanel(options) {
 
     this.loadPanelDetailActions = function ($content) {
         var obj = this;
-        var $actions = $content.find('.ccm-panel-detail-form-actions');
-        if ($actions.length) {
-            $(document.body).delay(500)
-                .queue(function () {
-                    var $wrapper = $('#ccm-panel-detail-form-actions-wrapper');
-                    if (!$wrapper.length) {
-                        $wrapper = $('<div />', {
-                            id: 'ccm-panel-detail-form-actions-wrapper',
-                            class: 'ccm-ui'
-                        });
-                        $wrapper.appendTo(document.body);
-                    }
-                    $wrapper.html('').append($actions);
-                    $(this).dequeue();
-                })
-                .delay(5)
-                .queue(function () {
-                    $('#ccm-panel-detail-form-actions-wrapper .ccm-panel-detail-form-actions').css('opacity', 1);
-                    $(this).dequeue();
-                });
-            $('button[data-panel-detail-action=cancel]').on('click', function () {
-                obj.closePanelDetail();
-            });
+        $('button[data-panel-detail-action=cancel]').on('click', function () {
+            obj.closePanelDetail();
+        });
 
-            $content.find('[data-panel-detail-form]').concreteAjaxForm();
+        $content.find('[data-panel-detail-form]').concreteAjaxForm();
 
-            $('button[data-panel-detail-action=submit]').on('click', function () {
-                $('[data-panel-detail-form]').submit();
-            });
+        $('button[data-panel-detail-action=submit]').on('click', function () {
+            $('[data-panel-detail-form]').submit();
+        });
 
-            ConcreteEvent.subscribe('AjaxFormSubmitSuccess', function(e, data) {
-                if ($('[data-panel-detail-form="'+ data.form + '"]').data('action-after-save')=='reload') {
-                    location.reload();
-                }
-            });
-        }
+        ConcreteEvent.subscribe('AjaxFormSubmitSuccess', function(e, data) {
+            if ($('[data-panel-detail-form="'+ data.form + '"]').data('action-after-save')=='reload') {
+                location.reload();
+            }
+        });
     };
 
     this.setupPanelDetails = function () {

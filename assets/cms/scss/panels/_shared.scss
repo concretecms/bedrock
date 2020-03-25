@@ -1,0 +1,454 @@
+html.ccm-panel-detail-open {
+  > body {
+    overflow: hidden;
+  }
+
+  .ccm-panel-detail {
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: auto;
+  }
+}
+
+div.ccm-panel {
+  background-color: $panel-background-color;
+  width: 320px;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  z-index: $index-level-panel; // has to come above the detail actions wrapper
+  overflow: hidden;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+div#ccm-panel-overlay {
+  z-index: $index-level-panel-overlay;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: none;
+  background: transparent;
+  transition: background-color cubic-bezier(0.190, 1.000, 0.220, 1.000) 0.5s;
+}
+
+div#ccm-panel-overlay.ccm-panel-translucent {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+html.ccm-panel-ready.ccm-panel-left {
+  div.ccm-page {
+    transform: translate(320px, 0);
+  }
+}
+
+html.ccm-panel-ready.ccm-panel-right {
+  div.ccm-page {
+    transform: translate(-320px, 0);
+  }
+}
+
+html.ccm-panel-ready.ccm-panel-transition-none {
+  div.ccm-page {
+    transition: none;
+  }
+}
+/*
+html.ccm-panel-ready {
+
+  div.ccm-page {
+    .backface-visibility(hidden);
+    .transition-transform(cubic-bezier(0.190, 1.000, 0.220, 1.000) 0.5s);
+  }
+
+}
+*/
+
+div.ccm-panel-transition-none.ccm-panel-left {
+  display: none;
+}
+
+div.ccm-panel-transition-none.ccm-panel-left.ccm-panel-active {
+  display: block;
+}
+
+div.ccm-panel-transition-slide.ccm-panel-left {
+  transform: translate(-100%, 0);
+  left: 0px;
+  transition: transform cubic-bezier(0.190, 1.000, 0.220, 1.000) 0.5s;
+
+  .ccm-no-csstransforms3d & {
+    left: -100%;
+  }
+}
+
+div.ccm-panel-transition-none.ccm-panel-right {
+  display: none;
+}
+
+div.ccm-panel-transition-none.ccm-panel-right.ccm-panel-active {
+  display: block;
+}
+
+div.ccm-panel-transition-slide.ccm-panel-right {
+  transform: translate(100%, 0);
+  right: 0px;
+  transition: transform cubic-bezier(0.190, 1.000, 0.220, 1.000) 0.5s;
+
+  .ccm-no-csstransforms3d & {
+    left: 100%;
+  }
+}
+
+div.ccm-panel-left.ccm-panel-transition-slide.ccm-panel-active {
+  transform: translate(0, 0);
+
+  .ccm-no-csstransforms3d & {
+    left: 0;
+  }
+}
+
+div.ccm-panel-right.ccm-panel-transition-slide.ccm-panel-active {
+  transform: translate(0, 0);
+
+  .ccm-no-csstransforms3d & {
+    left: auto;
+  }
+}
+
+/**
+ * Shadow layer
+ */
+
+div.ccm-panel-right.ccm-panel-active {
+  box-shadow: -2px 0px 4px rgba(0, 0, 0, 0.12)
+}
+
+div.ccm-panel-left.ccm-panel-active {
+  box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.12)
+}
+
+/**
+ * Panel Content
+ */
+div.ccm-panel-content {
+  padding: 0px;
+  margin-top: 48px;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  overflow: auto;
+  width: 320px;
+  left: 0px;
+  transition: transform cubic-bezier(0.190, 1.000, 0.220, 1.000) 0.5s;
+
+  button.ccm-delete-clipboard-item {
+    color: #A2A3A8;
+
+    &:hover {
+      color: darken(#A2A3A8, 15%);
+    }
+  }
+
+  section {
+    padding: 0px;
+  }
+
+
+
+}
+
+div.ccm-panel-content {
+
+  padding: 20px 10px 0px 16px;
+
+  header {
+    padding: 15px 11px 0px 24px;
+    font-weight: 500;
+
+    aside {
+      float: right;
+      font-size: $font-size-sm;
+      font-weight: lighter;
+      margin-top: 4px;
+
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+
+  ul.nav, menu {
+
+    padding: 0px;
+    border-top: 1px solid $gray-200;
+
+    > li {
+      margin-top: 10px;
+      margin-left: 0px;
+
+      > ul {
+        margin-left: 25px;
+      }
+    }
+
+    li {
+
+      list-style-type: none;
+
+      a {
+        display: block;
+        text-decoration: none;
+        padding: 5px 21px 5px 24px;
+        border-radius: $border-radius;
+        color: $gray-600;
+
+        &:hover {
+          background-color: #D2EAFA;
+        }
+
+        &.ccm-panel-menu-item-active {
+          color: $blue;
+          font-weight: 700;
+        }
+      }
+
+      a:hover {
+        text-decoration: none;
+      }
+
+      ul {
+
+        margin-top: 5px;
+        padding-left: 0px;
+
+        li {
+          margin-top: 3px;
+          margin-left: 20px;
+        }
+
+        a {
+          border-radius: 0px;
+          display: inline;
+          padding: 0px;
+          font-weight: 400;
+
+          &:hover {
+            background-color: auto;
+          }
+        }
+      }
+    }
+
+  }
+}
+
+div.ccm-panel-content-inner {
+  padding: 20px 40px 40px 40px;
+}
+
+/**
+ * Panel main detail areas
+ */
+div.ccm-panel-detail {
+  z-index: $index-level-panel-detail;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: none;
+  box-sizing: border-box;
+  background: transparent;
+  padding-top: 48px;
+
+  &.ccm-panel-detail-static {
+    display: block;
+  }
+
+  &.ccm-panel-detail-static-left {
+    padding-left: 321px;
+  }
+
+  &.ccm-panel-detail-static-right {
+    padding-right: 321px;
+  }
+
+}
+
+html.ccm-panel-left div.ccm-panel-detail {
+  padding-left: 321px;
+}
+
+html.ccm-panel-right div.ccm-panel-detail {
+  padding-right: 321px;
+}
+
+div.ccm-panel-detail-content {
+  padding: 40px;
+  background-color: white;
+  min-width: 100%;
+  min-height: 100%;
+  padding-bottom: 80px;
+
+  div.ccm-notification-help {
+    position: absolute;
+    right: 0px;
+    top: 110px;
+  }
+
+  section {
+    padding: 0px;
+  }
+
+
+}
+
+div.ccm-panel-detail {
+
+  header {
+    font-size: $font-size-lg;
+    margin: -40px -40px 30px -95px;
+    padding: 39px 80px 39px 95px;
+    font-weight: 300;
+  }
+
+  hr {
+    margin-left: -40px;
+    margin-right: -40px;
+  }
+
+}
+
+/**
+ * Panel Detail Fade
+ */
+div.ccm-panel-detail.ccm-panel-detail-transition-fade {
+  transition: opacity 0.5s cubic-bezier(0.190, 1.000, 0.220, 1.000);
+  opacity: 0;
+  display: block;
+}
+
+div.ccm-panel-detail.ccm-panel-detail-transition-fade-apply {
+  opacity: 1;
+}
+
+/**
+ * Miscellaneous effects classes
+ * First we have to push the item with positioning
+ * because it's going to lose its position once the new effect takes place.
+ */
+
+html.ccm-panel-left div.ccm-page.ccm-panel-detail-transition-swap {
+  position: relative;
+  left: 320px;
+}
+
+html.ccm-panel-right div.ccm-page.ccm-panel-detail-transition-swap {
+  position: relative;
+  right: 320px;
+}
+
+html.ccm-panel-ready div.ccm-page.ccm-panel-detail-transition-swap {
+  transform: rotateY(0deg);
+  -webkit-transform: rotateY(0deg);
+  transition-duration: 0.5s;
+  transition-easing: none;
+  -webkit-transition-easing: none;
+}
+
+html.ccm-panel-ready div.ccm-page.ccm-panel-detail-transition-swap.ccm-panel-detail-transition-swap-apply {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  transition-duration: 0.5s;
+  transition-easing: none;
+  -webkit-transition-easing: none;
+}
+
+div.ccm-panel-detail.ccm-panel-detail-transition-none.ccm-panel-detail-transition-none-apply {
+  display: block;
+}
+
+html.ccm-panel-ready div.ccm-page.ccm-panel-detail-disable-transition {
+  transition: none;
+}
+
+/**
+ * Panel Drill Down
+ */
+div.ccm-panel-slide-left {
+  transform: translate(-320px, 0);
+
+  .ccm-no-csstransforms3d & {
+    left: -320px;
+  }
+}
+
+div.ccm-panel-slide-right {
+  transform: translate(320px, 0);
+
+  .ccm-no-csstransforms3d & {
+    left: 320px;
+  }
+}
+
+div.ccm-panel-content-appearing {
+  transform: translate(320px, 0);
+
+  .ccm-no-csstransforms3d & {
+    left: 320px;
+  }
+}
+
+div.ccm-panel-content.ccm-panel-content-visible {
+  transform: translate(0px, 0);
+
+  .ccm-no-csstransforms3d & {
+    left: 0;
+  }
+}
+
+div.ccm-panel-content {
+
+  header {
+    a.ccm-panel-back {
+      display: block;
+      margin-top: -15px;
+      margin-bottom: 30px;
+
+      transition: color 0.1s ease-in-out;
+      color: $gray-700;
+      text-decoration: none;
+
+      &:hover {
+        color: $blue;
+        svg {
+          fill: $blue;
+        }
+      }
+
+      svg {
+        width: 20px;
+        height: 20px;
+        transition: fill 0.1s ease-in-out;
+      }
+    }
+
+  }
+}
+
+/**
+ * Forms and button actions
+ */
+div.ccm-panel-detail-form-actions {
+  border-top: 1px solid $gray-200;
+  background-color: $gray-100;
+  padding: 15px 20px 15px 340px;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+}
