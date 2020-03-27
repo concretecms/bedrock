@@ -416,10 +416,10 @@ function ConcretePanel(options) {
                             panel: obj,
                             element: elem
                         });
-                        if (obj.options.overlay) {
-                            ConcretePanelManager.showOverlay(obj.options.translucent);
-                        }
                     });
+                if (obj.options.overlay) {
+                    ConcretePanelManager.showOverlay(obj.options.translucent);
+                }
                 html.addClass(obj.getPositionClass());
             };
 
