@@ -199,14 +199,19 @@ div.ccm-panel-content {
     li {
 
       list-style-type: none;
-
+      &.active {
+        a {
+          color: $blue;
+          font-weight: 700;
+        }
+      }
       a {
         display: block;
         text-decoration: none;
         padding: 5px 21px 5px 24px;
         border-radius: $border-radius;
         color: $gray-600;
-
+        line-height: 1.8em;
         &:hover {
           background-color: #D2EAFA;
         }
@@ -371,4 +376,8 @@ div.ccm-panel-detail.ccm-panel-detail-transition-none.ccm-panel-detail-transitio
 
 html.ccm-panel-ready div.ccm-page.ccm-panel-detail-disable-transition {
   transition: none;
+}
+
+div.ccm-panel-dashboard-footer {
+  margin:20px 0;
 }
