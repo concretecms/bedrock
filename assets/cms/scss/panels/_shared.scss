@@ -40,6 +40,12 @@ div#ccm-panel-overlay.ccm-panel-translucent {
   background-color: rgba(255, 255, 255, 0.7);
 }
 
+html.ccm-panel-ready {
+  div.ccm-page {
+    transition: transform cubic-bezier(0.190, 1.000, 0.220, 1.000) 0.5s;
+  }
+}
+
 html.ccm-panel-ready.ccm-panel-left {
   div.ccm-page {
     transform: translate(320px, 0);
@@ -57,6 +63,7 @@ html.ccm-panel-ready.ccm-panel-transition-none {
     transition: none;
   }
 }
+
 /*
 html.ccm-panel-ready {
 
@@ -81,9 +88,6 @@ div.ccm-panel-transition-slide.ccm-panel-left {
   left: 0px;
   transition: transform cubic-bezier(0.190, 1.000, 0.220, 1.000) 0.5s;
 
-  .ccm-no-csstransforms3d & {
-    left: -100%;
-  }
 }
 
 div.ccm-panel-transition-none.ccm-panel-right {
@@ -98,26 +102,14 @@ div.ccm-panel-transition-slide.ccm-panel-right {
   transform: translate(100%, 0);
   right: 0px;
   transition: transform cubic-bezier(0.190, 1.000, 0.220, 1.000) 0.5s;
-
-  .ccm-no-csstransforms3d & {
-    left: 100%;
-  }
 }
 
 div.ccm-panel-left.ccm-panel-transition-slide.ccm-panel-active {
   transform: translate(0, 0);
-
-  .ccm-no-csstransforms3d & {
-    left: 0;
-  }
 }
 
 div.ccm-panel-right.ccm-panel-transition-slide.ccm-panel-active {
   transform: translate(0, 0);
-
-  .ccm-no-csstransforms3d & {
-    left: auto;
-  }
 }
 
 /**
@@ -189,7 +181,7 @@ div.ccm-panel-content {
     border-top: 1px solid $gray-200;
 
     > li {
-      margin-top: 10px;
+      margin-top: 0px;
       margin-left: 0px;
 
       > ul {
@@ -211,8 +203,7 @@ div.ccm-panel-content {
       a {
         display: block;
         text-decoration: none;
-        padding: 5px 21px 5px 24px;
-        border-radius: $border-radius;
+        padding: 14px 21px 14px 24px;
         color: $gray-600;
         line-height: 1.8em;
 
@@ -393,34 +384,18 @@ div.ccm-panel-dashboard-footer {
  */
 div.ccm-panel-slide-left {
   transform: translate(-320px, 0);
-
-  .ccm-no-csstransforms3d & {
-    left: -320px;
-  }
 }
 
 div.ccm-panel-slide-right {
   transform: translate(320px, 0);
-
-  .ccm-no-csstransforms3d & {
-    left: 320px;
-  }
 }
 
 div.ccm-panel-content-appearing {
   transform: translate(320px, 0);
-
-  .ccm-no-csstransforms3d & {
-    left: 320px;
-  }
 }
 
 div.ccm-panel-content.ccm-panel-content-visible {
   transform: translate(0px, 0);
-
-  .ccm-no-csstransforms3d & {
-    left: 0;
-  }
 }
 
 div.ccm-panel-content {
@@ -437,6 +412,7 @@ div.ccm-panel-content {
 
       &:hover {
         color: $blue;
+
         svg {
           fill: $blue;
         }

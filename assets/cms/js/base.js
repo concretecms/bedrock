@@ -1,7 +1,7 @@
 
 // Import required libraries.
 import * as _ from 'underscore';
-import NProgress from 'NProgress';
+import NProgress from 'nprogress';
 import PNotify from 'pnotify/dist/es/PNotify';
 
 window.NProgress = NProgress;
