@@ -1,9 +1,81 @@
 div.ccm-sitemap-tree {
-  
-  ul.fancytree-container {
-    background-color: transparent;
+  .icon-home, .icon-folder, .icon-page {
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    margin: 12px 5px;
+    background-repeat: no-repeat;
+    background-size: contain;
   }
 
+  .icon-home {
+    background-image: url($home-icon-b64);
+  }
+
+  .icon-folder {
+    background-image: url($folder-icon-b64);
+  }
+
+  .icon-page {
+    background-image: url($page-icon-b64);
+  }
+
+  .fancytree-expander {
+    margin: 10px 8px;
+
+    &.fa-angle-right, &.fa-caret-down, &.fa-caret-right {
+      width: 18px;
+      height: 18px;
+      background-size: contain;
+      margin: 12px 8px 12px 2px;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    &.fa-angle-right, &.fa-caret-right {
+      background-image: url($expand-icon-b64);
+
+      &::before {
+        content: none !important;
+      }
+    }
+
+    &.fa-caret-down {
+      background-image: url($collapsed-icon-b64);
+
+      &::before {
+        content: none !important;
+      }
+    }
+  }
+
+  ul {
+    background-color: transparent;
+
+    li {
+      span.fancytree-node {
+        span.fancytree-title {
+          font-size: 16px;
+          color: #6F737B;
+          letter-spacing: 0;
+          margin: 8px 0;
+          padding: 5px;
+          line-height: normal;
+        }
+      }
+    }
+  }
+
+  .fancytree-active {
+    span.fancytree-title {
+      background-color: #e1e1e1 !important;
+      color: #6F737B !important;
+    }
+  }
+
+  .fancytree-container {
+    border:none;
+  }
 }
 
 div.ccm-sitemap-tree-selector-wrapper {
