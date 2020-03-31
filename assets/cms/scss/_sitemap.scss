@@ -9,15 +9,15 @@ div.ccm-sitemap-tree {
   }
 
   .icon-home {
-    background-image: url($home-icon-b64);
+    background-image: url($sitemap-home-icon-b64);
   }
 
   .icon-folder {
-    background-image: url($folder-icon-b64);
+    background-image: url($sitemap-folder-icon-b64);
   }
 
   .icon-page {
-    background-image: url($page-icon-b64);
+    background-image: url($sitemap-page-icon-b64);
   }
 
   .fancytree-expander {
@@ -33,7 +33,7 @@ div.ccm-sitemap-tree {
     }
 
     &.fa-angle-right, &.fa-caret-right {
-      background-image: url($expand-icon-b64);
+      background-image: url($sitemap-expand-icon-b64);
 
       &::before {
         content: none !important;
@@ -41,7 +41,7 @@ div.ccm-sitemap-tree {
     }
 
     &.fa-caret-down {
-      background-image: url($collapsed-icon-b64);
+      background-image: url($sitemap-collapsed-icon-b64);
 
       &::before {
         content: none !important;
