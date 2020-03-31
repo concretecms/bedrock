@@ -249,42 +249,7 @@ div.ccm-panel-content-inner {
     margin: 15px;
     color: #4C4F56;
   }
-
-  ul.ccm-panel-sitemap-list {
-    list-style-type: none;
-    padding: 0;
-    margin-bottom: 25px;
-
-    li {
-      padding: 15px;
-
-      &:hover {
-        background-color: #D2EAFA;
-
-        a {
-          font-weight: bold;
-          text-decoration: none;
-        }
-      }
-
-      a {
-        color: #6F737B;
-
-        &:hover {
-          text-decoration: none;
-        }
-      }
-    }
-  }
-  #ccm-sitemap-panel-sitemap {
-    .ccm-sitemap-wrapper {
-      .ccm-sitemap-tree {
-        ul.fancytree-container {
-          border:none;
-        }
-      }
-    }
-  }
+  
 }
 
 /**
