@@ -45,6 +45,7 @@ html.ccm-panel-ready {
     transition: transform cubic-bezier(0.190, 1.000, 0.220, 1.000) 0.5s;
   }
 }
+
 html.ccm-panel-ready.ccm-panel-left {
   div.ccm-page {
     transform: translate(320px, 0);
@@ -62,6 +63,7 @@ html.ccm-panel-ready.ccm-panel-transition-none {
     transition: none;
   }
 }
+
 /*
 html.ccm-panel-ready {
 
@@ -147,7 +149,6 @@ div.ccm-panel-content {
   section {
     padding: 0px;
   }
-
 
 
 }
@@ -399,6 +400,7 @@ div.ccm-panel-content {
 
       &:hover {
         color: $blue;
+
         svg {
           fill: $blue;
         }
