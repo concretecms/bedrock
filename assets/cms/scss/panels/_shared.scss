@@ -179,7 +179,7 @@ div.ccm-panel-content {
     border-top: 1px solid $gray-200;
 
     > li {
-      margin-top: 10px;
+      margin-top: 0px;
       margin-left: 0px;
 
       > ul {
@@ -194,8 +194,7 @@ div.ccm-panel-content {
       a {
         display: block;
         text-decoration: none;
-        padding: 5px 21px 5px 24px;
-        border-radius: $border-radius;
+        padding: 14px 21px 14px 24px;
         color: $gray-600;
 
         &:hover {
