@@ -1,5 +1,5 @@
 /* jshint unused:vars, undef:true, browser:true, jquery:true */
-/* global ccmi18n_helpGuides, ConcreteHelpGuideManager, Tourist */
+/* global ccmi18n_helpGuides, ConcreteHelpGuideManager, Tour */
 
 ;(function(global, $) {
 	var i18n = ccmi18n_helpGuides['add-content-edit-mode'];
@@ -71,7 +71,7 @@
 		}
 	}];
 
-	var tour = new Tourist.Tour({
+	var tour = new Tour({
 		steps: steps,
 		tipClass: 'Bootstrap',
 		tipOptions:{
