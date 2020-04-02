@@ -13,7 +13,7 @@ div.ccm-ui {
   }
 
 
-.btn-primary {
+  .btn-primary {
     @include button-variant($blue, $blue, #2276D7, #2276D7);
   }
 
@@ -23,5 +23,9 @@ div.ccm-ui {
 
   .btn-danger {
     @include button-variant($red, $red, #972121, #972121);
+  }
+
+  .btn-default {
+    border: 1px solid #D8D8D8;
   }
 }
