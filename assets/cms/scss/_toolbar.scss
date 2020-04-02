@@ -11,10 +11,6 @@ div#ccm-toolbar {
   width: 100%;
   z-index: $index-level-main-bar; /* over the top of the highlighter, which is 1000 */
 
-  &.ccm-toolbar-tour-guide {
-    z-index: $index-level-toolbar-tour-guide;
-  }
-
   .ccm-toolbar-accessibility-title {
     display: none;
     margin-left: 5px;

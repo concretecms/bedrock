@@ -73,27 +73,26 @@
 			}
 		}];
 
-		var tour = new Tour({
+		return new Tour({
 			steps: steps,
 			tipClass: 'Bootstrap',
 			tipOptions:{
 				showEffect: 'slidein'
-			}
+			},
+			framework: 'bootstrap4',
+            localization: {
+                buttonTexts: objTemplatesButtonTexts
+            },
+			onEnd: function() {
+    			if ($('.ccm-dialog-help-wrapper').length) {
+    				// we haven't started the tour really yet
+    				$('.ccm-dialog-help-wrapper').show();
+    			} else {
+    				$.fn.dialog.showLoader();
+    				window.location.href = $('[data-toolbar-action=check-in]').attr('href');
+    			}
+    		},
 		});
-		tour.on('start', function() {
-
-		});
-		tour.on('stop', function() {
-			if ($('.ccm-dialog-help-wrapper').length) {
-				// we haven't started the tour really yet
-				$('.ccm-dialog-help-wrapper').show();
-			} else {
-				$.fn.dialog.showLoader();
-				window.location.href = $('[data-toolbar-action=check-in]').attr('href');
-			}
-		});
-
-		return tour;
 	});
 
 })(window, jQuery);

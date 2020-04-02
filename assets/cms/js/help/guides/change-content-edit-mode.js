@@ -60,21 +60,17 @@
 			at: 'bottom center'
 		}];
 
-		var tour = new Tour({
+		return new Tour({
 			steps: steps,
 			tipClass: 'Bootstrap',
 			tipOptions:{
 				showEffect: 'slidein'
-			}
+			},
+            framework: 'bootstrap4',
+            onEnd: function() {
+                $('.ccm-dialog-help-wrapper').show();
+            },
 		});
-		tour.on('start', function() {
-
-		});
-		tour.on('stop', function() {
-			$('.ccm-dialog-help-wrapper').show();
-		});
-
-		return tour;
 	});
 
 })(window, jQuery);

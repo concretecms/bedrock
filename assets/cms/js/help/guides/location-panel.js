@@ -27,15 +27,14 @@
 			at: 'left center'
 		}];
 
-		var tour = new Tour({
+		return new Tour({
 			steps: steps,
 			tipClass: 'Bootstrap',
 			tipOptions:{
 				showEffect: 'slidein'
-			}
+			},
+            framework: 'bootstrap4',
 		});
-
-		return tour;
 	});
 
 })(window, jQuery);

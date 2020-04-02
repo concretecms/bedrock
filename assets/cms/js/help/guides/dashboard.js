@@ -39,22 +39,21 @@
 			}
 		}];
 
-		var tour = new Tour({
+		return new Tour({
 			steps: steps,
 			tipClass: 'Bootstrap',
 			tipOptions:{
 				showEffect: 'slidein'
-			}
+			},
+            framework: 'bootstrap4',
+            onStart: function() {
+                ConcreteHelpGuideManager.enterToolbarGuideMode();
+            },
+            onEnd: function() {
+                ConcreteHelpGuideManager.exitToolbarGuideMode();
+                ConcreteEvent.unsubscribe('PanelOpen.concreteDashboardTour');
+            },
 		});
-		tour.on('start', function() {
-			ConcreteHelpGuideManager.enterToolbarGuideMode();
-		});
-		tour.on('stop', function() {
-			ConcreteHelpGuideManager.exitToolbarGuideMode();
-			ConcreteEvent.unsubscribe('PanelOpen.concreteDashboardTour');
-		});
-
-		return tour;
 	});
 
 })(window, jQuery);

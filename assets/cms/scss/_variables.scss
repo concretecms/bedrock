@@ -113,10 +113,6 @@ $lightbox-loader: 2300;
 $lightbox-content: 2400;
 $lightbox-arrows: 2400;
 
-/* Show the toolbar over the dialog/widget overlay – used during help guided tours. Has to come above index level dialog because jQuery UI assigns that to the widget overlay */
-$index-level-toolbar-tour-guide: 2100;
-
-
 /* Redactor dropdown –can be either inline OR in a dialog box so we have to come above dialog. Hopefully this doesn't
 cause other problems */
 $index-level-redactor-toolbar-dropdown: 2500;
