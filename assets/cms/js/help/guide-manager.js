@@ -4,6 +4,7 @@
 ;(function(global, $) {
     'use strict';
 
+    var KEY_GUIDETOLAUNCHONREFRESH = 'ConcreteHelpActiveGuide';
     var guides = {};
 
     var ConcreteHelpGuideManager = {
@@ -73,15 +74,15 @@
         },
 
         launchGuideOnRefresh: function(guide) {
-            $.cookie('ConcreteHelpActiveGuide', guide, {path: CCM_REL + '/'});
+            window.localStorage.setItem(KEY_GUIDETOLAUNCHONREFRESH, guide);
         },
 
-        clearGuideToLaunchOnRefresh: function(guide) {
-            $.cookie('ConcreteHelpActiveGuide', null, {path: CCM_REL + '/'});
+        clearGuideToLaunchOnRefresh: function() {
+            window.localStorage.removeItem(KEY_GUIDETOLAUNCHONREFRESH);
         },
 
         getGuideToLaunchOnRefresh: function() {
-            return $.cookie('ConcreteHelpActiveGuide');
+            return window.localStorage.getItem(KEY_GUIDETOLAUNCHONREFRESH);
         },
 
         get: function() {
