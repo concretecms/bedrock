@@ -173,10 +173,18 @@ div.ccm-panel-content {
     }
   }
 
+  table {
+    border-top: 1px solid $gray-200;
+    margin-top: 1em;
+  }
+
   ul.nav, menu {
 
     padding: 0px;
     border-top: 1px solid $gray-200;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-top: 0.5rem;
 
     > li {
       margin-top: 0px;
@@ -427,3 +435,7 @@ div.ccm-panel-detail-form-actions {
   left: 0px;
   width: 100%;
 }
+
+/**
+ * Panel icons
+ */

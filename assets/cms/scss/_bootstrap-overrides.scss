@@ -11,9 +11,11 @@ $blue: #4A90E2;
 $secondary: $gray-500;
 $green: #28A745;
 $red: #C32A2A;
+$dark: $gray-700;
 
 /* typography */
 $body-color: $gray-700;
+$small-font-size: 0.9rem;
 
 /* borders */
 $border-radius: 3px;
@@ -55,3 +57,8 @@ $nav-tabs-border-width: 0px;
 $nav-tabs-link-active-color: $gray-700;
 $nav-tabs-link-active-border-color: $blue;
 $nav-tabs-link-hover-border-color: $gray-200;
+
+/* badges */
+$badge-border-radius: 0px;
+$badge-padding-y: 8px;
+$badge-padding-x: 11px;
