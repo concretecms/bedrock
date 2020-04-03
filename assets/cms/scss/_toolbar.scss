@@ -2,7 +2,7 @@
 div#ccm-toolbar {
 
   background-color: $gray-100;
-  background: linear-gradient(to bottom, #f2f2f2 0%,#ffffff 4%,#ffffff 50%,#eeeeee 100%);
+  background: #FAFAFE;
   position: fixed;
   top: 0;
   left: 0;
@@ -14,7 +14,7 @@ div#ccm-toolbar {
   &.ccm-toolbar-tour-guide {
     z-index: $index-level-toolbar-tour-guide;
   }
-  
+
   .ccm-toolbar-accessibility-title {
     display: none;
     margin-left: 5px;
@@ -74,7 +74,7 @@ div#ccm-toolbar {
           width: 14px;
           height: 14px;
         }
-        
+
         svg {
           position: absolute;
           top: 17px;
@@ -82,10 +82,10 @@ div#ccm-toolbar {
           width: 20px;
           height: 20px;
           fill: $gray-600;
-          
+
           transition: fill 0.25s ease-in-out;
         }
-        
+
       }
 
       > a:hover {
@@ -100,7 +100,7 @@ div#ccm-toolbar {
         i {
           display: inline-block;
         }
-        
+
         svg {
           fill: #ffffff;
         }
@@ -109,9 +109,9 @@ div#ccm-toolbar {
 
 
     }
-    
+
     li.ccm-toolbar-button-with-text {
-    
+
       > a {
         width: auto;
         padding: 10px 18px 0px 50px;
@@ -122,9 +122,9 @@ div#ccm-toolbar {
           font-size: 0.8rem;
         }
       }
-      
+
     }
-    
+
     li.ccm-logo {
       span {
         padding: 10px 18px 0px 18px;
