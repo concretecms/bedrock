@@ -5,19 +5,16 @@
 
 	ConcreteHelpGuideManager.register('personalize', function() {
 		var i18n = ccmi18n_helpGuides.personalize;
+		var hideOverlay = function() {
+			ConcreteHelpGuideManager.hideOverlay();
+		};
 		var steps = [{
-			content: '<p><span class="h5">' + i18n[0].title + '</span><br/>' + i18n[0].text + '</p>',
-			highlightTarget: true,
-			nextButton: false,
-			closeButton: true,
-			target: $('[data-guide-toolbar-action=page-settings]'),
-			my: 'top left',
-			at: 'bottom center',
-			setup: function(tour, options) {
-				$('a[data-launch-panel=page]').on('click', function() {
-					tour.view.tip.hide();
-					ConcreteHelpGuideManager.hideOverlay();
-				});
+			element: '[data-guide-toolbar-action=page-settings]',
+			title: i18n[0].title,
+			content: i18n[0].text,
+			onShown: function(tour) {
+				$('.popover.tour-tour .popover-navigation .btn-group').hide();
+				$('a[data-launch-panel=page]').on('click', hideOverlay);
 				ConcreteEvent.subscribe('PanelOpen.concretePersonalizeTour', function(e, data) {
 					setTimeout(function() {
 						var panel = data.panel.getIdentifier();
@@ -26,18 +23,17 @@
 						}
 					}, 500);
 				});
+			},
+			onHide: function() {
+				$('a[data-launch-panel=page]').off('click', hideOverlay);
+				ConcreteEvent.unsubscribe('PanelOpen.concretePersonalizeTour');
 			}
 		},{
-			content: '<p><span class="h5">' + i18n[1].title + '</span><br/>' + i18n[1].text + '</p>',
-			highlightTarget: true,
-			nextButton: false,
-			my: 'left center',
-			closeButton: true,
-			at: 'right center',
-			setup: function(tour, options) {
-				$('a[data-launch-panel-detail=page-design]').on('click', function() {
-					tour.view.tip.hide();
-				});
+			element: 'a[data-launch-panel-detail=page-design]:first',
+			title: i18n[1].title,
+			content: i18n[1].text,
+			onShown: function(tour) {
+				$('.popover.tour-tour .popover-navigation .btn-group').hide();
 				ConcreteEvent.subscribe('PanelOpenDetail.concretePersonalizeTour', function(e, data) {
 					setTimeout(function() {
 						if (data.panel.identifier == 'page-design') {
@@ -45,35 +41,29 @@
 						}
 					}, 500);
 				});
-				return {target: $('a[data-launch-panel-detail=page-design]').eq(0)};
+			},
+			onHide: function() {
+				ConcreteEvent.unsubscribe('PanelOpenDetail.concretePersonalizeTour');
 			}
 		},{
-			content: '<p><span class="h5">' + i18n[2].title + '</span><br/>' + i18n[2].text + '</p>',
-			highlightTarget: true,
-			nextButton: true,
-			closeButton: true,
-			my: 'bottom center',
-			at: 'top center',
-			setup: function(tour, options) {
-				return {target: $('span.ccm-page-design-theme-customize')};
-			}
+			element: 'span.ccm-page-design-theme-customize',
+			title: i18n[2].title,
+			content: i18n[2].text,
 		}];
 
 		return new Tour({
 			steps: steps,
-			tipClass: 'Bootstrap',
-			tipOptions:{
-				showEffect: 'slidein'
+			framework: 'bootstrap4',
+			localization: ccmi18n_tourist,
+			storage: false,
+			showProgressBar: false,
+			onStart: function() {
+				ConcreteHelpGuideManager.enterToolbarGuideMode();
+				$("#tourBackdrop").detach(); // https://github.com/IGreatlyDislikeJavascript/bootstrap-tourist/issues/42
 			},
-            framework: 'bootstrap4',
-            onStart: function() {
-                ConcreteHelpGuideManager.enterToolbarGuideMode();
-            },
-            onEnd: function() {
-                ConcreteHelpGuideManager.exitToolbarGuideMode();
-                ConcreteEvent.unsubscribe('PanelOpen.concretePersonalizeTour');
-                ConcreteEvent.unsubscribe('PanelOpenDetail.concretePersonalizeTour');
-            },
+			onEnd: function() {
+				ConcreteHelpGuideManager.exitToolbarGuideMode();
+			},
 		});
 	});
 

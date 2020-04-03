@@ -1,23 +1,20 @@
 /* jshint unused:vars, undef:true, browser:true, jquery:true */
-/* global ccmi18n_helpGuides, ConcreteHelpGuideManager, Tour, ConcreteEvent */
+/* global ccmi18n_helpGuides, ccmi18n_tourist, ConcreteHelpGuideManager, Tour, ConcreteEvent */
 
 ;(function(global, $) {
 
 	ConcreteHelpGuideManager.register('add-page', function() {
 		var i18n = ccmi18n_helpGuides['add-page'];
+		var hideOverlay = function() {
+			ConcreteHelpGuideManager.hideOverlay();;
+		}
 		var steps = [{
-			content: '<p><span class="h5">' + i18n[0].title + '</span><br/>' + i18n[0].text + '</p>',
-			highlightTarget: true,
-			nextButton: false,
-			closeButton: true,
-			target: $('[data-guide-toolbar-action=sitemap]'),
-			my: 'top right',
-			at: 'bottom center',
-			setup: function(tour, options) {
-				$('a[data-launch-panel=sitemap]').on('click', function() {
-					tour.view.tip.hide();
-					ConcreteHelpGuideManager.hideOverlay();
-				});
+			element: '[data-guide-toolbar-action=sitemap]',
+			title: i18n[0].title,
+			content: i18n[0].text,
+			onShown: function(tour) {
+				$('.popover.tour-tour .popover-navigation .btn-group').hide();
+				$('a[data-launch-panel=sitemap]').on('click', hideOverlay);
 				ConcreteEvent.subscribe('PanelOpen.concreteAddPageTour', function(e, data) {
 					setTimeout(function() {
 						var panel = data.panel.getIdentifier();
@@ -26,43 +23,39 @@
 						}
 					}, 500);
 				});
+			},
+			onHide: function() {
+				$('a[data-launch-panel=sitemap]').off('click', hideOverlay);
+				ConcreteEvent.unsubscribe('PanelOpen.concreteAddPageTour');
 			}
 		},{
-			content: '<p><span class="h5">' + i18n[1].title + '</span><br/>' + i18n[1].text + '</p>',
-			highlightTarget: true,
-			nextButton: true,
-			closeButton: true,
-			my: 'right center',
-			at: 'left center',
-			setup: function(tour, options) {
-				return {target: $('ul.ccm-panel-sitemap-list li a').eq(0)};
-			}
+			element: '#ccm-panel-sitemap header:first',
+			title: i18n[1].title,
+			content: i18n[1].text,
+			placement: 'bottom',
 		},{
-			content: '<p><span class="h5">' + i18n[2].title + '</span><br/>' + i18n[2].text + '</p>',
-			highlightTarget: true,
-			nextButton: true,
-			closeButton: true,
-			my: 'right center',
-			at: 'left center',
-			setup: function(tour, options) {
-				return {target: $('div#ccm-sitemap-panel-sitemap')};
-			}
+			element: '#ccm-panel-sitemap #ccm-sitemap-panel-sitemap',
+			title: i18n[2].title,
+			content: i18n[2].text,
+			placement: 'top',
 		}];
 
 		return new Tour({
 			steps: steps,
-			tipClass: 'Bootstrap',
-			tipOptions:{
-				showEffect: 'slidein'
+			framework: 'bootstrap4',
+			localization: ccmi18n_tourist,
+			storage: false,
+			showProgressBar: false,
+			onPreviouslyEnded: function(tour) {
+				tour.restart();
 			},
-            framework: 'bootstrap4',
-            onStart: function() {
-                ConcreteHelpGuideManager.enterToolbarGuideMode();
-            },
-            onEnd: function() {
-                ConcreteHelpGuideManager.exitToolbarGuideMode();
-                ConcreteEvent.unsubscribe('PanelOpen.concreteAddPageTour');
-            },
+			onStart: function() {
+				ConcreteHelpGuideManager.enterToolbarGuideMode();
+				$("#tourBackdrop").detach(); // https://github.com/IGreatlyDislikeJavascript/bootstrap-tourist/issues/42
+			},
+			onEnd: function() {
+				ConcreteHelpGuideManager.exitToolbarGuideMode();
+			},
 		});
 	});
 

@@ -1,97 +1,64 @@
 /* jshint unused:vars, undef:true, browser:true, jquery:true */
-/* global ccmi18n_helpGuides, ConcreteHelpGuideManager, Tour */
+/* global ccmi18n_helpGuides, ccmi18n_tourist, ConcreteHelpGuideManager, Tour */
 
 ;(function(global, $) {
 
 	ConcreteHelpGuideManager.register('add-content-edit-mode', function() {
 		var i18n = ccmi18n_helpGuides['add-content-edit-mode'];
 		var steps = [{
-			content: '<p><span class="h5">' + i18n[0].title + '</span><br/>' + i18n[0].text + '</p>',
-			highlightTarget: false,
-			nextButton: true,
-			closeButton: true,
-			target: $('[data-guide-toolbar-action=add-content]'),
-			my: 'top left',
-			at: 'bottom center',
-			setup: function(tour, options) {
-				ConcreteHelpGuideManager.clearGuideToLaunchOnRefresh();
-			}
+			element: '[data-guide-toolbar-action=add-content]',
+			title: i18n[0].title,
+			content: i18n[0].text,
+			preventInteraction: true,
 		},{
-			content: '<p><span class="h5">' + i18n[1].title + '</span><br/>' + i18n[1].text + '</p>',
-			highlightTarget: false,
-			nextButton: true,
-			closeButton: true,
-			target: $('[data-guide-toolbar-action=add-content]'),
-			my: 'top center',
-			at: 'top center',
-			setup: function(tour, options) {
-				return {
-					target: $('#ccm-panel-add-block .ccm-panel-content-inner')
-				};
-			},
-			teardown: function(tour, options) {
-
-			}
+			element: '#ccm-panel-add-block',
+			title: i18n[1].title,
+			content: i18n[1].text,
+			placement: 'right',
+			preventInteraction: true,
 		},{
-			content: '<p><span class="h5">' + i18n[2].title + '</span><br/>' + i18n[2].text + '</p>',
-			highlightTarget: false,
-			nextButton: true,
-			closeButton: true,
-			target: $('[data-guide-toolbar-action=add-content]'),
-			my: 'left center',
-			at: 'right center',
-			setup: function(tour, options) {
-				return {
-					target: $('#ccm-panel-add-block .ccm-panel-header-accordion')
-				};
-			}
+			element: '#ccm-panel-add-block .ccm-panel-header-accordion',
+			title: i18n[2].title,
+			content: i18n[2].text,
+			placement: 'right',
+			preventInteraction: true,
 		},{
-			content: '<p><span class="h5">' + i18n[3].title + '</span><br/>' + i18n[3].text + '</p>',
-			highlightTarget: false,
-			nextButton: true,
-			closeButton: true,
-			target: $('[data-guide-toolbar-action=add-content]'),
-			my: 'left center',
-			at: 'right center',
-			setup: function(tour, options) {
-				return {
-					target: $('#ccm-panel-add-block input[data-input=search-blocks]')
-				};
-			}
+			element: '#ccm-panel-add-block input[data-input=search-blocks]',
+			title: i18n[3].title,
+			placement: 'right',
+			preventInteraction: true,
 		},{
-			content: '<p><span class="h5">' + i18n[4].title + '</span><br/>' + i18n[4].text + '</p>',
-			highlightTarget: false,
-			nextButton: true,
-			closeButton: true,
-			target: $('[data-guide-toolbar-action=add-content]'),
-			my: 'left center',
-			at: 'right center',
-			setup: function(tour, options) {
-				return {
-					target: $('#ccm-panel-add-block .ccm-panel-add-block-draggable-block-type').eq(0)
-				};
-			}
+			element: '#ccm-panel-add-block .ccm-panel-add-block-draggable-block-type:first',
+			title: i18n[4].title,
+			content: i18n[4].text,
+			placement: 'right',
+			preventInteraction: true,
 		}];
 
 		return new Tour({
 			steps: steps,
-			tipClass: 'Bootstrap',
-			tipOptions:{
-				showEffect: 'slidein'
-			},
 			framework: 'bootstrap4',
-            localization: {
-                buttonTexts: objTemplatesButtonTexts
-            },
+			localization: ccmi18n_tourist,
+			storage: false,
+			showProgressBar: false,
+			onPreviouslyEnded: function(tour) {
+				tour.restart();
+			},
+			onStart: function(tour) {
+				ConcreteHelpGuideManager.clearGuideToLaunchOnRefresh();
+				$("#tourBackdrop").detach(); // https://github.com/IGreatlyDislikeJavascript/bootstrap-tourist/issues/42
+				if (!$('#ccm-panel-add-block').hasClass('ccm-panel-active')) {
+					tour.end();
+					setTimeout(function() {
+						ConcreteHelpGuideManager.getGuide('add-content').start();
+					}, 0);
+					return;
+				}
+				ConcreteHelpGuideManager.enterToolbarGuideMode();
+			},
 			onEnd: function() {
-    			if ($('.ccm-dialog-help-wrapper').length) {
-    				// we haven't started the tour really yet
-    				$('.ccm-dialog-help-wrapper').show();
-    			} else {
-    				$.fn.dialog.showLoader();
-    				window.location.href = $('[data-toolbar-action=check-in]').attr('href');
-    			}
-    		},
+				ConcreteHelpGuideManager.exitToolbarGuideMode();
+			}
 		});
 	});
 

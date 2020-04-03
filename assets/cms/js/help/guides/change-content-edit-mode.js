@@ -1,75 +1,71 @@
 /* jshint unused:vars, undef:true, browser:true, jquery:true */
-/* global ccmi18n_helpGuides, ConcreteHelpGuideManager, Tour, ConcreteEvent, ConcreteMenuManager */
+/* global ccmi18n_helpGuides, ccmi18n_tourist, ConcreteHelpGuideManager, ConcretePanelManager, Tour, ConcreteEvent, ConcreteMenuManager */
 
 ;(function(global, $) {
 
 	ConcreteHelpGuideManager.register('change-content-edit-mode', function() {
 		var i18n = ccmi18n_helpGuides['change-content-edit-mode'];
-		var $area = $('div.ccm-area:not(.ccm-global-area)').eq(0);
-		var $block = $area.find('.ccm-block-edit').eq(0);
 		var steps = [{
-			content: '<p><span class="h5">' + i18n[0].title + '</span><br/>' + i18n[0].text + '</p>',
-			highlightTarget: false,
-			nextButton: true,
-			closeButton: true,
-			target: $('[data-guide-toolbar-action=check-in]'),
-			my: 'top left',
-			at: 'bottom center',
-			setup: function(tour, options) {
-				ConcreteHelpGuideManager.clearGuideToLaunchOnRefresh();
-			}
+			element: '[data-guide-toolbar-action=check-in]',
+			title: i18n[0].title,
+			content: i18n[0].text,
+			preventInteraction: true,
 		},{
-			content: '<p><span class="h5">' + i18n[1].title + '</span><br/>' + i18n[1].text + '</p>',
-			highlightTarget: false,
-			nextButton: false,
-			closeButton: true,
-			target: $block,
-			my: 'top left',
-			at: 'bottom center',
-			setup: function(tour, options) {
+			element: 'div.ccm-area:not(.ccm-global-area):first .ccm-block-edit:first',
+			title: i18n[1].title,
+			content: i18n[1].text,
+			onShown: function(tour) {
+				$('.popover.tour-tour .popover-navigation .btn-group').hide();
 				ConcreteEvent.subscribe('ConcreteMenuShow.changeContentEditModeTour', function(e, args) {
 					tour.next();
 				});
 			},
-			teardown: function(tour, options) {
+			onHide: function() {
 				ConcreteEvent.unsubscribe('ConcreteMenuShow.changeContentEditModeTour');
 			}
 		},{
-			content: '<p><span class="h5">' + i18n[2].title + '</span><br/>' + i18n[2].text + '</p>',
-			closeButton: true,
-			highlightTarget: false,
-			nextButton: true,
-			setup: function(tour, options) {
-				var target = $('div#ccm-popover-menu-container div.ccm-edit-mode-block-menu').eq(0);
-				return {target: target};
-			},
-			teardown: function() {
+			element: 'div#ccm-popover-menu-container div.ccm-edit-mode-block-menu',
+			title: i18n[2].title,
+			content: i18n[2].text,
+			preventInteraction: true,
+			onEnd: function() {
 				var menu = ConcreteMenuManager.getActiveMenu();
 				if (menu) {
 					menu.hide();
 				}
 			},
-			my: 'left center',
-			at: 'right center'
 		},{
-			content: '<p><span class="h5">' + i18n[3].title + '</span><br/>' + i18n[3].text + '</p>',
-			highlightTarget: true,
-			nextButton: true,
-			target: $('[data-guide-toolbar-action=check-in]'),
-			my: 'top left',
-			at: 'bottom center'
+			element: '[data-guide-toolbar-action=check-in]',
+			title: i18n[3].title,
+			content: i18n[3].text,
+			preventInteraction: true,
 		}];
 
 		return new Tour({
 			steps: steps,
-			tipClass: 'Bootstrap',
-			tipOptions:{
-				showEffect: 'slidein'
+			framework: 'bootstrap4',
+			localization: ccmi18n_tourist,
+			storage: false,
+			showProgressBar: false,
+			onPreviouslyEnded: function(tour) {
+				tour.restart();
 			},
-            framework: 'bootstrap4',
-            onEnd: function() {
-                $('.ccm-dialog-help-wrapper').show();
-            },
+			onStart: function(tour) {
+				ConcreteHelpGuideManager.clearGuideToLaunchOnRefresh();
+				$("#tourBackdrop").detach(); // https://github.com/IGreatlyDislikeJavascript/bootstrap-tourist/issues/42
+				if (!global.CCM_EDIT_MODE) {
+					tour.end();
+					return;
+				}
+				ConcretePanelManager.getPanels().forEach(function(panel) {
+					if (panel.isOpen) {
+						panel.hide();
+					}
+				});
+			},
+			onEnd: function() {
+				$('.ccm-dialog-help-wrapper').show();
+			},
 		});
 	});
 

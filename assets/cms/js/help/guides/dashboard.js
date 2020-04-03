@@ -5,19 +5,16 @@
 
 	ConcreteHelpGuideManager.register('dashboard', function() {
 		var i18n = ccmi18n_helpGuides.dashboard;
+		var hideOverlay = function() {
+			ConcreteHelpGuideManager.hideOverlay();
+		};
 		var steps = [{
-			content: '<p><span class="h5">' + i18n[0].title + '</span><br/>' + i18n[0].text + '</p>',
-			highlightTarget: true,
-			nextButton: false,
-			closeButton: true,
-			target: $('[data-guide-toolbar-action=dashboard]'),
-			my: 'top right',
-			at: 'bottom center',
-			setup: function(tour, options) {
-				$('a[data-launch-panel=dashboard]').on('click', function() {
-					tour.view.tip.hide();
-					ConcreteHelpGuideManager.hideOverlay();
-				});
+			element: '[data-guide-toolbar-action=dashboard]',
+			title: i18n[0].title,
+			content: i18n[0].text,
+			onShown: function(tour) {
+				$('.popover.tour-tour .popover-navigation .btn-group').hide();
+				$('a[data-launch-panel=dashboard]').on('click', hideOverlay);
 				ConcreteEvent.subscribe('PanelOpen.concreteDashboardTour', function(e, data) {
 					setTimeout(function() {
 						var panel = data.panel.getIdentifier();
@@ -26,33 +23,35 @@
 						}
 					}, 500);
 				});
-			}
+			},
+			onHide: function() {
+				$('a[data-launch-panel=dashboard]').off('click', hideOverlay);
+				ConcreteEvent.unsubscribe('PanelOpen.concreteDashboardTour');
+			},
 		},{
-			content: '<p><span class="h5">' + i18n[1].title + '</span><br/>' + i18n[1].text + '</p>',
-			highlightTarget: false,
-			nextButton: true,
-			closeButton: true,
-			my: 'right center',
-			at: 'left center',
-			setup: function(tour, options) {
-				return {target: $('div#ccm-panel-dashboard ul.nav a[href$=sitemap]').eq(0)};
-			}
+			element: 'div#ccm-panel-dashboard ul.nav a[href$=sitemap]:first',
+			title: i18n[1].title,
+			content: i18n[1].text,
+			placement: 'left',
+			preventInteraction: true,
 		}];
 
 		return new Tour({
 			steps: steps,
-			tipClass: 'Bootstrap',
-			tipOptions:{
-				showEffect: 'slidein'
+			framework: 'bootstrap4',
+			localization: ccmi18n_tourist,
+			storage: false,
+			showProgressBar: false,
+			onPreviouslyEnded: function(tour) {
+				tour.restart();
 			},
-            framework: 'bootstrap4',
-            onStart: function() {
-                ConcreteHelpGuideManager.enterToolbarGuideMode();
-            },
-            onEnd: function() {
-                ConcreteHelpGuideManager.exitToolbarGuideMode();
-                ConcreteEvent.unsubscribe('PanelOpen.concreteDashboardTour');
-            },
+			onStart: function() {
+				ConcreteHelpGuideManager.enterToolbarGuideMode();
+				$("#tourBackdrop").detach(); // https://github.com/IGreatlyDislikeJavascript/bootstrap-tourist/issues/42
+			},
+			onEnd: function() {
+				ConcreteHelpGuideManager.exitToolbarGuideMode();
+			},
 		});
 	});
 
