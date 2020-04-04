@@ -18,15 +18,15 @@
 
     ConcreteHelpDialog.prototype = {
 
-        open: function() {
-            var my = this
-            if ($('#ccm-dialog-help').length) {
-                my.options.element = '#ccm-dialog-help'
-            } else {
-                my.options.href = CCM_DISPATCHER_FILENAME + '/ccm/system/dialogs/help/introduction'
-            }
-            $.fn.dialog.open(my.options)
-        }
+		open: function() {
+			var my = this;
+			if ($('#ccm-dialog-help').length) {
+				my.options.element = '#ccm-dialog-help';
+			} else {
+				return;
+			}
+			$.fn.dialog.open(my.options);
+		}
 
     }
 
