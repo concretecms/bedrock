@@ -1,8 +1,8 @@
-/* jshint unused:vars, undef:true, browser:true, jquery:true */
+/* eslint-disable no-new, no-unused-vars, camelcase */
 /* global _, Concrete */
 
 ;(function(window, $) {
-    'use strict';
+    'use strict'
 
     /**
      * Drag Area that we create for dropping the blocks into
@@ -11,13 +11,13 @@
      * @param {Block} block The block that this drag_area is above, this may be null.
      */
     var DragArea = Concrete.DragArea = function DragArea(elem, area, block) {
-        this.init.apply(this, _.toArray(arguments));
-    };
+        this.init.apply(this, _.toArray(arguments))
+    }
 
     DragArea.prototype = {
 
         init: function dragAreaInit(elem, area, block) {
-            var my = this;
+            var my = this
 
             Concrete.createGetterSetters.call(my, {
                 block: block,
@@ -27,30 +27,30 @@
                 isContender: false,
                 isSelectable: false,
                 animationLength: 500
-            });
+            })
 
             my.bindEvent('EditModeContenders', function (e, data) {
-                my.setIsContender(_.contains(data, my));
-            });
+                my.setIsContender(_.contains(data, my))
+            })
 
             my.bindEvent('EditModeSelectableContender', function (e, data) {
-                my.setIsSelectable(data === my);
-            });
+                my.setIsSelectable(data === my)
+            })
         },
 
         destroy: function dragAreaDestroy() {
-            var my = this;
+            var my = this
 
-            my.getElem().remove();
+            my.getElem().remove()
         },
 
         bindEvent: function dragAreaBindEvent(event, handler) {
-            return Concrete.EditMode.prototype.bindEvent.apply(this, _(arguments).toArray());
+            return Concrete.EditMode.prototype.bindEvent.apply(this, _(arguments).toArray())
         },
 
         getActive: function dragAreaGetActive() {
             // If Area is inactive, this has to be inactive.
-            return this.getArea().getActive() && this.getAttr('active');
+            return this.getArea().getActive() && this.getAttr('active')
         },
 
         /**
@@ -61,7 +61,7 @@
          * @return {Boolean}         Is the dragarea selectable
          */
         isSelectable: function dragAreaIsSelectable(pep, block) {
-            return pep.isOverlapping(block.getDragger(), this.getElem());
+            return pep.isOverlapping(block.getDragger(), this.getElem())
         },
 
         /**
@@ -70,17 +70,17 @@
          * @return {Boolean}               Success, always true.
          */
         setIsSelectable: function dragAreaSetIsSelectable(is_selectable) {
-            var my = this;
+            var my = this
 
             if (is_selectable && !my.getIsSelectable()) {
-                my.getArea().getElem().addClass('ccm-parent-menu-item-active');
-                my.getElem().addClass('ccm-area-drag-area-selectable');
+                my.getArea().getElem().addClass('ccm-parent-menu-item-active')
+                my.getElem().addClass('ccm-area-drag-area-selectable')
             } else if (!is_selectable && my.getIsSelectable()) {
-                my.getArea().getElem().removeClass('ccm-parent-menu-item-active');
-                my.getElem().removeClass('ccm-area-drag-area-selectable');
+                my.getArea().getElem().removeClass('ccm-parent-menu-item-active')
+                my.getElem().removeClass('ccm-area-drag-area-selectable')
             }
-            my.setAttr('isSelectable', is_selectable);
-            return true;
+            my.setAttr('isSelectable', is_selectable)
+            return true
         },
 
         /**
@@ -90,10 +90,10 @@
          * @return {Boolean}       true/false
          */
         isContender: function dragAreaIsContender(pep, block) {
-            var my = this;
-            _.identity(pep); // This does nothing but quiet the lint
+            var my = this
+            _.identity(pep) // This does nothing but quiet the lint
 
-            return (my.getBlock() !== block);
+            return (my.getBlock() !== block)
         },
 
         /**
@@ -102,18 +102,18 @@
          * @return {Boolean}              Success, always true.
          */
         setIsContender: function dragAreaSetIsContender(is_contender) {
-            var my = this;
+            var my = this
             if (is_contender && !my.getIsContender()) {
                 _.defer(function () {
-                    my.getElem().addClass('ccm-area-drag-area-contender');
-                });
+                    my.getElem().addClass('ccm-area-drag-area-contender')
+                })
             } else if (!is_contender && my.getIsContender()) {
                 _.defer(function () {
-                    my.getElem().removeClass('ccm-area-drag-area-contender');
-                });
+                    my.getElem().removeClass('ccm-area-drag-area-contender')
+                })
             }
-            my.setAttr('isContender', is_contender);
-            return true;
+            my.setAttr('isContender', is_contender)
+            return true
         },
 
         /**
@@ -122,22 +122,21 @@
          * @return {double}       The distance from center to center
          */
         centerDistanceToBlock: function (block) {
-            var my = this;
+            var my = this
 
-            var block_elem = block.getDragger(),
-                block_center = {
-                    x: block_elem.offset().left + block_elem.width() / 2,
-                    y: block_elem.offset().top + block_elem.height() / 2
-                },
-                my_elem = my.getElem(),
-                my_center = {
-                    x: my_elem.offset().left + my_elem.width() / 2,
-                    y: my_elem.offset().top + my_elem.height() / 2
-                };
+            var block_elem = block.getDragger()
+            var block_center = {
+                x: block_elem.offset().left + block_elem.width() / 2,
+                y: block_elem.offset().top + block_elem.height() / 2
+            }
+            var my_elem = my.getElem()
+            var my_center = {
+                x: my_elem.offset().left + my_elem.width() / 2,
+                y: my_elem.offset().top + my_elem.height() / 2
+            }
 
-            return Math.sqrt(Math.pow(Math.abs(block_center.x - my_center.x), 2) + Math.pow(Math.abs(block_center.y - my_center.y), 2));
+            return Math.sqrt(Math.pow(Math.abs(block_center.x - my_center.x), 2) + Math.pow(Math.abs(block_center.y - my_center.y), 2))
         }
 
-    };
-
-})(window, jQuery);
+    }
+})(window, jQuery)

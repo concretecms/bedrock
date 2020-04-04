@@ -1,35 +1,34 @@
-/* jshint unused:vars, undef:true, browser:true, jquery:true */
+/* eslint-disable no-new, no-unused-vars, camelcase */
 /* global CCM_DISPATCHER_FILENAME */
 
 ;(function(global, $) {
-	'use strict';
+    'use strict'
 
-	function ConcreteHelpDialog(options) {
-		var my = this;
-		options = options || {};
-		options = $.extend({
-			width: 800,
-			height: 450,
-			title: 'Help',
-			dialogClass: 'ccm-dialog-slim ccm-dialog-help-wrapper'
-		}, options);
-		my.options = options;
-	}
+    function ConcreteHelpDialog(options) {
+        var my = this
+        options = options || {}
+        options = $.extend({
+            width: 800,
+            height: 450,
+            title: 'Help',
+            dialogClass: 'ccm-dialog-slim ccm-dialog-help-wrapper'
+        }, options)
+        my.options = options
+    }
 
-	ConcreteHelpDialog.prototype = {
+    ConcreteHelpDialog.prototype = {
 
-		open: function() {
-			var my = this;
-			if ($('#ccm-dialog-help').length) {
-				my.options.element = '#ccm-dialog-help';
-			} else {
-				my.options.href = CCM_DISPATCHER_FILENAME + '/ccm/system/dialogs/help/introduction';
-			}
-			$.fn.dialog.open(my.options);
-		}
+        open: function() {
+            var my = this
+            if ($('#ccm-dialog-help').length) {
+                my.options.element = '#ccm-dialog-help'
+            } else {
+                my.options.href = CCM_DISPATCHER_FILENAME + '/ccm/system/dialogs/help/introduction'
+            }
+            $.fn.dialog.open(my.options)
+        }
 
-	};
+    }
 
-	global.ConcreteHelpDialog = ConcreteHelpDialog;
-
-})(window, jQuery);
+    global.ConcreteHelpDialog = ConcreteHelpDialog
+})(window, jQuery)

@@ -1,21 +1,22 @@
-var USE_MUTATIONOBSERVER = window.MutationObserver && window.MutationObserver.prototype && window.MutationObserver.prototype.observe ? true : false;
+var USE_MUTATIONOBSERVER = !!(window.MutationObserver && window.MutationObserver.prototype && window.MutationObserver.prototype.observe)
 
 function loadDataForCountry(countryCode, callback) {
     if (typeof countryCode !== 'string' || $.trim(countryCode) === '') {
         callback(countryCode, {
             statesProvices: {},
             addressUsedFields: []
-        });
-        return;
+        })
+        return
     }
-    if (loadDataForCountry.cache.hasOwnProperty(countryCode)) {
-        callback(countryCode, loadDataForCountry.cache[countryCode]);
-        return;
+
+    if (Object.prototype.hasOwnProperty.call(loadDataForCountry.cache, countryCode)) {
+        callback(countryCode, loadDataForCountry.cache[countryCode])
+        return
     }
     callback(countryCode, {
         statesProvices: {},
         addressUsedFields: []
-    });
+    })
     $.ajax({
         cache: true, // Needed because we may change the current locale
         data: {
@@ -26,199 +27,198 @@ function loadDataForCountry(countryCode, callback) {
         method: 'GET',
         url: CCM_DISPATCHER_FILENAME + '/ccm/system/country-data-link/all'
     })
-    .done(function(data) {
-        var statesProvinces = {};
-        if (data.statesProvices instanceof Object) {
-            statesProvinces = data.statesProvices;
-        }
-        var addressUsedFields = [];
-        if (data.addressUsedFields instanceof Array) {
-            addressUsedFields = data.addressUsedFields;
-        }
+        .done(function(data) {
+            var statesProvinces = {}
+            if (data.statesProvices instanceof Object) {
+                statesProvinces = data.statesProvices
+            }
+            var addressUsedFields = []
+            if (data.addressUsedFields instanceof Array) {
+                addressUsedFields = data.addressUsedFields
+            }
 
-        loadDataForCountry.cache[countryCode] = {
-            statesProvices: statesProvinces,
-            addressUsedFields: addressUsedFields
-        };
-    })
-    .fail(function(xhr, status, error) {
-        if (window.console && window.console.error) {
-            window.console.error(xhr.responseJSON || error);
-        }
-        loadDataForCountry.cache[countryCode] = {
-            statesProvices: {},
-            addressUsedFields: []
-        };
-    })
-    .always(function() {
-        callback(countryCode, loadDataForCountry.cache[countryCode]);
-    });
+            loadDataForCountry.cache[countryCode] = {
+                statesProvices: statesProvinces,
+                addressUsedFields: addressUsedFields
+            }
+        })
+        .fail(function(xhr, status, error) {
+            if (window.console && window.console.error) {
+                window.console.error(xhr.responseJSON || error)
+            }
+            loadDataForCountry.cache[countryCode] = {
+                statesProvices: {},
+                addressUsedFields: []
+            }
+        })
+        .always(function() {
+            callback(countryCode, loadDataForCountry.cache[countryCode])
+        })
 }
-loadDataForCountry.cache = {};
+loadDataForCountry.cache = {}
 
 function TextReplacer($text) {
-    var me = this;
-    me.enabled = false;
-    me.$text = $text;
-    me.$select = $('<select />');
+    var me = this
+    me.enabled = false
+    me.$text = $text
+    me.$select = $('<select />')
     if (USE_MUTATIONOBSERVER) {
         me.mutationObserver = new window.MutationObserver(function(records) {
-            me.updateSelectAttributes();
-            me.$text.hide();
-            me.$select.show();
-        });
+            me.updateSelectAttributes()
+            me.$text.hide()
+            me.$select.show()
+        })
     } else {
-        me.mutationObserver = null;
+        me.mutationObserver = null
     }
-    me.originalFocus = me.$text[0].focus;
+    me.originalFocus = me.$text[0].focus
     me.$text[0].focus = function() {
         if (me.enabled) {
-            me.$select.focus();
+            me.$select.focus()
         } else {
-            me.originalFocus.apply(me.$text[0]);
+            me.originalFocus.apply(me.$text[0])
         }
-    };
+    }
 }
 TextReplacer.prototype = {
     updateSelectAttributes: function() {
-        var me = this;
+        var me = this
         $.each(['class', 'style', 'required'], function (index, attributeName) {
-            var attributeValue = me.$text.attr(attributeName);
+            var attributeValue = me.$text.attr(attributeName)
             if (typeof attributeValue === 'string') {
-                me.$select.attr(attributeName, attributeValue);
+                me.$select.attr(attributeName, attributeValue)
             }
-        });
+        })
     },
     setEnabled: function(enable) {
-        var me = this;
-        enable = !!enable;
+        var me = this
+        enable = !!enable
         if (enable === me.enabled) {
-            return;
+            return
         }
         if (enable) {
-            me.updateSelectAttributes();
-            me.$text.before(me.$select);
-            me.$text.hide();
-            me.enabled = true;
+            me.updateSelectAttributes()
+            me.$text.before(me.$select)
+            me.$text.hide()
+            me.enabled = true
             if (me.mutationObserver !== null) {
                 setTimeout(
                     function() {
                         if (me.enabled !== true) {
-                            return;
+                            return
                         }
-                        me.mutationObserver.disconnect();
+                        me.mutationObserver.disconnect()
                         me.mutationObserver.observe(
                             me.$text[0],
                             {
                                 attributes: true
                             }
-                        );
+                        )
                     },
                     0
-                );
+                )
             }
         } else {
             if (me.mutationObserver !== null) {
-                me.mutationObserver.disconnect();
+                me.mutationObserver.disconnect()
             }
-            me.enabled = false;
-            me.$select.detach();
-            me.$text.show();
+            me.enabled = false
+            me.$select.detach()
+            me.$text.show()
         }
     }
-};
+}
 
 function Link($country, $stateprovince, config) {
-    var me = this;
-    me.$country = $country;
-    me.$stateprovinceWrapper = $stateprovince;
+    var me = this
+    me.$country = $country
+    me.$stateprovinceWrapper = $stateprovince
     if ($stateprovince.is('input')) {
-        me.$stateprovince = $stateprovince;
+        me.$stateprovince = $stateprovince
     } else {
-        me.$stateprovince = $stateprovince.find('input:first');
+        me.$stateprovince = $stateprovince.find('input:first')
     }
-    me.config = config;
-    me.replacer = new TextReplacer(me.$stateprovince);
-    me.$stateprovinceSelect = me.replacer.$select;
+    me.config = config
+    me.replacer = new TextReplacer(me.$stateprovince)
+    me.$stateprovinceSelect = me.replacer.$select
     me.$country
         .on('change', function() {
-            me.countryChanged();
+            me.countryChanged()
         })
         .trigger('change')
-    ;
+
     me.$stateprovinceSelect.on('change', function() {
         me.$stateprovince
             .val(me.$stateprovinceSelect.val())
             .trigger('change')
-        ;
-    });
+    })
 }
 Link.prototype = {
     countryChanged: function() {
-        var me = this;
+        var me = this
         loadDataForCountry(me.$country.val(), function(countryCode, countryData) {
             if (me.$country.val() !== countryCode) {
-                return;
+                return
             }
-            me.$stateprovinceSelect.empty();
+            me.$stateprovinceSelect.empty()
 
             if (me.config.clearStateProvinceOnChange) {
-                me.$stateprovince.val('');
+                me.$stateprovince.val('')
             }
 
             if (me.config.hideUnusedStateProvinceField) {
                 if (countryData.addressUsedFields.indexOf('state_province') > -1) {
-                    me.$stateprovinceWrapper.show();
+                    me.$stateprovinceWrapper.show()
                 } else {
-                    me.$stateprovinceWrapper.hide();
+                    me.$stateprovinceWrapper.hide()
                 }
             }
 
-            var n = Object.keys(countryData.statesProvices).length;
+            var n = Object.keys(countryData.statesProvices).length
             if (n === 0) {
-                me.replacer.setEnabled(false);
+                me.replacer.setEnabled(false)
             } else {
-                var selectedStateprovince = $.trim(me.$stateprovince.val());
-                me.$stateprovinceSelect.append($('<option value="" selected="selected" />').text(''));
+                var selectedStateprovince = $.trim(me.$stateprovince.val())
+                me.$stateprovinceSelect.append($('<option value="" selected="selected" />').text(''))
                 $.each(countryData.statesProvices, function(spCode, name) {
                     var $o = $('<option />')
                         .val(spCode)
                         .text(name)
-                    ;
+
                     if (spCode === selectedStateprovince) {
-                        $o.attr('selected', 'selected');
+                        $o.attr('selected', 'selected')
                     }
-                    me.$stateprovinceSelect.append($o);
-                });
-                me.replacer.setEnabled(true);
+                    me.$stateprovinceSelect.append($o)
+                })
+                me.replacer.setEnabled(true)
             }
 
-            me.$country.trigger('country-data', [countryData]);
-        });
+            me.$country.trigger('country-data', [countryData])
+        })
     }
-};
+}
 Link.withCountryField = function ($country, config) {
     config = $.extend({
         hideUnusedStateProvinceField: false,
         clearStateProvinceOnChange: false
-    }, config);
+    }, config)
 
-    var $parent = $country.closest('form');
+    var $parent = $country.closest('form')
     if ($parent.length === 0) {
-        $parent = $(document.body);
+        $parent = $(document.body)
     }
-    var result = [];
+    var result = []
     $parent.find('[data-countryfield="' + $country.attr('id') + '"]').each(function() {
-        result.push(new Link($country, $(this), config));
-    });
+        result.push(new Link($country, $(this), config))
+    })
     switch (result.length) {
-        case 0:
-            return null;
-        case 1:
-            return result[0];
-        default:
-            return result;
+    case 0:
+        return null
+    case 1:
+        return result[0]
+    default:
+        return result
     }
-};
+}
 
-global.ConcreteCountryDataLink = Link;
+global.ConcreteCountryDataLink = Link

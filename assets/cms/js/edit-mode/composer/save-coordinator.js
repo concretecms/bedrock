@@ -1,5 +1,5 @@
 function SaveCoordinator($form, saver, options) {
-    this.init($form, saver, options);
+    this.init($form, saver, options)
 }
 
 SaveCoordinator.prototype = {
@@ -8,7 +8,7 @@ SaveCoordinator.prototype = {
         var defaultOptions = {
             // The function used to determine whether
             saveValidator: function (saver) {
-                return saver.canSave();
+                return saver.canSave()
             },
 
             debug: false,
@@ -32,20 +32,20 @@ SaveCoordinator.prototype = {
 
             // The maximum amount of time saving can be debounced before a save happens. Set to 0 for infinite
             saveDebounceMaximum: 11
-        };
+        }
 
-        this.lastSerialized = null;
-        this.saveThrottleTimer = null;
-        this.saveDebounceTimer = null;
-        this.saveDebounceBegan = null;
-        this.idleTimer = null;
-        this.enabled = false;
-        this.queuedSave = false;
-        this.options = defaultOptions;
-        this.options = _(defaultOptions).extend(options);
-        this.options.form = $form;
-        this.options.saver = saver;
-        this.saving = false;
+        this.lastSerialized = null
+        this.saveThrottleTimer = null
+        this.saveDebounceTimer = null
+        this.saveDebounceBegan = null
+        this.idleTimer = null
+        this.enabled = false
+        this.queuedSave = false
+        this.options = defaultOptions
+        this.options = _(defaultOptions).extend(options)
+        this.options.form = $form
+        this.options.saver = saver
+        this.saving = false
         this.status = {
             idle: 0,
             saving: 1,
@@ -54,8 +54,8 @@ SaveCoordinator.prototype = {
             debounced: 4,
             saveFailed: 5,
             disabled: 6
-        };
-        this.cachedForm(this.getFormSerialized());
+        }
+        this.cachedForm(this.getFormSerialized())
     },
 
     /**
@@ -63,31 +63,31 @@ SaveCoordinator.prototype = {
      * @returns {boolean}
      */
     isEnabled: function () {
-        return this.enabled;
+        return this.enabled
     },
 
     /**
      * Enable saving using this coordinator
      */
     enable: function () {
-        this.resetIdleTimer();
-        this.enabled = true;
+        this.resetIdleTimer()
+        this.enabled = true
     },
 
     /**
      * Disable saving using this coodinator
      */
     disable: function () {
-        this.enabled = false;
-        this.disableIdleTimer();
+        this.enabled = false
+        this.disableIdleTimer()
     },
 
     /**
      * Stop the idle timer
      */
     disableIdleTimer: function () {
-        global.clearTimeout(this.idleTimer);
-        this.idleTimer = null;
+        global.clearTimeout(this.idleTimer)
+        this.idleTimer = null
     },
 
     /**
@@ -96,39 +96,38 @@ SaveCoordinator.prototype = {
      * @returns {integer} See SaveCoordinator.status
      */
     requestSave: function (queue) {
-        this.resetIdleTimer();
+        this.resetIdleTimer()
 
         if (!this.enabled) {
-            return this.status.disabled;
+            return this.status.disabled
         }
 
         if (typeof queue !== 'undefined' && queue) {
-            return this.requestQueuedSave();
+            return this.requestQueuedSave()
         }
 
         if (this.saving) {
-            this.queuedSave = true;
-            return this.status.busy;
+            this.queuedSave = true
+            return this.status.busy
         }
 
         if (this.options.saveValidator(this)) {
-
             if (this.options.saveThrottleEnabled) {
                 if (this.throttleSave()) {
-                    this.resetThrottle();
-                    return this.status.throttled;
+                    this.resetThrottle()
+                    return this.status.throttled
                 }
             }
 
             if (this.options.saveDebounceEnabled) {
-                return this.debounceSave();
+                return this.debounceSave()
             } else {
-                this.debug('Handling Save Synchronous');
-                return this.handleSave();
+                this.debug('Handling Save Synchronous')
+                return this.handleSave()
             }
         } else {
-            this.debug('Save Not Needed');
-            return this.status.saveFailed;
+            this.debug('Save Not Needed')
+            return this.status.saveFailed
         }
     },
 
@@ -137,14 +136,14 @@ SaveCoordinator.prototype = {
      * @returns {integer} See SaveCoordinator.status
      */
     requestQueuedSave: function () {
-        var result = this.requestSave();
+        var result = this.requestSave()
 
         if (result === this.status.throttled) {
-            this.debug('Queuing Save');
-            this.queuedSave = true;
+            this.debug('Queuing Save')
+            this.queuedSave = true
         }
 
-        return result;
+        return result
     },
 
     /**
@@ -154,42 +153,42 @@ SaveCoordinator.prototype = {
      */
     handleSave: function () {
         if (!this.enabled) {
-            return this.status.disabled;
+            return this.status.disabled
         }
 
         if (this.saving) {
-            return this.status.busy;
+            return this.status.busy
         }
 
-        this.saving = true;
-        var my = this,
-            formData = this.cachedForm(this.getFormSerialized()),
-            saveHandler = function () {
-                my.saving = false;
-                my.resetThrottle();
-                my.resetIdleTimer();
-            };
+        this.saving = true
+        var my = this
+        var formData = this.cachedForm(this.getFormSerialized())
+        var saveHandler = function () {
+            my.saving = false
+            my.resetThrottle()
+            my.resetIdleTimer()
+        }
 
         if (!this.options.saver(this, formData, saveHandler)) {
-            return this.status.saveFailed;
+            return this.status.saveFailed
         }
 
-        return this.status.saving;
+        return this.status.saving
     },
 
     /**
      * Reset the idle timer back to the configured length, this is also used to start the idle timer
      */
     resetIdleTimer: function () {
-        var me = this;
+        var me = this
         if (this.idleTimer) {
-            global.clearTimeout(this.idleTimer);
+            global.clearTimeout(this.idleTimer)
         }
 
         this.idleTimer = global.setTimeout(function () {
-            me.requestSave();
-            me.resetIdleTimer();
-        }, this.options.idleTimeout * 1000);
+            me.requestSave()
+            me.resetIdleTimer()
+        }, this.options.idleTimeout * 1000)
     },
 
     /**
@@ -197,7 +196,7 @@ SaveCoordinator.prototype = {
      * @returns {boolean}
      */
     canSave: function () {
-        return !this.cachedFormEquals(this.getFormSerialized());
+        return !this.cachedFormEquals(this.getFormSerialized())
     },
 
     /**
@@ -206,42 +205,42 @@ SaveCoordinator.prototype = {
      */
     debounceSave: function () {
         if (!this.enabled) {
-            return this.status.disabled;
+            return this.status.disabled
         }
 
         if (this.saveDebounceTimer) {
-            global.clearTimeout(this.saveDebounceTimer);
+            global.clearTimeout(this.saveDebounceTimer)
         }
 
         if (!this.saveDebounceBegan) {
-            this.saveDebounceBegan = _.now();
+            this.saveDebounceBegan = _.now()
         }
 
-        var timePassed = _.now() - this.saveDebounceBegan,
-            timeLeft = this.options.saveDebounceMaximum * 1000 - timePassed,
-            timeout = Math.max(0, Math.min(this.options.saveDebounceTimeout * 1000, timeLeft)),
-            me = this;
+        var timePassed = _.now() - this.saveDebounceBegan
+        var timeLeft = this.options.saveDebounceMaximum * 1000 - timePassed
+        var timeout = Math.max(0, Math.min(this.options.saveDebounceTimeout * 1000, timeLeft))
+        var me = this
 
         if (!this.options.saveDebounceMaximum) {
-            timeout = this.options.saveDebounceTimeout;
+            timeout = this.options.saveDebounceTimeout
         }
 
         this.saveDebounceTimer = global.setTimeout(function () {
-            me.debug('Debouncing Expired, Handling Save');
-            me.saveDebounceBegan = null;
-            me.handleSave();
-        }, timeout);
+            me.debug('Debouncing Expired, Handling Save')
+            me.saveDebounceBegan = null
+            me.handleSave()
+        }, timeout)
 
-        this.debug('Debouncing Save for ' + timeout + 'ms');
+        this.debug('Debouncing Save for ' + timeout + 'ms')
 
-        return this.status.debounced;
+        return this.status.debounced
     },
 
     /**
      * Reset the save throttle to the default length
      */
     resetThrottle: function () {
-        this.throttleSave(this.options.saveThrottleTimeout * 1000);
+        this.throttleSave(this.options.saveThrottleTimeout * 1000)
     },
 
     /**
@@ -250,22 +249,22 @@ SaveCoordinator.prototype = {
      * @returns {boolean}
      */
     throttleSave: function (amount) {
-        var me = this,
-            throttled = this.saveThrottleTimer !== null;
-        if (this.saveThrottleTimer === null && typeof amount != 'undefined') {
+        var me = this
+        var throttled = this.saveThrottleTimer !== null
+        if (this.saveThrottleTimer === null && typeof amount !== 'undefined') {
             this.saveThrottleTimer = global.setTimeout(function () {
-                me.debug('Throttle Expired');
-                me.saveThrottleTimer = null;
+                me.debug('Throttle Expired')
+                me.saveThrottleTimer = null
                 if (me.queuedSave) {
-                    me.debug('Handling Queued Save');
-                    me.handleSave();
-                    me.queuedSave = false;
+                    me.debug('Handling Queued Save')
+                    me.handleSave()
+                    me.queuedSave = false
                 }
-            }, amount);
-            this.debug('Throttling Save');
+            }, amount)
+            this.debug('Throttling Save')
         }
 
-        return throttled;
+        return throttled
     },
 
     /**
@@ -273,7 +272,7 @@ SaveCoordinator.prototype = {
      * @returns {jQuery}
      */
     getForm: function () {
-        return this.options.form;
+        return this.options.form
     },
 
     /**
@@ -281,7 +280,7 @@ SaveCoordinator.prototype = {
      * @returns {array}
      */
     getFormSerialized: function () {
-        return this.getForm().serializeArray();
+        return this.getForm().serializeArray()
     },
 
     /**
@@ -290,11 +289,11 @@ SaveCoordinator.prototype = {
      * @returns {null|array}
      */
     cachedForm: function (serialized) {
-        if (typeof serialized != 'undefined') {
-            this.lastSerialized = serialized;
+        if (typeof serialized !== 'undefined') {
+            this.lastSerialized = serialized
         }
 
-        return this.lastSerialized;
+        return this.lastSerialized
     },
 
     /**
@@ -303,7 +302,7 @@ SaveCoordinator.prototype = {
      * @returns {boolean}
      */
     cachedFormEquals: function (value) {
-        return _(this.cachedForm()).isEqual(value);
+        return _(this.cachedForm()).isEqual(value)
     },
 
     /**
@@ -312,24 +311,23 @@ SaveCoordinator.prototype = {
      */
     debug: function (message) {
         if (this.options.debug) {
-            global.console.log("SaverCoordinator: " + message);
+            global.console.log('SaverCoordinator: ' + message)
         }
     }
-};
+}
 
 if (!global.Concrete) {
-    global.Concrete = {};
+    global.Concrete = {}
 }
 if (!global.Concrete.composer) {
-    global.Concrete.composer = {};
+    global.Concrete.composer = {}
 }
 
-global.Concrete.composer.SaveCoodinator = SaveCoordinator;
+global.Concrete.composer.SaveCoodinator = SaveCoordinator
 $.fn.saveCoordinator = function (saver, options) {
     return this.each(function () {
-        var me = $(this),
-            coordinator = new SaveCoordinator(me, saver, options);
-        me.data('SaveCoordinator', coordinator);
-    });
-};
-
+        var me = $(this)
+        var coordinator = new SaveCoordinator(me, saver, options)
+        me.data('SaveCoordinator', coordinator)
+    })
+}

@@ -1,1 +1,1 @@
-import './frontend/responsive-navigation';
+import './frontend/responsive-navigation'

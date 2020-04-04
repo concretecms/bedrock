@@ -1,6 +1,8 @@
+/* eslint-disable no-new, no-unused-vars, camelcase */
+
 function ConcreteStyleCustomizerCustomCss($element, options) {
-    var my = this;
-    my.$element = $element;
+    var my = this
+    my.$element = $element
     my.options = $.extend(true, {
         cID: null,
         edit: {
@@ -16,26 +18,26 @@ function ConcreteStyleCustomizerCustomCss($element, options) {
         i18n: {
             editTitle: 'Custom CSS'
         }
-    }, options || {});
+    }, options || {})
     $element
         .after($('<span class="ccm-style-customizer-display-swatch-wrapper" data-custom-css-selector="custom"><span class="ccm-style-customizer-display-swatch"><i class="fa fa-cog"></i></span></span>')
             .on('click', function (e) {
-                e.preventDefault();
-                my.edit();
+                e.preventDefault()
+                my.edit()
             })
         )
-    ;
-    $element.addClass('ccm-style-customizer-importexport').data('ccm-style-customizer-importexport', this);
+
+    $element.addClass('ccm-style-customizer-importexport').data('ccm-style-customizer-importexport', this)
 }
 
 ConcreteStyleCustomizerCustomCss.prototype = {
     edit: function () {
-        var my = this,
-            data = {
-                cID: my.options.cID,
-                sccRecordID: my.$element.val(),
-            };
-        data[my.options.edit.tokenName] = my.options.edit.tokenValue;
+        var my = this
+        var data = {
+            cID: my.options.cID,
+            sccRecordID: my.$element.val()
+        }
+        data[my.options.edit.tokenName] = my.options.edit.tokenValue
         $.fn.dialog.open({
             title: my.options.i18n.editTitle,
             href: my.options.edit.url,
@@ -43,21 +45,21 @@ ConcreteStyleCustomizerCustomCss.prototype = {
             modal: false,
             width: 640,
             height: 500
-        });
+        })
     },
     exportStyle: function (data, cb) {
-        var my = this,
-            sccRecordID = parseInt(my.$element.val());
+        var my = this
+        var sccRecordID = parseInt(my.$element.val())
         if (isNaN(sccRecordID) || sccRecordID < 1) {
-            data.custom = '';
-            cb();
-            return;
+            data.custom = ''
+            cb()
+            return
         }
         var send = {
             cID: my.options.cID,
-            sccRecordID: sccRecordID,
-        };
-        send[my.options.loadCss.tokenName] = my.options.loadCss.tokenValue;
+            sccRecordID: sccRecordID
+        }
+        send[my.options.loadCss.tokenName] = my.options.loadCss.tokenValue
         $.concreteAjax({
             type: 'GET',
             data: send,
@@ -66,26 +68,26 @@ ConcreteStyleCustomizerCustomCss.prototype = {
             skipResponseValidation: true,
             success: function (r) {
                 if (!r || typeof r.css !== 'string') {
-                    cb(ConcreteAjaxRequest.renderJsonError(r));
-                    return;
+                    cb(ConcreteAjaxRequest.renderJsonError(r))
+                    return
                 }
-                data.custom = r.css;
-                cb();
+                data.custom = r.css
+                cb()
             }
-        });
+        })
     },
     importStyle: function (data, cb) {
         if (typeof data.custom !== 'string') {
-            cb();
-            return;
+            cb()
+            return
         }
-        var my = this,
-            send = {
-                cID: my.options.cID,
-                sccRecordID: my.$element.val(),
-                value: data.custom
-            };
-        send[my.options.saveCss.tokenName] = my.options.saveCss.tokenValue;
+        var my = this
+        var send = {
+            cID: my.options.cID,
+            sccRecordID: my.$element.val(),
+            value: data.custom
+        }
+        send[my.options.saveCss.tokenName] = my.options.saveCss.tokenValue
         $.concreteAjax({
             type: 'POST',
             data: send,
@@ -93,22 +95,21 @@ ConcreteStyleCustomizerCustomCss.prototype = {
             skipResponseValidation: true,
             success: function (r) {
                 if (!r || typeof r.sccRecordID !== 'number') {
-                    cb(ConcreteAjaxRequest.renderJsonError(r));
-                    return;
+                    cb(ConcreteAjaxRequest.renderJsonError(r))
+                    return
                 }
-                my.$element.val(r.sccRecordID.toString());
-                cb();
+                my.$element.val(r.sccRecordID.toString())
+                cb()
             }
-        });
+        })
     }
-};
+}
 
 // jQuery Plugin
 $.fn.concreteStyleCustomizerCustomCss = function (options) {
     return $.each($(this), function (i, obj) {
-        new ConcreteStyleCustomizerCustomCss($(this), options);
-    });
-};
+        new ConcreteStyleCustomizerCustomCss($(this), options)
+    })
+}
 
-global.ConcreteStyleCustomizerCustomCss = ConcreteStyleCustomizerCustomCss;
-    
+global.ConcreteStyleCustomizerCustomCss = ConcreteStyleCustomizerCustomCss

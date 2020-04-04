@@ -1,91 +1,85 @@
-/* jshint unused:vars, undef:true, browser:true, jquery:true */
+/* eslint-disable no-new, no-unused-vars, camelcase */
 /* global ConcreteHelpLauncher, CCM_REL */
 
 ;(function(global, $) {
-    'use strict';
+    'use strict'
 
     var ConcreteHelpGuideManager = {
 
         guides: {},
 
         register: function (key, guide) {
-            this.guides[key] = guide;
+            this.guides[key] = guide
         },
 
         getGuide: function (key) {
-            return this.guides[key];
+            return this.guides[key]
         },
 
         enterToolbarGuideMode: function() {
             // if help notification is active, hide it
-            ConcreteHelpLauncher.close();
+            ConcreteHelpLauncher.close()
 
             // if the help dialog is active, hide it
-            $('.ccm-dialog-help-wrapper').hide();
+            $('.ccm-dialog-help-wrapper').hide()
 
-            this.showOverlay();
-            this.raiseToolbar();
+            this.showOverlay()
+            this.raiseToolbar()
         },
 
         showOverlay: function() {
             // if the widget overlay doesn't exist, show it
             if ($('.ui-widget-overlay').length < 1) {
-                $('<div class="ui-widget-overlay"></div>').hide().appendTo('body');
+                $('<div class="ui-widget-overlay"></div>').hide().appendTo('body')
             }
-            $('.ui-widget-overlay').addClass('animated fadeIn').show();
-
+            $('.ui-widget-overlay').addClass('animated fadeIn').show()
         },
 
         raiseToolbar: function() {
             // move the toolbar to above the widget overlay
-            $('#ccm-toolbar').addClass('ccm-toolbar-tour-guide');
+            $('#ccm-toolbar').addClass('ccm-toolbar-tour-guide')
         },
 
         lowerToolbar: function() {
             // move the toolbar back
-            $('#ccm-toolbar').removeClass('ccm-toolbar-tour-guide');
+            $('#ccm-toolbar').removeClass('ccm-toolbar-tour-guide')
         },
 
         hideOverlay: function() {
-            $('.ui-widget-overlay').addClass('animated fadeOut');
+            $('.ui-widget-overlay').addClass('animated fadeOut')
             $('.ui-widget-overlay').delay(250).queue(function() {
-                $(this).remove();
-                $(this).dequeue();
-            });
-
+                $(this).remove()
+                $(this).dequeue()
+            })
         },
 
         exitToolbarGuideMode: function() {
-
             // if the help dialog is active, show it
             if ($('.ccm-dialog-help-wrapper').length) {
-                $('.ccm-dialog-help-wrapper').show();
+                $('.ccm-dialog-help-wrapper').show()
             } else {
-                this.hideOverlay();
+                this.hideOverlay()
             }
-            this.lowerToolbar();
+            this.lowerToolbar()
         },
 
         launchGuideOnRefresh: function(guide) {
-            $.cookie('ConcreteHelpActiveGuide', guide, {path: CCM_REL + '/'});
+            $.cookie('ConcreteHelpActiveGuide', guide, { path: CCM_REL + '/' })
         },
 
         clearGuideToLaunchOnRefresh: function(guide) {
-            $.cookie('ConcreteHelpActiveGuide', null, {path: CCM_REL + '/'});
+            $.cookie('ConcreteHelpActiveGuide', null, { path: CCM_REL + '/' })
         },
 
         getGuideToLaunchOnRefresh: function() {
-            return $.cookie('ConcreteHelpActiveGuide');
+            return $.cookie('ConcreteHelpActiveGuide')
         },
 
         get: function() {
-            return ConcreteHelpGuideManager;
+            return ConcreteHelpGuideManager
         }
 
+    }
 
-    };
-
-
-    global.ConcreteHelpGuideManager = ConcreteHelpGuideManager;
-
-})(window, jQuery);
+    global.ConcreteHelpGuideManager = ConcreteHelpGuideManager
+})(window, jQuery)

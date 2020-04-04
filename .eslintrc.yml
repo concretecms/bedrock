@@ -1,0 +1,42 @@
+---
+rules:
+  indent:
+  - error
+  - 4
+  space-before-function-paren: 0
+  no-callback-literal: 0
+globals:
+  # Basic global 3rd party stuff
+  _: readonly
+  jQuery: readonly
+  "$": readonly
+  google: readonly
+  # Global window stuff
+  Image: readonly
+  FormData: readonly
+  # c5 constants
+  CCM_DISPATCHER_FILENAME: readonly
+  CCM_SECURITY_TOKEN: readonly
+  CCM_CID: readonly
+  CKEDITOR: readonly
+  CCM_APPLICATION_URL: readonly
+  CCM_ACTIVE_LOCALE: readonly
+  CCM_TOOLS_PATH: readonly
+  # Internationalization
+  ccmi18n: readonly
+  ccmi18n_sitemap: readonly
+  ccmi18n_filemanager: readonly
+  ccmi18n_express: readonly
+  # Concrete specific stuff that is declare globally
+  ConcreteExpressEntryAjaxSearch: readonly
+  ConcreteAlert: readonly
+  ConcreteEvent: readonly
+  ConcreteMenu: readonly
+  concreteGoogleMapInit: readonly
+  ConcreteFileManager: readonly
+  ConcreteAjaxSearch: readonly
+  ConcreteAjaxRequest: readonly
+  ConcreteToolbar: readonly
+  ConcreteStyleCustomizerPalette: readonly
+  Concrete: readonly
+  # TODO Consolidate concrete specific stuff all underneath `Concrete.`
