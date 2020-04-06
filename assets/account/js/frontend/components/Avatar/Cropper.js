@@ -1,11 +1,11 @@
 import Dropzone from 'dropzone'
 
 // Disable dropzone discovery
-Dropzone.autoDiscover = false;
+Dropzone.autoDiscover = false
 
 export default {
     // Our element tagname
-    name: "avatar-cropper",
+    name: 'avatar-cropper',
 
     // Properties tied to our parent
     props: {
@@ -28,7 +28,7 @@ export default {
             saving: false,
             currentimage: null,
             hasError: false,
-            errorMessage: '',
+            errorMessage: ''
         }
     },
 
@@ -37,29 +37,29 @@ export default {
      */
     mounted() {
         // Attach the current image
-        this.currentimage = this.src;
+        this.currentimage = this.src
 
         // Setup Uploading
-        this.setupUploading();
+        this.setupUploading()
     },
     methods: {
         setError(error) {
-            this.hasError = true;
-            this.errorMessage = error;
+            this.hasError = true
+            this.errorMessage = error
         },
         clearError() {
-            this.hasError = false;
-            this.errorMessage = '';
+            this.hasError = false
+            this.errorMessage = ''
         },
         /**
          * Setup dropzone for uploading
          */
         setupUploading() {
             if (this.dropzone) {
-                return;
+                return
             }
 
-            let component = this;
+            const component = this
             this.dropzone = new Dropzone(this.$refs.dropzone, {
                 url: this.uploadurl,
                 maxFiles: 1,
@@ -68,46 +68,45 @@ export default {
 
                 // Accept uploaded files from user
                 accept(file, done) {
-                    component.file = file;
-                    component.done = done;
+                    component.file = file
+                    component.done = done
                 },
 
                 // Give the component a chance to finalize the file
                 transformFile(file, done) {
-                    return component.finalize(file, done);
+                    return component.finalize(file, done)
                 },
 
                 // Initialize dropzone
                 init() {
                     // Capture thumbnail details
                     this.on('thumbnail', function () {
-                        component.img = component.file.dataURL;
-                        component.imageWidth = component.file.width;
-                        component.imageHeight = component.file.height;
-                    });
+                        component.img = component.file.dataURL
+                        component.imageWidth = component.file.width
+                        component.imageHeight = component.file.height
+                    })
 
                     this.on('success', function(event, data) {
                         if (!component.hasError) {
-                            component.currentimage = data.avatar;
+                            component.currentimage = data.avatar
                         }
-
-                    });
+                    })
 
                     this.on('error', function (event, data) {
-                        component.setError(data.message);
-                        component.currentimage = component.src;
+                        component.setError(data.message)
+                        component.currentimage = component.src
                     })
 
                     this.on('complete', function() {
-                            component.saving = false;
-                            component.img = null;
-                            component.dropzone.destroy();
-                            component.dropzone = null;
+                        component.saving = false
+                        component.img = null
+                        component.dropzone.destroy()
+                        component.dropzone = null
 
-                            setTimeout(function () {
-                                component.setupUploading();
-                            }, 0);
-                    });
+                        setTimeout(function () {
+                            component.setupUploading()
+                        }, 0)
+                    })
                 },
 
                 /**
@@ -125,7 +124,7 @@ export default {
                         trgHeight: file.height
                     }
                 }
-            });
+            })
         },
 
         /**
@@ -137,27 +136,27 @@ export default {
          * @returns {*}
          */
         finalize(file, done) {
-            let canvas = document.createElement('canvas'),
-                ctx = canvas.getContext('2d'),
-                img = new Image();
+            const canvas = document.createElement('canvas')
+            const ctx = canvas.getContext('2d')
+            const img = new Image()
 
-            img.src = file.dataURL;
+            img.src = file.dataURL
 
-            canvas.width = this.width;
-            canvas.height = this.height;
+            canvas.width = this.width
+            canvas.height = this.height
 
             // Draw the image cropped
             ctx.drawImage(
                 img, this.$refs.image.x, this.$refs.image.y,
-                this.$refs.image.resizeWidth, this.$refs.image.resizeHeight);
+                this.$refs.image.resizeWidth, this.$refs.image.resizeHeight)
 
-            this.saving = true;
+            this.saving = true
             // Complete the upload
-            let data = canvas.toDataURL(),
-                result = done(Dropzone.dataURItoBlob(data));
+            const data = canvas.toDataURL()
+            const result = done(Dropzone.dataURItoBlob(data))
 
-            this.currentimage = data;
-            return result;
+            this.currentimage = data
+            return result
         },
 
         /**
@@ -165,14 +164,14 @@ export default {
          */
         attachShadow() {
             // Attach the shadow
-            this.$refs.shadow.setViewport(this.$refs.image);
+            this.$refs.shadow.setViewport(this.$refs.image)
         },
 
         /**
          * Handle checkmark click
          */
         handleOkay() {
-            this.done.call(this.dropzone);
+            this.done.call(this.dropzone)
         },
 
         /**
@@ -180,13 +179,13 @@ export default {
          */
         handleCancel() {
             if (window.confirm('Are you sure you want to quit?')) {
-                this.done.call(this.dropzone, 'Cancelled upload.');
-                this.img = null;
+                this.done.call(this.dropzone, 'Cancelled upload.')
+                this.img = null
                 this.saving = false
-                this.dropzone.destroy();
+                this.dropzone.destroy()
                 this.clearError()
-                this.dropzone = null;
-                this.setupUploading();
+                this.dropzone = null
+                this.setupUploading()
             }
         }
     },

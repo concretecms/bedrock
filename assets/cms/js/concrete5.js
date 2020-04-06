@@ -1,25 +1,25 @@
+/* eslint-disable no-new, no-unused-vars, camelcase */
 
-
-var html = $('html');
+var html = $('html')
 
 function getAttribute(attributes, key) {
-    return attributes[key];
+    return attributes[key]
 }
 
 function setAttribute(attributes, key, value) {
     /* jshint -W040 */
-    key += ''; // Make sure we always have a string.
-    var get_method = 'get' + key.substr(0, 1).toUpperCase() + key.substr(1),
-        set_method = 'set' + key.substr(0, 1).toUpperCase() + key.substr(1);
-    if (typeof this[get_method] == 'undefined') {
-        this[get_method] = _.partial(getAttribute, attributes, key);
+    key += '' // Make sure we always have a string.
+    var get_method = 'get' + key.substr(0, 1).toUpperCase() + key.substr(1)
+    var set_method = 'set' + key.substr(0, 1).toUpperCase() + key.substr(1)
+    if (typeof this[get_method] === 'undefined') {
+        this[get_method] = _.partial(getAttribute, attributes, key)
     }
-    if (typeof this[set_method] == 'undefined') {
-        this[set_method] = _.partial(setAttribute, attributes, key);
+    if (typeof this[set_method] === 'undefined') {
+        this[set_method] = _.partial(setAttribute, attributes, key)
     }
 
-    attributes[key] = value;
-    return value;
+    attributes[key] = value
+    return value
 }
 
 global.Concrete = {
@@ -32,22 +32,22 @@ global.Concrete = {
      * @return {Boolean}           Success, always true.
      */
     createGetterSetters: function generateGetterSetters(attributes) {
-        var obj = this;
-        obj.getAttr = _.partial(getAttribute, attributes);
-        obj.setAttr = _.partial(setAttribute, attributes);
+        var obj = this
+        obj.getAttr = _.partial(getAttribute, attributes)
+        obj.setAttr = _.partial(setAttribute, attributes)
         _(attributes).each(function (value, key) {
-            obj.setAttr(key, value);
-        });
-        return true;
+            obj.setAttr(key, value)
+        })
+        return true
     },
 
     /**
      * Force a Refresh of the dom when we need to
      */
     forceRefresh: function forceRefresh() {
-        html.hide(0, function(){
-            $(this).show();
-        });
+        html.hide(0, function() {
+            $(this).show()
+        })
     },
 
     /*
@@ -55,4 +55,4 @@ global.Concrete = {
      */
     const: {}
 
-};
+}
