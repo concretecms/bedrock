@@ -1,6 +1,6 @@
 .ccm-ui {
   i.fa.launch-tooltip {
-    border-bottom: 0px;
+    border-bottom: 0;
     text-decoration: none;
   }
 
@@ -8,9 +8,9 @@
     legend {
       i.launch-tooltip {
         color: #ccc;
+        left: -26px;
         position: absolute;
         top: 4px;
-        left: -26px;
       }
     }
   }
@@ -19,15 +19,15 @@
  * Tooltips
  */
 div#ccm-tooltip-holder {
-  z-index: $index-level-tooltip-holder;
   position: relative;
+  z-index: $index-level-tooltip-holder;
 }
 
 div.tooltip-inner {
   font-size: $font-size-sm;
-  line-height: $line-height-sm;
   font-weight: 300;
-  padding: 7px 10px;
+  line-height: $line-height-sm;
   max-width: 250px;
+  padding: 7px 10px;
 }
 

@@ -1,17 +1,17 @@
 table.ccm-permission-grid {
-  border: 0px;
+  border: 0;
 }
 
 table.ccm-permission-grid td.ccm-permission-grid-name {
   text-align: right;
-  width: auto;
   white-space: nowrap;
+  width: auto;
 }
 
 table.ccm-permission-grid td {
+  border-left: 0 !important;
+  border-right: 0 !important;
   width: 100%;
-  border-left: 0px !important;
-  border-right: 0px !important;
 }
 
 div.ccm-permission-access-line {
@@ -23,5 +23,5 @@ div.ccm-permission-access-line {
 }
 
 td.ccm-permissions-grid-cell-active {
-  background-color: #e4f4f8
+  background-color: #e4f4f8;
 }
