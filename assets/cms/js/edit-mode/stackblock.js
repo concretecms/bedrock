@@ -1,43 +1,43 @@
-/* jshint unused:vars, undef:true, browser:true, jquery:true */
+/* eslint-disable no-new, no-unused-vars, camelcase */
 /* global _, Concrete, ConcretePanelManager, CCM_CID, CCM_DISPATCHER_FILENAME, CCM_SECURITY_TOKEN */
 
-import * as _ from 'underscore';
+import * as _ from 'underscore'
 
 ;(function(window, $) {
-    'use strict';
+    'use strict'
 
     /**
      * StackBlock object used only in panels. This allows us to drag blocks out from a stack panel.
      * @type {Function}
      */
     var StackBlock = Concrete.StackBlock = function StackBlock(elem, stack, edit_mode, dragger) {
-        this.init.apply(this, _.toArray(arguments));
-    };
+        this.init.apply(this, _.toArray(arguments))
+    }
 
     StackBlock.prototype = _.extend(Object.create(Concrete.BlockType.prototype), {
 
         init: function stackBlockInit(elem, stack, edit_mode, dragger, default_area) {
-            Concrete.BlockType.prototype.init.call(this, elem, edit_mode, dragger, default_area);
-            this.setAttr('stack', stack);
+            Concrete.BlockType.prototype.init.call(this, elem, edit_mode, dragger, default_area)
+            this.setAttr('stack', stack)
         },
 
         removeElement: function() {
-            $.pep.unbind(this.getPeper());
+            $.pep.unbind(this.getPeper())
         },
 
         addToDragArea: function StackBlockAddToDragArea(drag_area) {
-            var my = this, elem = my.getElem(),
-                block_type_id = elem.data('btid'),
-                area = drag_area.getArea(),
-                area_handle = area.getHandle(),
-                dragAreaBlockID = 0,
-                dragAreaBlock = drag_area.getBlock();
+            var my = this; var elem = my.getElem()
+            var block_type_id = elem.data('btid')
+            var area = drag_area.getArea()
+            var area_handle = area.getHandle()
+            var dragAreaBlockID = 0
+            var dragAreaBlock = drag_area.getBlock()
 
             if (dragAreaBlock) {
-                dragAreaBlockID = dragAreaBlock.getId();
+                dragAreaBlockID = dragAreaBlock.getId()
             }
 
-            ConcretePanelManager.exitPanelMode();
+            ConcretePanelManager.exitPanelMode()
 
             var settings = {
                 cID: CCM_CID,
@@ -50,15 +50,14 @@ import * as _ from 'underscore';
                 btask: 'alias_existing_block',
                 pcID: [elem.data('cID')],
                 ccm_token: CCM_SECURITY_TOKEN
-            };
+            }
             if (dragAreaBlockID) {
-                settings.dragAreaBlockID = dragAreaBlockID;
+                settings.dragAreaBlockID = dragAreaBlockID
             }
             $.getJSON(CCM_DISPATCHER_FILENAME, settings, function (response) {
-                my.handleAddResponse(response, area, dragAreaBlock);
-            });
+                my.handleAddResponse(response, area, dragAreaBlock)
+            })
         }
 
-    });
-
-})(window, jQuery);
+    })
+})(window, jQuery)

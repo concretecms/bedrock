@@ -2,15 +2,11 @@
   "name": "@concretecms/bedrock",
   "version": "0.9.3",
   "description": "The asset framework and dependencies for Concrete CMS.",
-  "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch-poll": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --watch-poll",
-    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "prod": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    "lint": "standardx",
+    "lint:fix": "standardx --fix",
+    "lint:css": "stylelint **/*.scss",
+    "lint:fix:css": "stylelint **/*.scss --fix"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.11.2",
@@ -55,5 +51,10 @@
   "bugs": {
     "url": "https://github.com/concrete5/concrete5/issues"
   },
-  "homepage": "https://github.com/concrete5/concrete5#readme"
+  "homepage": "https://github.com/concrete5/concrete5#readme",
+  "devDependencies": {
+    "standardx": "^5.0.0",
+    "stylelint": "^13.3.0",
+    "stylelint-config-sass-guidelines": "^7.0.0"
+  }
 }

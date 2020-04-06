@@ -1,4 +1,5 @@
-import $ from 'jquery';
-import 'fullcalendar';
+/* eslint-disable no-unused-vars */
+import $ from 'jquery'
+import 'fullcalendar'
 
-import './frontend/event-list';
+import './frontend/event-list'

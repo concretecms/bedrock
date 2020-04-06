@@ -1,1 +1,1 @@
-import './frontend/express-entry-list';
+import './frontend/express-entry-list'

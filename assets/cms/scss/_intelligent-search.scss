@@ -1,18 +1,19 @@
+/* stylelint-disable property-no-vendor-prefix, at-rule-no-vendor-prefix, selector-max-id */
 div#ccm-intelligent-search-results {
-  text-align: left;
-  padding: 0px 0px 0px 40px;
-  z-index: $index-level-intelligent-search;
-  position: fixed;
   background-color: #fff;
-  display: none;
-  top: 48px;
-  right: 120px;
-  width: 251px;
-  border-left: 1px solid #ccc;
-  border-right: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  display: none;
+  padding: 0 0 0 40px;
+  position: fixed;
+  right: 120px;
+  text-align: left;
+  top: 48px;
+  width: 251px;
+  z-index: $index-level-intelligent-search;
 
   span {
     display: none;
@@ -28,28 +29,28 @@ div#ccm-intelligent-search-results {
 
   div.ccm-intelligent-search-results-module {
     margin-top: -1px;
-    position: relative;
     min-height: 60px;
-    padding-top: 20px;
     padding-bottom: 20px;
+    padding-top: 20px;
+    position: relative;
 
     h1 {
-      margin: 0px;
-      padding: 0px;
-      text-align: left;
       border-bottom: 1px solid #e3e4e4;
+      color: #09f;
       font-size: $font-size-sm;
       font-weight: normal;
-      color: #09f;
       line-height: $line-height-sm;
+      margin: 0;
+      padding: 0;
+      text-align: left;
     }
 
     ul {
-      margin-left: 0px;
-      margin-bottom: 0px !important;
       font-size: $font-size-sm;
+      margin-bottom: 0 !important;
+      margin-left: 0;
       margin-top: 3px !important;
-      padding: 0px;
+      padding: 0;
     }
 
     li {
@@ -66,27 +67,28 @@ div#ccm-intelligent-search-results {
     .loader {
       display: block;
       font-size: $font-size-lg;
+      height: 1em;
+      margin: 20px 0;
       position: relative;
       width: 4em;
-      height: 1em;
-      margin: 20px 0px 20px 0px;
     }
 
     .dot {
-      width: 0.4em;
-      height: 0.4em;
-      border-radius: 0.25em;
-      background: #09f;
-      position: absolute;
-      animation-duration: 0.5s;
-      animation-timing-function: ease;
-      animation-iteration-count: infinite;
       -webkit-animation-duration: 0.5s;
-      -webkit-animation-timing-function: ease;
+      animation-duration: 0.5s;
       -webkit-animation-iteration-count: infinite;
+      animation-iteration-count: infinite;
+      -webkit-animation-timing-function: ease;
+      animation-timing-function: ease;
+      background: #09f;
+      border-radius: 0.25em;
+      height: 0.4em;
+      position: absolute;
+      width: 0.4em;
     }
 
-    .dot1, .dot2 {
+    .dot1,
+    .dot2 {
       left: 0;
     }
 
@@ -99,20 +101,19 @@ div#ccm-intelligent-search-results {
     }
 
     .dot1 {
-      animation-name: loader-reveal;
       -webkit-animation-name: loader-reveal;
+      animation-name: loader-reveal;
     }
 
-    .dot2, .dot3 {
-      animation-name: loader-slide;
+    .dot2,
+    .dot3 {
       -webkit-animation-name: loader-slide;
+      animation-name: loader-slide;
     }
 
     .dot4 {
-      animation-name: loader-reveal;
       animation-direction: reverse; /* thx @HugoGiraudel */
-      -webkit-animation-name: loader-reveal;
-      -webkit-animation-direction: reverse; /* thx @HugoGiraudel */
+      animation-name: loader-reveal;
     }
 
   }
@@ -122,10 +123,10 @@ div#ccm-intelligent-search-results {
       a {
         img {
           float: left;
+          height: 16px;
           margin-right: 8px;
           margin-top: 1px;
           width: 16px;
-          height: 16px
         }
       }
     }
@@ -133,16 +134,16 @@ div#ccm-intelligent-search-results {
 
   li {
     a {
-      display: block;
       border-color: transparent;
       color: #888;
-      padding: 1px 15px 1px 15px;
+      display: block;
+      padding: 1px 15px;
       text-decoration: none;
     }
 
     a:hover {
-      text-decoration: none;
       color: #369;
+      text-decoration: none;
     }
 
     a.ccm-intelligent-search-result-selected {
@@ -153,9 +154,10 @@ div#ccm-intelligent-search-results {
 
 @keyframes loader-reveal {
   from {
-    transform: scale(0.001);
     -webkit-transform: scale(0.001);
+    transform: scale(0.001);
   }
+
   to {
     -webkit-transform: scale(1);
   }
@@ -163,25 +165,26 @@ div#ccm-intelligent-search-results {
 
 @keyframes loader-slide {
   to {
-    transform: translateX(1.5em);
     -webkit-transform: translateX(1.5 em);
+    transform: translateX(1.5em);
   }
 }
 
 @-webkit-keyframes loader-reveal {
   from {
-    transform: scale(0.001);
     -webkit-transform: scale(0.001);
+    transform: scale(0.001);
   }
+
   to {
-    transform: scale(1);
     -webkit-transform: scale(1);
+    transform: scale(1);
   }
 }
 
 @-webkit-keyframes loader-slide {
   to {
-    transform: translateX(1.5em);
     -webkit-transform: translateX(1.5em);
+    transform: translateX(1.5em);
   }
 }

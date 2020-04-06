@@ -1,16 +1,16 @@
 /* colors */
 $gray-100: #fafafa;
 $gray-200: #d8d8d8;
-$gray-500: #7C8088;
-$gray-600: #6A6F7B;
-$gray-700: #4C4F56;
+$gray-500: #7c8088;
+$gray-600: #6a6f7b;
+$gray-700: #4c4f56;
 
 
 $cyan: #027893;
-$blue: #4A90E2;
+$blue: #4a90e2;
 $secondary: $gray-500;
-$green: #28A745;
-$red: #C32A2A;
+$green: #28a745;
+$red: #c32a2a;
 $dark: $gray-700;
 $light-blue: #ebf5fb;
 
@@ -32,29 +32,29 @@ $btn-font-size: 0.9rem;
 $enable-gradients: false;
 
 /* transitions */
-$transition-base: all .25s ease-in-out;
-$transition-fade: opacity .1s ease-in-out;
-$btn-transition: color .25s ease-in-out, background-color .25s ease-in-out, border-color .25s ease-in-out, box-shadow .25s ease-in-out;
+$transition-base: all 0.25s ease-in-out;
+$transition-fade: opacity 0.1s ease-in-out;
+$btn-transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out, border-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
 
 /* dialogs */
 $modal-xl: 940px;
 $modal-lg: 810px;
 $modal-md: 675px;
 $modal-sm: 420px;
-$modal-header-border-width: 0px;
-$modal-content-border-width: 0px;
-$modal-footer-border-width: 0px;
-$modal-content-border-radius: 0px;
-$modal-content-inner-border-radius: 0px;
+$modal-header-border-width: 0;
+$modal-content-border-width: 0;
+$modal-footer-border-width: 0;
+$modal-content-border-radius: 0;
+$modal-content-inner-border-radius: 0;
 $modal-header-padding-y: 1.25rem;
 $modal-header-padding-x: 1.8rem;
 $modal-title-line-height: 1.25em;
 $modal-inner-padding: 1.8rem;
 $modal-fade-transform: none;
-$modal-transition: .1s ease-in-out;
+$modal-transition: 0.1s ease-in-out;
 
 /* tabs */
-$nav-tabs-border-width: 0px;
+$nav-tabs-border-width: 0;
 $nav-tabs-link-active-color: $gray-700;
 $nav-tabs-link-active-border-color: $blue;
 $nav-tabs-link-hover-border-color: $gray-200;

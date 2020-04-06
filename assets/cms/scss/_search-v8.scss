@@ -19,8 +19,8 @@ div.ccm-header-search-form-input {
 
   a.ccm-header-launch-advanced-search +
   input.form-control {
-    width: 312px;
     padding-right: 110px;
+    width: 312px;
   }
 
   a.ccm-header-reset-search,
@@ -32,9 +32,10 @@ div.ccm-header-search-form-input {
 
   a.ccm-header-reset-search {
     left: 10px;
+
     &.ccm-header-reset-search-right {
-      right: 10px;
       left: auto;
+      right: 10px;
 
     }
   }
@@ -45,42 +46,49 @@ form.form-inline div.ccm-header-search-form-input {
 }
 
 ul.ccm-header-search-navigation {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0 0;
+  text-align: right;
+
   li {
     display: inline-block;
     margin-left: 20px;
   }
-  list-style: none;
-  text-align: right;
-  padding: 4px 0px 0px 0px;
-  margin: 0px 0px 0px 0px;
+
   a {
     color: #777;
     transition: 0.1s linear all;
   }
-  a:focus, a:hover {
-    text-decoration: none;
+
+  a:focus,
+  a:hover {
     color: #333;
     outline: none;
+    text-decoration: none;
   }
+
   a.link-primary {
     color: #09f;
   }
+
   a#ccm-file-manager-upload {
+
+    color: #09f;
 
     position: relative;
 
     input[type=file] {
-      position: absolute;
-      opacity: 0;
-      top:  0px;
-      left: 0px;
-      width: 100%;
-      height: 20px;
       border: 1px solid black;
       cursor: pointer;
+      height: 20px;
+      left: 0;
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
     }
 
-    color: #09f;
     &:hover {
       color: #2b507b;
     }
@@ -88,22 +96,25 @@ ul.ccm-header-search-navigation {
 }
 
 div.ui-dialog {
-
   div.table-responsive {
-    margin: -15px -26px -20px -26px;
+    margin: -15px -26px -20px;
   }
+
   div.ccm-search-results-breadcrumb {
     display: inline-block;
-    position: absolute;
     height: 15px;
-    top: 10px;
     left: 10px;
+    position: absolute;
+    top: 10px;
     z-index: 2;
+
     ol {
-      margin-bottom: 0px;
-      li a, li span {
-        position: static;
+      margin-bottom: 0;
+
+      li a,
+      li span {
         font-weight: normal;
+        position: static;
       }
     }
   }
@@ -135,19 +146,21 @@ div.ccm-search-results-breadcrumb {
 
   ol.breadcrumb {
     background-color: transparent;
-    padding: 0px;
-    position: relative;
     margin-bottom: -20px;
+    padding: 0;
+    position: relative;
 
     > li a {
       color: #777;
       transition: 0.1s linear all;
     }
+
     > li > a {
-      &:hover, &:focus {
-        text-decoration: none;
+      &:hover,
+      &:focus {
         color: #333;
         outline: none;
+        text-decoration: none;
       }
     }
 
@@ -160,16 +173,16 @@ div.ccm-search-results-breadcrumb {
       color: #09f;
     }
 
-    > li + li:before {
-      content: ">";
-      font-size: $font-size-sm;
+    > li + li::before {
       color: #999;
+      content: '>';
+      font-size: $font-size-sm;
       font-style: normal;
-      text-decoration: inherit;
-      position: relative;
-      top: -2px;
+      left: 0;
       padding-right: 8px;
-      left: 0px;
+      position: relative;
+      text-decoration: inherit;
+      top: -2px;
     }
   }
 
@@ -182,45 +195,45 @@ div.ccm-draggable-search-item {
 
   position: relative;
 
-  &:after {
-    font-family: FontAwesome;
-    font-style: normal;
-    text-decoration: inherit;
-    font-size: $font-size-lg;
+  &::after {
     color: #666;
     display: inline-block;
+    font-family: FontAwesome;
+    font-size: $font-size-lg;
+    font-style: normal;
+    text-decoration: inherit;
   }
 
   &.ccm-search-results-stack {
-    &:after {
-      content: "\f1b3";
+    &::after {
+      content: '\f1b3';
     }
   }
 
   &.ccm-search-results-folder {
-    &:after {
-      content: "\f07b";
+    &::after {
+      content: '\f07b';
     }
   }
 
   &.ccm-search-results-file {
-    &:after {
-      content: "\f016";
+    &::after {
+      content: '\f016';
     }
   }
 
   span {
-    display: inline-block;
-    background-color: #0099ff;
-    color: #fff;
-    width: 20px;
-    height: 20px;
-    text-align: center;
-    font-weight: bold;
+    background-color: #09f;
     border-radius: 10px;
-    top: -2px;
-    right: 18px;
+    color: #fff;
+    display: inline-block;
+    font-weight: bold;
+    height: 20px;
     position: absolute;
+    right: 18px;
+    text-align: center;
+    top: -2px;
+    width: 20px;
 
   }
 }

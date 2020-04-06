@@ -1,1 +1,1 @@
-import './frontend/switch-language-block';
+import './frontend/switch-language-block'

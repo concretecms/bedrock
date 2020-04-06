@@ -1,2 +1,2 @@
-import './frontend/conversations';
-import './frontend/attachments';
+import './frontend/conversations'
+import './frontend/attachments'

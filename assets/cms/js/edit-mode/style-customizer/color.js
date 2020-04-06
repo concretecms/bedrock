@@ -1,7 +1,8 @@
+/* eslint-disable no-new, no-unused-vars, camelcase */
 
 function ConcreteStyleCustomizerColorPicker($element, options) {
-    var my = this;
-    my.$element = $element;
+    var my = this
+    my.$element = $element
     my.options = $.extend(true, {
         initialColor: '',
         i18n: {
@@ -9,7 +10,7 @@ function ConcreteStyleCustomizerColorPicker($element, options) {
             choose: 'Choose',
             clear: 'Clean'
         }
-    }, options || {});
+    }, options || {})
     $element.spectrum({
         showInput: true,
         showInitial: true,
@@ -22,48 +23,48 @@ function ConcreteStyleCustomizerColorPicker($element, options) {
         chooseText: my.options.i18n.choose,
         clearText: my.options.i18n.clear,
         change: function() {
-            ConcreteEvent.publish('StyleCustomizerControlUpdate');
+            ConcreteEvent.publish('StyleCustomizerControlUpdate')
         }
-    });
-    $element.addClass('ccm-style-customizer-importexport').data('ccm-style-customizer-importexport', this);
+    })
+    $element.addClass('ccm-style-customizer-importexport').data('ccm-style-customizer-importexport', this)
 }
 
 ConcreteStyleCustomizerColorPicker.prototype = {
     exportStyle: function (data, cb) {
-        var my = this,
-            varName = my.$element.attr('name') || '',
-            match = varName.match(/^(.+)\[color\]$/);
+        var my = this
+        var varName = my.$element.attr('name') || ''
+        var match = varName.match(/^(.+)\[color\]$/)
         if (!match) {
-            cb();
-            return;
+            cb()
+            return
         }
-        var value = my.$element.spectrum('get');
+        var value = my.$element.spectrum('get')
         if (!(match[1] in data)) {
-            data[match[1]] = {};
+            data[match[1]] = {}
         }
-        data[match[1]].color = value ? value.toHex8String() : '';
-        cb();
+        data[match[1]].color = value ? value.toHex8String() : ''
+        cb()
     },
     importStyle: function (data, cb) {
-        var my = this,
-            varName = my.$element.attr('name') || '',
-            match = varName.match(/^(.+)\[color\]$/);
+        var my = this
+        var varName = my.$element.attr('name') || ''
+        var match = varName.match(/^(.+)\[color\]$/)
         if (!match) {
-            cb();
-            return;
+            cb()
+            return
         }
         if (data[match[1]] && typeof data[match[1]].color === 'string') {
-            my.$element.spectrum('set', data[match[1]].color);
+            my.$element.spectrum('set', data[match[1]].color)
         }
-        cb();
+        cb()
     }
-};
+}
 
 // jQuery Plugin
 $.fn.concreteStyleCustomizerColorPicker = function(options) {
     return $.each($(this), function(i, obj) {
-        new ConcreteStyleCustomizerColorPicker($(this), options);
-    });
-};
+        new ConcreteStyleCustomizerColorPicker($(this), options)
+    })
+}
 
-global.ConcreteStyleCustomizerColorPicker = ConcreteStyleCustomizerColorPicker;
+global.ConcreteStyleCustomizerColorPicker = ConcreteStyleCustomizerColorPicker
