@@ -5,6 +5,7 @@
     "selector-no-qualifying-type": null,
     "color-named": null,
     "max-nesting-depth": null,
-    "selector-max-compound-selectors": 5
+    "selector-max-compound-selectors": 5,
+    "no-eol-whitespace": true
   }
 }

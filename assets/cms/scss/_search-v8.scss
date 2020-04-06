@@ -124,7 +124,7 @@ div.ui-dialog {
       margin-right: 20px;
     }
   }
-  
+
   // If the search header comes inside of a ui-dialog and not in the dashboard, it's safe to say it needs its own
   // positioning, because the dashboard is what takes of positioning it in the Dashboard context. So let's position
   // it manually (but only in the div.ui-dialog)
@@ -132,7 +132,7 @@ div.ui-dialog {
     float: right;
     margin-bottom: 20px;
   }
-  
+
   div[data-search-element=results] {
     clear: both;
   }

@@ -338,18 +338,18 @@ ul.ccm-edit-mode-inline-commands {
       position: relative;
       text-align: center;
       width: 20px !important;
-      
+
       @include hover {
         color: #000 !important;
       }
-      
+
       i {
         left: 3px;
         position: absolute;
         top: 3px;
         vertical-align: middle;
       }
-      
+
       &.ccm-edit-mode-inline-command-move {
         cursor: move;
       }
@@ -560,7 +560,7 @@ div.ccm-block-edit {
  * without showing them on hover.
  */
 div.ccm-block-edit[data-block-type-handle=core_container] {
-  @include hover { 
+  @include hover {
     > ul.ccm-edit-mode-inline-commands {
       opacity: 1;
     }

@@ -2,18 +2,18 @@ div.ccm-ui {
   .modal-dialog {
     box-shadow: $modal-box-shadow;
   }
-  
+
   .modal-header {
     background-color: $blue;
     color: $modal-title-color;
     font-weight: 400;
-    
+
     .modal-title {
       font-size: $modal-title-font-size;
       font-weight: $modal-title-font-weight;
       letter-spacing: $modal-title-letter-spacing;
     }
-    
+
     button {
       color: white;
 
@@ -31,7 +31,7 @@ div.ccm-ui {
 
         }
       }
-      
+
       svg {
         fill: white;
         height: 24px;
@@ -40,7 +40,7 @@ div.ccm-ui {
       }
 
     }
-      
-    
+
+
   }
 }
