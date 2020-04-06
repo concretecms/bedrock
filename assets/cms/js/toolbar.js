@@ -16,7 +16,6 @@
 
     function setupHelpNotifications() {
         $('.ccm-notification .dialog-launch').dialog()
-        $('a[data-help-notification-toggle]').concreteHelpLauncher()
         $('a[data-help-launch-dialog=main]').on('click', function(e) {
             e.preventDefault()
             new ConcreteHelpDialog().open()

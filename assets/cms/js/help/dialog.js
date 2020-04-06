@@ -6,26 +6,12 @@
 
     function ConcreteHelpDialog(options) {
         var my = this
-        options = options || {}
-        options = $.extend({
-            width: 800,
-            height: 450,
-            title: 'Help',
-            dialogClass: 'ccm-dialog-slim ccm-dialog-help-wrapper'
-        }, options)
-        my.options = options
+        my.options = $.extend({}, options || {})
     }
 
     ConcreteHelpDialog.prototype = {
 
 		open: function() {
-			var my = this;
-			if ($('#ccm-dialog-help').length) {
-				my.options.element = '#ccm-dialog-help';
-			} else {
-				return;
-			}
-			$.fn.dialog.open(my.options);
 		}
 
     }

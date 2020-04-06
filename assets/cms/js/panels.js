@@ -286,7 +286,6 @@ function ConcretePanel(options) {
             $content.load(url, data, function () {
                 $.fn.dialog.hideLoader()
                 $content.find('.launch-tooltip').tooltip({ container: '#ccm-tooltip-holder' })
-                $content.find('a[data-help-notification-toggle]').concreteHelpLauncher()
                 obj.loadPanelDetailActions($content)
 
                 _.defer(complete_function)
@@ -294,7 +293,6 @@ function ConcretePanel(options) {
         } else {
             $.fn.dialog.hideLoader()
             $content.find('.launch-tooltip').tooltip({ container: '#ccm-tooltip-holder' })
-            $content.find('a[data-help-notification-toggle]').concreteHelpLauncher()
             obj.loadPanelDetailActions($content)
 
             _.defer(complete_function)

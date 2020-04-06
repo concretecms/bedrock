@@ -1,7 +1,7 @@
 /* stylelint-disable property-no-vendor-prefix */
 //@import "../../vendor/tourist/tourist.less";
 
-div.ccm-dialog-help-item {
+div.ccm-panel-help-item {
   margin-bottom: 30px;
 
   a:focus,
@@ -23,7 +23,7 @@ div.ccm-dialog-help-item {
 }
 
 
-ol.ccm-dialog-help-item-icon-row {
+ol.ccm-panel-help-item-icon-row {
   margin: 0 0 10px;
   padding: 0;
 
@@ -45,168 +45,6 @@ div#ccm-toolbar {
       @include gradient-y(#D6E6EE, #B8DCEE);
       background-color: #d6e6ee;
       color: #136cc0;
-    }
-
-  }
-}
-
-
-// in page help
-
-/**
- * Help launcher
- */
-div.ccm-notification-help-launcher {
-
-  -webkit-font-smoothing: antialiased;
-  position: fixed;
-  right: 0;
-  top: 82px;
-  transition: transform cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
-  z-index: $index-level-page-help;
-
-  div.ccm-panel-detail-content & {
-    z-index: $index-level-panel-help;
-  }
-
-  html.ccm-panel-open.ccm-panel-right & {
-    transform: translate(-320px, 0);
-  }
-
-  a {
-
-    -webkit-animation-duration: 0.2s;
-    -moz-animation-duration: 0.2s;
-    -ms-animation-duration: 0.2s;
-    -o-animation-duration: 0.2s;
-    animation-duration: 0.2s;
-    background-color: #335b8a;
-    border-bottom-left-radius: 3px;
-    border-top-left-radius: 3px;
-    color: #fff;
-    display: block;
-    height: 40px;
-    transition: all 0.1s ease-in-out;
-    width: 40px;
-
-  }
-
-  a:hover,
-  a:active,
-  a:focus {
-    background-color: #163251;
-    color: #fff;
-  }
-
-  i {
-    font-size: $font-size-lg;
-    font-weight: normal;
-    line-height: $line-height-lg;
-    margin-left: 9px;
-    vertical-align: middle;
-  }
-}
-
-div.ccm-notification-help {
-
-  -webkit-animation-duration: 0.2s;
-  -moz-animation-duration: 0.2s;
-  -ms-animation-duration: 0.2s;
-  -o-animation-duration: 0.2s;
-  animation-duration: 0.2s;
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
-  display: none;
-  -webkit-font-smoothing: antialiased;
-
-  position: fixed;
-  right: 0;
-  top: 83px;
-
-  transition: transform cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
-  z-index: $index-level-page-help;
-
-  div.ccm-panel-detail-content & {
-    margin-top: -28px; // not sure why – some of the style in these panels gets a little weird.
-  }
-
-  html.ccm-panel-open.ccm-panel-right & {
-    transform: translate(-320px, 0);
-  }
-
-}
-
-
-div.ccm-notification-help {
-
-
-  background-color: rgba(19, 72, 125, 0.9);
-  border-radius: 3px;
-  color: #adeef7;
-  font-family: $font-family-sans-serif;
-  font-size: $font-size-base;
-  -webkit-font-smoothing: antialiased;
-
-  max-width: 90%;
-  z-index: $index-level-hud;
-
-  i.ccm-notification-icon {
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 40px;
-    height: 40px;
-    left: 20px;
-    padding: 11px 12px;
-    position: absolute;
-    text-align: center;
-    top: 20px;
-    width: 40px;
-  }
-
-  div.ccm-notification-inner {
-    max-width: 100%;
-    padding: 30px 30px 30px 80px;
-    width: 360px;
-  }
-
-  h3 {
-    color: #fff;
-    font-size: $font-size-base * 1.2;
-    font-weight: 300;
-    margin: 0 0 10px;
-    padding: 0;
-  }
-
-  .ccm-notification-icon {
-    color: #fff;
-  }
-
-  div.ccm-notification-actions {
-    background-color: rgba(17, 47, 76, 0.9);
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-    border-top: 1px solid #002a53;
-    font-size: $font-size-sm;
-    font-weight: 400;
-    text-align: right;
-
-    a {
-      border-left: 1px solid #002a53;
-      color: #88aee7;
-      display: inline-block;
-      margin-left: 0;
-      padding: 6px 10px;
-      text-align: center;
-
-      &.ccm-notification-actions-dismiss-single {
-        color: #ff0;
-      }
-
-    }
-
-    a,
-    a:hover {
-      color: #fff;
-      text-decoration: none;
     }
 
   }

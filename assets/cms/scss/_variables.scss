@@ -70,7 +70,6 @@ $index-level-panel-hover: 950;
 $index-level-panel-dialog: 950;
 $index-level-panel-select-widget: 950;
 $index-level-panel-alert: 980;
-$index-level-panel-help: 1200; //panel help has to come above page help
 
 /* Draggables */
 $index-level-draggable-content-item: 1000;
@@ -80,15 +79,6 @@ $index-level-main-bar: 1000;
 
 /* Disable Toolbar (over toolbar) */
 $index-level-toolbar-disabled: 1100;
-
-/* Page help – below panel detail and below widget overlay */
-/* USED to come above widget overlay so we could show it while the dashboard panel is open, but moved to below panel
-/* overlay because it makes it ambiguous whether help is available in the lefthand panel or not */
-$index-level-page-help: 840;
-
-/* Dashboard Help Notifications – has to come BELOW the modal dialog stuff, because it's not really an ephemeral notification */
-/* also has to come below the dashboard toolbar */
-$index-level-dashboard-help: 990;
 
 /* dashboard privacy policy */
 $index-level-dashboard-privacy-policy-bar: 910;

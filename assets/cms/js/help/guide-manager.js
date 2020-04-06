@@ -27,9 +27,6 @@
             // if help notification is active, hide it
             ConcreteHelpLauncher.close();
 
-            // if the help dialog is active, hide it
-            $('.ccm-dialog-help-wrapper').hide();
-
             this.showOverlay();
             this.raiseToolbar();
         },
@@ -63,13 +60,7 @@
         },
 
         exitToolbarGuideMode: function() {
-
-            // if the help dialog is active, show it
-            if ($('.ccm-dialog-help-wrapper').length) {
-                $('.ccm-dialog-help-wrapper').show();
-            } else {
-                this.hideOverlay();
-            }
+            this.hideOverlay();
             this.lowerToolbar();
         },
 

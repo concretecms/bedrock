@@ -63,9 +63,6 @@
 					}
 				});
 			},
-			onEnd: function() {
-				$('.ccm-dialog-help-wrapper').show();
-			},
 		});
 	});
 
