@@ -1,3 +1,4 @@
+/* stylelint-disable selector-class-pattern */
 .cke_toolgroup {
   a.cke_button__concrete_save {
     background-color: #337ab7;
@@ -28,12 +29,12 @@
   }
 }
 
-.cke_editable:before,
-.cke_editable:after {
-  content: "";
+.cke_editable::before,
+.cke_editable::after {
+  content: '';
   display: table;
 }
 
-.cke_editable:after {
+.cke_editable::after {
   clear: both;
 }

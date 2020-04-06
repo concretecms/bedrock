@@ -1,21 +1,21 @@
 div.ccm-ui {
   .nav-tabs {
-
     .nav-link {
-      padding-top: 0;
-      color: $nav-tabs-link-color;
       border-bottom-width: 2px;
-      transition: border-color .25s ease-in-out;
+      color: $nav-tabs-link-color;
+      padding-top: 0;
+      transition: border-color 0.25s ease-in-out;
 
       &:hover {
         color: $gray-500;
       }
 
       &.active {
+        font-weight: bold;
+
         &:hover {
           color: $nav-tabs-link-active-color;
         }
-        font-weight: bold;
       }
 
     }

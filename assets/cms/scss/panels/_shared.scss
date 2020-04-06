@@ -4,36 +4,34 @@ html.ccm-panel-detail-open {
   }
 
   .ccm-panel-detail {
-    position: fixed;
-    top: 0;
     left: 0;
     overflow: auto;
+    position: fixed;
+    top: 0;
   }
 }
 
 div.ccm-panel {
   background-color: $panel-background-color;
-  width: 320px;
   height: 100%;
-  position: fixed;
-  top: 0px;
-  z-index: $index-level-panel; // has to come above the detail actions wrapper
   overflow: hidden;
+  position: fixed;
+  top: 0;
   user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
+  width: 320px;
+  z-index: $index-level-panel; // has to come above the detail actions wrapper
 }
 
 div#ccm-panel-overlay {
-  z-index: $index-level-panel-overlay;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  display: none;
   background: transparent;
-  transition: background-color cubic-bezier(0.190, 1.000, 0.220, 1.000) 0.5s;
+  display: none;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  transition: background-color cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
+  width: 100%;
+  z-index: $index-level-panel-overlay;
 }
 
 div#ccm-panel-overlay.ccm-panel-translucent {
@@ -42,7 +40,7 @@ div#ccm-panel-overlay.ccm-panel-translucent {
 
 html.ccm-panel-ready {
   div.ccm-page {
-    transition: transform cubic-bezier(0.190, 1.000, 0.220, 1.000) 0.5s;
+    transition: transform cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
   }
 }
 
@@ -84,9 +82,9 @@ div.ccm-panel-transition-none.ccm-panel-left.ccm-panel-active {
 }
 
 div.ccm-panel-transition-slide.ccm-panel-left {
+  left: 0;
   transform: translate(-100%, 0);
-  left: 0px;
-  transition: transform cubic-bezier(0.190, 1.000, 0.220, 1.000) 0.5s;
+  transition: transform cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
 
 }
 
@@ -99,9 +97,9 @@ div.ccm-panel-transition-none.ccm-panel-right.ccm-panel-active {
 }
 
 div.ccm-panel-transition-slide.ccm-panel-right {
+  right: 0;
   transform: translate(100%, 0);
-  right: 0px;
-  transition: transform cubic-bezier(0.190, 1.000, 0.220, 1.000) 0.5s;
+  transition: transform cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
 }
 
 div.ccm-panel-left.ccm-panel-transition-slide.ccm-panel-active {
@@ -117,51 +115,51 @@ div.ccm-panel-right.ccm-panel-transition-slide.ccm-panel-active {
  */
 
 div.ccm-panel-right.ccm-panel-active {
-  box-shadow: -2px 0px 4px rgba(0, 0, 0, 0.12)
+  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.12);
 }
 
 div.ccm-panel-right {
-  box-shadow: -2px 0px 4px rgba(0, 0, 0, 0.12)
+  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.12);
 }
 
 div.ccm-panel-left {
-  box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.12)
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.12);
 }
 
 /**
  * Panel Content
  */
 div.ccm-panel-content {
-  padding: 0px;
+  bottom: 0;
+  left: 0;
   margin-top: 48px;
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
   overflow: auto;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  transition: transform cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
   width: 320px;
-  left: 0px;
-  transition: transform cubic-bezier(0.190, 1.000, 0.220, 1.000) 0.5s;
 
   button.ccm-delete-clipboard-item {
-    color: #A2A3A8;
+    color: #a2a3a8;
 
     &:hover {
-      color: darken(#A2A3A8, 15%);
+      color: darken(#a2a3a8, 15%);
     }
   }
 
   section {
-    padding: 0px;
+    padding: 0;
   }
 }
 
 div.ccm-panel-content {
 
-  padding: 20px 10px 0px 16px;
+  padding: 20px 10px 0 16px;
 
   header {
-    padding: 15px 11px 0px 24px;
     font-weight: 500;
+    padding: 15px 11px 0 24px;
 
     aside {
       float: right;
@@ -175,14 +173,15 @@ div.ccm-panel-content {
     }
   }
 
-  ul.nav, menu {
-
-    padding: 0px;
+  ul.nav,
+  menu {
     border-top: 1px solid $gray-200;
 
+    padding: 0;
+
     > li {
-      margin-top: 0px;
-      margin-left: 0px;
+      margin-left: 0;
+      margin-top: 0;
 
       > ul {
         margin-left: 25px;
@@ -201,14 +200,14 @@ div.ccm-panel-content {
       }
 
       a {
-        display: block;
-        text-decoration: none;
-        padding: 14px 21px 14px 24px;
         color: $gray-600;
+        display: block;
         line-height: 1.8em;
+        padding: 14px 21px 14px 24px;
+        text-decoration: none;
 
         &:hover {
-          background-color: #D2EAFA;
+          background-color: #d2eafa;
         }
 
         &.ccm-panel-menu-item-active {
@@ -224,18 +223,18 @@ div.ccm-panel-content {
       ul {
 
         margin-top: 5px;
-        padding-left: 0px;
+        padding-left: 0;
 
         li {
-          margin-top: 3px;
           margin-left: 20px;
+          margin-top: 3px;
         }
 
         a {
-          border-radius: 0px;
+          border-radius: 0;
           display: inline;
-          padding: 0px;
           font-weight: 400;
+          padding: 0;
 
           &:hover {
             background-color: auto;
@@ -248,22 +247,22 @@ div.ccm-panel-content {
 }
 
 div.ccm-panel-content-inner {
-  padding: 20px 40px 40px 40px;
+  padding: 20px 40px 40px;
 }
 
 /**
  * Panel main detail areas
  */
 div.ccm-panel-detail {
-  z-index: $index-level-panel-detail;
-  width: 100%;
+  background: transparent;
+  box-sizing: border-box;
+  display: none;
   height: 100%;
+  padding-top: 48px;
   position: absolute;
   top: 0;
-  display: none;
-  box-sizing: border-box;
-  background: transparent;
-  padding-top: 48px;
+  width: 100%;
+  z-index: $index-level-panel-detail;
 
   &.ccm-panel-detail-static {
     display: block;
@@ -288,31 +287,30 @@ html.ccm-panel-right div.ccm-panel-detail {
 }
 
 div.ccm-panel-detail-content {
-  padding: 40px 40px 80px 40px;
   background-color: white;
-  min-width: 100%;
   min-height: 100%;
+  min-width: 100%;
+  padding: 40px 40px 80px;
 
   div.ccm-notification-help {
     position: absolute;
-    right: 0px;
+    right: 0;
     top: 110px;
   }
 
   section {
-    padding: 0px;
+    padding: 0;
   }
 
 
 }
 
 div.ccm-panel-detail {
-
   header {
     font-size: $font-size-lg;
+    font-weight: 300;
     margin: -40px -40px 30px -95px;
     padding: 39px 80px 39px 95px;
-    font-weight: 300;
   }
 
   hr {
@@ -326,9 +324,9 @@ div.ccm-panel-detail {
  * Panel Detail Fade
  */
 div.ccm-panel-detail.ccm-panel-detail-transition-fade {
-  transition: opacity 0.5s cubic-bezier(0.190, 1.000, 0.220, 1.000);
-  opacity: 0;
   display: block;
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 div.ccm-panel-detail.ccm-panel-detail-transition-fade-apply {
@@ -342,8 +340,8 @@ div.ccm-panel-detail.ccm-panel-detail-transition-fade-apply {
  */
 
 html.ccm-panel-left div.ccm-page.ccm-panel-detail-transition-swap {
-  position: relative;
   left: 320px;
+  position: relative;
 }
 
 html.ccm-panel-right div.ccm-page.ccm-panel-detail-transition-swap {
@@ -353,18 +351,14 @@ html.ccm-panel-right div.ccm-page.ccm-panel-detail-transition-swap {
 
 html.ccm-panel-ready div.ccm-page.ccm-panel-detail-transition-swap {
   transform: rotateY(0deg);
-  -webkit-transform: rotateY(0deg);
   transition-duration: 0.5s;
-  transition-easing: none;
-  -webkit-transition-easing: none;
+  transition-timing-function: none;
 }
 
 html.ccm-panel-ready div.ccm-page.ccm-panel-detail-transition-swap.ccm-panel-detail-transition-swap-apply {
   transform: rotateY(180deg);
-  -webkit-transform: rotateY(180deg);
   transition-duration: 0.5s;
-  transition-easing: none;
-  -webkit-transition-easing: none;
+  transition-timing-function: none;
 }
 
 div.ccm-panel-detail.ccm-panel-detail-transition-none.ccm-panel-detail-transition-none-apply {
@@ -395,20 +389,19 @@ div.ccm-panel-content-appearing {
 }
 
 div.ccm-panel-content.ccm-panel-content-visible {
-  transform: translate(0px, 0);
+  transform: translate(0, 0);
 }
 
 div.ccm-panel-content {
-
   header {
     a.ccm-panel-back {
+      color: $gray-700;
       display: block;
-      margin-top: -15px;
       margin-bottom: 30px;
+      margin-top: -15px;
+      text-decoration: none;
 
       transition: color 0.1s ease-in-out;
-      color: $gray-700;
-      text-decoration: none;
 
       &:hover {
         color: $blue;
@@ -419,9 +412,9 @@ div.ccm-panel-content {
       }
 
       svg {
-        width: 20px;
         height: 20px;
         transition: fill 0.1s ease-in-out;
+        width: 20px;
       }
     }
 
@@ -432,11 +425,11 @@ div.ccm-panel-content {
  * Forms and button actions
  */
 div.ccm-panel-detail-form-actions {
-  border-top: 1px solid $gray-200;
   background-color: $gray-100;
+  border-top: 1px solid $gray-200;
+  bottom: 0;
+  left: 0;
   padding: 15px 20px 15px 340px;
   position: fixed;
-  bottom: 0px;
-  left: 0px;
   width: 100%;
 }
