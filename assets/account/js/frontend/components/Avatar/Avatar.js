@@ -3,7 +3,7 @@ import interact from 'interactjs'
 export default {
 
     // Our component name
-    name: "avatar-image",
+    name: 'avatar-image',
 
     // The properties available for our parent to edit
     props: {
@@ -32,14 +32,14 @@ export default {
     /**
      * Prepare to render by setting up our viewport
      */
-    beforeUpdate()  {
+    beforeUpdate() {
         if (this.viewport) {
-            this.viewport.x = this.x;
-            this.viewport.y = this.y;
-            this.viewport.adjX = this.adjX;
-            this.viewport.adjY = this.adjY;
-            this.viewport.resizeWidth = this.resizeWidth;
-            this.viewport.resizeHeight = this.resizeHeight;
+            this.viewport.x = this.x
+            this.viewport.y = this.y
+            this.viewport.adjX = this.adjX
+            this.viewport.adjY = this.adjY
+            this.viewport.resizeWidth = this.resizeWidth
+            this.viewport.resizeHeight = this.resizeHeight
         }
     },
 
@@ -48,13 +48,13 @@ export default {
      */
     mounted() {
         if (this.shadow === true) {
-            this.guessPosition();
-            this.setupResizing();
-            this.setupDragging();
+            this.guessPosition()
+            this.setupResizing()
+            this.setupDragging()
         }
 
         // Emit an event
-        this.$emit('mount', this);
+        this.$emit('mount', this)
     },
 
     methods: {
@@ -62,37 +62,37 @@ export default {
         /**
          */
         guessPosition() {
-            let adjustedHeight = this.adjustedDimensions(this.imageWidth, this.imageHeight),
-                adjX = 0, adjY = 0;
+            const adjustedHeight = this.adjustedDimensions(this.imageWidth, this.imageHeight)
+            let adjX = 0; let adjY = 0
 
-            this.resizeHeight = adjustedHeight.height;
-            this.resizeWidth = adjustedHeight.width;
+            this.resizeHeight = adjustedHeight.height
+            this.resizeWidth = adjustedHeight.width
 
             if (this.resizeWidth > this.cropperWidth) {
-                adjX = -Math.round((this.resizeWidth - this.cropperWidth) / 2);
+                adjX = -Math.round((this.resizeWidth - this.cropperWidth) / 2)
             }
             if (this.resizeHeight > this.cropperHeight) {
-                adjY = -Math.round((this.resizeHeight - this.cropperHeight) / 2);
+                adjY = -Math.round((this.resizeHeight - this.cropperHeight) / 2)
             }
 
-            let coords = this.adjustedCoordinates(adjX, adjY, this.resizeWidth, this.resizeHeight);
-            this.x += coords.x;
-            this.y += coords.y;
+            const coords = this.adjustedCoordinates(adjX, adjY, this.resizeWidth, this.resizeHeight)
+            this.x += coords.x
+            this.y += coords.y
         },
 
         /**
          * Make the avatar resizable
          */
         setupResizing() {
-            let me = this;
+            const me = this
             this.interact = interact(this.$refs.image)
                 .resizable({
                     preserveAspectRatio: true,
-                    edges: {left: true, right: true, bottom: true, top: true}
+                    edges: { left: true, right: true, bottom: true, top: true }
                 })
                 .on('resizemove', function (event) {
-                    return me.handleResizeMove(event);
-                });
+                    return me.handleResizeMove(event)
+                })
         },
 
         /**
@@ -101,14 +101,14 @@ export default {
          * @param int height
          */
         adjustedDimensions(width, height) {
-            let bestFactor = 1,
-                maxFactor = Math.sqrt(Math.min(width, height));
+            let bestFactor = 1
+            const maxFactor = Math.sqrt(Math.min(width, height))
 
             // Find the best factor to downsize by
             for (let i = 2; i <= maxFactor; i++) {
                 if ((width / i) % 2 === 0 && (height / i) % 2 === 0) {
                     if ((width / i) > this.cropperWidth && (height / i) > this.cropperHeight) {
-                        bestFactor = i;
+                        bestFactor = i
                     }
                 }
             }
@@ -118,7 +118,7 @@ export default {
                 height: height / bestFactor,
                 factor: bestFactor,
                 adjusted: bestFactor !== 1
-            };
+            }
         },
 
         /**
@@ -129,26 +129,26 @@ export default {
          * @param int height
          */
         adjustedCoordinates(x, y, width, height) {
-            let renderedX = this.x + x,
-                renderedY = this.y + y,
-                coords = {
-                    min: {
-                        x: -1 * (width - this.cropperWidth),
-                        y: -1 * (height - this.cropperHeight)
-                    },
-                    max: {
-                        x: 0,
-                        y: 0
-                    }
+            const renderedX = this.x + x
+            const renderedY = this.y + y
+            const coords = {
+                min: {
+                    x: -1 * (width - this.cropperWidth),
+                    y: -1 * (height - this.cropperHeight)
                 },
-                adjustedX = Math.max(coords.min.x, Math.min(coords.max.x, renderedX)) - this.x,
-                adjustedY = Math.max(coords.min.y, Math.min(coords.max.y, renderedY)) - this.y;
+                max: {
+                    x: 0,
+                    y: 0
+                }
+            }
+            const adjustedX = Math.max(coords.min.x, Math.min(coords.max.x, renderedX)) - this.x
+            const adjustedY = Math.max(coords.min.y, Math.min(coords.max.y, renderedY)) - this.y
 
             return {
                 x: adjustedX,
                 y: adjustedY,
                 adjusted: adjustedY !== y || adjustedX !== x
-            };
+            }
         },
 
         /**
@@ -156,16 +156,16 @@ export default {
          * @param Avatar viewport
          */
         setViewport(viewport) {
-            this.viewport = viewport;
-            viewport.outer = this;
-            viewport.setupDragging();
+            this.viewport = viewport
+            viewport.outer = this
+            viewport.setupDragging()
         },
 
         /**
          * Setup interactjs dragging
          */
         setupDragging() {
-            let me = this;
+            const me = this
             this.interact = interact(this.$refs.image)
                 .draggable({
                     intertia: false,
@@ -174,27 +174,27 @@ export default {
                     // Send on move events to component
                     onmove: function (e) {
                         if (me.outer) {
-                            return me.outer.handleDragMove(e);
+                            return me.outer.handleDragMove(e)
                         }
-                        return me.handleDragMove(e);
+                        return me.handleDragMove(e)
                     },
 
                     // Send onstart events to component
                     onstart: function (e) {
                         if (me.outer) {
-                            return me.outer.handleDragStart(e);
+                            return me.outer.handleDragStart(e)
                         }
-                        return me.handleDragStart(e);
+                        return me.handleDragStart(e)
                     },
 
                     // Send onend events to component
                     onend: function (e) {
                         if (me.outer) {
-                            return me.outer.handleDragEnd(e);
+                            return me.outer.handleDragEnd(e)
                         }
-                        return me.handleDragEnd(e);
+                        return me.handleDragEnd(e)
                     }
-                });
+                })
         },
 
         /**
@@ -202,12 +202,12 @@ export default {
          * @param event
          */
         handleDragMove(event) {
-            let coords = this.adjustedCoordinates(
+            const coords = this.adjustedCoordinates(
                 event.pageX - this.startEvent.pageX, event.pageY - this.startEvent.pageY,
-                this.resizeWidth, this.resizeHeight);
+                this.resizeWidth, this.resizeHeight)
 
-            this.adjX = coords.x;
-            this.adjY = coords.y;
+            this.adjX = coords.x
+            this.adjY = coords.y
         },
 
         /**
@@ -215,7 +215,7 @@ export default {
          * @param Event event
          */
         handleDragStart(event) {
-            this.startEvent = event;
+            this.startEvent = event
             this.coords = {
                 min: {
                     x: -this.resizeWidth + this.cropperWidth,
@@ -225,7 +225,7 @@ export default {
                     x: 0,
                     y: 0
                 }
-            };
+            }
         },
 
         /**
@@ -233,10 +233,10 @@ export default {
          * @param event
          */
         handleDragEnd(event) {
-            this.x += this.adjX;
-            this.y += this.adjY;
-            this.adjX = 0;
-            this.adjY = 0;
+            this.x += this.adjX
+            this.y += this.adjY
+            this.adjX = 0
+            this.adjY = 0
         },
 
         /**
@@ -244,30 +244,30 @@ export default {
          * @param event
          */
         handleResizeMove(event) {
-            let coordinates = this.adjustedCoordinates(
+            const coordinates = this.adjustedCoordinates(
                 event.deltaRect.left, event.deltaRect.top,
-                event.rect.width, event.rect.height);
+                event.rect.width, event.rect.height)
 
             // Don't resize too small
             if (event.rect.width < this.cropperWidth ||
                 event.rect.height < this.cropperHeight) {
                 // If the image is square
                 if (this.imageWidth === this.imageHeight) {
-                    this.resizeWidth = this.cropperWidth;
-                    this.resizeHeight = this.cropperHeight;
-                    this.x = 0;
-                    this.y = 0;
+                    this.resizeWidth = this.cropperWidth
+                    this.resizeHeight = this.cropperHeight
+                    this.x = 0
+                    this.y = 0
                 }
-                return;
+                return
             }
 
             // update the element's style
-            this.resizeWidth = Math.max(event.rect.width, this.cropperWidth);
-            this.resizeHeight = Math.max(event.rect.height, this.cropperHeight);
+            this.resizeWidth = Math.max(event.rect.width, this.cropperWidth)
+            this.resizeHeight = Math.max(event.rect.height, this.cropperHeight)
 
             // translate when resizing from top or left edges
-            this.x += coordinates.x;
-            this.y += coordinates.y;
+            this.x += coordinates.x
+            this.y += coordinates.y
         }
     }
 }

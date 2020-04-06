@@ -1,1 +1,1 @@
-import './frontend/google-map';
+import './frontend/google-map'

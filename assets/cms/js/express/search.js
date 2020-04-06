@@ -1,22 +1,21 @@
+/* eslint-disable no-new, no-unused-vars, camelcase */
 
 function ConcreteExpressEntryAjaxSearch($element, options) {
-    var my = this;
+    var my = this
     options = $.extend({
 
-    }, options);
+    }, options)
 
-    ConcreteAjaxSearch.call(my, $element, options);
-
+    ConcreteAjaxSearch.call(my, $element, options)
 }
 
-ConcreteExpressEntryAjaxSearch.prototype = Object.create(ConcreteAjaxSearch.prototype);
-
+ConcreteExpressEntryAjaxSearch.prototype = Object.create(ConcreteAjaxSearch.prototype)
 
 /**
  * Static Methods
  */
 ConcreteExpressEntryAjaxSearch.launchDialog = function(entityID, callback) {
-    var w = $(window).width() - 53;
+    var w = $(window).width() - 53
 
     $.fn.dialog.open({
         width: w,
@@ -25,38 +24,38 @@ ConcreteExpressEntryAjaxSearch.launchDialog = function(entityID, callback) {
         modal: true,
         title: ccmi18n_express.entriesTitle,
         onClose: function() {
-            ConcreteEvent.fire('ExpressEntrySelectorClose');
+            ConcreteEvent.fire('ExpressEntrySelectorClose')
         },
         onOpen: function() {
-            ConcreteEvent.unsubscribe('SelectExpressEntry');
+            ConcreteEvent.unsubscribe('SelectExpressEntry')
             ConcreteEvent.subscribe('SelectExpressEntry', function(e, data) {
-                $.fn.dialog.closeTop();
-                callback(data);
-            });
+                $.fn.dialog.closeTop()
+                callback(data)
+            })
         }
-    });
-};
+    })
+}
 
 ConcreteExpressEntryAjaxSearch.getEntryDetails = function(exEntryID, callback) {
     $.ajax({
         type: 'post',
         dataType: 'json',
         url: CCM_DISPATCHER_FILENAME + '/ccm/system/express/entry/get_json',
-        data: {'exEntryID': exEntryID},
+        data: { exEntryID: exEntryID },
         error: function(r) {
-            ConcreteAlert.dialog(ccmi18n.error, r.responseText);
+            ConcreteAlert.dialog(ccmi18n.error, r.responseText)
         },
         success: function(r) {
-            callback(r);
+            callback(r)
         }
-    });
-};
+    })
+}
 
 // jQuery Plugin
 $.fn.concreteExpressPageAjaxSearch = function(options) {
     return $.each($(this), function(i, obj) {
-        new ConcreteExpressEntryAjaxSearch($(this), options);
-    });
-};
+        new ConcreteExpressEntryAjaxSearch($(this), options)
+    })
+}
 
-global.ConcreteExpressEntryAjaxSearch = ConcreteExpressEntryAjaxSearch;
+global.ConcreteExpressEntryAjaxSearch = ConcreteExpressEntryAjaxSearch

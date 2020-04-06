@@ -1,4 +1,4 @@
-/* jshint unused:vars, undef:true, jquery:true, browser:true */
+/* eslint-disable no-new, no-unused-vars, camelcase */
 /* global ConcreteAjaxRequest, ConcreteAlert, ConcreteEvent, NProgress */
 
 /*
@@ -29,27 +29,27 @@
  * window.concreteFileUploader.stop(options);
  */
 
-import Dropzone from 'dropzone/dist/dropzone';
+import Dropzone from 'dropzone/dist/dropzone'
 
 /**
  * Is the document already loaded?
  */
-var documentLoaded = false;
+var documentLoaded = false
 
 /**
  * The Dropzone instance (NULL if the file uploader is not started).
  */
-var dropzone = null;
+var dropzone = null
 
 /**
  * The options stack (empty if the file uploader should be stopped).
  */
-var optionsStack = [];
+var optionsStack = []
 
 /**
  * The list of uploaded files to be sent to the FileManagerAddFilesComplete event when the upload queue finishes.
  */
-var uploadedFiles = [];
+var uploadedFiles = []
 
 /**
  * Get the default options for dropzone (also defines the only keys of the user-defined options that are applicable to Dropzone)
@@ -59,27 +59,27 @@ function getDefaultOptions() {
         previewsContainer: false,
         maxFiles: null,
         previewTemplate: Dropzone.prototype.defaultOptions.previewTemplate,
-        clickable: false,
-    };
+        clickable: false
+    }
 }
 
 /**
  * Let's start the drop zone when the document is loaded (if asked so).
  */
 $(document).ready(function() {
-    documentLoaded = true;
+    documentLoaded = true
     if (optionsStack.length !== 0) {
-        startDropzone(optionsStack[optionsStack.length - 1]);
+        startDropzone(optionsStack[optionsStack.length - 1])
     }
-});
+})
 
 /**
  * Stop the file uploader.
  */
 function stopDropzone() {
     if (dropzone !== null) {
-        dropzone.destroy();
-        dropzone = null;
+        dropzone.destroy()
+        dropzone = null
     }
 }
 
@@ -87,84 +87,84 @@ function stopDropzone() {
  * (Re) start the file uploader.
  */
 function startDropzone(customOptions) {
-    stopDropzone();
-    var options = {},
-        defaultOptions = getDefaultOptions();
+    stopDropzone()
+    var options = {}
+    var defaultOptions = getDefaultOptions()
     Object.keys(defaultOptions).forEach(function(optionKey) {
-        options[optionKey] = customOptions.hasOwnProperty(optionKey) ? customOptions[optionKey] : defaultOptions[optionKey];
-    });
-    var showProgressbar = options.previewsContainer === false;
+        options[optionKey] = Object.prototype.hasOwnProperty.call(customOptions, optionKey) ? customOptions[optionKey] : defaultOptions[optionKey]
+    })
+    var showProgressbar = options.previewsContainer === false
     $.extend(options, {
         method: 'POST',
         url: global.CCM_DISPATCHER_FILENAME + '/ccm/system/file/upload',
         sending: function(file, xhr, formData) {
-            if(showProgressbar) {
-                NProgress.start();
+            if (showProgressbar) {
+                NProgress.start()
             }
-            formData.append('responseFormat', 'dropzone');
-            formData.append('ccm_token', CCM_SECURITY_TOKEN);
-            var options = optionsStack[optionsStack.length - 1];
+            formData.append('responseFormat', 'dropzone')
+            formData.append('ccm_token', CCM_SECURITY_TOKEN)
+            var options = optionsStack[optionsStack.length - 1]
             if (options.originalPageID) {
-                formData.append('ocID', isFunction(options.originalPageID) ? options.originalPageID() : options.originalPageID);
+                formData.append('ocID', isFunction(options.originalPageID) ? options.originalPageID() : options.originalPageID)
             }
             if (options.replacingFileID) {
-                formData.append('fID', isFunction(options.replacingFileID) ? options.replacingFileID() : options.replacingFileID);
+                formData.append('fID', isFunction(options.replacingFileID) ? options.replacingFileID() : options.replacingFileID)
             }
             if (options.folderID) {
-                formData.append('currentFolder', isFunction(options.folderID) ? options.folderID() : options.folderID);
+                formData.append('currentFolder', isFunction(options.folderID) ? options.folderID() : options.folderID)
             }
             if (options.uploadStarted) {
-                options.uploadStarted(file, xhr, formData);
+                options.uploadStarted(file, xhr, formData)
             }
         },
         success: function(data, r) {
-            handleResponse(r);
+            handleResponse(r)
         },
         chunksUploaded: function (file, done) {
             if (file.xhr.response) {
-                handleResponse(JSON.parse(file.xhr.response));
+                handleResponse(JSON.parse(file.xhr.response))
             }
-            done();
+            done()
         },
         // We may need to allow people to re-try uploading a file if maxFiles === 1 and the upload of the file filed
         error: function(files, message, xhr) {
-            this.defaultOptions.error.apply(this, arguments);
+            this.defaultOptions.error.apply(this, arguments)
             if (this.options.maxFiles === 1 && files) {
                 if (!(files instanceof Array)) {
-                    files = [files];
+                    files = [files]
                 }
                 files.forEach(function(file) {
                     if (file && file.accepted) {
-                        file.accepted = false;
+                        file.accepted = false
                     }
-                });
+                })
             }
             if (optionsStack[optionsStack.length - 1].uploadFailed) {
-                optionsStack[optionsStack.length - 1].uploadFailed(message);
+                optionsStack[optionsStack.length - 1].uploadFailed(message)
             } else {
                 ConcreteAlert.error({
                     message: message,
                     appendTo: document.body
-                });
+                })
             }
         },
         queuecomplete: function() {
-            if(showProgressbar) {
-                NProgress.done();
+            if (showProgressbar) {
+                NProgress.done()
             }
             if (optionsStack.length && optionsStack[optionsStack.length - 1].uploadQueueCompleted) {
-                optionsStack[optionsStack.length - 1].uploadQueueCompleted();
+                optionsStack[optionsStack.length - 1].uploadQueueCompleted()
             }
             if (uploadedFiles.length !== 0) {
-                ConcreteEvent.publish('FileManagerAddFilesComplete', {files: uploadedFiles});
-                uploadedFiles = [];
+                ConcreteEvent.publish('FileManagerAddFilesComplete', { files: uploadedFiles })
+                uploadedFiles = []
             }
         }
-    });
+    })
     dropzone = new Dropzone(
         window.document.body,
         options
-    );
+    )
 }
 
 /**
@@ -172,41 +172,41 @@ function startDropzone(customOptions) {
  */
 function handleResponse(response) {
     if (!response) {
-        return;
+        return
     }
     ConcreteAjaxRequest.validateResponse(
         response,
         function(good) {
-            var options = optionsStack[optionsStack.length - 1];
+            var options = optionsStack[optionsStack.length - 1]
             if (!good) {
                 if (response.message) {
                     if (options.uploadFailed) {
-                        options.uploadFailed(response.message);
+                        options.uploadFailed(response.message)
                     }
                     ConcreteAlert.notify({
                         title: response.title,
                         message: response.message,
                         appendTo: document.body
-                    });
+                    })
                 }
             } else {
                 if (response.files && response.files.length) {
                     if (options.uploadCompleted) {
-                        options.uploadCompleted(response.files);
+                        options.uploadCompleted(response.files)
                     } else {
-                        var replacingFileID = isFunction(options.replacingFileID) ? options.replacingFileID() : options.replacingFileID;
+                        var replacingFileID = isFunction(options.replacingFileID) ? options.replacingFileID() : options.replacingFileID
                         if (replacingFileID) {
-                            ConcreteEvent.publish('FileManagerReplaceFileComplete', {files: response.files});
+                            ConcreteEvent.publish('FileManagerReplaceFileComplete', { files: response.files })
                         } else {
                             response.files.forEach(function (file) {
-                                uploadedFiles.push(file);
-                            });
+                                uploadedFiles.push(file)
+                            })
                         }
                     }
                 }
             }
         }
-    );
+    )
 }
 
 /**
@@ -214,10 +214,10 @@ function handleResponse(response) {
  * @see https://jsperf.com/alternative-isfunction-implementations
  */
 function isFunction(value) {
-    return !!(value && value.constructor && value.call && value.apply);
+    return !!(value && value.constructor && value.call && value.apply)
 }
 
-var concreteFileUploader = {};
+var concreteFileUploader = {}
 Object.defineProperties(concreteFileUploader, {
     /**
      * Start the file uploader, or re-configure it with specific options.
@@ -226,10 +226,10 @@ Object.defineProperties(concreteFileUploader, {
     start: {
         writable: false,
         value: function(options) {
-            options = options || {};
-            optionsStack.push(options);
+            options = options || {}
+            optionsStack.push(options)
             if (documentLoaded) {
-                startDropzone(options);
+                startDropzone(options)
             }
         }
     },
@@ -240,27 +240,27 @@ Object.defineProperties(concreteFileUploader, {
     stop: {
         writable: false,
         value: function(options) {
-            var optionsIndex = optionsStack.indexOf(options);
+            var optionsIndex = optionsStack.indexOf(options)
             if (optionsIndex < 0) {
-                global.console.error('Invalid options passed to concreteFileUploader.stop()');
-                return;
+                global.console.error('Invalid options passed to concreteFileUploader.stop()')
+                return
             }
-            var isCurrent = optionsIndex === optionsStack.length - 1;
-            optionsStack.splice(optionsIndex, 1);
+            var isCurrent = optionsIndex === optionsStack.length - 1
+            optionsStack.splice(optionsIndex, 1)
             if (!isCurrent) {
-                return;
+                return
             }
-            stopDropzone();
+            stopDropzone()
             if (documentLoaded && optionsStack.length > 0) {
-                startDropzone(optionsStack[optionsStack.length - 1]);
+                startDropzone(optionsStack[optionsStack.length - 1])
             }
         }
     }
-});
+})
 
 Object.defineProperties(global, {
     concreteFileUploader: {
         writable: false,
         value: concreteFileUploader
     }
-});
+})

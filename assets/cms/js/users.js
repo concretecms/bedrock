@@ -1,1 +1,1 @@
-import "./users/selector";
+import './users/selector'

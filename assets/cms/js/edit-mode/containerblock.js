@@ -1,42 +1,41 @@
-/* jshint unused:vars, undef:true, browser:true, jquery:true */
+/* eslint-disable no-new, no-unused-vars, camelcase */
 /* global _, Concrete */
 
-import * as _ from 'underscore';
+import * as _ from 'underscore'
 
 ;(function(window, $) {
-    'use strict';
+    'use strict'
 
     var ContainerBlock = Concrete.ContainerBlock = function ContainerBlock(elem, edit_mode) {
-        this.init.apply(this, _(arguments).toArray());
-    };
+        this.init.apply(this, _(arguments).toArray())
+    }
 
     ContainerBlock.prototype = _.extend(Object.create(Concrete.Block.prototype), {
 
         init: function(elem, edit_mode) {
-            var my = this;
-            Concrete.Block.prototype.init.call(my, elem, edit_mode, $());
-            
-            elem.children('.ccm-block-cover').remove();
-            my.bindDrag();
-            my.bindDelete();
+            var my = this
+            Concrete.Block.prototype.init.call(my, elem, edit_mode, $())
+
+            elem.children('.ccm-block-cover').remove()
+            my.bindDrag()
+            my.bindDelete()
         },
-        
+
         bindDelete: function ContainerBlockDelete() {
-            var my = this,
-                deleter = my.getElem().find('a[data-inline-command=delete-block');
+            var my = this
+            var deleter = my.getElem().find('a[data-inline-command=delete-block')
             deleter.on('click', function() {
-                my.delete();
-            });
+                my.delete()
+            })
         },
 
         bindDrag: function ContainerBlockBindDrag() {
-            var my = this,
-                peper = $('a[data-inline-command="move-block"]').parent();
+            var my = this
+            var peper = $('a[data-inline-command="move-block"]').parent()
 
-            $.pep.unbind(peper);
-            peper.pep(my.getPepSettings());
+            $.pep.unbind(peper)
+            peper.pep(my.getPepSettings())
         }
-        
-    });
 
-})(window, jQuery);
+    })
+})(window, jQuery)

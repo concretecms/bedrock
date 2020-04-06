@@ -1,2 +1,2 @@
-import "./express/selector";
-import "./express/search";
+import './express/selector'
+import './express/search'
