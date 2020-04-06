@@ -1,11 +1,10 @@
 import Dropzone from 'dropzone'
+import Avatar from './Avatar.vue'
 
 // Disable dropzone discovery
 Dropzone.autoDiscover = false
 
 export default {
-    // Our element tagname
-    name: 'avatar-cropper',
 
     // Properties tied to our parent
     props: {
@@ -190,6 +189,6 @@ export default {
         }
     },
     components: {
-        'avatar-image': require('./Avatar.vue')
+        Avatar
     }
 }
