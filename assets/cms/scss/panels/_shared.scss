@@ -295,8 +295,8 @@ html.ccm-panel-right div.ccm-panel-detail {
 }
 
 div.ccm-panel-detail-content {
-  padding: 40px 40px 80px 40px;
   background-color: white;
+  padding: 40px 40px 80px;
   min-height: 100%;
   min-width: 100%;
 
@@ -451,13 +451,13 @@ div.ccm-panel-detail-form-actions {
   }
 
   .ccm-panel-content-inner {
-    margin-top: 16px;
     border-top: 1px solid $gray-200;
+    margin-top: 16px;
     padding: 0;
 
     .ccm-panel-page-design-title {
-      font-weight: bold;
       color: $gray-700;
+      font-weight: bold;
     }
 
     #ccm-panel-page-design-page-templates {
