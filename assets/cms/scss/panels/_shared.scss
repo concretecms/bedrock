@@ -296,9 +296,9 @@ html.ccm-panel-right div.ccm-panel-detail {
 
 div.ccm-panel-detail-content {
   background-color: white;
-  padding: 40px 40px 80px;
   min-height: 100%;
   min-width: 100%;
+  padding: 40px 40px 80px;
 
   div.ccm-notification-help {
     position: absolute;
@@ -459,39 +459,39 @@ div.ccm-panel-detail-form-actions {
       color: $gray-700;
       font-weight: bold;
     }
+  }
+}
 
-    #ccm-panel-page-design-page-templates {
-      padding: 25px 10px 10px 34px;
+#ccm-panel-page-design-page-templates {
+  padding: 25px 10px 10px 34px;
 
-      .form-check {
-        margin: 22px 0;
+  .form-check {
+    margin: 22px 0;
 
-        label {
-          display: block;
-          clear: both;
-          margin-left: 15px;
+    label {
+      clear: both;
+      display: block;
+      margin-left: 15px;
 
-          img {
-            width: 25px;
-            height: auto;
-            float: right !important;
-          }
-        }
+      img {
+        float: right !important;
+        height: auto;
+        width: 25px;
       }
     }
+  }
+}
 
-    #ccm-panel-page-design-themes {
-      padding: 18px 10px 10px 34px;
+#ccm-panel-page-design-themes {
+  padding: 18px 10px 10px 34px;
 
-      .ccm-page-design-theme-thumbnail {
-        margin: 20px 0;
+  .ccm-page-design-theme-thumbnail {
+    margin: 20px 0;
 
-        span > i > img {
-          width: 225px;
-          height: auto;
-          border: 1px solid $gray-200;
-        }
-      }
+    span > i > img {
+      border: 1px solid $gray-200;
+      height: auto;
+      width: 225px;
     }
   }
 }

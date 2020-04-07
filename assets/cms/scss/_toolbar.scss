@@ -1,9 +1,9 @@
 /* stylelint-disable selector-max-compound-selectors, property-no-vendor-prefix, selector-max-id */
 div#ccm-toolbar {
   background: #fafafe;
+  background: #fafafe;
 
   background-color: $gray-100;
-  background: #FAFAFE;
   border-bottom: 1px solid #d8d8d8;
   height: 48px;
   left: 0;
@@ -83,12 +83,12 @@ div#ccm-toolbar {
 
         svg {
           fill: $gray-600;
-          transition: fill 0.25s ease-in-out;
+          height: 20px;
           left: 23px;
           position: absolute;
           top: 17px;
+          transition: fill 0.25s ease-in-out;
           width: 20px;
-          height: 20px;
         }
 
       }
