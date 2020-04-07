@@ -1,1 +1,1 @@
-import './calendar/event-selector';
+import './calendar/event-selector'

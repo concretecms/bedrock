@@ -1,14 +1,15 @@
-
+/* stylelint-disable selector-max-compound-selectors, property-no-vendor-prefix, selector-max-id */
 div#ccm-toolbar {
+  background: #fafafe;
 
   background-color: $gray-100;
   background: #FAFAFE;
+  border-bottom: 1px solid #d8d8d8;
+  height: 48px;
+  left: 0;
   position: fixed;
   top: 0;
-  left: 0;
-  height: 48px;
   width: 100%;
-  border-bottom: 1px solid #d8d8d8;
   z-index: $index-level-main-bar; /* over the top of the highlighter, which is 1000 */
 
   &.ccm-toolbar-tour-guide {
@@ -24,13 +25,17 @@ div#ccm-toolbar {
     .ccm-toolbar-accessibility-title {
       display: inline-block;
     }
+
     li > a {
-      width: auto !important;
       padding: 14px 16px;
+      width: auto !important;
     }
-    li > a i, li > a img {
+
+    li > a i,
+    li > a img {
       position: static;
     }
+
     .spinner {
       left: 11px;
     }
@@ -45,56 +50,58 @@ div#ccm-toolbar {
 
   > ul {
     @include clearfix();
-    padding-left: 0px;
     list-style-type: none;
-    margin: 0px;
+    margin: 0;
+    padding-left: 0;
 
     > li {
 
       position: relative;
 
       > a {
+        border-left: 1px solid #d8d8d8;
+        border-right: 1px solid #d8d8d8;
+        box-sizing: border-box;
+        color: $gray-600;
 
         display: block;
         height: 47px;
-        width: 60px;
-        box-sizing: border-box;
-        text-align: center;
-        position: relative;
-        color: $gray-600;
-        border-right: 1px solid #D8D8D8;
-        border-left: 1px solid #D8D8D8;
         margin-left: -1px; /* we have to do this tomfoolery because of user-added menus */
+        position: relative;
+        text-align: center;
         text-decoration: none;
+        width: 60px;
 
-        i, img {
+        i,
+        img {
+          height: 14px;
+          left: 23px;
           position: absolute;
           top: 17px;
-          left: 23px;
           width: 14px;
-          height: 14px;
         }
 
         svg {
+          fill: $gray-600;
+          transition: fill 0.25s ease-in-out;
+          left: 23px;
           position: absolute;
           top: 17px;
-          left: 23px;
           width: 20px;
           height: 20px;
-          fill: $gray-600;
-
-          transition: fill 0.25s ease-in-out;
         }
 
       }
 
       > a:hover {
-        color: $gray-900;
         background-color: $gray-200;
+        color: $gray-900;
       }
 
-      > a.ccm-launch-panel-active, > a.ccm-launch-panel-active:hover {
-        color: #ffffff;
+      > a.ccm-launch-panel-active,
+      > a.ccm-launch-panel-active:hover {
+        background-color: $blue;
+        color: #fff;
         transition: background-color 0.25s ease-in-out;
 
         i {
@@ -102,24 +109,22 @@ div#ccm-toolbar {
         }
 
         svg {
-          fill: #ffffff;
+          fill: #fff;
         }
-        background-color: $blue;
       }
 
 
     }
 
     li.ccm-toolbar-button-with-text {
-
       > a {
+        padding: 10px 18px 0 50px;
         width: auto;
-        padding: 10px 18px 0px 50px;
 
         span {
+          font-size: 0.8rem;
           font-weight: bold;
           text-transform: uppercase;
-          font-size: 0.8rem;
         }
       }
 
@@ -127,11 +132,11 @@ div#ccm-toolbar {
 
     li.ccm-logo {
       span {
-        padding: 10px 18px 0px 18px;
+        border-right: 1px solid #d8d8d8;
         display: block;
         height: 47px;
+        padding: 10px 18px 0;
         width: 60px;
-        border-right: 1px solid #D8D8D8;
 
         img {
           height: 23px;
@@ -141,28 +146,28 @@ div#ccm-toolbar {
 
     li.ccm-toolbar-search {
       background-color: #fff;
-      padding: 0px;
-      height: 47px;
-      white-space: nowrap;
-      border-left: 1px solid #D8D8D8;
+      border-left: 1px solid #d8d8d8;
       color: #888;
-      position: relative;
+      height: 47px;
       margin-left: -1px;
+      padding: 0;
+      position: relative;
+      white-space: nowrap;
 
       svg {
+        fill: $gray-600;
+        height: 20px;
+        left: 16px;
         position: absolute;
         top: 16px;
-        left: 16px;
         width: 20px;
-        height: 20px;
-        fill: $gray-600;
       }
 
       input {
-        border-right: 1px solid #D8D8D8;
-        margin-right: 0px;
-        padding-right: 10px;
         background-color: transparent;
+        border-right: 1px solid #d8d8d8;
+        margin-right: 0;
+        padding-right: 10px;
       }
 
     }
@@ -170,28 +175,37 @@ div#ccm-toolbar {
     li.ccm-toolbar-page-edit-mode-active {
       > a {
         background-color: $green;
+
         svg {
           fill: white;
         }
       }
     }
 
-    li.ccm-toolbar-page-edit-mode-pinned{
-      > a, a:hover {
-        background-color: #D6E6EE;
+    li.ccm-toolbar-page-edit-mode-pinned {
+      > a,
+      a:hover {
         @include gradient-y(#D6E6EE, #B8DCEE);
-        color: #136CC0;
+        background-color: #d6e6ee;
+        color: #136cc0;
       }
     }
 
     > li#ccm-white-label-message {
+      border-right: 0 !important;
+
+      color: #ccc;
+      font-size: $font-size-sm;
+      height: 30px;
+      line-height: $line-height-sm;
+      padding: 18px 24px 0;
 
       > a {
+        border: 0;
+        color: #d8d8d8;
         display: inline;
-        border: 0px;
+        padding: 0;
         text-decoration: underline;
-        padding: 0px;
-        color: #D8D8D8;
       }
 
       > a:hover {
@@ -199,59 +213,54 @@ div#ccm-toolbar {
         background-image: none !important;
         text-decoration: underline;
       }
-
-      color: #ccc;
-      font-size: $font-size-sm;
-      line-height: $line-height-sm;
-      padding: 18px 24px 0px 24px;
-      height: 30px;
-      border-right: 0px !important;
     }
 
   }
 
   input[type=search] {
-    margin: 0px 0px 0px 40px;
     height: 47px;
+    margin: 0 0 0 40px;
+    padding: 0;
     width: 210px;
-    padding: 0px;
   }
 
-  input[type=search], textarea {
-    border: 0px;
+  input[type=search],
+  textarea {
+    border: 0;
     border-radius: 0;
     box-shadow: none;
   }
 
-  input[type=search]:focus, textarea:focus {
+  input[type=search]:focus,
+  textarea:focus {
     -webkit-appearance: none !important;
     outline: none !important;
   }
 
   .dropdown-menu {
+    border-top: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    border-top: 0;
 
   }
 
   li.ccm-toolbar-last-left-child {
-    border-right: 1px solid #D8D8D8;
+    border-right: 1px solid #d8d8d8;
   }
 
   /* Multisite List Item Menu Component */
 
   a.ccm-menu-item-site-list-container {
+    text-align: left;
 
     width: 240px;
-    text-align: left;
 
     .selectize-input {
       background-color: transparent;
       border: 1px;
+      box-shadow: none !important;
       height: 46px;
       padding-left: 40px;
-      box-shadow: none !important;
 
       div.item {
         margin-top: 5px;
@@ -265,19 +274,18 @@ div#ccm-toolbar {
   }
 
   a.ccm-menu-item-site-list {
-
     span.ccm-toolbar-accessibility-title {
-      display: inline-block;
       color: #333;
+      display: inline-block;
       position: absolute;
     }
 
   }
 
   li > a.ccm-menu-item-site-list {
-    width: 240px;
-    text-align: left;
     padding: 14px 16px 14px 36px;
+    text-align: left;
+    width: 240px;
   }
 
   &.titles li > a.ccm-menu-item-site-list {
@@ -295,33 +303,36 @@ div#ccm-toolbar {
 
 /* Disabling the toolbar */
 div#ccm-toolbar-disabled {
-  height: 49px;
   background-color: rgba(255, 255, 255, 0.8);
-  z-index: $index-level-toolbar-disabled; /* right over the toolbar */
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 100%;
+  height: 49px;
+  left: 0;
   opacity: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: $index-level-toolbar-disabled; /* right over the toolbar */
 }
 
 /* Responsive Toolbar */
 
 .ccm-toolbar-mobile-menu-button {
+  border-left: 1px solid #d8d8d8;
+  cursor: pointer;
+  height: 47px;
+  padding: 14px 18px;
+
   i {
     font-size: $font-size-lg;
   }
-  padding: 14px 18px;
-  height: 47px;
-  border-left: 1px solid #D8D8D8;
-  cursor: pointer;
+
   &:hover,
   &.ccm-mobile-close {
     color: #7d7d7d;
   }
+
   &.ccm-toolbar-mobile-menu-button-active {
-    background-color: #b5eeb5;
     @include gradient-y(#c2ffc2, #b5eeb5);
+    background-color: #b5eeb5;
   }
 }
 
@@ -331,16 +342,16 @@ div#ccm-toolbar-disabled {
 }
 
 .ccm-mobile-menu-overlay {
-  padding: 15px 0;
-  display: none;
-  background-color: #FCFCFC;
-  position: fixed;
+  background-color: #fcfcfc;
   border-bottom: 5px solid #4674a1;
+  display: none;
+  left: 0;
+  overflow-y: scroll;
+  padding: 15px 0;
+  position: fixed;
+  top: 48px;
   width: 100%;
   z-index: $index-level-main-bar;
-  top: 48px;
-  left: 0px;
-  overflow-y: scroll;
 
   &.ccm-mobile-menu-overlay-dashboard {
     // level 1 navigation link
@@ -360,20 +371,20 @@ div#ccm-toolbar-disabled {
   }
 
   .ccm-mobile-menu-entries {
-    padding-left: 0px;
-    margin-left: 12px;
-    -webkit-text-size-adjust: none;
     list-style-type: none;
+    margin-left: 12px;
+    padding-left: 0;
+    -webkit-text-size-adjust: none;
 
     li {
       &.ccm-toolbar-page-edit-mode-active {
         a {
-          color: #00cc66;
+          color: #0c6;
         }
 
         i {
           &.fa-pencil {
-            color: #00cc66;
+            color: #0c6;
           }
         }
       }
@@ -390,11 +401,11 @@ div#ccm-toolbar-disabled {
 
         li {
           a {
-            text-transform: none;
-            color: #4674a1;
-            padding: 12px 5px;
-            font-weight: normal;
             background: none;
+            color: #4674a1;
+            font-weight: normal;
+            padding: 12px 5px;
+            text-transform: none;
           }
 
           ul {
@@ -412,8 +423,8 @@ div#ccm-toolbar-disabled {
         }
 
         &.mobile-leading-icon {
+          color: #cac9c9;
           display: inline-block !important;
-          color: #CAC9C9;
           min-width: 30px;
           text-align: center;
         }
@@ -422,9 +433,9 @@ div#ccm-toolbar-disabled {
       a {
         color: #4674a1;
         display: inline-block;
-        padding: 8px 5% 8px 15px;
-        height: 100%;
         font-weight: 200;
+        height: 100%;
+        padding: 8px 5% 8px 15px;
         text-decoration: none;
         vertical-align: middle;
 

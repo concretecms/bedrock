@@ -1,5 +1,5 @@
-import 'magnific-popup';
-import './frontend/lightbox';
-import './frontend/responsive-slides';
+import 'magnific-popup'
+import './frontend/lightbox'
+import './frontend/responsive-slides'
 
-window.$ = window.jQuery = jQuery;
+window.$ = window.jQuery = jQuery

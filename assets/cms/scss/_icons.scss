@@ -4,9 +4,22 @@ a.icon-link i.fa {
 }
 
 a.icon-link.launch-tooltip {
-  border-bottom: 0px;
+  border-bottom: 0;
 }
 
 a.icon-link:hover {
   text-decoration: none;
+}
+
+a.ccm-hover-icon {
+  svg {
+    fill: $gray-600;
+    transition: fill 0.25s ease-in-out;
+  }
+
+  &:hover {
+    svg {
+      fill: $primary;
+    }
+  }
 }
