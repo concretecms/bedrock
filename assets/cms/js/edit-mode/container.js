@@ -58,4 +58,4 @@ import * as _ from 'underscore';
         }
 
     })
-})(window, jQuery)
+})(window, jQuery); // eslint-disable-line semi

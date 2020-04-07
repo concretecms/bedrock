@@ -312,4 +312,4 @@ import Dropzone from 'dropzone/dist/dropzone'
     $.fn.concreteConversationAttachments.localize = function(dictionary) {
         $.extend(true, i18n, dictionary)
     }
-})(window, jQuery)
+})(window, jQuery); // eslint-disable-line semi

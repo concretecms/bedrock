@@ -59,4 +59,4 @@
     }
 
     global.ConcreteHelpLauncher = ConcreteHelpLauncher
-})(window, jQuery)
+})(window, jQuery); // eslint-disable-line semi
