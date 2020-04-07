@@ -376,7 +376,7 @@ html.ccm-panel-ready div.ccm-page.ccm-panel-detail-disable-transition {
 }
 
 div.ccm-panel-dashboard-footer {
-  margin:20px 0;
+  margin: 20px 0;
 }
 
 /**
@@ -439,4 +439,58 @@ div.ccm-panel-detail-form-actions {
   bottom: 0px;
   left: 0px;
   width: 100%;
+}
+
+/**
+ * Page Design Side Panel
+ */
+#ccm-panel-page-design {
+  h5 {
+    font-size: 1.2rem;
+  }
+
+  .ccm-panel-content-inner {
+    margin-top: 16px;
+    border-top: 1px solid $gray-200;
+    padding: 0;
+
+    .ccm-panel-page-design-title {
+      font-weight: bold;
+      color: $gray-700;
+    }
+
+    #ccm-panel-page-design-page-templates {
+      padding: 25px 10px 10px 34px;
+
+      .form-check {
+        margin: 22px 0;
+
+        label {
+          display: block;
+          clear: both;
+          margin-left: 15px;
+
+          img {
+            width: 25px;
+            height: auto;
+            float: right !important;
+          }
+        }
+      }
+    }
+
+    #ccm-panel-page-design-themes {
+      padding: 18px 10px 10px 34px;
+
+      .ccm-page-design-theme-thumbnail {
+        margin: 20px 0;
+
+        span > i > img {
+          width: 225px;
+          height: auto;
+          border: 1px solid $gray-200;
+        }
+      }
+    }
+  }
 }
