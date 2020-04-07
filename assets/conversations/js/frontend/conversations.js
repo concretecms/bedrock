@@ -888,4 +888,4 @@ window._ = _
             }
         }
     }
-})(window, jQuery)
+})(window, jQuery); // eslint-disable-line semi
