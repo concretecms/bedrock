@@ -2,9 +2,6 @@ import interact from 'interactjs'
 
 export default {
 
-    // Our component name
-    name: 'avatar-image',
-
     // The properties available for our parent to edit
     props: {
         img: String,

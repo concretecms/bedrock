@@ -6,25 +6,27 @@
 </template>
 
 <script>
-    import '../menu';
-    export default {
-        props: {
-            'instanceSlotId': Number,
-            'isPinned': Boolean
-        },
-        data: () => ({
+/* globals ConcreteBoardSlotMenu */
+import '../menu'
 
-        }),
-        methods: {
+export default {
+    props: {
+        instanceSlotId: Number,
+        isPinned: Boolean
+    },
+    data: () => ({
 
-        },
-        mounted() {
-            
-            let menu = new ConcreteBoardSlotMenu($(this.$el), {
-                'highlightClassName': 'ccm-block-highlight',
-                'menuActiveClass': 'ccm-block-highlight',
-                'menu': 'div[data-menu-board-instance-slot-id=' + this.instanceSlotId + ']',
-            });
-        }
+    }),
+    methods: {
+
+    },
+    mounted() {
+        /* eslint-disable-next-line no-unused-vars */
+        const menu = new ConcreteBoardSlotMenu($(this.$el), {
+            highlightClassName: 'ccm-block-highlight',
+            menuActiveClass: 'ccm-block-highlight',
+            menu: 'div[data-menu-board-instance-slot-id=' + this.instanceSlotId + ']'
+        })
     }
+}
 </script>
