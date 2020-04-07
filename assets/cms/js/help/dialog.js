@@ -31,4 +31,4 @@
     }
 
     global.ConcreteHelpDialog = ConcreteHelpDialog
-})(window, jQuery)
+})(window, jQuery); // eslint-disable-line semi

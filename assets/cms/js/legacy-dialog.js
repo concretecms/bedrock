@@ -378,4 +378,4 @@
     }
 
     $.ui.dialog.prototype._focusTabbable = $.noop
-})(window, jQuery)
+})(window, jQuery); // eslint-disable-line semi
