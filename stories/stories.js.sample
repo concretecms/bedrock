@@ -1,0 +1,14 @@
+import SomeComponent from '../../assets/path/to/SomeComponent.vue'
+import Vue from 'vue'
+
+// Add our component to the global vue instance
+Vue.component('componentname', SomeComponent)
+
+// Set up the values for all stories in this file
+export default {
+    title: 'Parent Directory/Subdirectory',
+    component: SomeComponent
+}
+
+// Simplest usage with default sizing from the core
+export const basicUsage = () => '<componentname />'

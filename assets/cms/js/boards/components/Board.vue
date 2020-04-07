@@ -3,18 +3,18 @@
 </template>
 
 <script>
-    export default {
-        props: [
-            'instanceId'
-        ],
-        data: () => ({
+export default {
+    props: [
+        'instanceId'
+    ],
+    data: () => ({
 
-        }),
-        methods: {
+    }),
+    methods: {
 
-        },
-        mounted() {
+    },
+    mounted() {
 
-        }
     }
+}
 </script>

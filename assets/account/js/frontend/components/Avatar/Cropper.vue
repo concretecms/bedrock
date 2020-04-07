@@ -1,6 +1,6 @@
 <template>
     <div class="ccm-avatar-creator-container">
-        <avatar-image ref="shadow" v-if="img !== null"
+        <avatar ref="shadow" v-if="img !== null"
                       @mount="attachShadow"
                       :shadow="true"
                       :img="img"
@@ -12,7 +12,7 @@
              class="ccm-avatar-creator"
              :style="{width: width + 'px', height: height + 'px' }"
              :class="{editing: img !== null}">
-            <avatar-image ref="image" v-if="img"
+            <avatar ref="image" v-if="img"
                           :img="img"
                           :imageHeight="imageHeight"
                           :imageWidth="imageWidth"

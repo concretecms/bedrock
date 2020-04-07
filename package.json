@@ -3,12 +3,13 @@
   "version": "0.9.3",
   "description": "The asset framework and dependencies for Concrete CMS.",
   "scripts": {
-    "lint": "standardx && stylelint assets/**/*.scss",
-    "lint:fix": "standardx --fix && stylelint assets/**/*.scss --fix",
+    "lint": "standardx '**/*.{js,vue}' && stylelint assets/**/*.scss",
+    "lint:fix": "standardx '**/*.{js,vue}' --fix && stylelint assets/**/*.scss --fix",
     "lint:css": "stylelint assets/**/*.scss",
-    "lint:fix:css": "stylelint  assets/**/*.scss --fix",
-    "lint:js": "standardx",
-    "lint:fix:js": "standardx --fix"
+    "lint:fix:css": "stylelint assets/**/*.scss --fix",
+    "lint:js": "standardx '**/*.{js,vue}'",
+    "lint:fix:js": "standardx '**/*.{js,vue}' --fix",
+    "storybook": "start-storybook -p55600"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.11.2",
@@ -55,8 +56,20 @@
   },
   "homepage": "https://github.com/concrete5/concrete5#readme",
   "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@storybook/vue": "^5.3.18",
+    "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0",
+    "@vue/babel-preset-jsx": "^1.1.2",
+    "babel-loader": "^8.1.0",
+    "babel-preset-vue": "^2.0.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "laravel-mix": "^5.0.4",
+    "resolve-url-loader": "^3.1.0",
+    "sass": "^1.26.3",
+    "sass-loader": "^8.0.2",
     "standardx": "^5.0.0",
     "stylelint": "^13.3.0",
-    "stylelint-config-sass-guidelines": "^7.0.0"
+    "stylelint-config-sass-guidelines": "^7.0.0",
+    "vue-template-compiler": "^2.6.11"
   }
 }
