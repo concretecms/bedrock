@@ -3,19 +3,37 @@
 
 ;(function(global, $) {
 
+    function updateFooter(tour) {
+        var $tour = $('.ccm-help-tour'),
+            numSteps = tour.getStepCount();
+        if (numSteps > 1) {
+            $tour
+                .find('.ccm-help-tour-position-index').text(1 + tour.getCurrentStepIndex()).end()
+                .find('.ccm-help-tour-position-count').text(numSteps).end()
+        } else {
+            $tour.find('.ccm-help-tour-footer').remove();
+        }
+    }
+
 	ConcreteHelpGuideManager.register('change-content-edit-mode', function() {
 		var i18n = ccmi18n_helpGuides['change-content-edit-mode'];
 		var steps = [{
 			element: '[data-guide-toolbar-action=check-in]',
-			title: i18n[0].title,
-			content: i18n[0].text,
+			content: '<h3>' + i18n[0].title + '</h3>' + i18n[0].text,
 			preventInteraction: true,
+			onShow: function(tour) {
+			    updateFooter(tour);
+			    ConcreteHelpGuideManager.enterToolbarGuideMode();
+			},
+			onHide: function(tour) {
+			    ConcreteHelpGuideManager.exitToolbarGuideMode();
+			},
 		},{
 			element: 'div.ccm-area:not(.ccm-global-area):first .ccm-block-edit:first',
-			title: i18n[1].title,
-			content: i18n[1].text,
+			content: '<h3>' + i18n[1].title + '</h3>' + i18n[1].text,
 			onShown: function(tour) {
-				$('.popover.tour-tour .popover-navigation .btn-group').hide();
+			    updateFooter(tour);
+				$('.ccm-help-tour .popover-navigation').hide();
 				ConcreteEvent.subscribe('ConcreteMenuShow.changeContentEditModeTour', function(e, args) {
 					tour.next();
 				});
@@ -25,8 +43,7 @@
 			}
 		},{
 			element: 'div#ccm-popover-menu-container div.ccm-edit-mode-block-menu',
-			title: i18n[2].title,
-			content: i18n[2].text,
+			content: '<h3>' + i18n[2].title + '</h3>' + i18n[2].text,
 			preventInteraction: true,
 			onEnd: function() {
 				var menu = ConcreteMenuManager.getActiveMenu();
@@ -36,17 +53,27 @@
 			},
 		},{
 			element: '[data-guide-toolbar-action=check-in]',
-			title: i18n[3].title,
-			content: i18n[3].text,
+			content: '<h3>' + i18n[3].title + '</h3>' + i18n[3].text,
 			preventInteraction: true,
+            onShow: function(tour) {
+                updateFooter(tour);
+                ConcreteHelpGuideManager.enterToolbarGuideMode();
+            },
+            onHide: function(tour) {
+                ConcreteHelpGuideManager.exitToolbarGuideMode();
+            },
 		}];
 
 		return new Tour({
 			steps: steps,
 			framework: 'bootstrap4',
-			localization: ccmi18n_tourist,
+            template: ccmi18n_tourist.template,
+            localization: ccmi18n_tourist.localization,
 			storage: false,
 			showProgressBar: false,
+            sanitizeWhitelist: {
+                'a': [/^data-/, 'href'],
+            },
 			onPreviouslyEnded: function(tour) {
 				tour.restart();
 			},
@@ -63,6 +90,7 @@
 					}
 				});
 			},
+            onShown: updateFooter,
 		});
 	});
 

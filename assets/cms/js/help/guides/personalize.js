@@ -1,7 +1,19 @@
 /* jshint unused:vars, undef:true, browser:true, jquery:true */
-/* global ccmi18n_helpGuides, ConcreteHelpGuideManager, Tour, ConcreteEvent */
+/* global ccmi18n_helpGuides, ccmi18n_tourist, ConcreteHelpGuideManager, Tour, ConcreteEvent */
 
 ;(function(global, $) {
+
+    function updateFooter(tour) {
+        var $tour = $('.ccm-help-tour'),
+            numSteps = tour.getStepCount();
+        if (numSteps > 1) {
+            $tour
+                .find('.ccm-help-tour-position-index').text(1 + tour.getCurrentStepIndex()).end()
+                .find('.ccm-help-tour-position-count').text(numSteps).end()
+        } else {
+            $tour.find('.ccm-help-tour-footer').remove();
+        }
+    }
 
 	ConcreteHelpGuideManager.register('personalize', function() {
 		var i18n = ccmi18n_helpGuides.personalize;
@@ -10,10 +22,10 @@
 		};
 		var steps = [{
 			element: '[data-guide-toolbar-action=page-settings]',
-			title: i18n[0].title,
-			content: i18n[0].text,
+			content: '<h3>' + i18n[0].title + '</h3>' + i18n[0].text,
 			onShown: function(tour) {
-				$('.popover.tour-tour .popover-navigation .btn-group').hide();
+			    updateFooter(tour);
+				$('.ccm-help-tour .popover-navigation').hide();
 				$('a[data-launch-panel=page]').on('click', hideOverlay);
 				ConcreteEvent.subscribe('PanelOpen.concretePersonalizeTour', function(e, data) {
 					setTimeout(function() {
@@ -30,37 +42,41 @@
 			}
 		},{
 			element: 'a[data-launch-panel-detail=page-design]:first',
-			title: i18n[1].title,
-			content: i18n[1].text,
-			onShown: function(tour) {
-				$('.popover.tour-tour .popover-navigation .btn-group').hide();
-				ConcreteEvent.subscribe('PanelOpenDetail.concretePersonalizeTour', function(e, data) {
-					setTimeout(function() {
-						if (data.panel.identifier == 'page-design') {
-							tour.next();
-						}
-					}, 500);
-				});
-			},
+			content: '<h3>' + i18n[1].title + '</h3>' + i18n[1].text,
+			onShown: updateFooter,
 			onHide: function() {
 				ConcreteEvent.unsubscribe('PanelOpenDetail.concretePersonalizeTour');
 			}
 		},{
 			element: 'span.ccm-page-design-theme-customize',
-			title: i18n[2].title,
-			content: i18n[2].text,
+			content: '<h3>' + i18n[2].title + '</h3>' + i18n[2].text,
 		}];
 
 		return new Tour({
 			steps: steps,
 			framework: 'bootstrap4',
-			localization: ccmi18n_tourist,
+            template: ccmi18n_tourist.template,
+            localization: ccmi18n_tourist.localization,
 			storage: false,
 			showProgressBar: false,
+            sanitizeWhitelist: {
+                'a': [/^data-/, 'href'],
+            },
 			onStart: function() {
 				ConcreteHelpGuideManager.enterToolbarGuideMode();
 				$("#tourBackdrop").detach(); // https://github.com/IGreatlyDislikeJavascript/bootstrap-tourist/issues/42
 			},
+            onShown: function(tour) {
+                var $tour = $('.ccm-help-tour'),
+                    numSteps = tour.getStepCount();
+                if (numSteps > 1) {
+                    $tour
+                        .find('.ccm-help-tour-position-index').text(1 + tour.getCurrentStepIndex()).end()
+                        .find('.ccm-help-tour-position-count').text(numSteps).end()
+                } else {
+                    $tour.find('.ccm-help-tour-footer').remove();
+                }
+            },
 			onEnd: function() {
 				ConcreteHelpGuideManager.exitToolbarGuideMode();
 			},
