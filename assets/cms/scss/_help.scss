@@ -52,57 +52,77 @@ div#ccm-toolbar {
 
 /* Help tours */
 .ccm-help-tour {
+  background-color: $help-tour-background-color;
   font-size: 1.1rem;
+  padding: $help-tour-padding;
+
   h3 {
     font-size: 1.25rem;
     margin-bottom: 0.3rem;
   }
-  background-color: $help-tour-background-color;
-  &.bs-popover-top > .arrow::after, .bs-popover-auto[x-placement^=top] > .arrow::after {
+
+  &.bs-popover-top > .arrow::after,
+  .bs-popover-auto[x-placement^=top] > .arrow::after {
     border-top-color: $help-tour-background-color;
   }
-  &.bs-popover-right > .arrow::after, .bs-popover-auto[x-placement^=right] > .arrow::after {
+
+  &.bs-popover-right > .arrow::after,
+  .bs-popover-auto[x-placement^=right] > .arrow::after {
     border-right-color: $help-tour-background-color;
   }
-  &.bs-popover-bottom > .arrow::after, .bs-popover-auto[x-placement^=bottom] > .arrow::after {
+
+  &.bs-popover-bottom > .arrow::after,
+  .bs-popover-auto[x-placement^=bottom] > .arrow::after {
     border-bottom-color: $help-tour-background-color;
   }
-  &.bs-popover-left > .arrow::after, .bs-popover-auto[x-placement^=left] > .arrow::after {
+
+  &.bs-popover-left > .arrow::after,
+  .bs-popover-auto[x-placement^=left] > .arrow::after {
     border-left-color: $help-tour-background-color;
   }
-  padding: $help-tour-padding;
+
   .ccm-help-tour-close {
-    position: absolute;
-    top: $help-tour-padding;
-    right: $help-tour-padding;
     color: #fff;
     font-size: 1rem;
-    &, &:hover {
+    position: absolute;
+    right: $help-tour-padding;
+    top: $help-tour-padding;
+
+    &,
+    &:hover {
       text-decoration: none;
     }
   }
+
   .popover-body {
     color: $help-tour-foreground-color;
-    padding: 0;
     max-width: 25rem;
+    padding: 0;
   }
+
   .ccm-help-tour-footer {
     margin-top: 1rem;
   }
+
   .ccm-help-tour-position {
+    color: $help-tour-position-color;
     font-size: 80%;
     margin-top: 0.3rem;
-    color: $help-tour-position-color;
   }
+
   .popover-navigation {
-    padding: 0!important;
     margin: 0;
+    padding: 0 !important;
+
     .disabled {
       visibility: hidden;
     }
+
     a {
       margin-left: 1rem;
-      &, &:hover {
+
+      &,
+      &:hover {
         text-decoration: none;
       }
     }
