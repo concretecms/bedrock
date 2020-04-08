@@ -1,41 +1,19 @@
 /* stylelint-disable property-no-vendor-prefix */
 //@import "../../vendor/tourist/tourist.less";
 
-div.ccm-panel-help-item {
-  margin-bottom: 30px;
-
+section.ccm-panel-help-item {
+  margin-bottom: 20px;
   a:focus,
   a:active {
     outline: none;
     text-decoration: none;
   }
-
-  ol.breadcrumb {
-    background: none;
-    padding: 0;
-
-    > li + li::before {
-      color: #999;
-      content: '|\00a0';
-      padding: 0 5px;
-    }
+  .ccm-panel-help-item-details {
+  	font-size: smaller;
+  	margin-bottom: 10px;
   }
 }
 
-
-ol.ccm-panel-help-item-icon-row {
-  margin: 0 0 10px;
-  padding: 0;
-
-  li {
-    display: inline-block;
-    margin-right: 10px;
-
-    i {
-      opacity: 0.5;
-    }
-  }
-}
 
 /** toolbar guide */
 div#ccm-toolbar {
