@@ -64,9 +64,6 @@ ConcreteHelpGuideManager.register('add-content-edit-mode', function() {
 			$("#tourBackdrop").detach(); // https://github.com/IGreatlyDislikeJavascript/bootstrap-tourist/issues/42
 			if (!$('#ccm-panel-add-block').hasClass('ccm-panel-active')) {
 				tour.end();
-				setTimeout(function() {
-					ConcreteHelpGuideManager.getGuide('add-content').start();
-				}, 0);
 				return;
 			}
 			ConcreteHelpGuideManager.enterToolbarGuideMode();
