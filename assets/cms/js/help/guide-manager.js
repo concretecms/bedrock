@@ -88,9 +88,24 @@
 
         get: function() {
             return ConcreteHelpGuideManager;
-        }
+        },
 
+        // Temporary fix for https://github.com/IGreatlyDislikeJavascript/bootstrap-tourist/issues/50
+        POSITIONING_BUG_HACK_ID: 'ccm-help-tour-hack',
 
+        // Temporary fix for https://github.com/IGreatlyDislikeJavascript/bootstrap-tourist/issues/50
+        createPositioningBugHackElement: function($target) {
+            var $hack;
+            $hack = $('<div id="' + this.POSITIONING_BUG_HACK_ID + '" />').css({
+                position: 'absolute',
+                left: $target.offset().left,
+                top: $target.offset().top,
+                width: $target.width(),
+                height: $target.height(),
+            });
+            $(document.body).append($hack);
+            return $hack;
+        },
     };
 
 

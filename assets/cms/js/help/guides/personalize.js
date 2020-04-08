@@ -3,6 +3,8 @@
 
 ;(function(global, $) {
 
+    var $hack;
+
 	ConcreteHelpGuideManager.register('personalize', function() {
 		var i18n = ccmi18n_helpGuides.personalize;
 		var hideOverlay = function() {
@@ -29,12 +31,18 @@
 				ConcreteEvent.unsubscribe('PanelOpen.concretePersonalizeTour');
 			}
 		},{
-			element: 'a[data-launch-panel-detail=page-design]:first',
+            element: '#' + ConcreteHelpGuideManager.POSITIONING_BUG_HACK_ID,
 			content: '<h3>' + i18n[1].title + '</h3>' + i18n[1].text,
-			onShown: ConcreteHelpGuideManager.updateStepFooter,
-			onHide: function() {
-				ConcreteEvent.unsubscribe('PanelOpenDetail.concretePersonalizeTour');
-			}
+            onShow: function(tour) {
+                $hack = ConcreteHelpGuideManager.createPositioningBugHackElement($('a[data-launch-panel-detail=page-design]:first'));
+            },
+            onShown: ConcreteHelpGuideManager.updateStepFooter,
+            onHide: function() {
+                ConcreteEvent.unsubscribe('PanelOpenDetail.concretePersonalizeTour');
+            },
+            onHidden: function(tour) {
+                $hack.remove();
+            },
 		},{
 			element: 'span.ccm-page-design-theme-customize',
 			content: '<h3>' + i18n[2].title + '</h3>' + i18n[2].text,

@@ -3,6 +3,8 @@
 
 ;(function(global, $) {
 
+    var $hack;
+
 	ConcreteHelpGuideManager.register('dashboard', function() {
 		var i18n = ccmi18n_helpGuides.dashboard;
 		var hideOverlay = function() {
@@ -29,10 +31,16 @@
 				ConcreteEvent.unsubscribe('PanelOpen.concreteDashboardTour');
 			},
 		},{
-			element: 'div#ccm-panel-dashboard ul.nav a[href$=sitemap]:first',
+            element: '#' + ConcreteHelpGuideManager.POSITIONING_BUG_HACK_ID,
 			content: '<h3>' + i18n[1].title + '</h3>' + i18n[1].text,
 			placement: 'left',
 			preventInteraction: true,
+            onShow: function(tour) {
+                $hack = ConcreteHelpGuideManager.createPositioningBugHackElement($('div#ccm-panel-dashboard ul.nav a[href$=sitemap]:first').parent());
+            },
+            onHidden: function(tour) {
+                $hack.remove();
+            },
 		}];
 
 		return new Tour({

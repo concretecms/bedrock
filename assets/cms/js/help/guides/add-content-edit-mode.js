@@ -3,7 +3,8 @@
 
 ;(function(global, $) {
 
-    var $tmp;
+    var $hack;
+
 	ConcreteHelpGuideManager.register('add-content-edit-mode', function() {
 		var i18n = ccmi18n_helpGuides['add-content-edit-mode'];
 		var steps = [{
@@ -16,20 +17,38 @@
 			placement: 'right',
 			preventInteraction: true,
 		},{
-			element: '#ccm-panel-add-block .ccm-panel-header-accordion',
+			element: '#' + ConcreteHelpGuideManager.POSITIONING_BUG_HACK_ID,
 			content: '<h3>' + i18n[2].title + '</h3>' + i18n[2].text,
 			placement: 'right',
 			preventInteraction: true,
+			onShow: function(tour) {
+			    $hack = ConcreteHelpGuideManager.createPositioningBugHackElement($('#ccm-panel-add-block .ccm-panel-header-accordion'));
+			},
+			onHidden: function(tour) {
+			    $hack.remove();
+			},
 		},{
-			element: '#ccm-panel-add-block input[data-input=search-blocks]',
+		    element: '#' + ConcreteHelpGuideManager.POSITIONING_BUG_HACK_ID,
 			content: '<h3>' + i18n[3].title + '</h3>' + i18n[3].text,
 			placement: 'right',
 			preventInteraction: true,
+            onShow: function(tour) {
+                $hack = ConcreteHelpGuideManager.createPositioningBugHackElement($('#ccm-panel-add-block input[data-input=search-blocks]'));
+            },
+            onHidden: function(tour) {
+                $hack.remove();
+            },
 		},{
-			element: '#ccm-panel-add-block .ccm-panel-add-block-draggable-block-type:first>*:first',
+		    element: '#' + ConcreteHelpGuideManager.POSITIONING_BUG_HACK_ID,
 			content: '<h3>' + i18n[4].title + '</h3>' + i18n[4].text,
 			placement: 'right',
 			preventInteraction: true,
+            onShow: function(tour) {
+                $hack = ConcreteHelpGuideManager.createPositioningBugHackElement($('#ccm-panel-add-block .ccm-panel-add-block-draggable-block-type:first'));
+            },
+            onHidden: function(tour) {
+                $hack.remove();
+            },
 		}];
 
 		return new Tour({

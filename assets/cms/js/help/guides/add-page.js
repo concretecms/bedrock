@@ -3,6 +3,8 @@
 
 ;(function(global, $) {
 
+    var $hack;
+
 	ConcreteHelpGuideManager.register('add-page', function() {
 		var i18n = ccmi18n_helpGuides['add-page'];
 		var hideOverlay = function() {
@@ -29,13 +31,25 @@
 				ConcreteEvent.unsubscribe('PanelOpen.concreteAddPageTour');
 			}
 		},{
-			element: '#ccm-panel-sitemap header:nth-of-type(1)',
+		    element: '#' + ConcreteHelpGuideManager.POSITIONING_BUG_HACK_ID,
 			content: '<h3>' + i18n[1].title + '</h3>' + i18n[1].text,
 			placement: 'left',
+            onShow: function(tour) {
+                $hack = ConcreteHelpGuideManager.createPositioningBugHackElement($('#ccm-panel-sitemap header:nth-of-type(1)>*:first'));
+            },
+            onHidden: function(tour) {
+                $hack.remove();
+            },
 		},{
-			element: '#ccm-panel-sitemap header:nth-of-type(2)',
+		    element: '#' + ConcreteHelpGuideManager.POSITIONING_BUG_HACK_ID,
 			content: '<h3>' + i18n[2].title + '</h3>' + i18n[2].text,
 			placement: 'left',
+            onShow: function(tour) {
+                $hack = ConcreteHelpGuideManager.createPositioningBugHackElement($('#ccm-panel-sitemap header:nth-of-type(2)>*:first'));
+            },
+            onHidden: function(tour) {
+                $hack.remove();
+            },
 		}];
 
 		return new Tour({
