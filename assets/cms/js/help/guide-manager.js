@@ -1,5 +1,5 @@
 /* jshint unused:vars, undef:true, browser:true, jquery:true */
-/* global ConcreteHelpLauncher, Tour, CCM_REL */
+/* global Tour, CCM_REL */
 
 ;(function(global, $) {
     'use strict';
@@ -24,9 +24,6 @@
         },
 
         enterToolbarGuideMode: function() {
-            // if help notification is active, hide it
-            ConcreteHelpLauncher.close();
-
             this.showOverlay();
             this.raiseToolbar();
         },

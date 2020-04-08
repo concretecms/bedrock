@@ -1,5 +1,5 @@
 import 'bootstrap-tourist'
-import './launcher'
+
 import './guide-manager'
 
 import './guides/add-content'
