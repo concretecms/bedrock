@@ -3,18 +3,7 @@
 
 ;(function(global, $) {
 
-    function updateFooter(tour) {
-        var $tour = $('.ccm-help-tour'),
-            numSteps = tour.getStepCount();
-        if (numSteps > 1) {
-            $tour
-                .find('.ccm-help-tour-position-index').text(1 + tour.getCurrentStepIndex()).end()
-                .find('.ccm-help-tour-position-count').text(numSteps).end()
-        } else {
-            $tour.find('.ccm-help-tour-footer').remove();
-        }
-    }
-
+    var $tmp;
 	ConcreteHelpGuideManager.register('add-content-edit-mode', function() {
 		var i18n = ccmi18n_helpGuides['add-content-edit-mode'];
 		var steps = [{
@@ -68,7 +57,7 @@
 				}
 				ConcreteHelpGuideManager.enterToolbarGuideMode();
 			},
-            onShown: updateFooter,
+            onShown: ConcreteHelpGuideManager.updateStepFooter,
 			onEnd: function() {
 				ConcreteHelpGuideManager.exitToolbarGuideMode();
 			}

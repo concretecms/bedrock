@@ -3,18 +3,6 @@
 
 ;(function(global, $) {
 
-    function updateFooter(tour) {
-        var $tour = $('.ccm-help-tour'),
-            numSteps = tour.getStepCount();
-        if (numSteps > 1) {
-            $tour
-                .find('.ccm-help-tour-position-index').text(1 + tour.getCurrentStepIndex()).end()
-                .find('.ccm-help-tour-position-count').text(numSteps).end()
-        } else {
-            $tour.find('.ccm-help-tour-footer').remove();
-        }
-    }
-
 	ConcreteHelpGuideManager.register('change-content-edit-mode', function() {
 		var i18n = ccmi18n_helpGuides['change-content-edit-mode'];
 		var steps = [{
@@ -22,7 +10,7 @@
 			content: '<h3>' + i18n[0].title + '</h3>' + i18n[0].text,
 			preventInteraction: true,
 			onShow: function(tour) {
-			    updateFooter(tour);
+			    ConcreteHelpGuideManager.updateStepFooter(tour);
 			    ConcreteHelpGuideManager.enterToolbarGuideMode();
 			},
 			onHide: function(tour) {
@@ -32,7 +20,7 @@
 			element: 'div.ccm-area:not(.ccm-global-area):first .ccm-block-edit:first',
 			content: '<h3>' + i18n[1].title + '</h3>' + i18n[1].text,
 			onShown: function(tour) {
-			    updateFooter(tour);
+			    ConcreteHelpGuideManager.updateStepFooter(tour);
 				$('.ccm-help-tour .popover-navigation').hide();
 				ConcreteEvent.subscribe('ConcreteMenuShow.changeContentEditModeTour', function(e, args) {
 					tour.next();
@@ -56,7 +44,7 @@
 			content: '<h3>' + i18n[3].title + '</h3>' + i18n[3].text,
 			preventInteraction: true,
             onShow: function(tour) {
-                updateFooter(tour);
+                ConcreteHelpGuideManager.updateStepFooter(tour);
                 ConcreteHelpGuideManager.enterToolbarGuideMode();
             },
             onHide: function(tour) {
@@ -90,7 +78,7 @@
 					}
 				});
 			},
-            onShown: updateFooter,
+            onShown: ConcreteHelpGuideManager.updateStepFooter,
 		});
 	});
 

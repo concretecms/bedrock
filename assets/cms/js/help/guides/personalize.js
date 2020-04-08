@@ -3,18 +3,6 @@
 
 ;(function(global, $) {
 
-    function updateFooter(tour) {
-        var $tour = $('.ccm-help-tour'),
-            numSteps = tour.getStepCount();
-        if (numSteps > 1) {
-            $tour
-                .find('.ccm-help-tour-position-index').text(1 + tour.getCurrentStepIndex()).end()
-                .find('.ccm-help-tour-position-count').text(numSteps).end()
-        } else {
-            $tour.find('.ccm-help-tour-footer').remove();
-        }
-    }
-
 	ConcreteHelpGuideManager.register('personalize', function() {
 		var i18n = ccmi18n_helpGuides.personalize;
 		var hideOverlay = function() {
@@ -24,7 +12,7 @@
 			element: '[data-guide-toolbar-action=page-settings]',
 			content: '<h3>' + i18n[0].title + '</h3>' + i18n[0].text,
 			onShown: function(tour) {
-			    updateFooter(tour);
+			    ConcreteHelpGuideManager.updateStepFooter(tour);
 				$('.ccm-help-tour .popover-navigation').hide();
 				$('a[data-launch-panel=page]').on('click', hideOverlay);
 				ConcreteEvent.subscribe('PanelOpen.concretePersonalizeTour', function(e, data) {
@@ -43,7 +31,7 @@
 		},{
 			element: 'a[data-launch-panel-detail=page-design]:first',
 			content: '<h3>' + i18n[1].title + '</h3>' + i18n[1].text,
-			onShown: updateFooter,
+			onShown: ConcreteHelpGuideManager.updateStepFooter,
 			onHide: function() {
 				ConcreteEvent.unsubscribe('PanelOpenDetail.concretePersonalizeTour');
 			}

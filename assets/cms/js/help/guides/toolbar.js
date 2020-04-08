@@ -3,18 +3,6 @@
 
 ;(function(global, $) {
 
-    function updateFooter(tour) {
-        var $tour = $('.ccm-help-tour'),
-            numSteps = tour.getStepCount();
-        if (numSteps > 1) {
-            $tour
-                .find('.ccm-help-tour-position-index').text(1 + tour.getCurrentStepIndex()).end()
-                .find('.ccm-help-tour-position-count').text(numSteps).end()
-        } else {
-            $tour.find('.ccm-help-tour-footer').remove();
-        }
-    }
-
 	ConcreteHelpGuideManager.register('toolbar', function() {
 		var i18n = ccmi18n_helpGuides.toolbar;
 		var steps = [{
@@ -60,7 +48,7 @@
 				ConcreteHelpGuideManager.enterToolbarGuideMode();
 				$("#tourBackdrop").detach(); // https://github.com/IGreatlyDislikeJavascript/bootstrap-tourist/issues/42
 			},
-			onShown: updateFooter,
+			onShown: ConcreteHelpGuideManager.updateStepFooter,
 			onEnd: function() {
 				ConcreteHelpGuideManager.exitToolbarGuideMode();
 			}

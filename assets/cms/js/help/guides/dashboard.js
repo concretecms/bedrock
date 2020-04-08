@@ -3,18 +3,6 @@
 
 ;(function(global, $) {
 
-    function updateFooter(tour) {
-        var $tour = $('.ccm-help-tour'),
-            numSteps = tour.getStepCount();
-        if (numSteps > 1) {
-            $tour
-                .find('.ccm-help-tour-position-index').text(1 + tour.getCurrentStepIndex()).end()
-                .find('.ccm-help-tour-position-count').text(numSteps).end()
-        } else {
-            $tour.find('.ccm-help-tour-footer').remove();
-        }
-    }
-
 	ConcreteHelpGuideManager.register('dashboard', function() {
 		var i18n = ccmi18n_helpGuides.dashboard;
 		var hideOverlay = function() {
@@ -24,7 +12,7 @@
 			element: '[data-guide-toolbar-action=dashboard]',
 			content: '<h3>' + i18n[0].title + '</h3>' + i18n[0].text,
 			onShown: function(tour) {
-			    updateFooter(tour);
+			    ConcreteHelpGuideManager.updateStepFooter(tour);
 				$('.ccm-help-tour .popover-navigation').hide();
 				$('a[data-launch-panel=dashboard]').on('click', hideOverlay);
 				ConcreteEvent.subscribe('PanelOpen.concreteDashboardTour', function(e, data) {
@@ -64,7 +52,7 @@
 				ConcreteHelpGuideManager.enterToolbarGuideMode();
 				$("#tourBackdrop").detach(); // https://github.com/IGreatlyDislikeJavascript/bootstrap-tourist/issues/42
 			},
-            onShown: updateFooter,
+            onShown: ConcreteHelpGuideManager.updateStepFooter,
 			onEnd: function() {
 				ConcreteHelpGuideManager.exitToolbarGuideMode();
 			},
