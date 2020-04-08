@@ -310,6 +310,12 @@ div.ccm-panel-detail-content {
     padding: 0;
   }
 
+  .form-group {
+    margin-bottom: 1.5rem;
+    & label {
+      font-weight: bold;
+    }
+  }
 
 }
 
