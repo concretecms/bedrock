@@ -61,11 +61,12 @@
 @import './selectize';
 
 // Miscellaneous components
-@import './tabs';
-@import './item-selector';
-@import './item-select-list';
-@import './permission-grid';
-@import './tooltips';
-@import '~spectrum-colorpicker/spectrum.css';
-@import './icons';
-@import './date-time';
+@import "./forms";
+@import "./tabs";
+@import "./item-selector";
+@import "./item-select-list";
+@import "./permission-grid";
+@import "./tooltips";
+@import "~spectrum-colorpicker/spectrum.css";
+@import "./icons";
+@import "./date-time";
