@@ -9,9 +9,8 @@ div.ccm-ui {
   }*/
 
   .btn-secondary {
-    @include button-variant(#fff, $secondary, $secondary, $secondary, $gray-700, $gray-700);
+    @include button-variant(#fff, $gray-200, $secondary, $secondary, $gray-700, $gray-700);
   }
-
 
   .btn-primary {
     @include button-variant($blue, $blue, #2276D7, #2276D7);
