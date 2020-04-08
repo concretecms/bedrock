@@ -1,6 +1,5 @@
 import 'bootstrap-tourist'
 import './launcher'
-import './dialog'
 import './guide-manager'
 
 import './guides/add-content'
