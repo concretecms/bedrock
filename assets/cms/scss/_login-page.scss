@@ -1,0 +1,103 @@
+.login-page {
+	border: 1px solid #ccc;
+	max-width: 800px;
+	margin: auto;
+	background-color: $blue;
+	margin-bottom: 18px;
+	.login-page-header {
+		padding-bottom: 45px;
+	}
+	.remember-me {
+		font-size: 1.25rem;
+		@include media-breakpoint-up(xl) {
+			font-size: 16px;
+		}
+	}
+	.external-auth-option {
+		max-width: 360px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.concrete-login-form {
+		.remember-me,
+		.col-form-label-lg {
+			@include media-breakpoint-up(xl) {
+				text-align: right;
+			}
+		}
+	}
+	h2.login-page-title {
+		color: #fff;
+		text-align: center;
+		font-weight: normal;
+		margin-bottom: 0px;
+	}
+	.login-page-content {
+		background-color: #fff;
+		padding: 9px;
+		@include media-breakpoint-up(xl) {
+			padding: 36px;
+		}
+		&.attribute-mode {
+			margin-bottom: 18px;
+		}
+	}
+	.authentication-type {
+		.btn-light {
+			border: 1px solid #eee;
+		}
+	}
+	.sign-up-container {
+		a {
+			display: block;
+			@include media-breakpoint-up(xl) {
+				display: inline-block;
+			}
+		}
+	}
+	.ccm-concrete-authentication-type-svg {
+		display: inline-block;
+	}
+	ul.login-page-auth-types-list {
+		li {
+			padding-left: 0;
+		}
+	}
+	form {
+		.checkbox,
+		.ccm-item-selector,
+		.ccm-attribute-address-composer-wrapper {
+			width: 100%;
+		}
+		.ccm-required {
+			padding-right: 18px;
+		}
+		.ccm-required-attribute-form {
+		}
+		.form-group {
+			&.login-buttons {
+				display: flex;
+				justify-content: flex-end;
+				button {
+					margin-left: 9px;
+				}
+			}
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			@include media-breakpoint-up(xl) {
+				flex-wrap: nowrap;
+			}
+			label.control-label {
+				font-size: 1.25rem;
+				@include media-breakpoint-up(xl) {
+					padding-right: 27px;
+					margin-bottom: 0px;
+					flex: 1 0 auto;
+					text-align: right;
+					min-width: 126px;
+				}
+			}
+		}
+  }
+}
