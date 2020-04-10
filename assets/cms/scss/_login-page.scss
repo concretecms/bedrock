@@ -16,14 +16,6 @@
     max-width: 360px;
   }
 
-  .concrete-login-form {
-    .col-form-label {
-      @include media-breakpoint-up(xl) {
-        text-align: right;
-      }
-    }
-  }
-
   h2.login-page-title {
     color: #fff;
     font-size: $modal-title-font-size;
