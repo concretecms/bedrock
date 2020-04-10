@@ -12,7 +12,6 @@ div.ccm-ui {
     @include button-variant(#fff, $gray-200, $secondary, $secondary, $gray-700, $gray-700);
   }
 
-
   .btn-primary {
     @include button-variant($blue, $blue, #2276D7, #2276D7);
   }
