@@ -2,22 +2,26 @@ div.ccm-ui {
 
   fieldset {
 
+    margin: 35px 0;
+
     legend {
       color: $gray-500;
-      padding: 35px 0;
-    }
-
-    .form-group {
-      padding-left: 20px;
-
-      > label {
-        color: $gray-700;
-        font-weight: 600;
-      }
-
+      margin: 0px 0px 35px 0px;
     }
   }
+
+  .form-group {
+    padding-left: 20px;
+
+    > label {
+      color: $gray-700;
+      font-weight: 600;
+    }
+
+  }
+
 }
+
 
 .form-control {
   &::placeholder {
