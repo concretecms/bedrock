@@ -1,19 +1,18 @@
 .login-page {
   background-color: $blue;
-  border: 1px solid #ccc;
   margin: auto;
   margin-bottom: 18px;
   max-width: 800px;
-
+  box-shadow: $modal-box-shadow;
   .login-page-header {
-    padding-bottom: 45px;
+    margin-top: -27px;
+    padding-bottom: 18px;
   }
 
   .remember-me {
-    font-size: 1.25rem;
-    @include media-breakpoint-up(xl) {
-      font-size: 16px;
-    }
+    //@include media-breakpoint-up(xl) {
+    //  font-size: 16px;
+    //}
   }
 
   .external-auth-option {
@@ -24,7 +23,7 @@
 
   .concrete-login-form {
     .remember-me,
-    .col-form-label-lg {
+    .col-form-label {
       @include media-breakpoint-up(xl) {
         text-align: right;
       }
@@ -33,9 +32,11 @@
 
   h2.login-page-title {
     color: #fff;
-    font-weight: normal;
     margin-bottom: 0;
     text-align: center;
+    font-size: $modal-title-font-size;
+    font-weight: $modal-title-font-weight;
+    letter-spacing: $modal-title-letter-spacing;
   }
 
   .login-page-content {
@@ -47,12 +48,6 @@
 
     &.attribute-mode {
       margin-bottom: 18px;
-    }
-  }
-
-  .authentication-type {
-    .btn-light {
-      border: 1px solid #eee;
     }
   }
 
@@ -97,13 +92,13 @@
       &.login-buttons {
         display: flex;
         justify-content: flex-end;
-
         button {
           margin-left: 9px;
         }
       }
 
       label.control-label {
+        font-size: $modal-title-font-size;
         font-size: 1.25rem;
         @include media-breakpoint-up(xl) {
           flex: 1 0 auto;
