@@ -1,18 +1,13 @@
 .login-page {
   background-color: $blue;
+  box-shadow: $modal-box-shadow;
   margin: auto;
   margin-bottom: 18px;
   max-width: 800px;
-  box-shadow: $modal-box-shadow;
+
   .login-page-header {
     margin-top: -27px;
     padding-bottom: 18px;
-  }
-
-  .remember-me {
-    //@include media-breakpoint-up(xl) {
-    //  font-size: 16px;
-    //}
   }
 
   .external-auth-option {
@@ -22,7 +17,6 @@
   }
 
   .concrete-login-form {
-    .remember-me,
     .col-form-label {
       @include media-breakpoint-up(xl) {
         text-align: right;
@@ -32,11 +26,11 @@
 
   h2.login-page-title {
     color: #fff;
-    margin-bottom: 0;
-    text-align: center;
     font-size: $modal-title-font-size;
     font-weight: $modal-title-font-weight;
     letter-spacing: $modal-title-letter-spacing;
+    margin-bottom: 0;
+    text-align: center;
   }
 
   .login-page-content {
@@ -92,6 +86,7 @@
       &.login-buttons {
         display: flex;
         justify-content: flex-end;
+
         button {
           margin-left: 9px;
         }
