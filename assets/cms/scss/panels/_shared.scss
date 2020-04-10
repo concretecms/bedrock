@@ -186,7 +186,7 @@ div.ccm-panel-content {
 
     padding: 0;
     padding-top: 0.5rem;
-    font-weight: 300;
+    font-weight: 400;
 
     > li {
       margin-left: 0;
@@ -204,7 +204,7 @@ div.ccm-panel-content {
       &.active {
         a {
           color: $panel-link-active-color;
-          font-weight: 700;
+          font-weight: 600;
         }
       }
 
@@ -317,7 +317,7 @@ div.ccm-panel-detail-content {
 div.ccm-panel-detail {
   header {
     font-size: $font-size-lg;
-    font-weight: 300;
+    font-weight: 400;
     margin: -40px -40px 30px -95px;
     padding: 39px 80px 39px 95px;
   }

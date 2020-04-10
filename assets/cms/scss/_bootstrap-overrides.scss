@@ -6,8 +6,6 @@ $gray-600: #6a6f7b;
 $gray-700: #4c4f56;
 $gray-900: #2c2c2c;
 
-
-
 $cyan: #027893;
 $blue: #4a90e2;
 $secondary: $gray-500;
@@ -15,6 +13,7 @@ $green: #28a745;
 $red: #c32a2a;
 $dark: $gray-700;
 $light-blue: #ebf5fb;
+$dark-blue: #005163;
 
 /* typography */
 $body-color: $gray-700;
@@ -29,6 +28,14 @@ $btn-font-weight: 600;
 $btn-padding-y: 9px;
 $btn-padding-x: 30px;
 $btn-font-size: 0.9rem;
+
+/* forms */
+$input-placeholder-color: #b2b3b4;
+$input-border-color: rgb(235,235,235);
+$input-border-radius: 4px;
+$input-border-width: 2px;
+$input-color: $dark-blue;
+$input-padding-y: 0.5rem;
 
 /* gradients */
 $enable-gradients: false;
@@ -65,3 +72,4 @@ $nav-tabs-link-hover-border-color: $gray-200;
 $badge-border-radius: 0;
 $badge-padding-y: 8px;
 $badge-padding-x: 11px;
+
