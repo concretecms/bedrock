@@ -181,12 +181,11 @@ div.ccm-panel-content {
   ul.nav,
   menu {
     border-top: 1px solid $gray-200;
+    font-weight: 400;
     margin-bottom: 0.9rem;
     margin-top: 0.9rem;
-
     padding: 0;
     padding-top: 0.5rem;
-    font-weight: 400;
 
     > li {
       margin-left: 0;
