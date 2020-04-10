@@ -82,7 +82,7 @@ div.ccm-panel-transition-none.ccm-panel-left.ccm-panel-active {
 }
 
 div.ccm-panel-transition-slide.ccm-panel-left {
-  left: 0;
+  left: -4px;
   transform: translate(-100%, 0);
   transition: transform cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
 
@@ -97,7 +97,7 @@ div.ccm-panel-transition-none.ccm-panel-right.ccm-panel-active {
 }
 
 div.ccm-panel-transition-slide.ccm-panel-right {
-  right: 0;
+  right: -4px;
   transform: translate(100%, 0);
   transition: transform cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
 }
@@ -158,8 +158,8 @@ div.ccm-panel-content {
   padding: 20px 10px 0 16px;
 
   header {
-    font-weight: 500;
-    padding: 15px 11px 0 24px;
+    font-weight: 600;
+    padding: 12px 11px 0 24px;
 
     aside {
       float: right;
@@ -181,9 +181,9 @@ div.ccm-panel-content {
   ul.nav,
   menu {
     border-top: 1px solid $gray-200;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
-
+    font-weight: 400;
+    margin-bottom: 0.9rem;
+    margin-top: 0.9rem;
     padding: 0;
     padding-top: 0.5rem;
 
@@ -202,8 +202,8 @@ div.ccm-panel-content {
 
       &.active {
         a {
-          color: $blue;
-          font-weight: 700;
+          color: $panel-link-active-color;
+          font-weight: 600;
         }
       }
 
@@ -211,7 +211,7 @@ div.ccm-panel-content {
         color: $gray-600;
         display: block;
         line-height: 1.8em;
-        padding: 14px 21px 14px 24px;
+        padding: 11px 21px 11px 24px;
         text-decoration: none;
 
         &:hover {
@@ -219,8 +219,8 @@ div.ccm-panel-content {
         }
 
         &.ccm-panel-menu-item-active {
-          color: $blue;
-          font-weight: 700;
+          color: $panel-link-active-color;
+          font-weight: 600;
         }
       }
 
@@ -309,21 +309,10 @@ div.ccm-panel-detail-content {
   section {
     padding: 0;
   }
-}
 
-div.ccm-panel-detail {
   header {
-    font-size: $font-size-lg;
-    font-weight: 300;
-    margin: -40px -40px 30px -95px;
-    padding: 39px 80px 39px 95px;
+    margin-bottom: 20px;
   }
-
-  hr {
-    margin-left: -40px;
-    margin-right: -40px;
-  }
-
 }
 
 /**
