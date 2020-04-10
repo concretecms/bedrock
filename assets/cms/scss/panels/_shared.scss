@@ -158,8 +158,8 @@ div.ccm-panel-content {
   padding: 20px 10px 0 16px;
 
   header {
-    font-weight: 500;
-    padding: 15px 11px 0 24px;
+    font-weight: 600;
+    padding: 12px 11px 0 24px;
 
     aside {
       float: right;
@@ -181,11 +181,12 @@ div.ccm-panel-content {
   ul.nav,
   menu {
     border-top: 1px solid $gray-200;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
+    margin-bottom: 0.9rem;
+    margin-top: 0.9rem;
 
     padding: 0;
     padding-top: 0.5rem;
+    font-weight: 300;
 
     > li {
       margin-left: 0;
@@ -202,7 +203,7 @@ div.ccm-panel-content {
 
       &.active {
         a {
-          color: $blue;
+          color: $panel-link-active-color;
           font-weight: 700;
         }
       }
@@ -211,7 +212,7 @@ div.ccm-panel-content {
         color: $gray-600;
         display: block;
         line-height: 1.8em;
-        padding: 14px 21px 14px 24px;
+        padding: 11px 21px 11px 24px;
         text-decoration: none;
 
         &:hover {
@@ -219,7 +220,7 @@ div.ccm-panel-content {
         }
 
         &.ccm-panel-menu-item-active {
-          color: $blue;
+          color: $panel-link-active-color;
           font-weight: 700;
         }
       }

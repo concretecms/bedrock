@@ -9,7 +9,7 @@ div.ccm-ui {
   }*/
 
   .btn-secondary {
-    @include button-variant(#fff, $secondary, $secondary, $secondary, $gray-700, $gray-700);
+    @include button-variant(#fff, $gray-200, $secondary, $secondary, $gray-700, $gray-700);
   }
 
 
@@ -25,7 +25,4 @@ div.ccm-ui {
     @include button-variant($red, $red, #972121, #972121);
   }
 
-  .btn-default {
-    border: 1px solid #d8d8d8;
-  }
 }
