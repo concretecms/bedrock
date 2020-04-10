@@ -109,8 +109,12 @@ div#ccm-toolbar {
 
     li.ccm-toolbar-button-with-text {
       > a {
-        padding: 10px 18px 0 50px;
+        padding: 0px 17px;
         width: auto;
+
+        svg {
+          margin-right: 8px;
+        }
 
         span {
           font-size: 0.8rem;
