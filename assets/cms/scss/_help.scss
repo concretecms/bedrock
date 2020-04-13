@@ -1,22 +1,6 @@
 /* stylelint-disable property-no-vendor-prefix */
 //@import "../../vendor/tourist/tourist.less";
 
-section.ccm-panel-help-item {
-  margin-bottom: 20px;
-
-  a:focus,
-  a:active {
-    outline: none;
-    text-decoration: none;
-  }
-
-  .ccm-panel-help-item-details {
-    font-size: smaller;
-    margin-bottom: 10px;
-  }
-}
-
-
 /** toolbar guide */
 div#ccm-toolbar {
   .tour-highlight {
