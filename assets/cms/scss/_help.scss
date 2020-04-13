@@ -17,11 +17,11 @@ div#ccm-toolbar {
 /* Help tours */
 .ccm-help-tour {
   background-color: $help-tour-background-color;
-  font-size: 1.1rem;
+  font-size: 1rem;
   padding: $help-tour-padding;
 
   h3 {
-    font-size: 1.25rem;
+    font-size: 1.05rem;
     margin-bottom: 0.3rem;
   }
 
@@ -60,7 +60,7 @@ div#ccm-toolbar {
 
   .popover-body {
     color: $help-tour-foreground-color;
-    max-width: 25rem;
+    max-width: 15rem;
     padding: 0;
   }
 
