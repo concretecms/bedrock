@@ -75,3 +75,14 @@ $badge-border-radius: 0;
 $badge-padding-y: 8px;
 $badge-padding-x: 11px;
 
+/* Dropdowns */
+$dropdown-divider-bg: $gray-500;
+$dropdown-divider-margin-y: 0.625rem; /* 10px @ 16px base */
+
+/* These variable names don't quite match up to their value */
+/* Usage: padding: $dropdown-item-padding-y $dropdown-item-padding-x; */
+$dropdown-item-padding-y: 0.625rem;
+$dropdown-item-padding-x: 10px;
+
+$dropdown-link-disabled-color: $gray-200;
+$dropdown-link-active-color: #fff;
