@@ -5,27 +5,33 @@ ConcreteHelpGuideManager.register('toolbar', function() {
     var steps = [{
         element: '[data-guide-toolbar-action=edit-page]',
         content: '<h3>' + i18n[0].title + '</h3>' + i18n[0].text,
-        preventInteraction: true
+        preventInteraction: true,
+        placement: 'bottom'
     }, {
         element: '[data-guide-toolbar-action=page-settings]',
         content: '<h3>' + i18n[1].title + '</h3>' + i18n[1].text,
-        preventInteraction: true
+        preventInteraction: true,
+        placement: 'bottom'
     }, {
         element: '[data-guide-toolbar-action=add-content]',
         content: '<h3>' + i18n[2].title + '</h3>' + i18n[2].text,
-        preventInteraction: true
+        preventInteraction: true,
+        placement: 'bottom'
     }, {
         element: '[data-guide-toolbar-action=intelligent-search]',
         content: '<h3>' + i18n[3].title + '</h3>' + i18n[3].text,
-        preventInteraction: true
+        preventInteraction: true,
+        placement: 'bottom'
     }, {
         element: '[data-guide-toolbar-action=sitemap]',
         content: '<h3>' + i18n[4].title + '</h3>' + i18n[4].text,
-        preventInteraction: true
+        preventInteraction: true,
+        placement: 'bottom'
     }, {
         element: '[data-guide-toolbar-action=dashboard]',
         content: '<h3>' + i18n[5].title + '</h3>' + i18n[5].text,
-        preventInteraction: true
+        preventInteraction: true,
+        placement: 'bottom'
     }]
 
     return new Tour({
