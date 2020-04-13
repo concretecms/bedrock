@@ -20,6 +20,19 @@ div.ccm-panel {
   user-select: none;
   width: 320px;
   z-index: $index-level-panel; // has to come above the detail actions wrapper
+  div.ccm-panel-close {
+    height: 20px;
+
+    >a,
+    >a:hover {
+      color: #999;
+      font-size: 2rem;
+      position: absolute;
+      right: 10px;
+      text-decoration: none;
+      top: 0;
+    }
+  }
 }
 
 div#ccm-panel-overlay {
