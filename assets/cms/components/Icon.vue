@@ -1,10 +1,14 @@
 <template functional>
-    <span class="container" >
+    <span class="container">
         <span v-if="props.labelPosition === 'left'" class="label" v-bind:class="{disabled : props.disabled}">
             <slot />
         </span>
         <span class="icon" v-bind:class="{outline : props.outline}">
-            <i :class="[props.icon]" 
+            <i :class="[{
+                'fas': props.iconType === 'fontawesome-solid',
+                'far': props.iconType === 'fontawesome-regular',
+                'fab': props.iconType === 'fontawesome-brand',
+            }, props.icon]" 
                 v-bind:style="[props.disabled ? {'color':'#ccc'} : {'color':props.color}]"
             />
             
@@ -20,8 +24,6 @@
 </template>
 
 <script>
-
-
 export default {
     props: {
         icon: String,
