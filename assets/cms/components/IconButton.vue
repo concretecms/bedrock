@@ -1,18 +1,18 @@
 <template functional>
     <button
         @click='listeners.click'
-        :class="[{
-                'btn btn-light' : props.format === 'floating',
-                'btn btn-outline-secondary' : props.format === 'outline',
-                'btn btn-outline-primary' : props.format === 'outline-primary',
-            }]"
+        :class="{
+            'btn btn-light': props.format === 'floating',
+            'btn btn-outline-secondary': props.format === 'outline',
+            'btn btn-outline-primary': props.format === 'outline-primary',
+        }"
         :disabled="props.disabled"
         >
         <span class="label" v-if="props.labelPosition === 'left'">
             <slot />
         </span>
 
-        <Icon :icon="props.icon" :icon-type="props.iconType" :icon-color="props.iconColor"/>
+        <Icon :icon="props.icon" :icon-type="props.iconType" :icon-color="props.iconColor" />
 
         <span class="label" v-if="props.labelPosition === 'right'">
             <slot />
