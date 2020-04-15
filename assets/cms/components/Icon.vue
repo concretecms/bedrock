@@ -5,7 +5,7 @@
             'far': props.iconType === 'fontawesome-regular',
             'fab': props.iconType === 'fontawesome-brand',
         }, props.icon]"
-        :style="{'color': props.iconColor}"
+        :style="{ 'color': props.iconColor }"
     />
 
 </template>
