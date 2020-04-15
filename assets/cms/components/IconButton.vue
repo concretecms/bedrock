@@ -12,7 +12,7 @@
             <slot />
         </span>
 
-        <Icon :icon="props.icon" :icon-type="props.iconType" :color="props.color"/>
+        <Icon :icon="props.icon" :icon-type="props.iconType" :icon-color="props.iconColor"/>
 
         <span class="label" v-if="props.labelPosition === 'right'">
             <slot />
@@ -42,7 +42,7 @@ export default {
             type: String,
             default: 'fontawesome-solid'
         },
-        color: {
+        iconColor: {
             type: String,
             default: 'inherit'
         },

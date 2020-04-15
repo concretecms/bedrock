@@ -22,7 +22,7 @@ export const basicUsage = () => ({
         <IconButton
             icon="fa-trash-alt"
             icon-type="fontawesome-regular"
-            color="#7F7F7F"
+            icon-color="#7F7F7F"
             @click="handleClick"
         />  
     </div>
@@ -43,7 +43,7 @@ export const basicUsageWithLabel = () => ({
         <IconButton
             icon="fa-trash-alt"
             icon-type="fontawesome-regular"
-            color="#7F7F7F"
+            icon-color="#7F7F7F"
             @click="handleClick"
         >
             Delete
@@ -114,10 +114,8 @@ export const withLabelOutlineDisabled = () => ({
         <IconButton
             icon="fa-trash-alt"
             icon-type="fontawesome-regular"
-            color="#7F7F7F"
             @click="handleClick"
             format="outline"
-            
             disabled  
         >
             Delete
