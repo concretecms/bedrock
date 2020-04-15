@@ -1,6 +1,6 @@
 <template functional>
 
-    <i class="icon" 
+    <i class="icon"
         :class="[{
             fas: props.iconType === 'fontawesome-solid',
             far: props.iconType === 'fontawesome-regular',
