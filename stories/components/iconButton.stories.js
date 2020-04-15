@@ -9,51 +9,123 @@ export default {
 }
 
 export const basicUsage = () => ({
+    component:{
+        IconButton
+    },
+    methods: {
+        handleClick() {
+            alert('Button Clicked.')
+        }
+    },
     template: `
-    <IconButton
-        icon="fa-trash-alt"
-        type="fontawesome-regular"
-        color="#7F7F7F"
-    >
-        Delete
-    </IconButton>  
+    <div class="ccm-ui">
+        <IconButton
+            icon="fa-trash-alt"
+            type="fontawesome-regular"
+            color="#7F7F7F"
+            @click="handleClick"
+            bootstrap-class="clear"
+        >
+        </IconButton>  
+    </div>
     `
 })
 
-export const onlyIcon = () => ({
+export const basicUsageWithLabel = () => ({
+    component:{
+        IconButton
+    },
+    methods: {
+        handleClick() {
+            alert('Button Clicked.')
+        }
+    },
     template: `
-    <IconButton
+    <div class="ccm-ui">
+        <IconButton
+            icon="fa-trash-alt"
+            type="fontawesome-regular"
+            color="#7F7F7F"
+            @click="handleClick"
+            bootstrap-class="clear"
+        >
+            Delete
+        </IconButton>  
+    </div>
+    
+    `
+})
+
+export const withOutlineIconOnly = () => ({
+    component:{
+        IconButton
+    },
+    methods: {
+        handleClick() {
+            alert('Button Clicked.')
+        }
+    },
+    template: `
+    <div class="ccm-ui">
+        <IconButton
         icon="fa-trash-alt"
         type="fontawesome-regular"
-        color="#7F7F7F"
-        outline
+        @click="handleClick"
+        bootstrap-class="btn-outline-secondary"
     >
     </IconButton>  
+    </div>
+    
     `
 })
 
 export const withLabelOutline = () => ({
+    component:{
+        IconButton
+    },
+    methods: {
+        handleClick() {
+            alert('Button Clicked.')
+        }
+    },
     template: `
-    <IconButton
+    <div class="ccm-ui">
+        <IconButton
         icon="fa-trash-alt"
         type="fontawesome-regular"
-        color="#7F7F7F"
-        outline
-    >
-        Delete
-    </IconButton>  
+        @click="handleClick"
+        bootstrap-class="btn-outline-secondary"
+        >
+            Delete
+        </IconButton>  
+    </div>
+    
     `
 })
 
 export const withLabelOutlineDisabled = () => ({
+    component:{
+        IconButton
+    },
+    methods: {
+        handleClick() {
+            alert('Button Clicked.')
+        }
+    },
     template: `
-    <IconButton
-        icon="fa-trash-alt"
-        type="fontawesome-regular"
-        color="#7F7F7F"
-        disabled
-    >
-        Delete
-    </IconButton>  
+    <div class="ccm-ui">
+        <IconButton
+            icon="fa-trash-alt"
+            type="fontawesome-regular"
+            color="#7F7F7F"
+            @click="handleClick"
+            bootstrap-class="btn-outline-secondary"
+            disabled
+        
+        >
+            Delete
+        </IconButton>  
+    </div>
+    
     `
 })

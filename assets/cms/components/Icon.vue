@@ -6,7 +6,7 @@
             'far': props.type === 'fontawesome-regular',
             'fab': props.type === 'fontawesome-brand',
             }, props.icon]" 
-            v-bind:style="{'color':props.color}"
+            v-bind:style="props.color ? {'color':props.color} : null"
         />
     </span>
         
@@ -24,7 +24,6 @@ export default {
 
 <style lang="scss" scope>
     .icon {
-        padding: 10px 12px;
         font-size: 1.2rem;
     }
 </style>

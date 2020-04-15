@@ -1,18 +1,23 @@
 <template functional>
-    <span class="container" v-bind:class="{outline : props.outline}">
+    <span class="button-container">
+        <button 
+            @click='listeners.click' 
+            v-bind:class="['btn', props.bootstrapClass]"
+            :disabled="props.disabled"
+            >
+            <span class="label" v-if="props.labelPosition === 'left'" 
+                v-bind:class="{disabled : props.disabled}">
+                <slot />
+            </span>
+                
+            <Icon :icon="props.icon" :type="props.type" :color="props.disabled ? '#ccc' : props.color"/>
 
-        <span class="label" v-if="props.labelPosition === 'left'" 
-            v-bind:class="{disabled : props.disabled}">
-            <slot />
-        </span>
+            <span class="label" v-if="props.labelPosition === 'right' || !props.labelPosition"
+                v-bind:class="{disabled : props.disabled}">
+                <slot />
+            </span>
             
-        <Icon :icon="props.icon" :type="props.type" :color="props.disabled ? '#ccc' : props.color"/>
-
-        <span class="label" v-if="props.labelPosition === 'right' || !props.labelPosition"
-            v-bind:class="{disabled : props.disabled}">
-            <slot />
-        </span>
-        
+        </button>
     </span>
 </template>
 
@@ -26,7 +31,10 @@ export default {
         labelPosition: String,
         icon: String,
         type: String,
-        color: String
+        color: String,
+        bootstrapClass: {
+            type: String,
+        }
     },
     components: {
         Icon
@@ -35,23 +43,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
-    display: inline-flex;
-    align-items: center;
+@import '../../../assets/cms/scss/bootstrap-overrides';
+.button-container {
+    button {
+        display: inline-flex;
+        align-items: center;
+        &:focus {
+            outline: none;
+        }
+        
+        &.clear {
+            background:none;
+            border:none;
+        }
+    }
 }
-.outline {
-        border: 1px solid #D8D8D8;
-        border-radius: 4px;
-}
+
 .label {
     font-family: sans-serif;
     font-size: .9rem;
-    color: #444444;
-    margin: 5px 10px 5px 5px;
-
-    &.disabled {
-        color: #ccc;
-    }
+    margin-left: 10px;
     &:empty {
         display: none;
     }
