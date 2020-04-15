@@ -21,12 +21,10 @@ export const basicUsage = () => ({
     <div class="ccm-ui">
         <IconButton
             icon="fa-trash-alt"
-            type="fontawesome-regular"
+            icon-type="fontawesome-regular"
             color="#7F7F7F"
             @click="handleClick"
-            bootstrap-class="clear"
-        >
-        </IconButton>  
+        />  
     </div>
     `
 })
@@ -44,10 +42,9 @@ export const basicUsageWithLabel = () => ({
     <div class="ccm-ui">
         <IconButton
             icon="fa-trash-alt"
-            type="fontawesome-regular"
+            icon-type="fontawesome-regular"
             color="#7F7F7F"
             @click="handleClick"
-            bootstrap-class="clear"
         >
             Delete
         </IconButton>  
@@ -68,12 +65,11 @@ export const withOutlineIconOnly = () => ({
     template: `
     <div class="ccm-ui">
         <IconButton
-        icon="fa-trash-alt"
-        type="fontawesome-regular"
-        @click="handleClick"
-        bootstrap-class="btn-outline-secondary"
-    >
-    </IconButton>  
+            icon="fa-trash-alt"
+            icon-type="fontawesome-regular"
+            @click="handleClick"
+            bootstrap-class="btn-outline-secondary"
+        />  
     </div>
     
     `
@@ -91,10 +87,10 @@ export const withLabelOutline = () => ({
     template: `
     <div class="ccm-ui">
         <IconButton
-        icon="fa-trash-alt"
-        type="fontawesome-regular"
-        @click="handleClick"
-        bootstrap-class="btn-outline-secondary"
+            icon="fa-trash-alt"
+            icon-type="fontawesome-regular"
+            @click="handleClick"
+            bootstrap-class="btn-outline-secondary"
         >
             Delete
         </IconButton>  
@@ -116,12 +112,11 @@ export const withLabelOutlineDisabled = () => ({
     <div class="ccm-ui">
         <IconButton
             icon="fa-trash-alt"
-            type="fontawesome-regular"
+            icon-type="fontawesome-regular"
             color="#7F7F7F"
             @click="handleClick"
             bootstrap-class="btn-outline-secondary"
-            disabled
-        
+            disabled  
         >
             Delete
         </IconButton>  

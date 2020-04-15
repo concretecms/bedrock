@@ -1,28 +1,32 @@
 <template functional>
 
-    <span class="icon">
-        <i :class="[{
-            'fas': props.type === 'fontawesome-solid',
-            'far': props.type === 'fontawesome-regular',
-            'fab': props.type === 'fontawesome-brand',
-            }, props.icon]"
-            v-bind:style="props.color ? {'color':props.color} : null"
-        />
-    </span>
+    <i class="icon" :class="[{
+            'fas': props.iconType === 'fontawesome-solid',
+            'far': props.iconType === 'fontawesome-regular',
+            'fab': props.iconType === 'fontawesome-brand',
+        }, props.icon]"
+        :style="props.color ? {'color':props.color} : null"
+    />
 
 </template>
 
 <script>
 export default {
     props: {
-        icon: String,
-        type: String,
+        icon: {
+            type: String,
+            default: 'fa-exclamation-triangle'
+        },
+        iconType: {
+            type: String,
+            default: 'fontawesome-solid'
+        },
         color: String
     }
 }
 </script>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
     .icon {
         font-size: 1.2rem;
     }
