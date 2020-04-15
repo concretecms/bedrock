@@ -1,42 +1,6 @@
 /* stylelint-disable property-no-vendor-prefix */
 //@import "../../vendor/tourist/tourist.less";
 
-div.ccm-dialog-help-item {
-  margin-bottom: 30px;
-
-  a:focus,
-  a:active {
-    outline: none;
-    text-decoration: none;
-  }
-
-  ol.breadcrumb {
-    background: none;
-    padding: 0;
-
-    > li + li::before {
-      color: #999;
-      content: '|\00a0';
-      padding: 0 5px;
-    }
-  }
-}
-
-
-ol.ccm-dialog-help-item-icon-row {
-  margin: 0 0 10px;
-  padding: 0;
-
-  li {
-    display: inline-block;
-    margin-right: 10px;
-
-    i {
-      opacity: 0.5;
-    }
-  }
-}
-
 /** toolbar guide */
 div#ccm-toolbar {
   .tour-highlight {
@@ -50,165 +14,82 @@ div#ccm-toolbar {
   }
 }
 
-
-// in page help
-
-/**
- * Help launcher
- */
-div.ccm-notification-help-launcher {
-
-  -webkit-font-smoothing: antialiased;
-  position: fixed;
-  right: 0;
-  top: 82px;
-  transition: transform cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
-  z-index: $index-level-page-help;
-
-  div.ccm-panel-detail-content & {
-    z-index: $index-level-panel-help;
-  }
-
-  html.ccm-panel-open.ccm-panel-right & {
-    transform: translate(-320px, 0);
-  }
-
-  a {
-
-    -webkit-animation-duration: 0.2s;
-    -moz-animation-duration: 0.2s;
-    -ms-animation-duration: 0.2s;
-    -o-animation-duration: 0.2s;
-    animation-duration: 0.2s;
-    background-color: #335b8a;
-    border-bottom-left-radius: 3px;
-    border-top-left-radius: 3px;
-    color: #fff;
-    display: block;
-    height: 40px;
-    transition: all 0.1s ease-in-out;
-    width: 40px;
-
-  }
-
-  a:hover,
-  a:active,
-  a:focus {
-    background-color: #163251;
-    color: #fff;
-  }
-
-  i {
-    font-size: $font-size-lg;
-    font-weight: normal;
-    line-height: $line-height-lg;
-    margin-left: 9px;
-    vertical-align: middle;
-  }
-}
-
-div.ccm-notification-help {
-
-  -webkit-animation-duration: 0.2s;
-  -moz-animation-duration: 0.2s;
-  -ms-animation-duration: 0.2s;
-  -o-animation-duration: 0.2s;
-  animation-duration: 0.2s;
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
-  display: none;
-  -webkit-font-smoothing: antialiased;
-
-  position: fixed;
-  right: 0;
-  top: 83px;
-
-  transition: transform cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
-  z-index: $index-level-page-help;
-
-  div.ccm-panel-detail-content & {
-    margin-top: -28px; // not sure why – some of the style in these panels gets a little weird.
-  }
-
-  html.ccm-panel-open.ccm-panel-right & {
-    transform: translate(-320px, 0);
-  }
-
-}
-
-
-div.ccm-notification-help {
-
-
-  background-color: rgba(19, 72, 125, 0.9);
-  border-radius: 3px;
-  color: #adeef7;
-  font-family: $font-family-sans-serif;
-  font-size: $font-size-base;
-  -webkit-font-smoothing: antialiased;
-
-  max-width: 90%;
-  z-index: $index-level-hud;
-
-  i.ccm-notification-icon {
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 40px;
-    height: 40px;
-    left: 20px;
-    padding: 11px 12px;
-    position: absolute;
-    text-align: center;
-    top: 20px;
-    width: 40px;
-  }
-
-  div.ccm-notification-inner {
-    max-width: 100%;
-    padding: 30px 30px 30px 80px;
-    width: 360px;
-  }
+/* Help tours */
+.ccm-help-tour {
+  background-color: $help-tour-background-color;
+  font-size: 1rem;
+  padding: $help-tour-padding;
 
   h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.3rem;
+  }
+
+  &.bs-popover-top > .arrow::after,
+  .bs-popover-auto[x-placement^=top] > .arrow::after {
+    border-top-color: $help-tour-background-color;
+  }
+
+  &.bs-popover-right > .arrow::after,
+  .bs-popover-auto[x-placement^=right] > .arrow::after {
+    border-right-color: $help-tour-background-color;
+  }
+
+  &.bs-popover-bottom > .arrow::after,
+  .bs-popover-auto[x-placement^=bottom] > .arrow::after {
+    border-bottom-color: $help-tour-background-color;
+  }
+
+  &.bs-popover-left > .arrow::after,
+  .bs-popover-auto[x-placement^=left] > .arrow::after {
+    border-left-color: $help-tour-background-color;
+  }
+
+  .ccm-help-tour-close {
     color: #fff;
-    font-size: $font-size-base * 1.2;
-    font-weight: 300;
-    margin: 0 0 10px;
+    font-size: 1rem;
+    position: absolute;
+    right: $help-tour-padding;
+    top: $help-tour-padding;
+
+    &,
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .popover-body {
+    color: $help-tour-foreground-color;
+    max-width: 15rem;
     padding: 0;
   }
 
-  .ccm-notification-icon {
-    color: #fff;
+  .ccm-help-tour-footer {
+    margin-top: 1rem;
   }
 
-  div.ccm-notification-actions {
-    background-color: rgba(17, 47, 76, 0.9);
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-    border-top: 1px solid #002a53;
-    font-size: $font-size-sm;
-    font-weight: 400;
-    text-align: right;
+  .ccm-help-tour-position {
+    color: $help-tour-position-color;
+    font-size: 80%;
+    margin-top: 0.3rem;
+  }
+
+  .popover-navigation {
+    margin: 0;
+    padding: 0 !important;
+
+    .disabled {
+      visibility: hidden;
+    }
 
     a {
-      border-left: 1px solid #002a53;
-      color: #88aee7;
-      display: inline-block;
-      margin-left: 0;
-      padding: 6px 10px;
-      text-align: center;
+      margin-left: 1rem;
 
-      &.ccm-notification-actions-dismiss-single {
-        color: #ff0;
+      &,
+      &:hover {
+        text-decoration: none;
       }
-
     }
-
-    a,
-    a:hover {
-      color: #fff;
-      text-decoration: none;
-    }
-
   }
 }
 

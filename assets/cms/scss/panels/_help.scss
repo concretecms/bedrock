@@ -1,0 +1,35 @@
+#ccm-panel-help {
+  background-color: #e9f6fc;
+
+  h1 {
+    font-size: 1.6rem;
+    font-weight: normal;
+    margin-bottom: 2rem;
+  }
+
+  section {
+    margin: 2rem 0 0;
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+
+    >h2 {
+      font-size: 1.2rem;
+      letter-spacing: -0.05rem;
+    }
+
+    >div.ccm-panel-help-media {
+      display: flex;
+
+      >div {
+        flex: 1;
+      }
+    }
+  }
+
+  hr {
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+  }
+}

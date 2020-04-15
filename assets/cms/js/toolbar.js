@@ -1,5 +1,5 @@
 /* eslint-disable no-new, no-unused-vars, camelcase, eqeqeq */
-/* global CCM_DISPATCHER_FILENAME, ConcreteEvent, ConcreteHelpDialog, ConcreteHelpGuideManager, ConcretePanelManager */
+/* global CCM_DISPATCHER_FILENAME, ConcreteEvent, ConcreteHelpGuideManager, ConcretePanelManager */
 
 /* Basic concrete5 toolbar class */
 ;(function(global, $) {
@@ -15,13 +15,6 @@
     }
 
     function setupHelpNotifications() {
-        $('.ccm-notification .dialog-launch').dialog()
-        $('a[data-help-notification-toggle]').concreteHelpLauncher()
-        $('a[data-help-launch-dialog=main]').on('click', function(e) {
-            e.preventDefault()
-            new ConcreteHelpDialog().open()
-        })
-
         var manager = ConcreteHelpGuideManager.get()
         if (manager.getGuideToLaunchOnRefresh()) {
             var tour = ConcreteHelpGuideManager.getGuide(manager.getGuideToLaunchOnRefresh())

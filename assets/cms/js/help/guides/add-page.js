@@ -1,65 +1,74 @@
+/* global ConcreteHelpGuideManager, ccmi18n_helpGuides, ccmi18n_tourist, Tour */
 
-/*
-    var i18n = ccmi18n_helpGuides['add-page'];
+var $hack
+
+ConcreteHelpGuideManager.register('add-page', function() {
+    var i18n = ccmi18n_helpGuides['add-page']
+    var hideOverlay = function() {
+        ConcreteHelpGuideManager.hideOverlay()
+    }
     var steps = [{
-        content: '<p><span class="h5">' + i18n[0].title + '</span><br/>' + i18n[0].text + '</p>',
-        highlightTarget: true,
-        nextButton: false,
-        closeButton: true,
-        target: $('[data-guide-toolbar-action=sitemap]'),
-        my: 'top right',
-        at: 'bottom center',
-        setup: function(tour, options) {
-            $('a[data-launch-panel=sitemap]').on('click', function() {
-                tour.view.tip.hide();
-                ConcreteHelpGuideManager.hideOverlay();
-            });
+        element: '[data-guide-toolbar-action=sitemap]',
+        content: '<h3>' + i18n[0].title + '</h3>' + i18n[0].text,
+        onShown: function(tour) {
+            ConcreteHelpGuideManager.updateStepFooter(tour)
+            $('.ccm-help-tour .popover-navigation').hide()
+            $('a[data-launch-panel=sitemap]').on('click', hideOverlay)
             ConcreteEvent.subscribe('PanelOpen.concreteAddPageTour', function(e, data) {
                 setTimeout(function() {
-                    var panel = data.panel.getIdentifier();
-                    if (panel == 'sitemap') {
-                        tour.next();
+                    var panel = data.panel.getIdentifier()
+                    if (panel === 'sitemap') {
+                        tour.next()
                     }
-                }, 500);
-            });
+                }, 500)
+            })
+        },
+        onHide: function() {
+            $('a[data-launch-panel=sitemap]').off('click', hideOverlay)
+            ConcreteEvent.unsubscribe('PanelOpen.concreteAddPageTour')
         }
-    },{
-        content: '<p><span class="h5">' + i18n[1].title + '</span><br/>' + i18n[1].text + '</p>',
-        highlightTarget: true,
-        nextButton: true,
-        closeButton: true,
-        my: 'right center',
-        at: 'left center',
-        setup: function(tour, options) {
-            return {target: $('ul.ccm-panel-sitemap-list li a').eq(0)};
+    }, {
+        element: '#' + ConcreteHelpGuideManager.POSITIONING_BUG_HACK_ID,
+        content: '<h3>' + i18n[1].title + '</h3>' + i18n[1].text,
+        placement: 'left',
+        onShow: function(tour) {
+            $hack = ConcreteHelpGuideManager.createPositioningBugHackElement($('#ccm-panel-sitemap header:nth-of-type(1)>*:first'))
+        },
+        onHidden: function(tour) {
+            $hack.remove()
         }
-    },{
-        content: '<p><span class="h5">' + i18n[2].title + '</span><br/>' + i18n[2].text + '</p>',
-        highlightTarget: true,
-        nextButton: true,
-        closeButton: true,
-        my: 'right center',
-        at: 'left center',
-        setup: function(tour, options) {
-            return {target: $('div#ccm-sitemap-panel-sitemap')};
+    }, {
+        element: '#' + ConcreteHelpGuideManager.POSITIONING_BUG_HACK_ID,
+        content: '<h3>' + i18n[2].title + '</h3>' + i18n[2].text,
+        placement: 'left',
+        onShow: function(tour) {
+            $hack = ConcreteHelpGuideManager.createPositioningBugHackElement($('#ccm-panel-sitemap header:nth-of-type(2)>*:first'))
+        },
+        onHidden: function(tour) {
+            $hack.remove()
         }
-    }];
+    }]
 
-    var tour = new Tourist.Tour({
+    return new Tour({
         steps: steps,
-        tipClass: 'Bootstrap',
-        tipOptions:{
-            showEffect: 'slidein'
+        framework: 'bootstrap4',
+        template: ccmi18n_tourist.template,
+        localization: ccmi18n_tourist.localization,
+        storage: false,
+        showProgressBar: false,
+        sanitizeWhitelist: {
+            a: [/^data-/, 'href']
+        },
+        onPreviouslyEnded: function(tour) {
+            tour.restart()
+        },
+        onStart: function() {
+            ConcreteHelpGuideManager.enterToolbarGuideMode()
+            $('#tourBackdrop').detach() // https://github.com/IGreatlyDislikeJavascript/bootstrap-tourist/issues/42
+        },
+        onShown: ConcreteHelpGuideManager.updateStepFooter,
+        onEnd: function() {
+            ConcreteHelpGuideManager.exitToolbarGuideMode()
         }
-    });
-    tour.on('start', function() {
-        ConcreteHelpGuideManager.enterToolbarGuideMode();
-    });
-    tour.on('stop', function() {
-        ConcreteHelpGuideManager.exitToolbarGuideMode();
-        ConcreteEvent.unsubscribe('PanelOpen.concreteAddPageTour');
-    });
-
-    ConcreteHelpGuideManager.register('add-page', tour);
-
-*/
+    })
+})

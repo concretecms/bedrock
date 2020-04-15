@@ -1,35 +1,31 @@
-/*
+/* global ConcreteHelpGuideManager, ccmi18n_helpGuides, ccmi18n_tourist, Tour */
 
-    var i18n = ccmi18n_helpGuides['location-panel'];
+ConcreteHelpGuideManager.register('location-panel', function() {
+    var i18n = ccmi18n_helpGuides['location-panel']
     var steps = [{
-        content: '<p><span class="h5">' + i18n[0].title + '</span><br/>' + i18n[0].text + '</p>',
-        highlightTarget: true,
-        nextButton: true,
-        closeButton: true,
-        setup: function(tour, options) {
-            return {target: $('#ccm-panel-detail-page-location button[name=location]')};
-        },
-        my: 'left center',
-        at: 'right center'
-    },{
-        content: '<p><span class="h5">' + i18n[1].title + '</span><br/>' + i18n[1].text + '</p>',
-        highlightTarget: true,
-        nextButton: true,
-        closeButton: true,
-        setup: function(tour, options) {
-            return {target: $('#ccm-panel-detail-page-location p.lead').eq(1)};
-        },
-        my: 'right center',
-        at: 'left center'
-    }];
+        element: '#ccm-panel-detail-page-location button[name=location]',
+        content: '<h3>' + i18n[0].title + '</h3>' + i18n[0].text
+    }, {
+        element: '#ccm-panel-detail-page-location p.lead:first',
+        content: '<h3>' + i18n[1].title + '</h3>' + i18n[1].text
+    }]
 
-    var tour = new Tourist.Tour({
+    return new Tour({
         steps: steps,
-        tipClass: 'Bootstrap',
-        tipOptions:{
-            showEffect: 'slidein'
-        }
-    });
-
-    ConcreteHelpGuideManager.register('location-panel', tour);
-*/
+        framework: 'bootstrap4',
+        template: ccmi18n_tourist.template,
+        localization: ccmi18n_tourist.localization,
+        storage: false,
+        showProgressBar: false,
+        sanitizeWhitelist: {
+            a: [/^data-/, 'href']
+        },
+        onPreviouslyEnded: function(tour) {
+            tour.restart()
+        },
+        onStart: function() {
+            $('#tourBackdrop').detach() // https://github.com/IGreatlyDislikeJavascript/bootstrap-tourist/issues/42
+        },
+        onShown: ConcreteHelpGuideManager.updateStepFooter
+    })
+})
