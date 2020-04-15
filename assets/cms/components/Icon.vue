@@ -15,7 +15,7 @@ export default {
     props: {
         icon: {
             type: String,
-            default: 'fa-exclamation-triangle'
+            required: true
         },
         iconType: {
             type: String,

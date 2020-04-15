@@ -1,27 +1,24 @@
 <template functional>
-    <span class="button-container">
-        <button
-            @click='listeners.click'
-            :class="[{ 'btn btn-light' : props.format === 'floating',
-                    'btn btn-outline-secondary' : props.format === 'outline',
-                    'btn btn-outline-primary' : props.format === 'outline-primary',
-                }]"
-            :disabled="props.disabled"
-            >
-            <span class="label" v-if="props.labelPosition === 'left'"
-                :class="{disabled : props.disabled}">
-                <slot />
-            </span>
+    <button
+        @click='listeners.click'
+        :class="[{
+                'btn btn-light' : props.format === 'floating',
+                'btn btn-outline-secondary' : props.format === 'outline',
+                'btn btn-outline-primary' : props.format === 'outline-primary',
+            }]"
+        :disabled="props.disabled"
+        >
+        <span class="label" v-if="props.labelPosition === 'left'">
+            <slot />
+        </span>
 
-            <Icon :icon="props.icon" :icon-type="props.iconType" :color="props.color"/>
+        <Icon :icon="props.icon" :icon-type="props.iconType" :color="props.color"/>
 
-            <span class="label" v-if="props.labelPosition === 'right'"
-                :class="{disabled : props.disabled}">
-                <slot />
-            </span>
+        <span class="label" v-if="props.labelPosition === 'right'">
+            <slot />
+        </span>
 
-        </button>
-    </span>
+    </button>
 </template>
 
 <script>
@@ -37,9 +34,18 @@ export default {
             type: String,
             default: 'right'
         },
-        icon: String,
-        iconType: String,
-        color: String,
+        icon: {
+            type: String,
+            required: true
+        },
+        iconType: {
+            type: String,
+            default: 'fontawesome-solid'
+        },
+        color: {
+            type: String,
+            default: 'inherit'
+        },
         format: {
             type: String,
             default: 'floating'
@@ -53,14 +59,11 @@ export default {
 
 <style lang="scss" scoped>
 
-.button-container {
-    button {
-        .label {
-            font-size: .9rem;
-            margin-left: 10px;
-            &:empty {
-                display: none;
-            }
+button {
+    .label {
+        margin:0 10px;
+        &:empty {
+            display: none;
         }
     }
 }

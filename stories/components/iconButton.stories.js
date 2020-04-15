@@ -91,6 +91,7 @@ export const withLabelOutline = () => ({
             icon-type="fontawesome-regular"
             @click="handleClick"
             format="outline"
+            label-position="left"
         >
             Delete
         </IconButton>  
@@ -116,6 +117,7 @@ export const withLabelOutlineDisabled = () => ({
             color="#7F7F7F"
             @click="handleClick"
             format="outline"
+            
             disabled  
         >
             Delete
