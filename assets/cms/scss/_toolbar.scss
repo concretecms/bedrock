@@ -56,36 +56,30 @@ div#ccm-toolbar {
       position: relative;
 
       > a {
-        border-left: 1px solid $gray-200;
+        align-items: center;
         border-right: 1px solid $gray-200;
         box-sizing: border-box;
         color: $gray-600;
 
-        display: block;
+        display: flex;
         height: 47px;
-        margin-left: -1px; /* we have to do this tomfoolery because of user-added menus */
         position: relative;
-        text-align: center;
         text-decoration: none;
-        width: 60px;
+        width: 58px;
 
         i,
         img {
           height: 14px;
-          left: 23px;
+          margin: 0 auto;
           position: absolute;
-          top: 17px;
-          width: 14px;
         }
 
         svg {
           fill: $gray-600;
-          height: 20px;
-          left: 23px;
-          position: absolute;
-          top: 17px;
+          height: 16px;
+          margin: 0 auto;
           transition: fill 0.25s ease-in-out;
-          width: 20px;
+          width: 16px;
         }
 
       }
@@ -115,8 +109,12 @@ div#ccm-toolbar {
 
     li.ccm-toolbar-button-with-text {
       > a {
-        padding: 10px 18px 0 50px;
+        padding: 0 17px;
         width: auto;
+
+        svg {
+          margin-right: 8px;
+        }
 
         span {
           font-size: 0.8rem;
@@ -132,11 +130,11 @@ div#ccm-toolbar {
         border-right: 1px solid $gray-200;
         display: block;
         height: 47px;
-        padding: 10px 18px 0;
+        padding: 9px 18px 0 17px;
         width: 60px;
 
         img {
-          height: 23px;
+          height: 24px;
         }
       }
     }

@@ -1,0 +1,29 @@
+div.ccm-ui {
+  fieldset {
+    margin: 35px 0;
+
+    legend {
+      color: $gray-500;
+      margin: 0 0 35px;
+    }
+
+  }
+
+  .form-group {
+    padding-left: 20px;
+
+    > label {
+      color: $gray-700;
+      font-weight: 600;
+    }
+
+  }
+
+}
+
+
+.form-control {
+  &::placeholder {
+    font-style: italic;
+  }
+}

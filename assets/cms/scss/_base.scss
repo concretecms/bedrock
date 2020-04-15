@@ -56,11 +56,15 @@
 // File Manager
 @import './file-manager';
 
+// Forms
+@import './forms';
+
 // Selectize
 @import '~selectize/dist/css/selectize.css';
 @import './selectize';
 
 // Miscellaneous components
+@import './forms';
 @import './tabs';
 @import './item-selector';
 @import './item-select-list';
@@ -69,3 +73,4 @@
 @import '~spectrum-colorpicker/spectrum.css';
 @import './icons';
 @import './date-time';
+@import './dropdown';
