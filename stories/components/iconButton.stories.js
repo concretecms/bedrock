@@ -9,7 +9,7 @@ export default {
 }
 
 export const basicUsage = () => ({
-    component:{
+    component: {
         IconButton
     },
     methods: {
@@ -32,7 +32,7 @@ export const basicUsage = () => ({
 })
 
 export const basicUsageWithLabel = () => ({
-    component:{
+    component: {
         IconButton
     },
     methods: {
@@ -57,7 +57,7 @@ export const basicUsageWithLabel = () => ({
 })
 
 export const withOutlineIconOnly = () => ({
-    component:{
+    component: {
         IconButton
     },
     methods: {
@@ -80,7 +80,7 @@ export const withOutlineIconOnly = () => ({
 })
 
 export const withLabelOutline = () => ({
-    component:{
+    component: {
         IconButton
     },
     methods: {
@@ -104,7 +104,7 @@ export const withLabelOutline = () => ({
 })
 
 export const withLabelOutlineDisabled = () => ({
-    component:{
+    component: {
         IconButton
     },
     methods: {

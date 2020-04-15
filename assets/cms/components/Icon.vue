@@ -5,11 +5,11 @@
             'fas': props.type === 'fontawesome-solid',
             'far': props.type === 'fontawesome-regular',
             'fab': props.type === 'fontawesome-brand',
-            }, props.icon]" 
+            }, props.icon]"
             v-bind:style="props.color ? {'color':props.color} : null"
         />
     </span>
-        
+
 </template>
 
 <script>
@@ -27,4 +27,3 @@ export default {
         font-size: 1.2rem;
     }
 </style>
-

@@ -1,22 +1,22 @@
 <template functional>
     <span class="button-container">
-        <button 
-            @click='listeners.click' 
+        <button
+            @click='listeners.click'
             v-bind:class="['btn', props.bootstrapClass]"
             :disabled="props.disabled"
             >
-            <span class="label" v-if="props.labelPosition === 'left'" 
+            <span class="label" v-if="props.labelPosition === 'left'"
                 v-bind:class="{disabled : props.disabled}">
                 <slot />
             </span>
-                
+
             <Icon :icon="props.icon" :type="props.type" :color="props.disabled ? '#ccc' : props.color"/>
 
             <span class="label" v-if="props.labelPosition === 'right' || !props.labelPosition"
                 v-bind:class="{disabled : props.disabled}">
                 <slot />
             </span>
-            
+
         </button>
     </span>
 </template>
@@ -33,7 +33,7 @@ export default {
         type: String,
         color: String,
         bootstrapClass: {
-            type: String,
+            type: String
         }
     },
     components: {
@@ -51,7 +51,7 @@ export default {
         &:focus {
             outline: none;
         }
-        
+
         &.clear {
             background:none;
             border:none;
