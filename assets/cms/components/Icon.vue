@@ -1,11 +1,12 @@
 <template functional>
 
-    <i class="icon" :class="[{
-            'fas': props.iconType === 'fontawesome-solid',
-            'far': props.iconType === 'fontawesome-regular',
-            'fab': props.iconType === 'fontawesome-brand',
+    <i class="icon" 
+        :class="[{
+            fas: props.iconType === 'fontawesome-solid',
+            far: props.iconType === 'fontawesome-regular',
+            fab: props.iconType === 'fontawesome-brand',
         }, props.icon]"
-        :style="{ 'color': props.iconColor }"
+        :style="{ color: props.iconColor }"
     />
 
 </template>
