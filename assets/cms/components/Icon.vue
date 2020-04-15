@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .icon {
-        font-size: 1.2rem;
-    }
+  .icon {
+    font-size: 1.2rem;
+  }
 </style>

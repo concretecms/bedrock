@@ -60,12 +60,13 @@ export default {
 <style lang="scss" scoped>
 
 button {
-    .label {
-        margin:0 10px;
-        &:empty {
-            display: none;
-        }
+  .label {
+    margin: 0 10px;
+
+    &:empty {
+      display: none;
     }
+  }
 }
 
 </style>
