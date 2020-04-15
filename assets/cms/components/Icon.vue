@@ -5,7 +5,7 @@
             'far': props.iconType === 'fontawesome-regular',
             'fab': props.iconType === 'fontawesome-brand',
         }, props.icon]"
-        :style="props.color ? {'color':props.color} : null"
+        :style="{'color':props.color}"
     />
 
 </template>
@@ -21,7 +21,10 @@ export default {
             type: String,
             default: 'fontawesome-solid'
         },
-        color: String
+        color: {
+            type: String,
+            default: 'inherit'
+        }
     }
 }
 </script>

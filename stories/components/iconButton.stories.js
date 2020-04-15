@@ -68,7 +68,7 @@ export const withOutlineIconOnly = () => ({
             icon="fa-trash-alt"
             icon-type="fontawesome-regular"
             @click="handleClick"
-            bootstrap-class="btn-outline-secondary"
+            format="outline-primary"
         />  
     </div>
     
@@ -90,7 +90,7 @@ export const withLabelOutline = () => ({
             icon="fa-trash-alt"
             icon-type="fontawesome-regular"
             @click="handleClick"
-            bootstrap-class="btn-outline-secondary"
+            format="outline"
         >
             Delete
         </IconButton>  
@@ -115,7 +115,7 @@ export const withLabelOutlineDisabled = () => ({
             icon-type="fontawesome-regular"
             color="#7F7F7F"
             @click="handleClick"
-            bootstrap-class="btn-outline-secondary"
+            format="outline"
             disabled  
         >
             Delete

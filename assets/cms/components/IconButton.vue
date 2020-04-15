@@ -2,7 +2,10 @@
     <span class="button-container">
         <button
             @click='listeners.click'
-            :class="['btn', props.bootstrapClass]"
+            :class="[{ 'btn btn-light' : props.format === 'floating',
+                    'btn btn-outline-secondary' : props.format === 'outline',
+                    'btn btn-outline-primary' : props.format === 'outline-primary',
+                }]"
             :disabled="props.disabled"
             >
             <span class="label" v-if="props.labelPosition === 'left'"
@@ -10,9 +13,9 @@
                 <slot />
             </span>
 
-            <Icon :icon="props.icon" :icon-type="props.iconType" :color="props.disabled ? '#ccc' : props.color"/>
+            <Icon :icon="props.icon" :icon-type="props.iconType" :color="props.color"/>
 
-            <span class="label" v-if="props.labelPosition === 'right' || !props.labelPosition"
+            <span class="label" v-if="props.labelPosition === 'right'"
                 :class="{disabled : props.disabled}">
                 <slot />
             </span>
@@ -26,15 +29,20 @@ import Icon from './Icon'
 
 export default {
     props: {
-        outline: Boolean,
-        disabled: Boolean,
-        labelPosition: String,
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        labelPosition: {
+            type: String,
+            default: 'right'
+        },
         icon: String,
         iconType: String,
         color: String,
-        bootstrapClass: {
+        format: {
             type: String,
-            default: 'clear'
+            default: 'floating'
         }
     },
     components: {
@@ -47,15 +55,6 @@ export default {
 
 .button-container {
     button {
-        &:focus {
-            outline: none;
-        }
-
-        &.clear {
-            background:none;
-            border:none;
-        }
-
         .label {
             font-size: .9rem;
             margin-left: 10px;
