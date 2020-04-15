@@ -3,10 +3,10 @@
   "version": "0.9.3",
   "description": "The asset framework and dependencies for Concrete CMS.",
   "scripts": {
-    "lint": "standardx \"**/*.{js,vue}\" && stylelint assets/**/*.scss",
-    "lint:fix": "standardx \"**/*.{js,vue}\" --fix && stylelint assets/**/*.scss --fix",
-    "lint:css": "stylelint assets/**/*.scss",
-    "lint:fix:css": "stylelint assets/**/*.scss --fix",
+    "lint": "standardx \"**/*.{js,vue}\" && stylelint assets/**/*.{scss,vue}",
+    "lint:fix": "standardx \"**/*.{js,vue}\" --fix && stylelint assets/**/*.{scss,vue} --fix",
+    "lint:css": "stylelint assets/**/*.{scss,vue}",
+    "lint:fix:css": "stylelint assets/**/*.{scss,vue} --fix",
     "lint:js": "standardx \"**/*.{js,vue}\"",
     "lint:fix:js": "standardx \"**/*.{js,vue}\" --fix",
     "storybook": "start-storybook -p55600"
