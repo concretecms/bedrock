@@ -6,7 +6,7 @@
   max-width: 800px;
 
   .login-page-header {
-    padding: 40px 0px;
+    padding: 40px 0;
   }
 
   .external-auth-option {
@@ -46,8 +46,8 @@
   }
 
   .form-check-remember-me {
-    font-style: italic;
     color: $text-muted;
+    font-style: italic;
   }
 
   .ccm-concrete-authentication-type-svg {
