@@ -45,7 +45,13 @@ const svgIcons = {
     sitemap: 'sitemap',
     arrowLeft: 'arrow-left',
     help: 'help',
-    dialogClose: 'dialog-close'
+    dialogClose: 'dialog-close',
+    moveToTop: 'move-to-top',
+    moveUp: 'move-up',
+    moveDown: 'move-down',
+    moveToBottom: 'move-to-bottom',
+    bin: 'bin',
+    duplicate: 'duplicate'
 }
 
 const camelCase = key => key.replace(/-([a-z0-9])/g, (match, group) => group.toUpperCase())

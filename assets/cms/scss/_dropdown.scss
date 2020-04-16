@@ -10,6 +10,11 @@
     min-width: 100%;
     width: auto !important;
 
+    .menu-item-title {
+      align-self: center;
+      padding-right: 10px;
+    }
+
     .menu-icon {
       align-items: center;
       color: $gray-500;

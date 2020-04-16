@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <svg display="none">
     <defs>
         <symbol id="icon-pencil" width="16px" height="16px" viewBox="0 0 16 16" version="1.1"
@@ -171,6 +172,63 @@
                             </g>
                         </g>
                     </g>
+                </g>
+            </g>
+        </symbol>
+        <symbol id="icon-move-up" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" xml:space="preserve">
+            <g transform="translate(-658.000000, -332.000000)">
+                <g transform="translate(657.000000, 328.000000)">
+                    <polygon id="Path" class="st0" points="11,11.2 18.3,18.5 20,18.5 11,9.5 2,18.5 3.7,18.5 			"/>
+                </g>
+            </g>
+        </symbol>
+        <symbol id="icon-move-down" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" xml:space="preserve">
+            <g transform="translate(-658.000000, -332.000000)">
+                <g transform="translate(657.000000, 328.000000)">
+                    <polygon id="Path" class="st0" points="3.7,9.5 2,9.5 11,18.5 20,9.5 18.3,9.5 11,16.8 			"/>
+                </g>
+            </g>
+        </symbol>
+        <symbol id="icon-move-to-top" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" xml:space="preserve">
+            <g transform="translate(-658.000000, -332.000000)">
+                <g transform="translate(657.000000, 328.000000)">
+                    <polygon id="Path" class="st1" points="11,13.3 18.3,20.6 20,20.6 11,11.6 2,20.6 3.7,20.6 			"/>
+                    <rect x="2" y="8" class="st2" width="18" height="1"/>
+                </g>
+            </g>
+        </symbol>
+        <symbol id="icon-move-to-bottom" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" xml:space="preserve">
+            <g transform="translate(-658.000000, -332.000000)">
+                <g transform="translate(657.000000, 328.000000)">
+                    <polygon id="Path" class="st1" points="3.7,7.4 2,7.4 11,16.4 20,7.4 18.3,7.4 11,14.7 			"/>
+                    <rect x="2" y="19" class="st2" width="18" height="1"/>
+                </g>
+            </g>
+        </symbol>
+
+        <symbol id="icon-bin" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" xml:space="preserve">
+            <path id="Path" class="st0" d="M12.6,7.4c-0.3,0-0.5,0.2-0.5,0.4v8c0,0.2,0.2,0.4,0.5,0.4c0.3,0,0.5-0.2,0.5-0.4v-8
+                C13.1,7.6,12.9,7.4,12.6,7.4z"/>
+            <path class="st0" d="M7.4,7.4c-0.3,0-0.5,0.2-0.5,0.4v8c0,0.2,0.2,0.4,0.5,0.4s0.5-0.2,0.5-0.4v-8C7.9,7.6,7.7,7.4,7.4,7.4z"/>
+            <path id="Shape" class="st0" d="M3.9,6.4v10.2c0,0.6,0.2,1.2,0.6,1.6c0.4,0.4,0.9,0.6,1.5,0.6H14c0.6,0,1.1-0.2,1.5-0.6
+                c0.4-0.4,0.6-1,0.6-1.6V6.4c0.8-0.2,1.3-0.9,1.2-1.7c-0.1-0.8-0.8-1.4-1.6-1.4h-2.1V2.8c0-0.4-0.2-0.9-0.5-1.2
+                c-0.3-0.3-0.7-0.5-1.2-0.5H8.1C7.7,1.2,7.3,1.3,7,1.6C6.6,1.9,6.5,2.4,6.5,2.8v0.5H4.3c-0.8,0-1.5,0.6-1.6,1.4
+                C2.6,5.5,3.1,6.2,3.9,6.4z M14,18H6c-0.7,0-1.3-0.6-1.3-1.4V6.5h10.5v10.2C15.2,17.4,14.7,18,14,18z M7.3,2.8
+                c0-0.2,0.1-0.4,0.2-0.6C7.7,2.1,7.9,2,8.1,2h3.7c0.2,0,0.4,0.1,0.6,0.2c0.2,0.2,0.2,0.4,0.2,0.6v0.5H7.3V2.8z M4.3,4.1h11.4
+                c0.4,0,0.8,0.3,0.8,0.7s-0.3,0.7-0.8,0.7H4.3c-0.4,0-0.8-0.3-0.8-0.7S3.9,4.1,4.3,4.1z"/>
+            <path class="st0" d="M10,7.4c-0.3,0-0.5,0.2-0.5,0.4v8c0,0.2,0.2,0.4,0.5,0.4c0.3,0,0.5-0.2,0.5-0.4v-8C10.5,7.6,10.3,7.4,10,7.4
+                z"/>
+        </symbol>
+
+        <symbol id="icon-duplicate" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" xml:space="preserve">
+        	<g transform="translate(-660.000000, -455.000000)">
+                <g transform="translate(660.000000, 455.935783)">
+                    <path id="Shape" class="st0" d="M12.7,3.2H4.3c-0.8,0-1.4,0.6-1.4,1.4v11.9c0,0.8,0.6,1.4,1.4,1.4h8.4c0.8,0,1.4-0.6,1.4-1.4V4.6
+                        C14.2,3.8,13.5,3.2,12.7,3.2z M13.2,16.5c0,0.2-0.2,0.4-0.4,0.4H4.3c-0.2,0-0.4-0.2-0.4-0.4V4.6c0-0.2,0.2-0.4,0.4-0.4h8.4
+                        c0.2,0,0.4,0.2,0.4,0.4V16.5z"/>
+                    <path id="Path" class="st0" d="M15.7,0.2H7.3c-0.8,0-1.4,0.6-1.4,1.4c0,0.3,0.2,0.5,0.5,0.5c0.3,0,0.5-0.2,0.5-0.5
+                        c0-0.2,0.2-0.4,0.4-0.4h8.4c0.2,0,0.4,0.2,0.4,0.4v11.9c0,0.2-0.2,0.4-0.4,0.4c-0.3,0-0.5,0.2-0.5,0.5s0.2,0.5,0.5,0.5
+                        c0.8,0,1.4-0.6,1.4-1.4V1.7C17.1,0.9,16.5,0.2,15.7,0.2z"/>
                 </g>
             </g>
         </symbol>

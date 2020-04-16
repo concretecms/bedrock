@@ -2,6 +2,7 @@ import MenuButton from '../../assets/cms/components/menu/MenuButton.vue'
 import MenuItem from '../../assets/cms/components/menu/MenuItem.vue'
 import MenuDivider from '../../assets/cms/components/menu/MenuDivider.vue'
 import ContextMenu from '../../assets/cms/components/menu/ContextMenu.vue'
+import { Icons, Types } from '../../assets/cms/components/Icon.vue'
 import Vue from 'vue'
 
 // Add our component to the global vue instance
@@ -67,13 +68,13 @@ export const contextMenu = () => ({
         <p>Last clicked: <em>{{action}}</em></p>
         <div class='dropdown'>
             <ContextMenu show=1>
-                <MenuItem @click='itemClick' icon='fa-angle-double-up' :disabled=true>Move To Top</MenuItem>
-                <MenuItem @click='itemClick' icon='fa-angle-up'>Move Up</MenuItem>
-                <MenuItem @click='itemClick' icon='fa-angle-down'>Move Down</MenuItem>
-                <MenuItem @click='itemClick' icon='fa-angle-double-down'>Move To Bottom</MenuItem>
-                <MenuItem @click='itemClick' icon='fa-copy'>Duplicate</MenuItem>
+                <MenuItem @click='itemClick' icon='${Icons.svg.moveToTop}' iconType='${Types.svg}' :disabled=true>Move To Top</MenuItem>
+                <MenuItem @click='itemClick' icon='${Icons.svg.moveUp}' iconType='${Types.svg}'>Move Up</MenuItem>
+                <MenuItem @click='itemClick' icon='${Icons.svg.moveDown}' iconType='${Types.svg}'>Move Down</MenuItem>
+                <MenuItem @click='itemClick' icon='${Icons.svg.moveToBottom}' iconType='${Types.svg}'>Move To Bottom</MenuItem>
+                <MenuItem @click='itemClick' icon='${Icons.svg.duplicate}' iconType='${Types.svg}'>Duplicate</MenuItem>
                 <MenuDivider />
-                <MenuItem @click='itemClick' icon='fa-trash'>Delete</MenuItem>
+                <MenuItem @click='itemClick' icon='${Icons.svg.bin}' iconType='${Types.svg}'>Delete</MenuItem>
             </ContextMenu>
         </div>
     </div>`
