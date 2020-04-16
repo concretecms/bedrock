@@ -8,16 +8,11 @@
         }"
         :disabled="props.disabled"
         >
-        <span class="label" v-if="props.labelPosition === 'left'">
+        <Icon :icon="props.icon" :type="props.iconType" :color="props.iconColor" v-if="props.labelPosition === 'left'" />
+        <span class="label" v-if="!!$slots.default">
             <slot />
         </span>
-
-        <Icon :icon="props.icon" :icon-type="props.iconType" :icon-color="props.iconColor" />
-
-        <span class="label" v-if="props.labelPosition === 'right'">
-            <slot />
-        </span>
-
+        <Icon :icon="props.icon" :type="props.iconType" :color="props.iconColor" v-if="props.labelPosition === 'right'" />
     </button>
 </template>
 
@@ -39,12 +34,10 @@ export default {
             required: true
         },
         iconType: {
-            type: String,
-            default: 'fontawesome-solid'
+            type: String
         },
         iconColor: {
-            type: String,
-            default: 'inherit'
+            type: String
         },
         format: {
             type: String,
@@ -62,10 +55,6 @@ export default {
 button {
   .label {
     margin: 0 10px;
-
-    &:empty {
-      display: none;
-    }
   }
 }
 
