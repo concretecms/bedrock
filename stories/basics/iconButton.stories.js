@@ -1,50 +1,61 @@
 import IconButton from '../../assets/cms/components/IconButton.vue'
+import { Types, Icons } from '../../assets/cms/components/Icon.vue'
 import Vue from 'vue'
 
 Vue.component('IconButton', IconButton)
 
 export default {
-    title: 'Components/IconButton',
+    title: 'Basics/IconButton',
     component: IconButton
 }
 
-export const basicUsage = () => ({
+export const iconButton = () => ({
     component: {
         IconButton
     },
-    methods: {
-        handleClick() {
-            alert('Button Clicked.')
-        }
-    },
+    data: () => ({
+        clicks: 0
+    }),
     template: `
     <div class="ccm-ui">
-        <IconButton
-            icon="fa-trash-alt"
-            icon-type="fontawesome-regular"
-            icon-color="#7F7F7F"
-            @click="handleClick"
-        />  
+        <p>Clicks: {{clicks}}</p>
+        <IconButton icon="${Icons.far.trashAlt}" @click="clicks++" />
     </div>
     `
 })
 
-export const basicUsageWithLabel = () => ({
+console.log(Icons)
+export const svgUsage = () => ({
     component: {
         IconButton
     },
-    methods: {
-        handleClick() {
-            alert('Button Clicked.')
-        }
-    },
+    data: () => ({
+        clicks: 0
+    }),
     template: `
     <div class="ccm-ui">
+        <p>Clicks: {{clicks}}</p>
+        <IconButton iconType="${Types.svg}" icon="${Icons.svg.plus}" @click="clicks++" />
+        <IconButton iconType="${Types.svg}" icon="${Icons.svg.dialogClose}" @click="clicks++" />
+    </div>
+    `
+})
+
+export const labeledButton = () => ({
+    component: {
+        IconButton
+    },
+    data: () => ({
+        clicks: 0
+    }),
+    template: `
+    <div class="ccm-ui">
+        <p>Clicks: {{clicks}}</p>
         <IconButton
-            icon="fa-trash-alt"
-            icon-type="fontawesome-regular"
+            icon="${Icons.far.trashAlt}"
+            icon-type="${Types.far}"
             icon-color="#7F7F7F"
-            @click="handleClick"
+            @click="clicks++"
         >
             Delete
         </IconButton>  
@@ -53,21 +64,20 @@ export const basicUsageWithLabel = () => ({
     `
 })
 
-export const withOutlineIconOnly = () => ({
+export const iconButtonWithOutline = () => ({
     component: {
         IconButton
     },
-    methods: {
-        handleClick() {
-            alert('Button Clicked.')
-        }
-    },
+    data: () => ({
+        clicks: 0
+    }),
     template: `
     <div class="ccm-ui">
+        <p>Clicks: {{clicks}}</p>
         <IconButton
-            icon="fa-trash-alt"
-            icon-type="fontawesome-regular"
-            @click="handleClick"
+            icon="${Icons.far.trashAlt}"
+            icon-type="${Types.far}"
+            @click="clicks++"
             format="outline-primary"
         />  
     </div>
@@ -75,21 +85,20 @@ export const withOutlineIconOnly = () => ({
     `
 })
 
-export const withLabelOutline = () => ({
+export const labeledWithOutline = () => ({
     component: {
         IconButton
     },
-    methods: {
-        handleClick() {
-            alert('Button Clicked.')
-        }
-    },
+    data: () => ({
+        clicks: 0
+    }),
     template: `
     <div class="ccm-ui">
+        <p>Clicks: {{clicks}}</p>
         <IconButton
-            icon="fa-trash-alt"
-            icon-type="fontawesome-regular"
-            @click="handleClick"
+            icon="${Icons.far.trashAlt}"
+            icon-type="${Types.far}"
+            @click="clicks++"
             format="outline"
             label-position="left"
         >
@@ -100,21 +109,20 @@ export const withLabelOutline = () => ({
     `
 })
 
-export const withLabelOutlineDisabled = () => ({
+export const disabled = () => ({
     component: {
         IconButton
     },
-    methods: {
-        handleClick() {
-            alert('Button Clicked.')
-        }
-    },
+    data: () => ({
+        clicks: 0
+    }),
     template: `
     <div class="ccm-ui">
+        <p>Clicks: {{clicks}}</p>
         <IconButton
-            icon="fa-trash-alt"
-            icon-type="fontawesome-regular"
-            @click="handleClick"
+            icon="${Icons.far.trashAlt}"
+            icon-type="${Types.far}"
+            @click="clicks++"
             format="outline"
             disabled  
         >
