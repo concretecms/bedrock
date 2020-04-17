@@ -1,4 +1,4 @@
-div.ccm-ui {
+.ccm-ui {
   fieldset {
     margin: 35px 0;
 
@@ -17,7 +17,14 @@ div.ccm-ui {
       font-weight: 600;
     }
 
+    > .col-form-label {
+      color: $gray-700;
+      font-weight: 600;
+      text-align: right;
+    }
+
   }
+
 
 }
 

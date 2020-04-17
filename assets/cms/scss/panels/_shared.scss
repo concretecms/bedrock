@@ -21,16 +21,23 @@ div.ccm-panel {
   width: 320px;
   z-index: $index-level-panel; // has to come above the detail actions wrapper
   div.ccm-panel-close {
-    height: 20px;
+    position: absolute;
+    right: 17px;
+    text-decoration: none;
+    top: 7px;
 
-    >a,
-    >a:hover {
-      color: #999;
-      font-size: 2rem;
-      position: absolute;
-      right: 10px;
-      text-decoration: none;
-      top: 0;
+    > a,
+    svg {
+      fill: $gray-500;
+      height: 24px;
+      transition: fill 0.1s ease-in-out;
+      width: 24px;
+    }
+
+    &:hover {
+      svg {
+        fill: $blue;
+      }
     }
   }
 }
