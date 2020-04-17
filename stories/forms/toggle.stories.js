@@ -1,5 +1,4 @@
 import Toggle from '../../assets/cms/components/form/Toggle'
-import { Types, Icons } from '../../assets/cms/components/Icon.vue'
 import Vue from 'vue'
 
 // Add our component to the global vue instance
@@ -38,16 +37,6 @@ export const basicUsage = () => ({
         <fieldset class='mt-5'>
             <legend class='mb-1'>Undefined listener:</legend>
             <Toggle :active="active">foo</Toggle>
-        </fieldset>
-
-        <fieldset class='mt-5'>
-            <legend class='mb-1'>Custom Icons:</legend>
-            <Toggle @change="handleClick"
-                    :active="active"
-                    checkedIconType="${Types.far}"
-                    checkedIcon="${Icons.far.smile}"
-                    uncheckedIconType="${Types.fas}"
-                    uncheckedIcon="${Icons.fas.timesCircle}">foo</Toggle>
         </fieldset>
     </div>`
 })

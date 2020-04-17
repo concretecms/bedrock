@@ -3,17 +3,13 @@
         <span class='affirmative' @click='(e) => (!props.active && (listeners.change || (() => {}))(e))'>
             <span class='title'>{{props.affirmativeTitle}}</span>
             <span class='icon'>
-                <Icon
-                  :type='props.active ? props.checkedIconType : props.uncheckedIconType'
-                  :icon='props.active ? props.checkedIcon : props.uncheckedIcon' />
+                <input type='radio' :checked='props.active' />
             </span>
         </span>
         <span class='negative' @click='(e) => (props.active && (listeners.change || (() => {}))(e))'>
             <span class='title'>{{props.negativeTitle}}</span>
             <span class='icon'>
-                <Icon
-                  :type='!props.active ? props.checkedIconType : props.uncheckedIconType'
-                  :icon='!props.active ? props.checkedIcon : props.uncheckedIcon' />
+                <input type='radio' :checked='!props.active' />
             </span>
         </span>
     </div>
@@ -25,14 +21,22 @@
 
   &.off .affirmative {
     cursor: pointer;
+
+    .icon > input {
+      cursor: pointer;
+    }
   }
 
   &.on .negative {
     cursor: pointer;
+
+    .icon > input {
+      cursor: pointer;
+    }
   }
 
   .affirmative {
-    margin-right: 2px;
+    margin-right: 1rem;
   }
 
   .affirmative,
@@ -50,13 +54,17 @@
       height: 30px;
       justify-content: center;
       width: 30px;
+
+      input {
+        height: 1rem;
+        width: 1rem;
+      }
     }
   }
 }
 </style>
 
 <script>
-import Icon, { Types, Icons } from '../Icon'
 
 export default {
     props: {
@@ -71,24 +79,7 @@ export default {
         negativeTitle: {
             type: String,
             default: 'No'
-        },
-        checkedIconType: {
-            type: String,
-            default: Types.fas
-        },
-        checkedIcon: {
-            type: String,
-            default: Icons.fas.dotCircle
-        },
-        uncheckedIconType: {
-            type: String,
-            default: Types.far
-        },
-        uncheckedIcon: {
-            type: String,
-            default: Icons.fas.circle
         }
-    },
-    components: { Icon }
+    }
 }
 </script>
