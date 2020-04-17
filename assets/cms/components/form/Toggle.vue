@@ -1,16 +1,19 @@
 <template functional>
-    <div class='ccm-toggle' :foo='{ "this" : "isnt",
-     valid: "fpp"}' :class='[props.active ? "on" : "off", props.class]'>
+    <div class='ccm-toggle' :class='[props.active ? "on" : "off", props.class]'>
         <span class='affirmative' @click='(e) => (!props.active && (listeners.change || (() => {}))(e))'>
             <span class='title'>{{props.affirmativeTitle}}</span>
             <span class='icon'>
-                <i :class='[props.active ? "fas fa-dot-circle" : "far fa-circle"]' />
+                <Icon
+                  :type='props.active ? props.checkedIconType : props.uncheckedIconType'
+                  :icon='props.active ? props.checkedIcon : props.uncheckedIcon' />
             </span>
         </span>
         <span class='negative' @click='(e) => (props.active && (listeners.change || (() => {}))(e))'>
             <span class='title'>{{props.negativeTitle}}</span>
             <span class='icon'>
-                <i :class='[!props.active ? "fas fa-dot-circle" : "far fa-circle"]' />
+                <Icon
+                  :type='!props.active ? props.checkedIconType : props.uncheckedIconType'
+                  :icon='!props.active ? props.checkedIcon : props.uncheckedIcon' />
             </span>
         </span>
     </div>
@@ -53,6 +56,8 @@
 </style>
 
 <script>
+import Icon, { Types, Icons } from '../Icon'
+
 export default {
     props: {
         active: {
@@ -66,7 +71,24 @@ export default {
         negativeTitle: {
             type: String,
             default: 'No'
+        },
+        checkedIconType: {
+            type: String,
+            default: Types.fas
+        },
+        checkedIcon: {
+            type: String,
+            default: Icons.fas.dotCircle
+        },
+        uncheckedIconType: {
+            type: String,
+            default: Types.far
+        },
+        uncheckedIcon: {
+            type: String,
+            default: Icons.fas.circle
         }
-    }
+    },
+    components: { Icon }
 }
 </script>

@@ -1,4 +1,5 @@
 import Toggle from '../../assets/cms/components/form/Toggle'
+import { Types, Icons } from '../../assets/cms/components/Icon.vue'
 import Vue from 'vue'
 
 // Add our component to the global vue instance
@@ -6,7 +7,7 @@ Vue.component('Toggle', Toggle)
 
 // Set up the values for all stories in this file
 export default {
-    title: 'CMS/Forms',
+    title: 'CMS/Forms/Toggle',
     component: Toggle
 }
 
@@ -24,19 +25,29 @@ export const basicUsage = () => ({
     template: `
     <div class='ccm-ui'>
         <fieldset>
-            <legend>Basic usage.</legend>
+            <legend class='mb-1'>Basic usage.</legend>
             <span>Current State: {{ active ? 'active' : 'inactive' }}</span>
             <Toggle @change="handleClick" :active="active">foo</Toggle>
         </fieldset>
 
-        <fieldset>
-            <legend>International titles</legend>
+        <fieldset class='mt-5'>
+            <legend class='mb-1'>International titles</legend>
             <Toggle @change="handleClick" :active="active" affirmative-title='Igen' negative-title='Nem'>foo</Toggle>
         </fieldset>
 
-        <fieldset>
-            <legend>Undefined listener:</legend>
+        <fieldset class='mt-5'>
+            <legend class='mb-1'>Undefined listener:</legend>
             <Toggle :active="active">foo</Toggle>
+        </fieldset>
+
+        <fieldset class='mt-5'>
+            <legend class='mb-1'>Custom Icons:</legend>
+            <Toggle @change="handleClick"
+                    :active="active"
+                    checkedIconType="${Types.far}"
+                    checkedIcon="${Icons.far.smile}"
+                    uncheckedIconType="${Types.fas}"
+                    uncheckedIcon="${Icons.fas.timesCircle}">foo</Toggle>
         </fieldset>
     </div>`
 })
