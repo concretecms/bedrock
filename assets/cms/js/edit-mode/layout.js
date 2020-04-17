@@ -1,7 +1,7 @@
 /* eslint-disable no-new, no-unused-vars, camelcase */
 /* global _, Concrete */
 
-import * as _ from 'underscore'
+import _ from 'underscore'
 
 ;(function(window, $) {
     'use strict'
