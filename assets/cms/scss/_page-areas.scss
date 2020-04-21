@@ -508,11 +508,11 @@ a.ccm-panel-add-block-draggable-block-type-dragger {
   cursor: -moz-grab;
   cursor: -webkit-grab;
   cursor: grab;
-  height: 90px;
+  right: 0;
   left: 0;
   position: absolute;
   top: 0;
-  width: 90px;
+  bottom: 0;
   z-index: 1000000;
 
   &.pep-active {
