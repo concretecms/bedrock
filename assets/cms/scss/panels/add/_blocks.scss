@@ -3,7 +3,8 @@
     position: relative;
 
     input {
-      border: none;
+      // lint was rejecting booder: none which is a standard css value
+      border-width: 0;
       padding: 10px 25px 10px 10px;
       width: 100%;
     }
