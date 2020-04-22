@@ -8,11 +8,11 @@
         }"
         :disabled="props.disabled"
         >
-        <Icon :icon="props.icon" :type="props.iconType" :color="props.iconColor" v-if="props.labelPosition === 'left'" />
+        <Icon :icon="props.icon" :type="props.iconType" :color="props.iconColor" v-if="props.labelPosition === 'right'" />
         <span class="label" v-if="!!$slots.default">
             <slot />
         </span>
-        <Icon :icon="props.icon" :type="props.iconType" :color="props.iconColor" v-if="props.labelPosition === 'right'" />
+        <Icon :icon="props.icon" :type="props.iconType" :color="props.iconColor" v-if="props.labelPosition === 'left'" />
     </button>
 </template>
 
