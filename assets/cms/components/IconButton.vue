@@ -1,5 +1,6 @@
 <template functional>
     <button
+        v-bind="{type: props.type}"
         @click='listeners.click'
         :class="{
             'btn btn-light': props.format === 'floating',
@@ -8,11 +9,11 @@
         }"
         :disabled="props.disabled"
         >
-        <Icon :icon="props.icon" :type="props.iconType" :color="props.iconColor" v-if="props.labelPosition === 'right'" />
+        <Icon :icon="props.icon" :type="props.iconType" :color="props.iconColor" v-if="props.labelPosition === 'left'" />
         <span class="label" v-if="!!$slots.default">
             <slot />
         </span>
-        <Icon :icon="props.icon" :type="props.iconType" :color="props.iconColor" v-if="props.labelPosition === 'left'" />
+        <Icon :icon="props.icon" :type="props.iconType" :color="props.iconColor" v-if="props.labelPosition === 'right'" />
     </button>
 </template>
 
@@ -21,6 +22,10 @@ import Icon from './Icon'
 
 export default {
     props: {
+        type: {
+            type: String,
+            default: 'button'
+        },
         disabled: {
             type: Boolean,
             default: false
