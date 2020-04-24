@@ -8,13 +8,14 @@
         :style="{ color: props.color }"
     />
     <svg v-else-if='$options.methods.isSvg(props.type)' viewport='0 0 20 20' width='20px' height='20px'>
-        <use :xlink:href='`${$options.spritePath || "/icons/sprites.svg"}#icon-${props.icon}`' :style='`fill: ${props.color}`'></use>
+        <use :xlink:href='`${$options.Vue.config.spritePath || "/icons/sprites.svg"}#icon-${props.icon}`' :style='`fill: ${props.color}`'></use>
     </svg>
     <span v-else>Invalid icon type.</span>
 </template>
 
 <script>
 import FontawesomeIcons from './fontawesome-iconlist'
+import Vue from 'vue'
 
 // Export constants for types
 const getTypes = () => {
@@ -64,6 +65,7 @@ export const Icons = buildIconList()
 
 // Export our component definition
 export default {
+    Vue,
     props: {
         icon: {
             type: String,
