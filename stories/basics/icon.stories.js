@@ -1,7 +1,4 @@
-import Icon, { Icons, Types } from '../../assets/cms/components/Icon.vue'
-import Vue from 'vue'
-
-Vue.component('Icon', Icon)
+import Icon, { icons, types as iconTypes } from '../../assets/cms/components/Icon.vue'
 
 export default {
     title: 'Basics/Icon',
@@ -9,12 +6,15 @@ export default {
 }
 
 export const basicUsage = () => ({
+    components: {
+        Icon
+    },
     data: () => ({
-        svg: Icons.svg,
-        fas: Icons.fas,
-        far: Icons.far,
-        fab: Icons.fab,
-        types: Object.values(Types).filter(type => type !== 'svg')
+        svg: icons.svg,
+        fas: icons.fas,
+        far: icons.far,
+        fab: icons.fab,
+        types: Object.values(iconTypes).filter(type => type !== 'svg')
     }),
     template: `
     <div class='ccm-ui'>
@@ -22,7 +22,7 @@ export const basicUsage = () => ({
             <legend>SVGs</legend>
             <div class='d-flex'>
                 <div v-for='icon in svg' style='display:flex;width:50px;height:50px;align-items:center;justify-content:center;outline:1px #f0f0f0 solid;' :title='icon'>
-                    <Icon :icon='icon' type="${Types.svg}" color="blue" style='align-self:center; justify-self: center;' />
+                    <Icon :icon='icon' type="${iconTypes.svg}" color="blue" style='align-self:center; justify-self: center;' />
                 </div>
             </div>
         </fieldset>
@@ -32,21 +32,21 @@ export const basicUsage = () => ({
                 <div style='flex-grow: 1; flex-basis: 0;'>
                     <p>With fontawesome solid icons</p>
                     <div v-for='icon of fas' style='display:flex;width:50px;height:50px;align-items:center;justify-content:center;float:left;outline:1px #f0f0f0 solid;' :title='icon'>
-                        <Icon :icon='icon' type="${Types.fas}" color="#7F7F7F" />
+                        <Icon :icon='icon' type="${iconTypes.fas}" color="#7F7F7F" />
                     </div>
                 </div>
 
                 <div style='flex-grow: 1; flex-basis: 0;'>
                     <p>With fontawesome regular icons</p>
                     <div v-for='icon of far' style='display:flex;width:50px;height:50px;align-items:center;justify-content:center;float:left;outline:1px #f0f0f0 solid;' :title='icon'>
-                        <Icon :icon='icon' type="${Types.far}" color="red" />
+                        <Icon :icon='icon' type="${iconTypes.far}" color="red" />
                     </div>
                 </div>
 
                 <div style='flex-grow: 1; flex-basis: 0;'>
                     <p>With fontawesome brand icons</p>
                     <div v-for='icon of fab' style='display:flex;width:50px;height:50px;align-items:center;justify-content:center;float:left;outline:1px #f0f0f0 solid;' :title='icon'>
-                        <Icon :icon='icon' type="${Types.fab}" color="#41b883" />
+                        <Icon :icon='icon' type="${iconTypes.fab}" color="#41b883" />
                     </div>
                 </div>
             </div>

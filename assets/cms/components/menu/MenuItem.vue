@@ -1,10 +1,20 @@
 <template functional>
 <div v-if='listeners.click' href='#' @click='listeners.click' v-bind='{...attrs, ...props}' :class='{"dropdown-item": true, "d-flex": true, disabled: props.disabled === true}'>
-    <span class='menu-icon flex d-flex'><i v-if='props.icon' :class='["fas", props.icon]'></i></span>
+    <span class='menu-icon flex d-flex' v-if='props.icon'>
+        <Icon v-bind='{
+            type: props.iconType,
+            icon: props.icon
+        }' />
+    </span>
     <span class='flex'><slot></slot></span>
 </div>
 <a v-else :href='props.href' v-bind='{...attrs, ...props}' :class='{"dropdown-item": true, "d-flex": true, disabled: props.disabled}'>
-    <span class='menu-icon flex d-flex justify-center'><i v-if='props.icon' :class='["fa", props.icon]'></i></span>
+    <span class='menu-icon flex d-flex' v-if='props.icon'>
+        <Icon v-bind='{
+            type: props.iconType,
+            icon: props.icon
+        }' />
+    </span>
     <span class='flex'><slot></slot></span>
 </a>
 </template>
@@ -33,10 +43,16 @@
 }
 </style>
 <script>
+import Icon from '../Icon'
+
 export default {
+    components: {
+        Icon
+    },
     props: {
         disabled: Boolean,
         icon: String,
+        iconType: String,
         href: String
     }
 }

@@ -1,26 +1,41 @@
 <template functional>
     <button
-        v-bind="{type: props.type}"
+        v-bind="{type: props.type, style: props.style}"
         @click='listeners.click'
-        :class="{
-            'btn btn-light': props.format === 'floating',
-            'btn btn-outline-secondary': props.format === 'outline',
-            'btn btn-outline-primary': props.format === 'outline-primary',
-        }"
+        class='btn'
+        :class="[$options.classMap[props.type] || $options.defaultClass, props.buttonClass]"
         :disabled="props.disabled"
         >
-        <Icon :icon="props.icon" :type="props.iconType" :color="props.iconColor" v-if="props.labelPosition === 'left'" />
-        <span class="label" v-if="!!$slots.default">
+        <Icon v-bind="{icon: props.icon, type: props.iconType, color: props.iconColor}" v-if="props.labelPosition === 'right'" />
+        <span class="label" v-if="$options.methods.showSlot(children)">
             <slot />
         </span>
-        <Icon :icon="props.icon" :type="props.iconType" :color="props.iconColor" v-if="props.labelPosition === 'right'" />
+        <Icon v-bind="{icon: props.icon, type: props.iconType, color: props.iconColor}" v-if="props.labelPosition !== 'right'" />
     </button>
 </template>
 
 <script>
 import Icon from './Icon'
 
+export const types = {
+    add: 'add',
+    save: 'save',
+    delete: 'delete',
+    cancel: 'cancel',
+    outline: 'outline',
+    floating: 'floating'
+}
+
 export default {
+    classMap: {
+        [types.add]: 'btn-success',
+        [types.save]: 'btn-primary',
+        [types.delete]: 'btn-danger',
+        [types.cancel]: 'btn-outline-secondary',
+        [types.outline]: 'btn-outline-secondary',
+        [types.floating]: 'btn-outline'
+    },
+    defaultClass: 'btn-outline-primary',
     props: {
         type: {
             type: String,
@@ -47,10 +62,25 @@ export default {
         format: {
             type: String,
             default: 'floating'
-        }
+        },
+        buttonClass: [String, Array, Object]
     },
     components: {
         Icon
+    },
+    methods: {
+        showSlot(children) {
+            if (children && children.length) {
+                // Handle blank children
+                if (children[0].tag === undefined && !children[0].text.trim()) {
+                    return false
+                }
+
+                return true
+            }
+
+            return false
+        }
     }
 }
 </script>

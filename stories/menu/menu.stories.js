@@ -1,14 +1,5 @@
-import MenuButton from '../../assets/cms/components/menu/MenuButton.vue'
-import MenuItem from '../../assets/cms/components/menu/MenuItem.vue'
-import MenuDivider from '../../assets/cms/components/menu/MenuDivider.vue'
-import ContextMenu from '../../assets/cms/components/menu/ContextMenu.vue'
-import Vue from 'vue'
-
-// Add our component to the global vue instance
-Vue.component('MenuButton', MenuButton)
-Vue.component('MenuItem', MenuItem)
-Vue.component('MenuDivider', MenuDivider)
-Vue.component('ContextMenu', ContextMenu)
+import MenuButton from '../../assets/cms/components/menu/MenuButton'
+import { icons } from '../../assets/cms/components/iconlist'
 
 // Set up the values for all stories in this file
 export default {
@@ -18,9 +9,13 @@ export default {
 
 // Simplest usage with default sizing from the core
 export const basicUsage = () => ({
+    components: {
+        MenuButton,
+        ...MenuButton.components
+    },
     data() {
         return {
-            active: false,
+            active: true,
             lastClicked: 'nothing yet'
         }
     },
@@ -28,32 +23,31 @@ export const basicUsage = () => ({
         itemClick(e) {
             this.lastClicked = e.target.innerText
             this.active = false
-        },
-        hide(e) {
-            this.lastClicked = 'Outside'
-            this.active = false
         }
     },
     template: `
     <div class='ccm-ui' style='height: 350px'>
+        <p>Active: <em>{{active ? 'Yes' : 'No'}}</em></p>
         <p>Last clicked: <em>{{lastClicked}}</em></p>
-        <MenuButton :buttonType='far' @click='active=!active' :active='!!active' icon='fa-ellipsis-h'>
+        <MenuButton @click='active=!active' :active='active'>
             <ContextMenu :show='active'>
-                <MenuItem @click='itemClick' icon='fa-angle-double-up' :disabled=true>Move To Top</MenuItem>
-                <MenuItem @click='itemClick' icon='fa-angle-up'>Move Up</MenuItem>
-                <MenuItem @click='itemClick' icon='fa-angle-down'>Move Down</MenuItem>
-                <MenuItem @click='itemClick' icon='fa-angle-double-down'>Move To Bottom</MenuItem>
-                <MenuItem @click='itemClick' icon='fa-copy'>Duplicate</MenuItem>
+                <MenuItem @click='itemClick' icon='${icons.fas.angleDoubleUp}' :disabled=true>Move To Top</MenuItem>
+                <MenuItem @click='itemClick' icon='${icons.fas.angleUp}'>Move Up</MenuItem>
+                <MenuItem @click='itemClick' icon='${icons.fas.angleDown}'>Move Down</MenuItem>
+                <MenuItem @click='itemClick' icon='${icons.fas.angleDoubleDown}'>Move To Bottom</MenuItem>
+                <MenuItem @click='itemClick' icon='${icons.fas.copy}'>Duplicate</MenuItem>
                 <MenuDivider />
-                <MenuItem @click='itemClick' icon='fa-trash'>Delete</MenuItem>
+                <MenuItem @click='itemClick' icon='${icons.fas.trash}'>Delete</MenuItem>
             </ContextMenu>
         </MenuButton>
     </div>
     `
 })
 
-export const contextMenu = () => ({
-    component: ContextMenu,
+export const menuByItself = () => ({
+    components: {
+        ...MenuButton.components
+    },
     data: () => ({
         action: 'nothing yet'
     }),
@@ -66,14 +60,14 @@ export const contextMenu = () => ({
     <div class='ccm-ui'>
         <p>Last clicked: <em>{{action}}</em></p>
         <div class='dropdown'>
-            <ContextMenu show=1>
-                <MenuItem @click='itemClick' icon='fa-angle-double-up' :disabled=true>Move To Top</MenuItem>
-                <MenuItem @click='itemClick' icon='fa-angle-up'>Move Up</MenuItem>
-                <MenuItem @click='itemClick' icon='fa-angle-down'>Move Down</MenuItem>
-                <MenuItem @click='itemClick' icon='fa-angle-double-down'>Move To Bottom</MenuItem>
-                <MenuItem @click='itemClick' icon='fa-copy'>Duplicate</MenuItem>
-                <MenuDivider />
-                <MenuItem @click='itemClick' icon='fa-trash'>Delete</MenuItem>
+            <ContextMenu :show=true>
+            <MenuItem @click='itemClick' icon='${icons.fas.angleDoubleUp}' :disabled=true>Move To Top</MenuItem>
+            <MenuItem @click='itemClick' icon='${icons.fas.angleUp}'>Move Up</MenuItem>
+            <MenuItem @click='itemClick' icon='${icons.fas.angleDown}'>Move Down</MenuItem>
+            <MenuItem @click='itemClick' icon='${icons.fas.angleDoubleDown}'>Move To Bottom</MenuItem>
+            <MenuItem @click='itemClick' icon='${icons.fas.copy}'>Duplicate</MenuItem>
+            <MenuDivider />
+            <MenuItem @click='itemClick' icon='${icons.fas.trash}'>Delete</MenuItem>
             </ContextMenu>
         </div>
     </div>`
