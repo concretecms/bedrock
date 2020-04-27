@@ -9,7 +9,7 @@
     "lint:fix:css": "stylelint assets/**/*.{scss,vue} --fix",
     "lint:js": "standardx \"**/*.{js,vue}\"",
     "lint:fix:js": "standardx \"**/*.{js,vue}\" --fix",
-    "storybook": "start-storybook -p55600 -s./assets"
+    "storybook": "start-storybook -p55600 -s./.storybook/public"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.11.2",

@@ -1,16 +1,15 @@
 <template functional>
-    <div class='ccm-toggle' :foo='{ "this" : "isnt",
-     valid: "fpp"}' :class='[props.active ? "on" : "off", props.class]'>
-        <span class='affirmative' @click='(e) => (!props.active && (listeners.change || (() => {}))(e))'>
+    <div class='ccm-toggle' :class='[props.value ? "on" : "off", props.class]'>
+        <span class='affirmative' @click='$options.methods.handleClick(true, props, listeners)'>
             <span class='title'>{{props.affirmativeTitle}}</span>
             <span class='icon'>
-                <i :class='[props.active ? "fas fa-dot-circle" : "far fa-circle"]' />
+                <Icon :type='props.value ? "fas" : "far"' :icon='props.value ? "dot-circle" : "circle"' />
             </span>
         </span>
-        <span class='negative' @click='(e) => (props.active && (listeners.change || (() => {}))(e))'>
+        <span class='negative' @click='$options.methods.handleClick(false, props, listeners)'>
             <span class='title'>{{props.negativeTitle}}</span>
             <span class='icon'>
-                <i :class='[!props.active ? "fas fa-dot-circle" : "far fa-circle"]' />
+                <Icon :type='!props.value ? "fas" : "far"' :icon='!props.value ? "dot-circle" : "circle"' />
             </span>
         </span>
     </div>
@@ -53,9 +52,14 @@
 </style>
 
 <script>
+import Icon from '../Icon'
+
 export default {
+    components: {
+        Icon
+    },
     props: {
-        active: {
+        value: {
             type: Boolean,
             required: true
         },
@@ -66,6 +70,18 @@ export default {
         negativeTitle: {
             type: String,
             default: 'No'
+        }
+    },
+    methods: {
+        handleClick(newValue, props, listeners) {
+            if (props.value !== newValue) {
+                if (listeners.change) {
+                    listeners.change(newValue)
+                }
+                if (listeners.input) {
+                    listeners.input(newValue)
+                }
+            }
         }
     }
 }
