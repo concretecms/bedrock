@@ -56,6 +56,8 @@ var uploadedFiles = []
  */
 function getDefaultOptions() {
     return {
+        autoQueue: true,
+        autoProcessQueue: true,
         previewsContainer: false,
         maxFiles: null,
         previewTemplate: Dropzone.prototype.defaultOptions.previewTemplate,
