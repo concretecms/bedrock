@@ -1,0 +1,113 @@
+/* stylelint-disable scss/at-extend-no-missing-placeholder */
+div.ccm-ui {
+  .ccm-search-results-table {
+
+    @extend .table;
+
+    thead {
+      th {
+        border-bottom-width: 1px;
+        font-size: 0.75rem;
+
+        a {
+          color: $gray-700;
+
+          &:hover {
+            color: black;
+            text-decoration: none;
+          }
+        }
+
+        &.ccm-results-list-active-sort-asc,
+        &.ccm-results-list-active-sort-desc {
+          a {
+            color: $blue;
+
+            &:hover {
+              color: black;
+            }
+
+            &::after {
+              content: '';
+              display: inline-block;
+              font-family: 'Font Awesome 5 Free';
+              font-size: 9px;
+              font-style: normal;
+              margin-left: 5px;
+              text-decoration: inherit;
+              vertical-align: middle;
+            }
+
+          }
+        }
+
+        &.ccm-results-list-active-sort-desc a::after {
+          content: '\f078';
+        }
+
+        &.ccm-results-list-active-sort-asc a::after {
+          content: '\f077';
+        }
+
+      }
+    }
+
+    tbody {
+      td {
+        color: $gray-400;
+        font-size: $font-size-sm;
+        transition: $transition-base;
+        vertical-align: middle;
+
+        &.ccm-search-results-icon {
+          width: 1px;
+
+          i {
+            font-size: 40px;
+          }
+        }
+      }
+    }
+
+    .ccm-search-results-em,
+    .ccm-search-results-name {
+      color: $gray-700;
+      font-size: 1rem;
+    }
+
+    .ccm-search-results-name {
+      width: 50%;
+    }
+
+    .ccm-search-results-menu-launcher {
+      transition: $transition-base;
+
+      button {
+        display: none;
+      }
+    }
+
+    tr.ccm-menu-item-active,
+    tr.ccm-parent-menu-item-active,
+    tr.ccm-search-select-hover,
+    tr.ccm-parent-menu-item-hover,
+    tr.ccm-search-select-selected {
+      td {
+        background-color: $gray-200;
+        color: #000;
+        cursor: pointer;
+      }
+
+      .ccm-search-results-em,
+      .ccm-search-results-name {
+        color: $gray-800;
+      }
+
+      .ccm-search-results-menu-launcher {
+        button {
+          display: block;
+        }
+      }
+    }
+  }
+}
