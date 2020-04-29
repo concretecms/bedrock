@@ -1,99 +1,213 @@
-div.ccm-sitemap-tree {
-  .icon-home,
-  .icon-folder,
-  .icon-page {
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-size: contain;
-    height: 20px;
-    margin: 12px 5px;
-    width: 20px;
-  }
-
-  .icon-home {
-    background-image: url($sitemap-home-icon-b64);
-  }
-
-  .icon-folder {
-    background-image: url($sitemap-folder-icon-b64);
-  }
-
-  .icon-page {
-    background-image: url($sitemap-page-icon-b64);
-  }
-
-  .fancytree-expander {
-    margin: 10px 8px;
-
-    &.fa-angle-right,
-    &.fa-caret-down,
-    &.fa-caret-right {
-      background-repeat: no-repeat;
-      background-size: contain;
-      background-size: contain;
-      height: 18px;
-      margin: 12px 8px 12px 2px;
-      width: 18px;
+.ccm-ui {
+  #fancytree-drop-marker {
+    &.fancytree-drop-over {
+      display: none !important;
     }
+  }
 
-    &.fa-angle-right,
-    &.fa-caret-right {
-      background-image: url($sitemap-expand-icon-b64);
+  div.ccm-sitemap-tree-selector-wrapper {
+    margin-bottom: 1em;
 
-      &::before {
-        content: none !important;
-      }
-    }
-
-    &.fa-caret-down {
-      background-image: url($sitemap-collapsed-icon-b64);
-
-      &::before {
-        content: none !important;
+    div.ccm-sitemap-tree-selector-option {
+      img {
+        display: inline-block;
+        margin-right: 10px;
+        vertical-align: middle;
       }
     }
   }
 
-  ul {
+  div.ccm-sitemap-tree {
+    border: none;
+    background-color: $sitemap-container-background-color;
+  }
+
+  ul.ui-fancytree {
+    display: inline-block;
     background-color: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+    font-size: $sitemap-font-size;
 
-    li {
+    li[role=treeitem] {
+      width: auto;
+      display: block;
+
       span.fancytree-node {
+        margin: 0;
+        padding: 0;
+
+        &.fancytree-drag-source {
+          background-color: transparent !important;
+        }
+
+        &.fancytree-active {
+          span.fancytree-title {
+            color: $sitemap-active-item-text-color;
+            background-color: $sitemap-active-item-background-color;
+            border-color: $sitemap-active-item-border-color;
+          }
+
+          span.fancytree-expander,
+          span.fancytree-icon,
+          span.fancytree-custom-icon {
+            &.icon-folder::before,
+            &.fa-folder::before {
+              background-image: url($sitemap-folder-icon-active-b64);
+            }
+
+            &.icon-home::before {
+              background-image: url($sitemap-home-icon-active-b64);
+            }
+
+            &.icon-page::before {
+              background-image: url($sitemap-page-icon-active-b64);
+            }
+          }
+        }
+
+        span.fancytree-expander,
+        span.fancytree-checkbox {
+          cursor: pointer;
+        }
+
+        span.fancytree-expander,
+        span.fancytree-icon,
+        span.fancytree-custom-icon,
+        span.fancytree-checkbox {
+          display: inline-block;
+          height: $sitemap-hover-item-height;
+          width: $sitemap-hover-item-height;
+          margin: 0;
+          padding: 0;
+          position: relative;
+
+          &::before {
+            position: absolute;
+            height: $sitemap-hover-item-height;
+            width: $sitemap-hover-item-height;
+            line-height: $sitemap-hover-item-height;
+            text-align: center;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 70%;
+          }
+
+          &.fa-spinner::before {
+            content: " ";
+            background-image: url($sitemap-loading-icon-b64);
+          }
+
+          &.fa-angle-right::before,
+          &.fa-caret-right::before {
+            content: " ";
+            background-image: url($sitemap-expand-icon-b64);
+            background-size: 45%;
+          }
+
+          &.fa-caret-down::before {
+            content: " ";
+            background-image: url($sitemap-collapsed-icon-b64);
+            background-size: 45%;
+          }
+
+          &.icon-home::before {
+            content: " ";
+            background-image: url($sitemap-home-icon-b64);
+          }
+
+          &.icon-folder::before,
+          &.fa-folder::before {
+            content: " ";
+            background-image: url($sitemap-folder-icon-b64);
+          }
+
+          &.icon-page::before {
+            content: " ";
+            background-image: url($sitemap-page-icon-b64);
+          }
+        }
+
+        &:not(.fancytree-active) span.fancytree-title {
+          &:hover {
+            color: $sitemap-hover-item-text-color;
+            background-color: $sitemap-hover-item-background-color;
+            border-color: $sitemap-hover-item-border-color;
+          }
+        }
+
+        &.ccm-parent-menu-item-hover,
+        &.fancytree-drop-target {
+          span.fancytree-title {
+            color: $sitemap-hover-item-text-color;
+            background-color: $sitemap-hover-item-background-color;
+            border-color: $sitemap-hover-item-border-color;
+          }
+
+          &:not(.fancytree-drop-after) {
+            &:not(.fancytree-active) {
+              span.fancytree-expander,
+              span.fancytree-icon,
+              span.fancytree-custom-icon {
+                &.icon-folder::before,
+                &.fa-folder::before {
+                  background-image: url($sitemap-folder-icon-drag-b64) !important;
+                }
+
+                &.icon-home::before {
+                  background-image: url($sitemap-home-icon-drag-b64) !important;
+                }
+
+                &.icon-page::before {
+                  background-image: url($sitemap-page-icon-drag-b64) !important;
+                }
+              }
+            }
+
+            &.fancytree-active {
+              span.fancytree-expander,
+              span.fancytree-icon,
+              span.fancytree-custom-icon {
+                &.icon-folder::before,
+                &.fa-folder::before {
+                  background-image: url($sitemap-folder-icon-drag-active-b64) !important;
+                }
+
+                &.icon-home::before {
+                  background-image: url($sitemap-home-icon-drag-active-b64) !important;
+                }
+
+                &.icon-page::before {
+                  background-image: url($sitemap-page-icon-drag-active-b64) !important;
+                }
+              }
+            }
+          }
+        }
+
         span.fancytree-title {
-          color: #6f737b;
-          font-size: 16px;
           letter-spacing: 0;
           line-height: normal;
-          margin: 8px 0;
-          padding: 5px;
+          margin: 0;
+          padding: 0;
+          border: none;
+
+          height: $sitemap-hover-item-height;
+          line-height: $sitemap-hover-item-height;
+          padding: 0 10px;
+
+          color: $sitemap-normal-item-text-color;
+          background-color: $sitemap-normal-item-background-color;
+          border-color: $sitemap-normal-item-border-color;
         }
+      }
+
+      & > ul {
+        display: inline-block;
+        padding: 0;
+        margin-left: 30px;
       }
     }
   }
-
-  .fancytree-active {
-    span.fancytree-title {
-      background-color: #e1e1e1 !important;
-      color: #6f737b !important;
-    }
-  }
-
-  .fancytree-container {
-    border: 'none';
-  }
-}
-
-div.ccm-sitemap-tree-selector-wrapper {
-  margin-bottom: 1em;
-
-  div.ccm-sitemap-tree-selector-option {
-    img {
-      display: inline-block;
-      margin-right: 10px;
-      vertical-align: middle;
-    }
-
-  }
-
-
 }
