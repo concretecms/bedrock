@@ -18,21 +18,21 @@
   }
 
   div.ccm-sitemap-tree {
-    border: none;
     background-color: $sitemap-container-background-color;
+    border: 0;
   }
 
   ul.ui-fancytree {
-    display: inline-block;
     background-color: transparent;
-    border: none;
+    border: 0;
+    display: inline-block;
+    font-size: $sitemap-font-size;
     margin: 0;
     padding: 0;
-    font-size: $sitemap-font-size;
 
     li[role=treeitem] {
-      width: auto;
       display: block;
+      width: auto;
 
       span.fancytree-node {
         margin: 0;
@@ -44,9 +44,9 @@
 
         &.fancytree-active {
           span.fancytree-title {
-            color: $sitemap-active-item-text-color;
             background-color: $sitemap-active-item-background-color;
             border-color: $sitemap-active-item-border-color;
+            color: $sitemap-active-item-text-color;
           }
 
           span.fancytree-expander,
@@ -78,71 +78,71 @@
         span.fancytree-checkbox {
           display: inline-block;
           height: $sitemap-hover-item-height;
-          width: $sitemap-hover-item-height;
           margin: 0;
           padding: 0;
           position: relative;
+          width: $sitemap-hover-item-height;
 
           &::before {
-            position: absolute;
-            height: $sitemap-hover-item-height;
-            width: $sitemap-hover-item-height;
-            line-height: $sitemap-hover-item-height;
-            text-align: center;
-            background-repeat: no-repeat;
             background-position: center;
+            background-repeat: no-repeat;
             background-size: 70%;
+            height: $sitemap-hover-item-height;
+            line-height: $sitemap-hover-item-height;
+            position: absolute;
+            text-align: center;
+            width: $sitemap-hover-item-height;
           }
 
           &.fa-spinner::before {
-            content: " ";
             background-image: url($sitemap-loading-icon-b64);
+            content: ' ';
           }
 
           &.fa-angle-right::before,
           &.fa-caret-right::before {
-            content: " ";
             background-image: url($sitemap-expand-icon-b64);
             background-size: 45%;
+            content: ' ';
           }
 
           &.fa-caret-down::before {
-            content: " ";
             background-image: url($sitemap-collapsed-icon-b64);
             background-size: 45%;
+            content: ' ';
           }
 
           &.icon-home::before {
-            content: " ";
             background-image: url($sitemap-home-icon-b64);
+            content: ' ';
           }
 
           &.icon-folder::before,
           &.fa-folder::before {
-            content: " ";
             background-image: url($sitemap-folder-icon-b64);
+            content: ' ';
           }
 
           &.icon-page::before {
-            content: " ";
             background-image: url($sitemap-page-icon-b64);
+            content: ' ';
           }
         }
 
         &:not(.fancytree-active) span.fancytree-title {
           &:hover {
-            color: $sitemap-hover-item-text-color;
             background-color: $sitemap-hover-item-background-color;
             border-color: $sitemap-hover-item-border-color;
+            color: $sitemap-hover-item-text-color;
           }
         }
 
         &.ccm-parent-menu-item-hover,
         &.fancytree-drop-target {
           span.fancytree-title {
-            color: $sitemap-hover-item-text-color;
             background-color: $sitemap-hover-item-background-color;
             border-color: $sitemap-hover-item-border-color;
+            color: $sitemap-hover-item-text-color;
           }
 
           &:not(.fancytree-drop-after) {
@@ -187,26 +187,21 @@
         }
 
         span.fancytree-title {
-          letter-spacing: 0;
-          line-height: normal;
-          margin: 0;
-          padding: 0;
-          border: none;
-
-          height: $sitemap-hover-item-height;
-          line-height: $sitemap-hover-item-height;
-          padding: 0 10px;
-
-          color: $sitemap-normal-item-text-color;
           background-color: $sitemap-normal-item-background-color;
           border-color: $sitemap-normal-item-border-color;
+          color: $sitemap-normal-item-text-color;
+          height: $sitemap-hover-item-height;
+          letter-spacing: 0;
+          line-height: $sitemap-hover-item-height;
+          margin: 0;
+          padding: 0 10px;
         }
       }
 
-      & > ul {
+      ul {
         display: inline-block;
-        padding: 0;
         margin-left: 30px;
+        padding: 0;
       }
     }
   }

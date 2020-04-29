@@ -2,6 +2,8 @@
 @import './mixins/item-select-list-hover';
 @import 'type';
 @import 'buttons';
+@import 'tables';
+@import 'breadcrumb';
 
 // Support classes
 @import './animate';
@@ -42,7 +44,6 @@
 
 // Search results
 @import './search';
-@import './search-v8';
 
 // Sitemap
 @import './sitemap';
@@ -74,4 +75,5 @@
 @import './icons';
 @import './date-time';
 @import './dropdown';
+@import './utilities';
 @import './popover';
