@@ -335,7 +335,7 @@
                 isStacked = true
             }
 
-            if (!my.getAttr('dragger') || (my.getAttr('dragger') && my.getAttr('is-stacked') != isStacked)) {
+            if (!my.getAttr('dragger') || (my.getAttr('dragger') && my.getAttr('is-stacked') !== isStacked)) {
                 var dragger = $('<a />')
                     .html(my.getElem().data('dragging-avatar') || ('<p><img src="/concrete/blocks/content/icon.png"><span>' + ccmi18n.content + '</span></p>'))
                     .addClass('ccm-block-edit-drag ccm-panel-add-block-draggable-block-type')
