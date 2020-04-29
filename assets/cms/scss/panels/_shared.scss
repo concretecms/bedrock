@@ -324,8 +324,7 @@ div.ccm-panel-header-accordion {
     padding: 4px;
     position: absolute;
     right: 0;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 14px;
     width: 24px;
     z-index: 1;
 
@@ -333,6 +332,23 @@ div.ccm-panel-header-accordion {
       color: $gray-100;
       line-height: 16px;
       position: absolute;
+    }
+  }
+
+  /**
+  * this new class will make a Bootstrap Accordion act as a dropdown
+  * so it will not push down everything below but open on top
+  * Useful to turn an accordion into a dropdown without heavily changing existing markup
+  * Or the JS attached to it
+  */
+  &.ccm-accordion-as-dropdown {
+    overflow: visible;
+
+    .ccm-panel-header-accordion-dropdown {
+      background-color: $gray-100;
+      position: absolute;
+      width: 100%;
+      z-index: 1;
     }
   }
 }
