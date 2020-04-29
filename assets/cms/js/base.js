@@ -1,6 +1,6 @@
 
 // Import required libraries.
-import * as _ from 'underscore'
+import _ from 'underscore'
 import NProgress from 'nprogress'
 import PNotify from 'pnotify/dist/es/PNotify'
 

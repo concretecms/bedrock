@@ -1,6 +1,6 @@
 /* colors */
 $gray-100: #fafafe;
-$gray-200: #d8d8d8;
+$gray-400: #9b9b9b;
 $gray-500: #7c8088;
 $gray-600: #6a6f7b;
 $gray-700: #4c4f56;
@@ -18,6 +18,7 @@ $dark-blue: #005163;
 /* typography */
 $body-color: $gray-700;
 $small-font-size: 0.9rem;
+$text-muted: $gray-500;
 
 /* borders */
 $border-radius: 3px;
@@ -64,13 +65,32 @@ $modal-inner-padding: 1.8rem;
 $modal-fade-transform: none;
 $modal-transition: 0.1s ease-in-out;
 
+/* breadcrumbs */
+$breadcrumb-bg: transparent;
+$breadcrumb-padding-x: 0;
+$breadcrumb-padding-y: 20px;
+$breadcrumb-font-size: 0.8rem;
+$breadcrumb-active-color: $gray-600;
+$breadcrumb-divider: quote('>');
+$breadcrumb-item-padding: 4px;
+
 /* tabs */
 $nav-tabs-border-width: 0;
 $nav-tabs-link-active-color: $gray-700;
 $nav-tabs-link-active-border-color: $blue;
-$nav-tabs-link-hover-border-color: $gray-200;
 
 /* badges */
 $badge-border-radius: 0;
 $badge-padding-y: 8px;
 $badge-padding-x: 11px;
+
+/* Dropdowns */
+$dropdown-divider-bg: $gray-500;
+$dropdown-divider-margin-y: 0.625rem; /* 10px @ 16px base */
+
+/* These variable names don't quite match up to their value */
+/* Usage: padding: $dropdown-item-padding-y $dropdown-item-padding-x; */
+$dropdown-item-padding-y: 0.625rem;
+$dropdown-item-padding-x: 10px;
+
+$dropdown-link-active-color: #fff;

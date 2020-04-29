@@ -1,7 +1,7 @@
 /* eslint-disable no-new, no-unused-vars, camelcase */
 /* global _, Concrete, ConcretePanelManager, CCM_CID, CCM_DISPATCHER_FILENAME, CCM_SECURITY_TOKEN */
 
-import * as _ from 'underscore'
+import _ from 'underscore'
 
 ;(function(window, $) {
     'use strict'

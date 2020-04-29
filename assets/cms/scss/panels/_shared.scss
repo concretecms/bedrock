@@ -20,6 +20,26 @@ div.ccm-panel {
   user-select: none;
   width: 320px;
   z-index: $index-level-panel; // has to come above the detail actions wrapper
+  div.ccm-panel-close {
+    position: absolute;
+    right: 17px;
+    text-decoration: none;
+    top: 7px;
+
+    > a,
+    svg {
+      fill: $gray-500;
+      height: 24px;
+      transition: fill 0.1s ease-in-out;
+      width: 24px;
+    }
+
+    &:hover {
+      svg {
+        fill: $blue;
+      }
+    }
+  }
 }
 
 div#ccm-panel-overlay {
@@ -394,12 +414,7 @@ div.ccm-panel-detail-content {
   min-height: 100%;
   min-width: 100%;
   padding: 40px 40px 80px;
-
-  div.ccm-notification-help {
-    position: absolute;
-    right: 0;
-    top: 110px;
-  }
+  position: relative;
 
   section {
     padding: 0;
@@ -407,6 +422,18 @@ div.ccm-panel-detail-content {
 
   header {
     margin-bottom: 20px;
+  }
+
+  iframe#ccm-page-preview-frame {
+    background: transparent;
+    border: 0;
+    box-sizing: border-box;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
   }
 }
 

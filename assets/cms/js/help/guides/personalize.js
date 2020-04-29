@@ -1,75 +1,77 @@
-/*
+/* global ConcreteHelpGuideManager, ccmi18n_helpGuides, ccmi18n_tourist, Tour */
 
-    var i18n = ccmi18n_helpGuides.personalize;
+var $hack
+
+ConcreteHelpGuideManager.register('personalize', function() {
+    var i18n = ccmi18n_helpGuides.personalize
+    var hideOverlay = function() {
+        ConcreteHelpGuideManager.hideOverlay()
+    }
     var steps = [{
-        content: '<p><span class="h5">' + i18n[0].title + '</span><br/>' + i18n[0].text + '</p>',
-        highlightTarget: true,
-        nextButton: false,
-        closeButton: true,
-        target: $('[data-guide-toolbar-action=page-settings]'),
-        my: 'top left',
-        at: 'bottom center',
-        setup: function(tour, options) {
-            $('a[data-launch-panel=page]').on('click', function() {
-                tour.view.tip.hide();
-                ConcreteHelpGuideManager.hideOverlay();
-            });
+        element: '[data-guide-toolbar-action=page-settings]',
+        content: '<h3>' + i18n[0].title + '</h3>' + i18n[0].text,
+        onShown: function(tour) {
+            ConcreteHelpGuideManager.updateStepFooter(tour)
+            $('.ccm-help-tour .popover-navigation').hide()
+            $('a[data-launch-panel=page]').on('click', hideOverlay)
             ConcreteEvent.subscribe('PanelOpen.concretePersonalizeTour', function(e, data) {
                 setTimeout(function() {
-                    var panel = data.panel.getIdentifier();
-                    if (panel == 'page') {
-                        tour.next();
+                    var panel = data.panel.getIdentifier()
+                    if (panel === 'page') {
+                        tour.next()
                     }
-                }, 500);
-            });
+                }, 500)
+            })
+        },
+        onHide: function() {
+            $('a[data-launch-panel=page]').off('click', hideOverlay)
+            ConcreteEvent.unsubscribe('PanelOpen.concretePersonalizeTour')
         }
-    },{
-        content: '<p><span class="h5">' + i18n[1].title + '</span><br/>' + i18n[1].text + '</p>',
-        highlightTarget: true,
-        nextButton: false,
-        my: 'left center',
-        closeButton: true,
-        at: 'right center',
-        setup: function(tour, options) {
-            $('a[data-launch-panel-detail=page-design]').on('click', function() {
-                tour.view.tip.hide();
-            });
-            ConcreteEvent.subscribe('PanelOpenDetail.concretePersonalizeTour', function(e, data) {
-                setTimeout(function() {
-                    if (data.panel.identifier == 'page-design') {
-                        tour.next();
-                    }
-                }, 500);
-            });
-            return {target: $('a[data-launch-panel-detail=page-design]').eq(0)};
+    }, {
+        element: '#' + ConcreteHelpGuideManager.POSITIONING_BUG_HACK_ID,
+        content: '<h3>' + i18n[1].title + '</h3>' + i18n[1].text,
+        onShow: function(tour) {
+            $hack = ConcreteHelpGuideManager.createPositioningBugHackElement($('a[data-launch-panel-detail=page-design]:first'))
+        },
+        onShown: ConcreteHelpGuideManager.updateStepFooter,
+        onHide: function() {
+            ConcreteEvent.unsubscribe('PanelOpenDetail.concretePersonalizeTour')
+        },
+        onHidden: function(tour) {
+            $hack.remove()
         }
-    },{
-        content: '<p><span class="h5">' + i18n[2].title + '</span><br/>' + i18n[2].text + '</p>',
-        highlightTarget: true,
-        nextButton: true,
-        closeButton: true,
-        my: 'bottom center',
-        at: 'top center',
-        setup: function(tour, options) {
-            return {target: $('span.ccm-page-design-theme-customize')};
-        }
-    }];
+    }, {
+        element: 'span.ccm-page-design-theme-customize',
+        content: '<h3>' + i18n[2].title + '</h3>' + i18n[2].text
+    }]
 
-    var tour = new Tourist.Tour({
+    return new Tour({
         steps: steps,
-        tipClass: 'Bootstrap',
-        tipOptions:{
-            showEffect: 'slidein'
+        framework: 'bootstrap4',
+        template: ccmi18n_tourist.template,
+        localization: ccmi18n_tourist.localization,
+        storage: false,
+        showProgressBar: false,
+        sanitizeWhitelist: {
+            a: [/^data-/, 'href']
+        },
+        onStart: function() {
+            ConcreteHelpGuideManager.enterToolbarGuideMode()
+            $('#tourBackdrop').detach() // https://github.com/IGreatlyDislikeJavascript/bootstrap-tourist/issues/42
+        },
+        onShown: function(tour) {
+            var $tour = $('.ccm-help-tour')
+            var numSteps = tour.getStepCount()
+            if (numSteps > 1) {
+                $tour
+                    .find('.ccm-help-tour-position-index').text(1 + tour.getCurrentStepIndex()).end()
+                    .find('.ccm-help-tour-position-count').text(numSteps).end()
+            } else {
+                $tour.find('.ccm-help-tour-footer').remove()
+            }
+        },
+        onEnd: function() {
+            ConcreteHelpGuideManager.exitToolbarGuideMode()
         }
-    });
-    tour.on('start', function() {
-        ConcreteHelpGuideManager.enterToolbarGuideMode();
-    });
-    tour.on('stop', function() {
-        ConcreteHelpGuideManager.exitToolbarGuideMode();
-        ConcreteEvent.unsubscribe('PanelOpen.concretePersonalizeTour');
-        ConcreteEvent.unsubscribe('PanelOpenDetail.concretePersonalizeTour');
-    });
-
-    ConcreteHelpGuideManager.register('personalize', tour);
-*/
+    })
+})

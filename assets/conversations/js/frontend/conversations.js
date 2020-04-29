@@ -1,5 +1,5 @@
 import '../../../cms/js/events'
-import * as _ from 'underscore'
+import _ from 'underscore'
 
 window._ = _
 

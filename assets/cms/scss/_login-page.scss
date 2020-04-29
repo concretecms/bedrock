@@ -6,8 +6,7 @@
   max-width: 800px;
 
   .login-page-header {
-    margin-top: -27px;
-    padding-bottom: 18px;
+    padding: 40px 0;
   }
 
   .external-auth-option {
@@ -46,6 +45,11 @@
     }
   }
 
+  .form-check-remember-me {
+    color: $text-muted;
+    font-style: italic;
+  }
+
   .ccm-concrete-authentication-type-svg {
     display: inline-block;
   }
@@ -56,45 +60,4 @@
     }
   }
 
-  form {
-    .checkbox,
-    .ccm-item-selector,
-    .ccm-attribute-address-composer-wrapper {
-      width: 100%;
-    }
-
-    .ccm-required {
-      padding-right: 18px;
-    }
-
-    .form-group {
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      @include media-breakpoint-up(xl) {
-        flex-wrap: nowrap;
-      }
-
-      &.login-buttons {
-        display: flex;
-        justify-content: flex-end;
-
-        button {
-          margin-left: 9px;
-        }
-      }
-
-      label.control-label {
-        font-size: $modal-title-font-size;
-        font-size: 1.25rem;
-        @include media-breakpoint-up(xl) {
-          flex: 1 0 auto;
-          margin-bottom: 0;
-          min-width: 126px;
-          padding-right: 27px;
-          text-align: right;
-        }
-      }
-    }
-  }
 }

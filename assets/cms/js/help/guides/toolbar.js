@@ -1,74 +1,59 @@
-/*
+/* global ConcreteHelpGuideManager, ccmi18n_helpGuides, ccmi18n_tourist, Tour */
 
-    var i18n = ccmi18n_helpGuides.toolbar;
+ConcreteHelpGuideManager.register('toolbar', function() {
+    var i18n = ccmi18n_helpGuides.toolbar
     var steps = [{
-        content: '<p><span class="h5">' + i18n[0].title + '</span><br/>' + i18n[0].text + '</p>',
-        highlightTarget: true,
-        nextButton: true,
-        closeButton: true,
-        target: $('[data-guide-toolbar-action=edit-page]'),
-        my: 'top left',
-        at: 'bottom center'
-    },{
-        content: '<p><span class="h5">' + i18n[1].title + '</span><br/>' + i18n[1].text + '</p>',
-        highlightTarget: true,
-        nextButton: true,
-        closeButton: true,
-        target: $('[data-guide-toolbar-action=page-settings]'),
-        my: 'top left',
-        at: 'bottom center'
-    },{
-        content: '<p><span class="h5">' + i18n[2].title + '</span><br/>' + i18n[2].text + '</p>',
-        highlightTarget: true,
-        nextButton: true,
-        closeButton: true,
-        target: $('[data-guide-toolbar-action=add-content]'),
-        my: 'top left',
-        at: 'bottom center'
+        element: '[data-guide-toolbar-action=edit-page]',
+        content: '<h3>' + i18n[0].title + '</h3>' + i18n[0].text,
+        preventInteraction: true,
+        placement: 'bottom'
+    }, {
+        element: '[data-guide-toolbar-action=page-settings]',
+        content: '<h3>' + i18n[1].title + '</h3>' + i18n[1].text,
+        preventInteraction: true,
+        placement: 'bottom'
+    }, {
+        element: '[data-guide-toolbar-action=add-content]',
+        content: '<h3>' + i18n[2].title + '</h3>' + i18n[2].text,
+        preventInteraction: true,
+        placement: 'bottom'
+    }, {
+        element: '[data-guide-toolbar-action=intelligent-search]',
+        content: '<h3>' + i18n[3].title + '</h3>' + i18n[3].text,
+        preventInteraction: true,
+        placement: 'bottom'
+    }, {
+        element: '[data-guide-toolbar-action=sitemap]',
+        content: '<h3>' + i18n[4].title + '</h3>' + i18n[4].text,
+        preventInteraction: true,
+        placement: 'bottom'
+    }, {
+        element: '[data-guide-toolbar-action=dashboard]',
+        content: '<h3>' + i18n[5].title + '</h3>' + i18n[5].text,
+        preventInteraction: true,
+        placement: 'bottom'
+    }]
 
-    },{
-        content: '<p><span class="h5">' + i18n[3].title + '</span><br/>' + i18n[3].text + '</p>',
-        highlightTarget: true,
-        nextButton: true,
-        closeButton: true,
-        target: $('[data-guide-toolbar-action=intelligent-search]'),
-        my: 'top center',
-        at: 'bottom center'
-
-    },{
-        content: '<p><span class="h5">' + i18n[4].title + '</span><br/>' + i18n[4].text + '</p>',
-        highlightTarget: true,
-        nextButton: true,
-        closeButton: true,
-        target: $('[data-guide-toolbar-action=sitemap]'),
-        my: 'top right',
-        at: 'bottom center'
-
-    },{
-        content: '<p><span class="h5">' + i18n[5].title + '</span><br/>' + i18n[5].text + '</p>',
-        highlightTarget: true,
-        nextButton: true,
-        closeButton: true,
-        target: $('[data-guide-toolbar-action=dashboard]'),
-        my: 'top right',
-        at: 'bottom center'
-
-    }];
-
-    var tour = new Tourist.Tour({
+    return new Tour({
         steps: steps,
-        tipClass: 'Bootstrap',
-        tipOptions:{
-            showEffect: 'slidein'
+        framework: 'bootstrap4',
+        template: ccmi18n_tourist.template,
+        localization: ccmi18n_tourist.localization,
+        storage: false,
+        showProgressBar: false,
+        sanitizeWhitelist: {
+            a: [/^data-/, 'href']
+        },
+        onPreviouslyEnded: function(tour) {
+            tour.restart()
+        },
+        onStart: function() {
+            ConcreteHelpGuideManager.enterToolbarGuideMode()
+            $('#tourBackdrop').detach() // https://github.com/IGreatlyDislikeJavascript/bootstrap-tourist/issues/42
+        },
+        onShown: ConcreteHelpGuideManager.updateStepFooter,
+        onEnd: function() {
+            ConcreteHelpGuideManager.exitToolbarGuideMode()
         }
-    });
-    tour.on('start', function() {
-        ConcreteHelpGuideManager.enterToolbarGuideMode();
-    });
-    tour.on('stop', function() {
-        ConcreteHelpGuideManager.exitToolbarGuideMode();
-    });
-
-    ConcreteHelpGuideManager.register('toolbar', tour);
-
-*/
+    })
+})

@@ -1,17 +1,13 @@
 /* stylelint-disable selector-max-compound-selectors, property-no-vendor-prefix, selector-max-id */
 div#ccm-toolbar {
   background-color: $gray-100;
-  border-bottom: 1px solid #d8d8d8;
+  border-bottom: 1px solid $gray-200;
   height: 48px;
   left: 0;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: $index-level-main-bar; /* over the top of the highlighter, which is 1000 */
-
-  &.ccm-toolbar-tour-guide {
-    z-index: $index-level-toolbar-tour-guide;
-  }
 
   .ccm-toolbar-accessibility-title {
     display: none;
@@ -57,7 +53,7 @@ div#ccm-toolbar {
 
       > a {
         align-items: center;
-        border-right: 1px solid #d8d8d8;
+        border-right: 1px solid $gray-200;
         box-sizing: border-box;
         color: $gray-600;
 
@@ -127,7 +123,7 @@ div#ccm-toolbar {
 
     li.ccm-logo {
       span {
-        border-right: 1px solid #d8d8d8;
+        border-right: 1px solid $gray-200;
         display: block;
         height: 47px;
         padding: 9px 18px 0 17px;
@@ -141,7 +137,7 @@ div#ccm-toolbar {
 
     li.ccm-toolbar-search {
       background-color: #fff;
-      border-left: 1px solid #d8d8d8;
+      border-left: 1px solid $gray-200;
       color: #888;
       height: 47px;
       margin-left: -1px;
@@ -160,7 +156,7 @@ div#ccm-toolbar {
 
       input {
         background-color: transparent;
-        border-right: 1px solid #d8d8d8;
+        border-right: 1px solid $gray-200;
         margin-right: 0;
         padding-right: 10px;
       }
@@ -197,7 +193,7 @@ div#ccm-toolbar {
 
       > a {
         border: 0;
-        color: #d8d8d8;
+        color: $gray-200;
         display: inline;
         padding: 0;
         text-decoration: underline;
@@ -240,7 +236,7 @@ div#ccm-toolbar {
   }
 
   li.ccm-toolbar-last-left-child {
-    border-right: 1px solid #d8d8d8;
+    border-right: 1px solid $gray-200;
   }
 
   /* Multisite List Item Menu Component */
@@ -311,7 +307,7 @@ div#ccm-toolbar-disabled {
 /* Responsive Toolbar */
 
 .ccm-toolbar-mobile-menu-button {
-  border-left: 1px solid #d8d8d8;
+  border-left: 1px solid $gray-200;
   cursor: pointer;
   height: 47px;
   padding: 14px 18px;

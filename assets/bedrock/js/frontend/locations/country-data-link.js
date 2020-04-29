@@ -145,16 +145,16 @@ function Link($country, $stateprovince, config) {
         .on('change', function() {
             me.countryChanged()
         })
-        .trigger('change')
 
     me.$stateprovinceSelect.on('change', function() {
         me.$stateprovince
             .val(me.$stateprovinceSelect.val())
             .trigger('change')
     })
+    me.countryChanged(true)
 }
 Link.prototype = {
-    countryChanged: function() {
+    countryChanged: function(initializing) {
         var me = this
         loadDataForCountry(me.$country.val(), function(countryCode, countryData) {
             if (me.$country.val() !== countryCode) {
@@ -162,7 +162,7 @@ Link.prototype = {
             }
             me.$stateprovinceSelect.empty()
 
-            if (me.config.clearStateProvinceOnChange) {
+            if (!initializing && me.config.clearStateProvinceOnChange) {
                 me.$stateprovince.val('')
             }
 

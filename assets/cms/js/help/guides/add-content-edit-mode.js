@@ -1,92 +1,78 @@
-/*
-    var i18n = ccmi18n_helpGuides['add-content-edit-mode'];
+/* global ConcreteHelpGuideManager, ccmi18n_helpGuides, ccmi18n_tourist, Tour */
+
+var $hack
+
+ConcreteHelpGuideManager.register('add-content-edit-mode', function() {
+    var i18n = ccmi18n_helpGuides['add-content-edit-mode']
     var steps = [{
-        content: '<p><span class="h5">' + i18n[0].title + '</span><br/>' + i18n[0].text + '</p>',
-        highlightTarget: false,
-        nextButton: true,
-        closeButton: true,
-        target: $('[data-guide-toolbar-action=add-content]'),
-        my: 'top left',
-        at: 'bottom center',
-        setup: function(tour, options) {
-            ConcreteHelpGuideManager.clearGuideToLaunchOnRefresh();
-        }
-    },{
-        content: '<p><span class="h5">' + i18n[1].title + '</span><br/>' + i18n[1].text + '</p>',
-        highlightTarget: false,
-        nextButton: true,
-        closeButton: true,
-        target: $('[data-guide-toolbar-action=add-content]'),
-        my: 'top center',
-        at: 'top center',
-        setup: function(tour, options) {
-            return {
-                target: $('#ccm-panel-add-block .ccm-panel-content-inner')
-            };
+        element: '[data-guide-toolbar-action=add-content]',
+        content: '<h3>' + i18n[0].title + '</h3>' + i18n[0].text,
+        preventInteraction: true
+    }, {
+        element: '#ccm-panel-add-block',
+        content: '<h3>' + i18n[1].title + '</h3>' + i18n[1].text,
+        placement: 'right',
+        preventInteraction: true
+    }, {
+        element: '#' + ConcreteHelpGuideManager.POSITIONING_BUG_HACK_ID,
+        content: '<h3>' + i18n[2].title + '</h3>' + i18n[2].text,
+        placement: 'right',
+        preventInteraction: true,
+        onShow: function(tour) {
+            $hack = ConcreteHelpGuideManager.createPositioningBugHackElement($('#ccm-panel-add-block .ccm-panel-header-accordion'))
         },
-        teardown: function(tour, options) {
+        onHidden: function(tour) {
+            $hack.remove()
+        }
+    }, {
+        element: '#' + ConcreteHelpGuideManager.POSITIONING_BUG_HACK_ID,
+        content: '<h3>' + i18n[3].title + '</h3>' + i18n[3].text,
+        placement: 'right',
+        preventInteraction: true,
+        onShow: function(tour) {
+            $hack = ConcreteHelpGuideManager.createPositioningBugHackElement($('#ccm-panel-add-block input[data-input=search-blocks]'))
+        },
+        onHidden: function(tour) {
+            $hack.remove()
+        }
+    }, {
+        element: '#' + ConcreteHelpGuideManager.POSITIONING_BUG_HACK_ID,
+        content: '<h3>' + i18n[4].title + '</h3>' + i18n[4].text,
+        placement: 'right',
+        preventInteraction: true,
+        onShow: function(tour) {
+            $hack = ConcreteHelpGuideManager.createPositioningBugHackElement($('#ccm-panel-add-block .ccm-panel-add-block-draggable-block-type:first'))
+        },
+        onHidden: function(tour) {
+            $hack.remove()
+        }
+    }]
 
-        }
-    },{
-        content: '<p><span class="h5">' + i18n[2].title + '</span><br/>' + i18n[2].text + '</p>',
-        highlightTarget: false,
-        nextButton: true,
-        closeButton: true,
-        target: $('[data-guide-toolbar-action=add-content]'),
-        my: 'left center',
-        at: 'right center',
-        setup: function(tour, options) {
-            return {
-                target: $('#ccm-panel-add-block .ccm-panel-header-accordion')
-            };
-        }
-    },{
-        content: '<p><span class="h5">' + i18n[3].title + '</span><br/>' + i18n[3].text + '</p>',
-        highlightTarget: false,
-        nextButton: true,
-        closeButton: true,
-        target: $('[data-guide-toolbar-action=add-content]'),
-        my: 'left center',
-        at: 'right center',
-        setup: function(tour, options) {
-            return {
-                target: $('#ccm-panel-add-block input[data-input=search-blocks]')
-            };
-        }
-    },{
-        content: '<p><span class="h5">' + i18n[4].title + '</span><br/>' + i18n[4].text + '</p>',
-        highlightTarget: false,
-        nextButton: true,
-        closeButton: true,
-        target: $('[data-guide-toolbar-action=add-content]'),
-        my: 'left center',
-        at: 'right center',
-        setup: function(tour, options) {
-            return {
-                target: $('#ccm-panel-add-block .ccm-panel-add-block-draggable-block-type').eq(0)
-            };
-        }
-    }];
-
-    var tour = new Tourist.Tour({
+    return new Tour({
         steps: steps,
-        tipClass: 'Bootstrap',
-        tipOptions:{
-            showEffect: 'slidein'
+        framework: 'bootstrap4',
+        template: ccmi18n_tourist.template,
+        localization: ccmi18n_tourist.localization,
+        storage: false,
+        showProgressBar: false,
+        sanitizeWhitelist: {
+            a: [/^data-/, 'href']
+        },
+        onPreviouslyEnded: function(tour) {
+            tour.restart()
+        },
+        onStart: function(tour) {
+            ConcreteHelpGuideManager.clearGuideToLaunchOnRefresh()
+            $('#tourBackdrop').detach() // https://github.com/IGreatlyDislikeJavascript/bootstrap-tourist/issues/42
+            if (!$('#ccm-panel-add-block').hasClass('ccm-panel-active')) {
+                tour.end()
+                return
+            }
+            ConcreteHelpGuideManager.enterToolbarGuideMode()
+        },
+        onShown: ConcreteHelpGuideManager.updateStepFooter,
+        onEnd: function() {
+            ConcreteHelpGuideManager.exitToolbarGuideMode()
         }
-    });
-    tour.on('start', function() {
-
-    });
-    tour.on('stop', function() {
-        if ($('.ccm-dialog-help-wrapper').length) {
-            // we haven't started the tour really yet
-            $('.ccm-dialog-help-wrapper').show();
-        } else {
-            $.fn.dialog.showLoader();
-            window.location.href = $('[data-toolbar-action=check-in]').attr('href');
-        }
-    });
-
-    ConcreteHelpGuideManager.register('add-content-edit-mode', tour);
-*/
+    })
+})

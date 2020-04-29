@@ -1,85 +1,106 @@
-/* eslint-disable no-new, no-unused-vars, camelcase */
-/* global ConcreteHelpLauncher, CCM_REL */
+/* global Tour */
 
-;(function(global, $) {
-    'use strict'
+'use strict'
 
-    var ConcreteHelpGuideManager = {
+var KEY_GUIDETOLAUNCHONREFRESH = 'ConcreteHelpActiveGuide'
+var guides = {}
 
-        guides: {},
+var ConcreteHelpGuideManager = {
+    register: function (key, guide) {
+        guides[key] = guide
+    },
 
-        register: function (key, guide) {
-            this.guides[key] = guide
-        },
-
-        getGuide: function (key) {
-            return this.guides[key]
-        },
-
-        enterToolbarGuideMode: function() {
-            // if help notification is active, hide it
-            ConcreteHelpLauncher.close()
-
-            // if the help dialog is active, hide it
-            $('.ccm-dialog-help-wrapper').hide()
-
-            this.showOverlay()
-            this.raiseToolbar()
-        },
-
-        showOverlay: function() {
-            // if the widget overlay doesn't exist, show it
-            if ($('.ui-widget-overlay').length < 1) {
-                $('<div class="ui-widget-overlay"></div>').hide().appendTo('body')
-            }
-            $('.ui-widget-overlay').addClass('animated fadeIn').show()
-        },
-
-        raiseToolbar: function() {
-            // move the toolbar to above the widget overlay
-            $('#ccm-toolbar').addClass('ccm-toolbar-tour-guide')
-        },
-
-        lowerToolbar: function() {
-            // move the toolbar back
-            $('#ccm-toolbar').removeClass('ccm-toolbar-tour-guide')
-        },
-
-        hideOverlay: function() {
-            $('.ui-widget-overlay').addClass('animated fadeOut')
-            $('.ui-widget-overlay').delay(250).queue(function() {
-                $(this).remove()
-                $(this).dequeue()
-            })
-        },
-
-        exitToolbarGuideMode: function() {
-            // if the help dialog is active, show it
-            if ($('.ccm-dialog-help-wrapper').length) {
-                $('.ccm-dialog-help-wrapper').show()
-            } else {
-                this.hideOverlay()
-            }
-            this.lowerToolbar()
-        },
-
-        launchGuideOnRefresh: function(guide) {
-            $.cookie('ConcreteHelpActiveGuide', guide, { path: CCM_REL + '/' })
-        },
-
-        clearGuideToLaunchOnRefresh: function(guide) {
-            $.cookie('ConcreteHelpActiveGuide', null, { path: CCM_REL + '/' })
-        },
-
-        getGuideToLaunchOnRefresh: function() {
-            return $.cookie('ConcreteHelpActiveGuide')
-        },
-
-        get: function() {
-            return ConcreteHelpGuideManager
+    getGuide: function (key) {
+        var guide = guides[key]
+        if (!guide) {
+            return guide
         }
+        if (!(guide instanceof Tour)) {
+            guides[key] = guide = guide()
+        }
+        return guide
+    },
 
+    enterToolbarGuideMode: function() {
+        this.showOverlay()
+        this.raiseToolbar()
+    },
+
+    showOverlay: function() {
+        // if the widget overlay doesn't exist, show it
+        if ($('.ui-widget-overlay').length < 1) {
+            $('<div class="ui-widget-overlay"></div>').hide().appendTo('body')
+        }
+        $('.ui-widget-overlay').addClass('animated fadeIn').show()
+    },
+
+    raiseToolbar: function() {
+        // move the toolbar to above the widget overlay
+        $('#ccm-toolbar').addClass('ccm-toolbar-tour-guide')
+    },
+
+    lowerToolbar: function() {
+        // move the toolbar back
+        $('#ccm-toolbar').removeClass('ccm-toolbar-tour-guide')
+    },
+
+    hideOverlay: function() {
+        $('.ui-widget-overlay').addClass('animated fadeOut')
+        $('.ui-widget-overlay').delay(250).queue(function() {
+            $(this).remove()
+            $(this).dequeue()
+        })
+    },
+
+    exitToolbarGuideMode: function() {
+        this.hideOverlay()
+        this.lowerToolbar()
+    },
+
+    launchGuideOnRefresh: function(guide) {
+        window.localStorage.setItem(KEY_GUIDETOLAUNCHONREFRESH, guide)
+    },
+
+    clearGuideToLaunchOnRefresh: function() {
+        window.localStorage.removeItem(KEY_GUIDETOLAUNCHONREFRESH)
+    },
+
+    getGuideToLaunchOnRefresh: function() {
+        return window.localStorage.getItem(KEY_GUIDETOLAUNCHONREFRESH)
+    },
+
+    updateStepFooter: function (tour) {
+        var $tour = $('.ccm-help-tour')
+        var numSteps = tour.getStepCount()
+        if (numSteps > 1) {
+            $tour
+                .find('.ccm-help-tour-position-index').text(1 + tour.getCurrentStepIndex()).end()
+                .find('.ccm-help-tour-position-count').text(numSteps).end()
+        } else {
+            $tour.find('.ccm-help-tour-footer').remove()
+        }
+    },
+
+    get: function() {
+        return ConcreteHelpGuideManager
+    },
+
+    // Temporary fix for https://github.com/IGreatlyDislikeJavascript/bootstrap-tourist/issues/50
+    POSITIONING_BUG_HACK_ID: 'ccm-help-tour-hack',
+
+    // Temporary fix for https://github.com/IGreatlyDislikeJavascript/bootstrap-tourist/issues/50
+    createPositioningBugHackElement: function($target) {
+        var $hack
+        $hack = $('<div id="' + this.POSITIONING_BUG_HACK_ID + '" />').css({
+            position: 'absolute',
+            left: $target.offset().left,
+            top: $target.offset().top,
+            width: $target.width(),
+            height: $target.height()
+        })
+        $(document.body).append($hack)
+        return $hack
     }
+}
 
-    global.ConcreteHelpGuideManager = ConcreteHelpGuideManager
-})(window, jQuery); // eslint-disable-line semi
+window.ConcreteHelpGuideManager = ConcreteHelpGuideManager
