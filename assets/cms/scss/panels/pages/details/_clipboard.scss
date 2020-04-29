@@ -1,0 +1,22 @@
+.ccm-panel-add-clipboard-block-item {
+    margin: 20px 0;
+    padding: 20px 0;
+    border-bottom: 1px solid #ccc;
+
+    &:first-of-type {
+        border-top: 1px solid #ccc;
+    }
+    &:last-of-type {
+        border-bottom: none;
+    }
+    .block-content {
+        .ccm-panel-add-block-draggable-block-type {
+            margin: 10px 30px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #ffffff;
+            min-height: 120px;
+        }
+        
+    }
+}
