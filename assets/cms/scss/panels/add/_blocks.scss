@@ -70,7 +70,7 @@ a.ccm-panel-add-block-draggable-block-type {
   padding: 4px;
   text-align: center;
   text-decoration: none;
-  transition: $transition-base;
+  transition: $btn-transition;
   width: 75px;
 
   &:not(.ccm-block-edit-drag):hover,
