@@ -1,6 +1,6 @@
 <template functional>
     <button
-        v-bind="{type: props.type, style: props.style}"
+        v-bind="{type: props.buttonType, style: props.style}"
         @click='listeners.click'
         class='btn'
         :class="[$options.classMap[props.type] || $options.defaultClass, props.buttonClass]"
@@ -39,7 +39,7 @@ export default {
     props: {
         type: {
             type: String,
-            default: 'button'
+            default: types.add
         },
         disabled: {
             type: Boolean,
@@ -59,9 +59,9 @@ export default {
         iconColor: {
             type: String
         },
-        format: {
+        buttonType: {
             type: String,
-            default: 'floating'
+            default: 'button'
         },
         buttonClass: [String, Array, Object]
     },
