@@ -505,14 +505,14 @@ div.ccm-area[data-total-blocks='0'] {
 
 a.ccm-block-edit-drag,
 a.ccm-panel-add-block-draggable-block-type-dragger {
+  bottom: 0;
   cursor: -moz-grab;
   cursor: -webkit-grab;
   cursor: grab;
-  height: 90px;
   left: 0;
   position: absolute;
+  right: 0;
   top: 0;
-  width: 90px;
   z-index: 1000000;
 
   &.pep-active {
