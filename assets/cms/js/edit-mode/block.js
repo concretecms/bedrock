@@ -329,16 +329,26 @@
          */
         getDragger: function blockgetDragger() {
             var my = this
+            var isStacked = false
 
-            if (!my.getAttr('dragger')) {
+            if (my.getElem().parents('.ccm-stacked-list').length) {
+                isStacked = true
+            }
+
+            if (!my.getAttr('dragger') || (my.getAttr('dragger') && my.getAttr('is-stacked') !== isStacked)) {
                 var dragger = $('<a />')
                     .html(my.getElem().data('dragging-avatar') || ('<p><img src="/concrete/blocks/content/icon.png"><span>' + ccmi18n.content + '</span></p>'))
                     .addClass('ccm-block-edit-drag ccm-panel-add-block-draggable-block-type')
 
+                if (isStacked) {
+                    dragger.addClass('ccm-stacked-list')
+                }
+
                 my.setAttr('dragger', dragger.css({
-                    width: my.getElem().width(),
-                    height: my.getElem().height()
+                    width: my.getElem().outerWidth(),
+                    height: my.getElem().outerHeight()
                 }))
+                my.setAttr('is-stacked', isStacked)
             }
             return my.getAttr('dragger')
         },
@@ -556,6 +566,9 @@
                 height: 90
             }, {
                 duration: 250,
+                start: function (anim) {
+                    $(this).removeClass('ccm-stacked-list').addClass('ccm-block-edit-dragging')
+                },
                 step: function (now, fx) {
                     my.setDraggerOffset({
                         x: -1 * (mouse_percentage.x * $(this).width()),
