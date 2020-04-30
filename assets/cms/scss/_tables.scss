@@ -1,8 +1,10 @@
-/* stylelint-disable scss/at-extend-no-missing-placeholder */
 div.ccm-ui {
   .ccm-search-results-table {
 
-    @extend .table;
+    background-color: $table-bg; // Reset for nesting within parents with `background-color`.
+    color: $table-color;
+    margin-bottom: $spacer;
+    width: 100%;
 
     thead {
       th {
@@ -52,12 +54,23 @@ div.ccm-ui {
       }
     }
 
+    th,
+    td {
+      padding: $table-cell-padding;
+      border-top: $table-border-width solid $table-border-color;
+    }
+
+    thead th {
+      border-top: 0;
+      border-bottom: $table-border-width solid $table-border-color;
+      vertical-align: bottom;
+    }
+
     tbody {
       td {
         color: $gray-400;
         font-size: $font-size-sm;
         transition: $transition-base;
-        vertical-align: middle;
 
         &.ccm-search-results-icon {
           width: 1px;
@@ -67,6 +80,10 @@ div.ccm-ui {
           }
         }
       }
+    }
+
+    tbody + tbody {
+      border-top: (2 * $table-border-width) solid $table-border-color;
     }
 
     .ccm-search-results-em,
