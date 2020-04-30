@@ -56,13 +56,13 @@ div.ccm-ui {
 
     th,
     td {
-      padding: $table-cell-padding;
       border-top: $table-border-width solid $table-border-color;
+      padding: $table-cell-padding;
     }
 
     thead th {
-      border-top: 0;
       border-bottom: $table-border-width solid $table-border-color;
+      border-top: 0;
       vertical-align: bottom;
     }
 
