@@ -1,0 +1,19 @@
+#ccm-popover-menu-container {
+  .popover {
+    &.bs-popover-top,
+    &.bs-popover-bottom {
+      .arrow {
+        left: 50%;
+        margin-left: -0.5rem;
+      }
+    }
+
+    &.bs-popover-left,
+    &.bs-popover-right {
+      .arrow {
+        margin-top: -0.5rem;
+        top: 50%;
+      }
+    }
+  }
+}
