@@ -13,6 +13,10 @@
 
     .form-group {
       padding-left: 20px;
+
+      .checkbox {
+        margin-left: 20px;
+      }
     }
   }
 
@@ -26,6 +30,10 @@
       color: $gray-700;
       font-weight: 600;
       text-align: right;
+    }
+
+    .fa-asterisk {
+      margin: 12px 0 0 8px;
     }
 
   }
