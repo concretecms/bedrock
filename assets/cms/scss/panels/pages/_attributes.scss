@@ -110,8 +110,9 @@
     padding-left: 50px;
     padding-right: 50px;
 
-    .control-label {
-      margin-bottom: 0;
+    .col-form-label {
+      padding-bottom: 6px;
+      padding-top: 0;
     }
 
     // Selectable attributes
