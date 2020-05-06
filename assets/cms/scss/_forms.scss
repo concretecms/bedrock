@@ -14,9 +14,14 @@
     .form-group {
       padding-left: 20px;
 
-      .checkbox {
-        margin-left: 20px;
+      .checkbox .form-check-input {
+        margin-left: 0;
+        position: relative;
       }
+    }
+
+    .help-block {
+      margin-left: 20px;
     }
   }
 
