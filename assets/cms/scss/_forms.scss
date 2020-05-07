@@ -46,16 +46,24 @@
     .fa-asterisk {
       margin: 12px 0 0 8px;
     }
-
   }
-
-
 }
 
 
 .form-control {
   &::placeholder {
     font-style: italic;
+  }
+}
+
+/**
+* this is ok because by default these elements are styled
+* to have height set on auto in BS
+*/
+select.form-control {
+  &[size],
+  &[multiple] {
+    overflow-y: hidden;
   }
 }
 
