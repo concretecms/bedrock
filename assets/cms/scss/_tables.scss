@@ -72,6 +72,10 @@ div.ccm-ui {
         font-size: $font-size-sm;
         transition: $transition-base;
 
+        &.ccm-search-results-checkbox {
+          width: 1px;
+        }
+
         &.ccm-search-results-icon {
           width: 1px;
 
