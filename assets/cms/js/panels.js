@@ -64,7 +64,10 @@ function ConcretePanel(options) {
         if (hasTooltip) {
             $link.addClass('launch-tooltip')
         }
-        Concrete.event.publish('PanelLoad', { panel: this, element: element })
+        var panel = this
+        _.defer(function() {
+            Concrete.event.publish('PanelLoad', { panel: panel, element: element })
+        })
     }
 
     this.hide = function (callback) {
