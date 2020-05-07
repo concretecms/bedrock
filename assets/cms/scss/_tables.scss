@@ -76,7 +76,14 @@ div.ccm-ui {
           width: 1px;
 
           i {
-            font-size: 40px;
+            // folders, stacks icons
+            font-size: 41px;
+          }
+
+          img {
+            // file manager, other image based icons
+            width: 41px;
+            height: 41px;
           }
         }
       }
@@ -93,7 +100,7 @@ div.ccm-ui {
     }
 
     .ccm-search-results-name {
-      width: 50%;
+      width: 40%;
     }
 
     .ccm-search-results-menu-launcher {

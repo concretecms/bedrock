@@ -174,11 +174,16 @@
             open: function() {
                 // jshint -W061
                 var $dialog = $(this)
+                /*
+                 * This code causes problems with dialogs that have long dropdowns in them like the files advanced
+                 * search. Commenting out for now.
+                 */
+                /*
                 var nd = $('.ui-dialog').length
                 if (nd == 1) {
                     $('body').attr('data-last-overflow', $('body').css('overflow'))
                     $('body').css('overflow', 'hidden')
-                }
+                }*/
 
                 var overlays = $('.ui-widget-overlay').length
 

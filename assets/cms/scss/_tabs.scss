@@ -7,15 +7,12 @@ div.ccm-ui {
       transition: border-color 0.25s ease-in-out;
 
       &:hover {
-        color: $gray-500;
+        color: darken($nav-tabs-link-color, 30%);
       }
 
       &.active {
         font-weight: bold;
-
-        &:hover {
-          color: $nav-tabs-link-active-color;
-        }
+        color: $nav-tabs-link-active-color;
       }
 
     }
