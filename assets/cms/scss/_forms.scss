@@ -11,18 +11,23 @@
       margin: 0 0 35px;
     }
 
-    .form-group {
-      padding-left: 20px;
-
-      .checkbox .form-check-input {
-        margin-left: 0;
-        position: relative;
-      }
-    }
-
     .help-block,
     .alert {
       margin-left: 20px;
+    }
+
+    .form-group {
+      padding-left: 20px;
+
+      .checkbox .form-check-input,
+      .help-block,
+      .alert {
+        margin-left: 0;
+      }
+
+      .checkbox .form-check-input {
+        position: relative;
+      }
     }
   }
 
