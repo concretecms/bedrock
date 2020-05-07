@@ -11,7 +11,7 @@ div.ccm-ui {
         border-bottom-width: 1px;
         font-size: 0.75rem;
 
-        a {
+        > a {
           color: $gray-700;
 
           &:hover {
@@ -63,7 +63,6 @@ div.ccm-ui {
     thead th {
       border-bottom: $table-border-width solid $table-border-color;
       border-top: 0;
-      vertical-align: bottom;
     }
 
     tbody {
