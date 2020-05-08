@@ -27,7 +27,10 @@
         }
         $dialog.jqdialog('option', 'buttons', [{}])
         $dialogParent.find('.ui-dialog-buttonset').remove()
-        $ccmButtons.find('[data-dialog-action=cancel]').addClass('mr-auto')
+        /*
+         * This keeps our buttons left and right, but we're not sure we want that, so let's not do that yet.
+         */
+        //$ccmButtons.find('[data-dialog-action=cancel]').addClass('mr-auto')
         $ccmButtons
             .children()
             .appendTo($dialogParent.find('.ui-dialog-buttonpane').empty())

@@ -326,34 +326,31 @@ ConcreteTree.prototype = {
 
 }
 
-ConcreteTree.setupTreeEvents = function(my) {
-    ConcreteEvent.unsubscribe('ConcreteMenuShow')
-    ConcreteEvent.subscribe('ConcreteMenuShow', function(e, data) {
-        var $menu = data.menuElement
-        $menu.find('a[data-tree-action]').on('click.concreteMenu', function(e) {
-            e.preventDefault()
-            var url = $(this).attr('data-tree-action-url')
-            var action = $(this).attr('data-tree-action')
-            var title = $(this).attr('dialog-title')
-            var width = $(this).attr('dialog-width')
-            var height = $(this).attr('dialog-height')
+ConcreteTree.activateMenu = function($menu) {
+    $menu.find('a[data-tree-action]').on('click.concreteMenu', function(e) {
+        e.preventDefault()
+        var url = $(this).attr('data-tree-action-url')
+        var action = $(this).attr('data-tree-action')
+        var title = $(this).attr('dialog-title')
+        var width = $(this).attr('dialog-width')
+        var height = $(this).attr('dialog-height')
 
-            switch (action) {
+        switch (action) {
             case 'clone-node':
                 my.cloneNode($(this).attr('data-tree-node-id'))
                 break
             default:
                 if (!title) {
                     switch (action) {
-                    case 'add-node':
-                        title = ccmi18n_tree.add
-                        break
-                    case 'edit-node':
-                        title = ccmi18n_tree.edit
-                        break
-                    case 'delete-node':
-                        title = ccmi18n_tree.delete
-                        break
+                        case 'add-node':
+                            title = ccmi18n_tree.add
+                            break
+                        case 'edit-node':
+                            title = ccmi18n_tree.edit
+                            break
+                        case 'delete-node':
+                            title = ccmi18n_tree.delete
+                            break
                     }
                 }
                 if (!width) {
@@ -372,8 +369,15 @@ ConcreteTree.setupTreeEvents = function(my) {
                     height: height
                 })
                 break
-            }
-        })
+        }
+    })
+}
+
+ConcreteTree.setupTreeEvents = function(my) {
+    ConcreteEvent.unsubscribe('ConcreteMenuShow')
+    ConcreteEvent.subscribe('ConcreteMenuShow', function(e, data) {
+        var $menu = data.menuElement
+        ConcreteTree.activateMenu($menu)
     })
 
     ConcreteEvent.subscribe('ConcreteTreeAddTreeNode.concreteTree', function(e, r) {
