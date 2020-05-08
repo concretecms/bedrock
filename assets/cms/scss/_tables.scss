@@ -110,7 +110,7 @@ div.ccm-ui {
       transition: $transition-base;
 
       button {
-        display: none;
+        visibility: hidden;
       }
     }
 
@@ -132,7 +132,7 @@ div.ccm-ui {
 
       .ccm-search-results-menu-launcher {
         button {
-          display: block;
+          visibility: visible;
         }
       }
     }
