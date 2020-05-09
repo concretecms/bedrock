@@ -50,28 +50,31 @@
     }
 
     // Selectable attribute element
-    [data-attribute-key] {
-      color: $gray-600;
+    a[data-attribute-key] {
+      color: $panel-menu-item-color;
       display: block;
       line-height: 1.8em;
       padding: 10px 21px 12px 50px;
       position: relative;
       text-decoration: none;
+      transition: $panel-menu-item-transition;
 
       // Plus and minus icons
       .fa {
         // Displayed when selected or on hover
-        display: none;
         font-size: 1.3125em; // 21px
         left: 21px;
+        opacity: 0;
         position: absolute;
         top: 14px;
+        transition: $panel-menu-item-transition;
       }
 
       // Always show a remove icon on selected attributes
       &.ccm-menu-page-attribute-selected {
-        background-color: $primary;
-        color: $white;
+        font-weight: $panel-menu-item-active-font-weight;
+        background-color: $panel-menu-item-active-bg-color !important;
+        color: $panel-menu-item-active-color !important;
 
         .fa-minus-circle {
           display: inline;
@@ -80,12 +83,11 @@
 
       // Show add icon only on hover on unselected attributes
       &:hover {
-        background-color: #d2eafa;
-        color: $gray-600;
+        background-color: $panel-menu-item-hover-bg-color;
         text-decoration: none;
 
         .fa-plus-circle {
-          display: inline;
+          opacity: 1;
         }
       }
     }
@@ -109,10 +111,17 @@
   .form-group {
     padding-left: 50px;
     padding-right: 50px;
+    opacity: 1;
+    transition: $transition-fade;
 
     .col-form-label {
       padding-bottom: 6px;
       padding-top: 0;
+    }
+
+    &.ccm-page-attribute-adding,
+    &.ccm-page-attribute-removing {
+      opacity: 0;
     }
 
     // Selectable attributes

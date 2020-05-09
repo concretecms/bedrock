@@ -222,25 +222,31 @@ div.ccm-panel-content {
 
       &.active {
         a {
-          color: $panel-link-active-color;
-          font-weight: 600;
+          background-color: $panel-menu-item-active-bg-color;
+          color: $panel-menu-item-active-color;
+          font-weight: $panel-menu-item-active-font-weight;
         }
       }
 
       a {
-        color: $gray-600;
+        color: $panel-menu-item-color;
         display: block;
         line-height: 1.8em;
         padding: 11px 21px 11px 24px;
         text-decoration: none;
+        transition: $panel-menu-item-transition;
 
         &:hover {
-          background-color: #d2eafa;
+          background-color: $panel-menu-item-hover-bg-color;
         }
 
         &.ccm-panel-menu-item-active {
-          color: $panel-link-active-color;
-          font-weight: 600;
+          background-color: $panel-menu-item-active-bg-color;
+          color: $panel-menu-item-active-color;
+          font-weight: $panel-menu-item-active-font-weight;
+          &:hover {
+            color: $panel-menu-item-active-color;
+          }
         }
       }
 
