@@ -1,5 +1,5 @@
 import MenuButton from '../../assets/cms/components/menu/MenuButton'
-import { icons } from '../../assets/cms/components/iconlist'
+import {icons} from '../../assets/cms/components/iconlist'
 
 // Set up the values for all stories in this file
 export default {
@@ -72,6 +72,23 @@ export const menuByItself = () => ({
         </div>
     </div>`
 })
+
+export const concreteAreaMenu = () => `
+<div id='ccm-popover-menu-container' class='ccm-ui'>
+    <div class="popover bs-popover-top">
+        <div class="arrow"></div>
+        <div class="popover-inner">
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Add Block</a>
+                <a class="dropdown-item" href="#">Add Layout</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Edit Area Design</a>
+            </div>
+        </div>
+    </div>
+</div>
+`
+
 
 export const defaultBootstrapMenu = () => `
 <div class='ccm-ui'>
