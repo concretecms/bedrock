@@ -1,0 +1,12 @@
+.nav {
+  .nav-item {
+    a.nav-link {
+      color: $gray-400;
+
+      &.active {
+        color: $blue;
+        font-weight: bold;
+      }
+    }
+  }
+}
