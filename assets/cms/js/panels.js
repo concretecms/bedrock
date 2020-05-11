@@ -347,6 +347,23 @@ function ConcretePanel(options) {
                 })
             })
         })
+        $panel.find('[data-panel-menu=dropdown]').each(function () {
+            var $dropdown = $(this)
+            var $title = $dropdown.find('[data-panel-header=dropdown-menu]')
+            $(this).find('[data-panel-dropdown-tab]').unbind('.dropdown-tab').on('click.dropdown-tab', function () {
+                var url = obj.getCurrentURL()
+                if (!url) {
+                    url = obj.getURL()
+                }
+                var $content = $panel.find('.ccm-panel-content')
+                $.fn.dialog.showLoader()
+                $content.load(url + '?cID=' + CCM_CID + '&tab=' + $(this).attr('data-panel-dropdown-tab'), function () {
+                    $title.html($(this).text())
+                    $.fn.dialog.hideLoader()
+                    obj.onPanelLoad(this)
+                })
+            })
+        })
         $panel.find('.dialog-launch').dialog()
         $panel.find('[data-panel-menu=collapsible-list-group]').each(function () {
             var $clg = $(this)
