@@ -30,7 +30,7 @@ function ConcreteFileSelector($element, options) {
 
 ConcreteFileSelector.prototype = {
 
-    chooseTemplate: '<div class="ccm-file-selector-choose-new">' +
+    chooseTemplate: '<div class="ccm-file-selector-choose-new btn btn-secondary">' +
         '<input type="hidden" name="<%=options.inputName%>" value="0" /><%=options.chooseText%></div>',
     loadingTemplate: '<div class="ccm-file-selector-loading"><input type="hidden" name="<%=inputName%>" value="<%=fID%>"><img src="' + CCM_IMAGE_PATH + '/throbber_white_16.gif" /></div>',
     fileLoadedTemplate: '<div class="ccm-file-selector-file-selected"><input type="hidden" name="<%=inputName%>" value="<%=file.fID%>" />' +

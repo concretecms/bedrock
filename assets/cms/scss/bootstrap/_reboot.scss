@@ -4,6 +4,7 @@
   color: $body-color;
   font-family: sans-serif; // 2
   font-family: $font-family-base;
+  -webkit-font-smoothing: antialiased;
   font-weight: $font-weight-base;
   line-height: 1.15; // 3
   line-height: $line-height-base;

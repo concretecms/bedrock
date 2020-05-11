@@ -1,4 +1,5 @@
 /* eslint-disable no-new, no-unused-vars, camelcase, eqeqeq */
+
 /* global ccmi18n, ccmi18n_tree, CCM_DISPATCHER_FILENAME, ConcreteAlert, ConcreteEvent, ConcreteMenu */
 
 function ConcreteTree($element, options) {
@@ -27,13 +28,20 @@ function ConcreteTree($element, options) {
 
 ConcreteTree.prototype = {
 
-    dragRequest: function(sourceNode, node, hitMode, onSuccess) {
+    dragRequest: function (sourceNode, node, hitMode, onSuccess) {
         var treeNodeParentID = node.parent.data.treeNodeID
         if (hitMode == 'over') {
             treeNodeParentID = node.data.treeNodeID
         }
         jQuery.fn.dialog.showLoader()
-        var params = [{ name: 'sourceTreeNodeID', value: sourceNode.data.treeNodeID }, { name: 'treeNodeParentID', value: treeNodeParentID }]
+        var params = [
+            {
+                name: 'sourceTreeNodeID', value: sourceNode.data.treeNodeID
+            },
+            {
+                name: 'treeNodeParentID', value: treeNodeParentID
+            }
+        ]
 
         $.concreteAjax({
             data: params,
@@ -46,7 +54,7 @@ ConcreteTree.prototype = {
         })
     },
 
-    setupTree: function() {
+    setupTree: function () {
         var my = this
         var options = my.options
         var classNames = {}
@@ -119,12 +127,12 @@ ConcreteTree.prototype = {
                 method: 'POST',
                 data: ajaxData
             },
-            lazyLoad: function(event, data) {
+            lazyLoad: function (event, data) {
                 data.result = my.getLoadNodePromise(data.node)
             },
-            select: function(select, data) {
+            select: function (select, data) {
                 if (options.chooseNodeInForm) {
-                    var keys = $.map(data.tree.getSelectedNodes(), function(node) {
+                    var keys = $.map(data.tree.getSelectedNodes(), function (node) {
                         return node.key
                     })
                     options.onSelect(keys)
@@ -135,7 +143,7 @@ ConcreteTree.prototype = {
             checkbox: checkbox,
             minExpandLevel: minExpandLevel,
             clickFolderMode: 1,
-            init: function() {
+            init: function () {
                 var $tree = my.$element
 
                 if (options.removeNodesByKey.length) {
@@ -157,20 +165,20 @@ ConcreteTree.prototype = {
                     selectedNodes = $tree.fancytree('getTree')
                     selectedNodes = selectedNodes.getSelectedNodes()
                     if (selectedNodes.length) {
-                        var keys = $.map(selectedNodes, function(node) {
+                        var keys = $.map(selectedNodes, function (node) {
                             return node.key
                         })
                         options.onSelect(keys)
                     }
                 }
                 if (selectedNodes) {
-                    $.map(selectedNodes, function(node) {
+                    $.map(selectedNodes, function (node) {
                         node.makeVisible()
                     })
                 }
             },
 
-            click: function(e, data) {
+            click: function (e, data) {
                 if (data.targetType == 'expander') {
                     return true
                 }
@@ -209,19 +217,20 @@ ConcreteTree.prototype = {
                 preventRecursiveMoves: true, // Prevent dropping nodes on own descendants,
                 focusOnClick: true,
                 preventVoidMoves: true, // Prevent dropping nodes 'before self', etc.
-                dragStart: function(sourceNode, data) {
+                dragStart: function (sourceNode, data) {
                     if (!options.chooseNodeInForm) {
                         return true
                     } else {
                         return false
                     }
                 },
-                dragStop: function(sourceNode, data) {
+                dragStop: function (sourceNode, data) {
                     return true
                 },
 
-                dragEnter: function(targetNode, data) {
-                    var sourceNode = data.otherNode; var hitMode = data.hitMode
+                dragEnter: function (targetNode, data) {
+                    var sourceNode = data.otherNode
+                    var hitMode = data.hitMode
 
                     if ((!targetNode.parent.data.treeNodeID) && (targetNode.data.treeNodeID !== '1')) { // Home page has no parents, but we still want to be able to hit it.
                         return false
@@ -245,19 +254,26 @@ ConcreteTree.prototype = {
                     }
                     return true
                 },
-                dragDrop: function(targetNode, data) {
-                    my.dragRequest(data.otherNode, targetNode, data.hitMode, function() {
+                dragDrop: function (targetNode, data) {
+                    my.dragRequest(data.otherNode, targetNode, data.hitMode, function () {
                         data.otherNode.moveTo(targetNode, data.hitMode)
                         var treeNodeParentID = data.otherNode.parent.data.treeNodeID
                         if (data.hitMode == 'over') {
                             treeNodeParentID = targetNode.data.treeNodeID
                         }
-                        var params = [{ name: 'sourceTreeNodeID', value: data.otherNode.data.treeNodeID }, { name: 'treeNodeParentID', value: treeNodeParentID }]
+                        var params = [{
+                            name: 'sourceTreeNodeID',
+                            value: data.otherNode.data.treeNodeID
+                        }, {
+                            name: 'treeNodeParentID', value: treeNodeParentID
+                        }]
                         var childNodes = targetNode.parent.getChildren()
                         if (childNodes) {
                             for (var i = 0; i < childNodes.length; i++) {
                                 var childNode = childNodes[i]
-                                params.push({ name: 'treeNodeID[]', value: childNode.data.treeNodeID })
+                                params.push({
+                                    name: 'treeNodeID[]', value: childNode.data.treeNodeID
+                                })
                             }
                         }
                         $.concreteAjax({
@@ -270,7 +286,7 @@ ConcreteTree.prototype = {
         })
     },
 
-    getLoadNodePromise: function(node) {
+    getLoadNodePromise: function (node) {
         var my = this
         var ajaxData = my.options.ajaxData != false ? my.options.ajaxData : {}
 
@@ -281,18 +297,20 @@ ConcreteTree.prototype = {
         ))
     },
 
-    reloadNode: function(node, onComplete) {
-        this.getLoadNodePromise(node).done(function(data) {
+    reloadNode: function (node, onComplete) {
+        this.getLoadNodePromise(node).done(function (data) {
             node.removeChildren()
             node.addChildren(data)
-            node.setExpanded(true, { noAnimation: true })
+            node.setExpanded(true, {
+                noAnimation: true
+            })
             if (onComplete) {
                 onComplete()
             }
         })
     },
 
-    cloneNode: function(treeNodeID) {
+    cloneNode: function (treeNodeID) {
         var my = this
         var $tree = $('[data-tree=' + my.options.treeID + ']')
         $.ajax({
@@ -302,22 +320,22 @@ ConcreteTree.prototype = {
                 treeNodeID: treeNodeID
             },
             url: CCM_DISPATCHER_FILENAME + '/ccm/system/tree/node/duplicate',
-            success: function(r) {
+            success: function (r) {
                 if (r.error == true) {
                     ConcreteAlert.dialog(ccmi18n.error, r.errors.join('<br>'))
                 } else {
                     jQuery.fn.dialog.closeTop()
                     var node = $tree.fancytree('getTree').getNodeByKey(String(r.treeNodeParentID))
                     jQuery.fn.dialog.showLoader()
-                    my.reloadNode(node, function() {
+                    my.reloadNode(node, function () {
                         jQuery.fn.dialog.hideLoader()
                     })
                 }
             },
-            error: function(r) {
+            error: function (r) {
                 ConcreteAlert.dialog(ccmi18n.error, '<div class="alert alert-danger">' + r.responseText + '</div>')
             },
-            complete: function() {
+            complete: function () {
                 jQuery.fn.dialog.hideLoader()
             }
         })
@@ -326,57 +344,61 @@ ConcreteTree.prototype = {
 
 }
 
-ConcreteTree.setupTreeEvents = function(my) {
-    ConcreteEvent.unsubscribe('ConcreteMenuShow')
-    ConcreteEvent.subscribe('ConcreteMenuShow', function(e, data) {
-        var $menu = data.menuElement
-        $menu.find('a[data-tree-action]').on('click.concreteMenu', function(e) {
-            e.preventDefault()
-            var url = $(this).attr('data-tree-action-url')
-            var action = $(this).attr('data-tree-action')
-            var title = $(this).attr('dialog-title')
-            var width = $(this).attr('dialog-width')
-            var height = $(this).attr('dialog-height')
+ConcreteTree.activateMenu = function ($menu, my) {
+    $menu.find('a[data-tree-action]').on('click.concreteMenu', function (e) {
+        e.preventDefault()
+        var url = $(this).attr('data-tree-action-url')
+        var action = $(this).attr('data-tree-action')
+        var title = $(this).attr('dialog-title')
+        var width = $(this).attr('dialog-width')
+        var height = $(this).attr('dialog-height')
 
-            switch (action) {
-            case 'clone-node':
-                my.cloneNode($(this).attr('data-tree-node-id'))
-                break
-            default:
-                if (!title) {
-                    switch (action) {
-                    case 'add-node':
-                        title = ccmi18n_tree.add
-                        break
-                    case 'edit-node':
-                        title = ccmi18n_tree.edit
-                        break
-                    case 'delete-node':
-                        title = ccmi18n_tree.delete
-                        break
-                    }
+        switch (action) {
+        case 'clone-node':
+            my.cloneNode($(this).attr('data-tree-node-id'))
+            break
+        default:
+            if (!title) {
+                switch (action) {
+                case 'add-node':
+                    title = ccmi18n_tree.add
+                    break
+                case 'edit-node':
+                    title = ccmi18n_tree.edit
+                    break
+                case 'delete-node':
+                    title = ccmi18n_tree.delete
+                    break
                 }
-                if (!width) {
-                    width = 550
-                }
-
-                if (!height) {
-                    height = 'auto'
-                }
-
-                jQuery.fn.dialog.open({
-                    title: title,
-                    href: url,
-                    width: width,
-                    modal: true,
-                    height: height
-                })
-                break
             }
-        })
+            if (!width) {
+                width = 550
+            }
+
+            if (!height) {
+                height = 'auto'
+            }
+
+            jQuery.fn.dialog.open({
+                title: title,
+                href: url,
+                width: width,
+                modal: true,
+                height: height
+            })
+            break
+        }
+    })
+}
+
+ConcreteTree.setupTreeEvents = function (my) {
+    ConcreteEvent.unsubscribe('ConcreteMenuShow')
+    ConcreteEvent.subscribe('ConcreteMenuShow', function (e, data) {
+        var $menu = data.menuElement
+        ConcreteTree.activateMenu($menu, my)
     })
 
-    ConcreteEvent.subscribe('ConcreteTreeAddTreeNode.concreteTree', function(e, r) {
+    ConcreteEvent.subscribe('ConcreteTreeAddTreeNode.concreteTree', function (e, r) {
         var $tree = $('[data-tree=' + my.options.treeID + ']')
         var nodes = r.node
         var node
@@ -390,13 +412,13 @@ ConcreteTree.setupTreeEvents = function(my) {
             node.addChildren(nodes)
         }
     })
-    ConcreteEvent.subscribe('ConcreteTreeUpdateTreeNode.concreteTree', function(e, r) {
+    ConcreteEvent.subscribe('ConcreteTreeUpdateTreeNode.concreteTree', function (e, r) {
         var $tree = $('[data-tree=' + my.options.treeID + ']')
         var node = $tree.fancytree('getTree').getNodeByKey(String(r.node.key))
         node.fromDict(r.node)
         node.render()
     })
-    ConcreteEvent.subscribe('ConcreteTreeDeleteTreeNode.concreteTree', function(e, r) {
+    ConcreteEvent.subscribe('ConcreteTreeDeleteTreeNode.concreteTree', function (e, r) {
         var $tree = $('[data-tree=' + my.options.treeID + ']')
         var node = $tree.fancytree('getTree').getNodeByKey(String(r.node.treeNodeID))
         node.remove()
@@ -404,8 +426,8 @@ ConcreteTree.setupTreeEvents = function(my) {
 }
 
 // jQuery Plugin
-$.fn.concreteTree = function(options) {
-    return $.each($(this), function(i, obj) {
+$.fn.concreteTree = function (options) {
+    return $.each($(this), function (i, obj) {
         /* eslint-disable no-new */
         new ConcreteTree($(this), options)
     })
