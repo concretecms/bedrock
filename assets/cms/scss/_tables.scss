@@ -11,7 +11,7 @@ div.ccm-ui {
         border-bottom-width: 1px;
         font-size: 0.75rem;
 
-        a {
+        > a {
           color: $gray-700;
 
           &:hover {
@@ -63,7 +63,6 @@ div.ccm-ui {
     thead th {
       border-bottom: $table-border-width solid $table-border-color;
       border-top: 0;
-      vertical-align: bottom;
     }
 
     tbody {
@@ -72,11 +71,22 @@ div.ccm-ui {
         font-size: $font-size-sm;
         transition: $transition-base;
 
+        &.ccm-search-results-checkbox {
+          width: 1px;
+        }
+
         &.ccm-search-results-icon {
           width: 1px;
 
           i {
-            font-size: 40px;
+            // folders, stacks icons
+            font-size: 41px;
+          }
+
+          img {
+            // file manager, other image based icons
+            height: 41px;
+            width: 41px;
           }
         }
       }
@@ -90,17 +100,27 @@ div.ccm-ui {
     .ccm-search-results-name {
       color: $gray-700;
       font-size: 1rem;
+
+      a {
+        color: $gray-700;
+        text-decoration: none;
+        transition: $transition-base;
+
+        &:hover {
+          color: $blue;
+        }
+      }
     }
 
     .ccm-search-results-name {
-      width: 50%;
+      width: 40%;
     }
 
     .ccm-search-results-menu-launcher {
       transition: $transition-base;
 
       button {
-        display: none;
+        visibility: hidden;
       }
     }
 
@@ -122,7 +142,7 @@ div.ccm-ui {
 
       .ccm-search-results-menu-launcher {
         button {
-          display: block;
+          visibility: visible;
         }
       }
     }

@@ -27,7 +27,10 @@
         }
         $dialog.jqdialog('option', 'buttons', [{}])
         $dialogParent.find('.ui-dialog-buttonset').remove()
-        $ccmButtons.find('[data-dialog-action=cancel]').addClass('mr-auto')
+        /*
+         * This keeps our buttons left and right, but we're not sure we want that, so let's not do that yet.
+         */
+        // $ccmButtons.find('[data-dialog-action=cancel]').addClass('mr-auto')
         $ccmButtons
             .children()
             .appendTo($dialogParent.find('.ui-dialog-buttonpane').empty())
@@ -174,11 +177,18 @@
             open: function() {
                 // jshint -W061
                 var $dialog = $(this)
+                /*
+                 * This code causes problems with dialogs that have long dropdowns in them like the files advanced
+                 * search. Commenting out for now.
+                 */
+
+                /*
                 var nd = $('.ui-dialog').length
                 if (nd == 1) {
                     $('body').attr('data-last-overflow', $('body').css('overflow'))
                     $('body').css('overflow', 'hidden')
                 }
+                */
 
                 var overlays = $('.ui-widget-overlay').length
 
