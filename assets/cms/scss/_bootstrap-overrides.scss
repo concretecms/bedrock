@@ -99,10 +99,11 @@ $dropdown-item-padding-x: 10px;
 $dropdown-link-active-color: #fff;
 $dropdown-border-color: transparent;
 $dropdown-border-radius: 2px;
+$dropdown-border-width: 2px;
 $dropdown-min-width: 175px;
-$dropdown-box-shadow: 0px 2px 4px 1px rgba(0,0,0,0.15);
+$dropdown-box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.15);
 
 /* popovers - these are used for in page menus, help menus */
 $popover-border-color: $gray-300;
 $popover-border-radius: 2px;
-$popover-box-shadow: 0px 2px 4px 1px rgba(0,0,0,0.1);
+$popover-box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.1);

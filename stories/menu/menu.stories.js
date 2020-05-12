@@ -1,5 +1,5 @@
 import MenuButton from '../../assets/cms/components/menu/MenuButton'
-import {icons} from '../../assets/cms/components/iconlist'
+import { icons } from '../../assets/cms/components/iconlist'
 
 // Set up the values for all stories in this file
 export default {
@@ -88,7 +88,6 @@ export const concreteAreaMenu = () => `
     </div>
 </div>
 `
-
 
 export const defaultBootstrapMenu = () => `
 <div class='ccm-ui'>

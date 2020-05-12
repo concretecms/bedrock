@@ -72,9 +72,9 @@
 
       // Always show a remove icon on selected attributes
       &.ccm-menu-page-attribute-selected {
-        font-weight: $panel-menu-item-active-font-weight;
         background-color: $panel-menu-item-active-bg-color !important;
         color: $panel-menu-item-active-color !important;
+        font-weight: $panel-menu-item-active-font-weight;
 
         .fa-minus-circle {
           display: inline;
@@ -109,9 +109,9 @@
 
   // Fixed and selectable attributes
   .form-group {
+    opacity: 1;
     padding-left: 50px;
     padding-right: 50px;
-    opacity: 1;
     transition: $transition-fade;
 
     .col-form-label {

@@ -196,8 +196,8 @@ div.ccm-panel-content {
       transition: $transition-base;
 
       &:hover {
-        cursor: pointer;
         color: $blue;
+        cursor: pointer;
       }
     }
 
@@ -254,6 +254,7 @@ div.ccm-panel-content {
           background-color: $panel-menu-item-active-bg-color;
           color: $panel-menu-item-active-color;
           font-weight: $panel-menu-item-active-font-weight;
+
           &:hover {
             color: $panel-menu-item-active-color;
           }
