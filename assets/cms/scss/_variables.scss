@@ -3,7 +3,12 @@
 /* panels */
 $panel-background-color: #fafbfc;
 $panel-background-color-accent: #e7e8eb;
-$panel-link-active-color: $blue;
+$panel-menu-item-color: $gray-600;
+$panel-menu-item-hover-bg-color: #d2eafa;
+$panel-menu-item-active-bg-color: $blue;
+$panel-menu-item-active-color: white;
+$panel-menu-item-active-font-weight: 600;
+$panel-menu-item-transition: all 0.1s ease-in;
 
 /* headings */
 $h1-font-size: $font-size-base * 3.5;
@@ -24,6 +29,13 @@ $modal-title-color: white;
 /* additional tab colors */
 $nav-tabs-link-color: $gray-500;
 
+/* selectize */
+$selectize-input-item-bg: $gray-100;
+$selectize-dropdown-option-color-active: $dropdown-link-color;
+$selectize-dropdown-option-bg-active: $gray-100;
+$selectize-dropdown-border-color: transparent;
+$selectize-dropdown-border-width: 2px;
+$selectize-dropdown-border-radius: 2px;
 
 /** --- Zindexes --- **/
 

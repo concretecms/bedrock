@@ -191,6 +191,16 @@ div.ccm-panel-content {
         text-decoration: none;
       }
     }
+
+    .dropdown-toggle {
+      transition: $transition-base;
+
+      &:hover {
+        color: $blue;
+        cursor: pointer;
+      }
+    }
+
   }
 
   table {
@@ -222,25 +232,32 @@ div.ccm-panel-content {
 
       &.active {
         a {
-          color: $panel-link-active-color;
-          font-weight: 600;
+          background-color: $panel-menu-item-active-bg-color;
+          color: $panel-menu-item-active-color;
+          font-weight: $panel-menu-item-active-font-weight;
         }
       }
 
       a {
-        color: $gray-600;
+        color: $panel-menu-item-color;
         display: block;
         line-height: 1.8em;
         padding: 11px 21px 11px 24px;
         text-decoration: none;
+        transition: $panel-menu-item-transition;
 
         &:hover {
-          background-color: #d2eafa;
+          background-color: $panel-menu-item-hover-bg-color;
         }
 
         &.ccm-panel-menu-item-active {
-          color: $panel-link-active-color;
-          font-weight: 600;
+          background-color: $panel-menu-item-active-bg-color;
+          color: $panel-menu-item-active-color;
+          font-weight: $panel-menu-item-active-font-weight;
+
+          &:hover {
+            color: $panel-menu-item-active-color;
+          }
         }
       }
 
@@ -336,42 +353,27 @@ div.ccm-panel-header-accordion {
       }
     }
   }
-  // so far only used in the add blocks panel but it makes more sense styling it here
-  .ccm-panel-header-list-grid-view-switcher {
-    background-color: $dark;
-    cursor: pointer;
-    height: 24px;
-    padding: 4px;
+}
+
+// so far only used in the add blocks panel but it makes more sense styling it here
+.ccm-panel-header-list-grid-view-switcher {
+  background-color: $dark;
+  cursor: pointer;
+  height: 24px;
+  padding: 4px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 24px;
+  z-index: 1;
+
+  >i {
+    color: $gray-100;
+    line-height: 16px;
     position: absolute;
-    right: 0;
-    top: 14px;
-    width: 24px;
-    z-index: 1;
-
-    >i {
-      color: $gray-100;
-      line-height: 16px;
-      position: absolute;
-    }
-  }
-
-  /**
-  * this new class will make a Bootstrap Accordion act as a dropdown
-  * so it will not push down everything below but open on top
-  * Useful to turn an accordion into a dropdown without heavily changing existing markup
-  * Or the JS attached to it
-  */
-  &.ccm-accordion-as-dropdown {
-    overflow: visible;
-
-    .ccm-panel-header-accordion-dropdown {
-      background-color: $gray-100;
-      position: absolute;
-      width: 100%;
-      z-index: 1;
-    }
   }
 }
+
 
 /**
  * Panel main detail areas

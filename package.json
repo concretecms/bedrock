@@ -40,6 +40,7 @@
     "pnotify": "^4.0.0",
     "popper.js": "^1.15.0",
     "selectize": "^0.12.6",
+    "selectize-bootstrap4-theme": "^2.0.2",
     "spectrum-colorpicker": "^1.8.0",
     "tristate": "^1.2.0",
     "underscore": "^1.9.1",
