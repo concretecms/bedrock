@@ -43,7 +43,7 @@
     ConcreteSitemap.prototype = {
 
         sitemapTemplate: '<div class="ccm-sitemap-wrapper"><div class="ccm-sitemap-tree-selector-wrapper"></div><div class="ccm-sitemap-tree"></div></div>',
-        localesWrapperTemplate: '<select data-select="site-trees"></select>',
+        localesWrapperTemplate: '<select class="form-control selectize-control" data-select="site-trees"></select>',
         /*
 localeTemplate: '<li <% if (selectedLocale) { %>class="active"<% } %>><a href="#" data-locale-site-tree="<%=treeID%>"><img src="<%=icon%>"> <span><%=localeDisplayName%></span></a></li>', */
 
