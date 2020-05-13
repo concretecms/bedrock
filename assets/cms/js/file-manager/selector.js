@@ -18,10 +18,15 @@ function ConcreteFileSelector($element, options) {
     my._fileLoadedTemplate = _.template(my.fileLoadedTemplate)
 
     my.$element.append(my._chooseTemplate)
-    my.$element.on('click', 'div.ccm-file-selector-choose-new', function (e) {
+    my.$element.on('click', 'button[data-choose=file]', function (e) {
         e.preventDefault()
         my.chooseNewFile()
     })
+    my.$element.on('click', 'button[data-reset=file]', function (e) {
+        e.preventDefault()
+        _.defer(function() { my.$element.html(my._chooseTemplate) })
+    })
+
 
     if (my.options.fID) {
         my.loadFile(my.options.fID)
@@ -30,13 +35,21 @@ function ConcreteFileSelector($element, options) {
 
 ConcreteFileSelector.prototype = {
 
-    chooseTemplate: '<div class="ccm-file-selector-choose-new btn btn-secondary">' +
-        '<input type="hidden" name="<%=options.inputName%>" value="0" /><%=options.chooseText%></div>',
-    loadingTemplate: '<div class="ccm-file-selector-loading"><input type="hidden" name="<%=inputName%>" value="<%=fID%>"><img src="' + CCM_IMAGE_PATH + '/throbber_white_16.gif" /></div>',
-    fileLoadedTemplate: '<div class="ccm-file-selector-file-selected"><input type="hidden" name="<%=inputName%>" value="<%=file.fID%>" />' +
-        '<div class="ccm-file-selector-file-selected-thumbnail"><%=file.resultsThumbnailImg%></div>' +
-        '<div class="ccm-file-selector-file-selected-title"><div><%=file.title%></div></div><div class="clearfix"></div>' +
-        '</div>',
+    chooseTemplate: '<div class="ccm-file-selector-choose">' +
+        '<input type="hidden" name="<%=options.inputName%>" value="0" />' +
+        '<button type="button" data-choose="file" class="btn btn-secondary">' +
+        '<%=options.chooseText%></button></div>',
+    loadingTemplate: '<div class="ccm-file-selector-loading"><input type="hidden" name="<%=inputName%>" value="<%=fID%>">' +
+        '<div class="btn-group"><div class="btn btn-secondary">' +
+        '<svg><use xlink:href="#icon-loader-circles" /></svg>' +
+        '</div><button class="ccm-file-selector-reset btn btn-secondary">' +
+        '<i class="fa fa-times-circle"></i></div></div>',
+    fileLoadedTemplate: '<div class="ccm-file-selector-loaded"><div class="btn-group">' +
+        '<a href="<%=file.urlDetail%>" target="_blank" class="btn btn-secondary">' +
+        '<input type="hidden" name="<%=inputName%>" value="<%=file.fID%>" />' +
+        '<%=file.resultsThumbnailImg%> <span class="ccm-file-selector-title"><%=file.title%></span></a>' +
+        '<button data-reset="file" class="ccm-file-selector-reset btn btn-secondary">' +
+        '<i class="fa fa-times-circle"></i></div></div>',
 
     chooseNewFile: function () {
         var my = this
@@ -58,31 +71,6 @@ ConcreteFileSelector.prototype = {
         ConcreteFileManager.getFileDetails(fID, function (r) {
             var file = r.files[0]
             my.$element.html(my._fileLoadedTemplate({ inputName: my.options.inputName, file: file }))
-            my.$element.find('.ccm-file-selector-file-selected').on('click', function (event) {
-                var menu = file.treeNodeMenu
-                if (menu) {
-                    var concreteMenu = new ConcreteFileMenu($(this), {
-                        menuLauncherHoverClass: 'ccm-file-manager-menu-item-hover',
-                        menu: $(menu),
-                        handle: 'none',
-                        container: my
-                    })
-                    concreteMenu.show(event)
-                }
-            })
-            ConcreteEvent.unsubscribe('ConcreteTreeDeleteTreeNode')
-            ConcreteEvent.subscribe('ConcreteTreeDeleteTreeNode', function (e, data) {
-                if (data.node && data.node.treeJSONObject) {
-                    var fID = data.node.treeJSONObject.fID
-                    if (fID) {
-                        $('[data-file-selector]').find('.ccm-file-selector-file-selected input[value=' + fID + ']').each(function (index, element) {
-                            _.defer(function () {
-                                my.$element.html(my._chooseTemplate)
-                            })
-                        })
-                    }
-                }
-            })
             if (callback) {
                 callback(r)
             }

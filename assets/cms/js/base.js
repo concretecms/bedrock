@@ -3,6 +3,7 @@
 import _ from 'underscore'
 import NProgress from 'nprogress'
 import PNotify from 'pnotify/dist/es/PNotify'
+import Vue from 'vue';
 
 // JavaScript/jQuery base libraries.
 import 'json5'
@@ -73,8 +74,11 @@ import './express'
 // File Manager
 import './file-manager/uploader'
 import './file-manager/search'
-import './file-manager/selector'
-import './file-manager/menu'
+
+import ConcreteFileInput from '@concretecms/bedrock/assets/cms/components/form/ConcreteFileInput';
+import ConcreteFileChooser from '@concretecms/bedrock/assets/cms/components/file-manager/Chooser';
+Vue.component('ConcreteFileInput', ConcreteFileInput);
+Vue.component('ConcreteFileChooser', ConcreteFileChooser);
 
 // Miscellaneous UI components
 import 'selectize'
@@ -94,6 +98,15 @@ import './boards'
 // Calendar component
 import './calendar'
 
+// Activate Vue for all ccm-ui spaces
+var vueInstances = document.querySelectorAll('div[vue-enabled]');
+vueInstances.forEach(function(element) {
+    new Vue({
+        el: element
+    });
+});
+
 window.NProgress = NProgress
 window._ = _
 window.PNotify = PNotify
+window.Vue = Vue;
