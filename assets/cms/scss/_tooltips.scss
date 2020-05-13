@@ -19,7 +19,6 @@
  * Tooltips
  */
 div#ccm-tooltip-holder {
-  position: relative;
   z-index: $index-level-tooltip-holder;
 }
 
@@ -30,4 +29,3 @@ div.tooltip-inner {
   max-width: 250px;
   padding: 7px 10px;
 }
-
