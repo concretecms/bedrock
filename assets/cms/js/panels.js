@@ -110,8 +110,8 @@ function ConcretePanel(options) {
             var cover = $('<div />').addClass('ccm-panel-cover').appendTo($(this).closest('.ccm-panel'))
             obj.closePanelDetailImmediately()
             var url = $(this).attr('data-launch-sub-panel-url')
-            var loadMenu = $(this).attr('data-load-menu');
-            if (loadMenu) var extraParams = '&loadMenu='+loadMenu;
+            var loadMenu = $(this).attr('data-load-menu')
+            if (loadMenu) var extraParams = '&loadMenu=' + loadMenu
             $('<div />', { class: 'ccm-panel-content ccm-panel-content-appearing' }).appendTo($panel.find('.ccm-panel-content-wrapper')).load(url + '?cID=' + CCM_CID + extraParams, function () {
                 _.delay(function() {
                     cover.remove()
@@ -119,8 +119,8 @@ function ConcretePanel(options) {
                 $panel.find('.ccm-panel-content-visible').removeClass('ccm-panel-content-visible').addClass('ccm-panel-slide-left')
                 $(this).removeClass('ccm-panel-content-appearing').addClass('ccm-panel-content-visible')
 
-                //removing following line makes favorites work when going back from a submenu...?
-                //obj.options.currentUrl = url
+                // removing following line makes favorites work when going back from a submenu...?
+                // obj.options.currentUrl = url
                 obj.onPanelLoad(this)
             })
             $(this).removeClass('ccm-panel-menu-item-active')
@@ -415,7 +415,7 @@ function ConcretePanel(options) {
         $link.toggleClass('ccm-launch-panel-active')
         var element = $('#' + this.getDOMID())
         var obj = this
-        var identifier = this.getIdentifier();
+        var identifier = this.getIdentifier()
         var show = function() {
             element.off('click.ccm-panel-close').on('click.ccm-panel-close', '.ccm-panel-close a, .ccm-panel-close button', function(e) {
                 e.preventDefault()
@@ -424,37 +424,37 @@ function ConcretePanel(options) {
             html.addClass('ccm-panel-open')
             element.find('.ccm-panel-content-wrapper').html('')
             element.addClass('ccm-panel-active ccm-panel-loading')
-            if (identifier == "dashboard") {
-                  element.find('.ccm-panel-content-wrapper')
-                  .load(obj.getURL() + '?cID=' + CCM_CID, function() {
-                      var elem = this
-                      element.delay(1).queue(function () {
-                          $(this).removeClass('ccm-panel-loading').addClass('ccm-panel-loaded')
-                          $(this).dequeue()
-                      })
-                      obj.onPanelLoad(element)
-                      obj.isOpen = true
-                      Concrete.event.publish('PanelOpen', {
-                          panel: obj,
-                          element: elem
-                      })
-                  })
+            if (identifier == 'dashboard') {
+                element.find('.ccm-panel-content-wrapper')
+                    .load(obj.getURL() + '?cID=' + CCM_CID, function() {
+                        var elem = this
+                        element.delay(1).queue(function () {
+                            $(this).removeClass('ccm-panel-loading').addClass('ccm-panel-loaded')
+                            $(this).dequeue()
+                        })
+                        obj.onPanelLoad(element)
+                        obj.isOpen = true
+                        Concrete.event.publish('PanelOpen', {
+                            panel: obj,
+                            element: elem
+                        })
+                    })
             } else {
-							$('<div/>').addClass('ccm-panel-content ccm-panel-content-visible')
-									.appendTo(element.find('.ccm-panel-content-wrapper'))
-									.load(obj.getURL() + '?cID=' + CCM_CID, function() {
-											var elem = this
-											element.delay(1).queue(function () {
-													$(this).removeClass('ccm-panel-loading').addClass('ccm-panel-loaded')
-													$(this).dequeue()
-											})
-											obj.onPanelLoad(element)
-											obj.isOpen = true
-											Concrete.event.publish('PanelOpen', {
-													panel: obj,
-													element: elem
-											})
-									})
+                $('<div/>').addClass('ccm-panel-content ccm-panel-content-visible')
+                    .appendTo(element.find('.ccm-panel-content-wrapper'))
+                    .load(obj.getURL() + '?cID=' + CCM_CID, function() {
+                        var elem = this
+                        element.delay(1).queue(function () {
+                            $(this).removeClass('ccm-panel-loading').addClass('ccm-panel-loaded')
+                            $(this).dequeue()
+                        })
+                        obj.onPanelLoad(element)
+                        obj.isOpen = true
+                        Concrete.event.publish('PanelOpen', {
+                            panel: obj,
+                            element: elem
+                        })
+                    })
             }
             if (obj.options.overlay) {
                 ConcretePanelManager.showOverlay(obj.options.translucent)
