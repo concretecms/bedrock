@@ -64,7 +64,10 @@ function ConcretePanel(options) {
         if (hasTooltip) {
             $link.addClass('launch-tooltip')
         }
-        Concrete.event.publish('PanelLoad', { panel: this, element: element })
+        var panel = this
+        _.defer(function() {
+            Concrete.event.publish('PanelLoad', { panel: panel, element: element })
+        })
     }
 
     this.hide = function (callback) {
@@ -339,6 +342,23 @@ function ConcretePanel(options) {
                 $title.html($(this).text())
                 $.fn.dialog.showLoader()
                 $content.load(url + '?cID=' + CCM_CID + '&tab=' + $(this).attr('data-panel-accordion-tab'), function () {
+                    $.fn.dialog.hideLoader()
+                    obj.onPanelLoad(this)
+                })
+            })
+        })
+        $panel.find('[data-panel-menu=dropdown]').each(function () {
+            var $dropdown = $(this)
+            var $title = $dropdown.find('[data-panel-header=dropdown-menu]')
+            $(this).find('[data-panel-dropdown-tab]').unbind('.dropdown-tab').on('click.dropdown-tab', function () {
+                var url = obj.getCurrentURL()
+                if (!url) {
+                    url = obj.getURL()
+                }
+                var $content = $panel.find('.ccm-panel-content')
+                $.fn.dialog.showLoader()
+                $content.load(url + '?cID=' + CCM_CID + '&tab=' + $(this).attr('data-panel-dropdown-tab'), function () {
+                    $title.html($(this).text())
                     $.fn.dialog.hideLoader()
                     obj.onPanelLoad(this)
                 })

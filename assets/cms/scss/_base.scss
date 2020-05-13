@@ -61,10 +61,12 @@
 @import './forms';
 
 // Selectize
-@import '~selectize/dist/css/selectize.css';
+@import '~selectize-bootstrap4-theme/scss/selectize.bootstrap4';
+
 @import './selectize';
 
 // Miscellaneous components
+@import './pagination';
 @import './tabs';
 @import './item-selector';
 @import './item-select-list';
@@ -76,3 +78,4 @@
 @import './dropdown';
 @import './utilities';
 @import './popover';
+@import './nav';

@@ -26,6 +26,10 @@ html.ccm-toolbar-visible {
 
     .ui-dialog-content {
       padding: $modal-inner-padding;
+      /* trying to do btn dropdowns within a dialog is getting cut off, let's try adding this here to fix that.
+       * I'm commenting here in case this causes other problems
+       */
+      position: static;
     }
 
     .ui-dialog-titlebar {
