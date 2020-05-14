@@ -3,6 +3,7 @@
 import _ from 'underscore'
 import NProgress from 'nprogress'
 import PNotify from 'pnotify/dist/es/PNotify'
+import Vue from 'vue'
 
 // JavaScript/jQuery base libraries.
 import 'json5'
@@ -85,6 +86,16 @@ import './jquery-awesome-rating'
 import './liveupdate/quicksilver'
 import './liveupdate/jquery-liveupdate'
 
+// Import Vue components
+import { ToggleButton } from 'vue-js-toggle-button'
+Vue.component('ToggleSwitch', ToggleButton);
+var vueInstances = document.querySelectorAll('div[vue-enabled]');
+vueInstances.forEach(function(element) {
+    new Vue({
+        el: element
+    });
+});
+
 // Help
 import './help/help'
 
@@ -97,3 +108,4 @@ import './calendar'
 window.NProgress = NProgress
 window._ = _
 window.PNotify = PNotify
+window.Vue = Vue

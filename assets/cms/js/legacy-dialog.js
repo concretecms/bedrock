@@ -285,6 +285,15 @@
     $.fn.dialog.activateDialogContents = function($dialog) {
         // handle buttons
 
+        // Activate any components you find
+        var $vueInstances = $dialog.find('[vue-enabled]');
+        $vueInstances.each(function() {
+            var vueElement = $(this).get(0);
+            new window.Vue({
+                el: vueElement
+            });
+        })
+
         $dialog.find('button[data-dialog-action=cancel]').on('click', function() {
             $.fn.dialog.closeTop()
         })
@@ -313,6 +322,7 @@
         })
 
         $dialog.find('.launch-tooltip').tooltip({ container: '#ccm-tooltip-holder' })
+
 
         // help handling
         if ($dialog.find('.dialog-help').length > 0) {

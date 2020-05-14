@@ -44,7 +44,8 @@
     "spectrum-colorpicker": "^1.8.0",
     "tristate": "^1.2.0",
     "underscore": "^1.9.1",
-    "vue": "^2.5.7"
+    "vue": "^2.5.7",
+    "vue-js-toggle-button": "^1.3.3"
   },
   "repository": {
     "type": "git",

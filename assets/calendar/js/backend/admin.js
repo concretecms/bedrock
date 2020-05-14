@@ -9,7 +9,7 @@ function ConcreteCalendarAdmin($element) {
 
     $element.find('table.ccm-dashboard-calendar div.ccm-dashboard-calendar-date-event > a').each(function() {
         $(this).concreteCalendarEventMenu({
-            menu: $(this).parent().find('div[data-event-occurrence]')
+            menu: $(this).parent().find('div[data-event-occurrence]:first')
         })
     })
 }
