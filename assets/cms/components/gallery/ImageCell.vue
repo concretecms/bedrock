@@ -1,5 +1,5 @@
 <template functional>
-    <div class="ccm-image-cell text-center">
+    <div class="ccm-image-cell text-center" :class="{ active: props.isActive }">
         <button class="delete" @click="listeners.delete">
             <Icon icon="times" type="fas" color="#fff"/>
         </button>
@@ -17,7 +17,8 @@
   flex-direction: column;
   position: relative;
 
-  &:hover {
+  &:hover,
+  &.active {
     img {
       border: 2px solid #4a90e2;
       opacity: 1;
