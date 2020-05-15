@@ -22,3 +22,15 @@ export const basicUsage = () => ({
     </div>
     `
 })
+
+export const activeState = () => ({
+    components: {
+        ImageCell,
+        ...ImageCell.components
+    },
+    template: `
+    <div class="ccm-ui">
+        <ImageCell src="https://via.placeholder.com/120" file-size="104 KB" size="120" isActive @click="clicks++" @delete="clickDelete++"/>
+    </div>
+    `
+})
