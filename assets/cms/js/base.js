@@ -97,3 +97,10 @@ import './calendar'
 window.NProgress = NProgress
 window._ = _
 window.PNotify = PNotify
+
+// Register our core components with the vue manager
+import components from "@concretecms/bedrock/assets/cms/components/index";
+import VueManager from '@concretecms/bedrock/assets/cms/js/vue/Manager'
+VueManager.bindToWindow(window)
+Concrete.Vue.createContext('cms', components)
+

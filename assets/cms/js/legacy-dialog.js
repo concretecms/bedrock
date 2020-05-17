@@ -283,6 +283,9 @@
     }
 
     $.fn.dialog.activateDialogContents = function($dialog) {
+
+        Concrete.Vue.activateContext('cms', '[vue-enabled]', $dialog.get(0))
+
         // handle buttons
 
         $dialog.find('button[data-dialog-action=cancel]').on('click', function() {
