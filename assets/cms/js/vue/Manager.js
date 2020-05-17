@@ -1,7 +1,8 @@
+/* eslint-disable no-new */
+/* global Vue */
 import Context from './Context'
 
 class Manager {
-
     /**
      * Ensures that our Concrete.Vue manager is available on the window object.
      * Note: Do NOT call this before the global Concrete object is created in the CMS context.
@@ -36,8 +37,8 @@ class Manager {
      * @param parent
      */
     activateContext(context, selector, parent) {
-        var contextObject = this.getContext(context),
-            selectors = parent.querySelectorAll(selector)
+        var contextObject = this.getContext(context)
+        var selectors = parent.querySelectorAll(selector)
         selectors.forEach(function (element) {
             new Vue({
                 el: element,
@@ -54,7 +55,7 @@ class Manager {
      */
     extendContext(context, components) {
         var contextObject = this.getContext(context)
-        var newComponents = Object.assign(contextObject.components, components);
+        var newComponents = Object.assign(contextObject.components, components)
         contextObject.components = newComponents
     }
 
@@ -69,13 +70,11 @@ class Manager {
     createContext(context, components, fromContext) {
         if (fromContext) {
             // Merge the fromContext components into this array
-            var fromContextObject = this.getContext(fromContext),
-                components = Object.assign(fromContextObject.components, components);
+            var fromContextObject = this.getContext(fromContext)
+            components = Object.assign(fromContextObject.components, components)
         }
         var contextObject = new Context(context, components)
         window.Concrete.Vue.contexts.push(contextObject)
     }
-
 }
-
 export default Manager
