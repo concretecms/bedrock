@@ -1,4 +1,3 @@
-
 // Import required libraries.
 import _ from 'underscore'
 import NProgress from 'nprogress'
@@ -94,6 +93,14 @@ import './boards'
 // Calendar component
 import './calendar'
 
+// Vue components.
+import components from '@concretecms/bedrock/assets/cms/components/index'
+import VueManager from '@concretecms/bedrock/assets/cms/js/vue/Manager'
+
 window.NProgress = NProgress
 window._ = _
 window.PNotify = PNotify
+
+// Register our core components with the vue manager
+VueManager.bindToWindow(window)
+Concrete.Vue.createContext('cms', components)
