@@ -1,62 +1,74 @@
-/* eslint-disable no-new */
-/* global Vue */
-import Context from './Context'
+import Vue from 'vue'
 
-class Manager {
+/**
+ * Typescript interface
+ *\/
+ interface Context {
+    [key: String]: {} | Component
+}
+ /**/
+export default class Manager {
+    /**
+     * Create a new Manager
+     *
+     * @param {{[key: String]: Context}} contexts A list of component lists keyed by context name
+     */
+    constructor(contexts) {
+        this.contexts = contexts || {}
+    }
+
     /**
      * Ensures that our Concrete.Vue manager is available on the window object.
      * Note: Do NOT call this before the global Concrete object is created in the CMS context.
      *
-     * @param window
+     * @param {Window} window
      */
     static bindToWindow(window) {
-        if (!window.Concrete) {
-            window.Concrete = {}
-        }
+        window.Concrete = window.Concrete || {}
+
         if (!window.Concrete.Vue) {
             window.Concrete.Vue = new Manager()
-            window.Concrete.Vue.contexts = []
+            window.dispatchEvent(new CustomEvent('concrete.vue.ready', {
+                detail: window.Concrete.Vue
+            }))
         }
     }
 
     /**
-     * Returns the Vue Context object for the current string `context`
+     * Returns a list of components for the current string `context`
      *
-     * @param context
-     * @returns {*}
+     * @param {String} context
+     * @returns {{[key: String]: {}}} A list of components keyed by their handle
      */
     getContext(context) {
-        return window.Concrete.Vue.contexts.filter(obj => obj.context === context)[0]
+        return this.contexts[context] || {}
     }
 
     /**
      * Actives a particular context (and its components) for a particular selector.
      *
-     * @param context
-     * @param selector
-     * @param parent
+     * @param {String} context
+     * @param {Function} callback (Vue, options) => new Vue(options)
      */
-    activateContext(context, selector, parent) {
-        var contextObject = this.getContext(context)
-        var selectors = parent.querySelectorAll(selector)
-        selectors.forEach(function (element) {
-            new Vue({
-                el: element,
-                components: contextObject.components
-            })
+    activateContext(context, callback) {
+        return callback(Vue, {
+            components: this.getContext(context)
         })
     }
 
     /**
      * For a given string `context`, adds the passed components to make them available within that context.
      *
-     * @param context
-     * @param components
+     * @param {String} context The name of the context to extend
+     * @param {{[key: String]: {}}} components A list of component objects to add into the context
+     * @param {String} newContext The new name of the context if different from context
      */
-    extendContext(context, components) {
-        var contextObject = this.getContext(context)
-        var newComponents = Object.assign(contextObject.components, components)
-        contextObject.components = newComponents
+    extendContext(context, components, newContext) {
+        newContext = newContext || context
+        this.contexts[newContext] = {
+            ...this.getContext(context),
+            ...components
+        }
     }
 
     /**
@@ -68,13 +80,6 @@ class Manager {
      * @param fromContext
      */
     createContext(context, components, fromContext) {
-        if (fromContext) {
-            // Merge the fromContext components into this array
-            var fromContextObject = this.getContext(fromContext)
-            components = Object.assign(fromContextObject.components, components)
-        }
-        var contextObject = new Context(context, components)
-        window.Concrete.Vue.contexts.push(contextObject)
+        this.extendContext(fromContext, components, context)
     }
 }
-export default Manager

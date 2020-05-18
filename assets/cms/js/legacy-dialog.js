@@ -283,7 +283,14 @@
     }
 
     $.fn.dialog.activateDialogContents = function($dialog) {
-        Concrete.Vue.activateContext('cms', '[vue-enabled]', $dialog.get(0))
+        if (document.querySelectorAll('[vue-enabled]').length) {
+            Concrete.Vue.activateContext('cms', function (Vue, config) {
+                new Vue({
+                    el: '[vue-enabled]',
+                    components: config.components
+                })
+            })
+        }
 
         // handle buttons
 

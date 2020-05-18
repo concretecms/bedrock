@@ -365,7 +365,14 @@ function ConcretePanel(options) {
             })
         })
 
-        Concrete.Vue.activateContext('cms', '[vue-enabled]', $panel.get(0))
+        if (document.querySelectorAll('[vue-enabled]').length) {
+            Concrete.Vue.activateContext('cms', function (Vue, config) {
+                new Vue({
+                    el: '[vue-enabled]',
+                    components: config.components
+                })
+            })
+        }
 
         $panel.find('.dialog-launch').dialog()
         $panel.find('[data-panel-menu=collapsible-list-group]').each(function () {
