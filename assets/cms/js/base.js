@@ -1,9 +1,7 @@
-
 // Import required libraries.
 import _ from 'underscore'
 import NProgress from 'nprogress'
 import PNotify from 'pnotify/dist/es/PNotify'
-import Vue from 'vue'
 
 // JavaScript/jQuery base libraries.
 import 'json5'
@@ -86,16 +84,6 @@ import './jquery-awesome-rating'
 import './liveupdate/quicksilver'
 import './liveupdate/jquery-liveupdate'
 
-// Import Vue components
-import { ToggleButton } from 'vue-js-toggle-button'
-Vue.component('ToggleSwitch', ToggleButton);
-var vueInstances = document.querySelectorAll('div[vue-enabled]');
-vueInstances.forEach(function(element) {
-    new Vue({
-        el: element
-    });
-});
-
 // Help
 import './help/help'
 
@@ -105,7 +93,14 @@ import './boards'
 // Calendar component
 import './calendar'
 
+// Vue components.
+import components from '@concretecms/bedrock/assets/cms/components/index'
+import VueManager from '@concretecms/bedrock/assets/cms/js/vue/Manager'
+
 window.NProgress = NProgress
 window._ = _
 window.PNotify = PNotify
-window.Vue = Vue
+
+// Register our core components with the vue manager
+VueManager.bindToWindow(window)
+Concrete.Vue.createContext('cms', components)
