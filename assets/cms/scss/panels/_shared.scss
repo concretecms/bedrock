@@ -231,7 +231,7 @@ div.ccm-panel-content {
       list-style-type: none;
 
       &.active {
-        a {
+        > a {
           background-color: $panel-menu-item-active-bg-color;
           color: $panel-menu-item-active-color;
           font-weight: $panel-menu-item-active-font-weight;
