@@ -235,6 +235,10 @@ div.ccm-panel-content {
           background-color: $panel-menu-item-active-bg-color;
           color: $panel-menu-item-active-color;
           font-weight: $panel-menu-item-active-font-weight;
+            &:hover {
+              background-color: $panel-menu-item-active-bg-color;
+              cursor: default;
+            }
         }
       }
 
