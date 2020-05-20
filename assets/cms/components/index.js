@@ -1,3 +1,4 @@
+import { ToggleButton } from 'vue-js-toggle-button'
 import Toggle from './form/Toggle'
 import ContextMenu from './menu/ContextMenu'
 import MenuButton from './menu/MenuButton'
@@ -9,6 +10,7 @@ import IconButton from './IconButton'
 // Export our component library
 export default {
     Toggle,
+    ToggleButton,
     ContextMenu,
     MenuButton,
     MenuDivider,
