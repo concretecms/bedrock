@@ -365,7 +365,7 @@ function ConcretePanel(options) {
             })
         })
 
-        let vueInstances = document.querySelectorAll('[vue-enabled]');
+        const vueInstances = document.querySelectorAll('[vue-enabled]')
         vueInstances.forEach(function(element) {
             Concrete.Vue.activateContext('cms', function (Vue, config) {
                 new Vue({
