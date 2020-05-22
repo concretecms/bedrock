@@ -233,11 +233,12 @@ div.ccm-panel-content {
       &.active {
         > a {
           background-color: $panel-menu-item-active-bg-color;
-          color: $panel-menu-item-active-color;
+          color: $panel-menu-item-active-color !important;
           font-weight: $panel-menu-item-active-font-weight;
             &:hover {
-              background-color: $panel-menu-item-active-bg-color;
-              cursor: default;
+              background-color: $panel-menu-item-active-bg-color !important;
+              cursor: default !important;
+              color: $panel-menu-item-active-color !important;
             }
         }
       }
