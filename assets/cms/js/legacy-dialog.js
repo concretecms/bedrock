@@ -167,6 +167,7 @@
             escapeClose: true,
             width: w,
             height: h,
+            type: 'GET',
             dialogClass: 'ccm-ui',
             resizable: true,
 
@@ -264,7 +265,7 @@
         } else {
             $.fn.dialog.showLoader()
             $.ajax({
-                type: 'GET',
+                type: finalSettings.type,
                 url: finalSettings.href,
                 data: finalSettings.data,
                 success: function(r) {
