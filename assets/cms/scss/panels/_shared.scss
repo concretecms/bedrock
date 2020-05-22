@@ -231,10 +231,16 @@ div.ccm-panel-content {
       list-style-type: none;
 
       &.active {
-        a {
+        > a {
           background-color: $panel-menu-item-active-bg-color;
-          color: $panel-menu-item-active-color;
+          color: $panel-menu-item-active-color !important;
           font-weight: $panel-menu-item-active-font-weight;
+
+          &:hover {
+            background-color: $panel-menu-item-active-bg-color !important;
+            color: $panel-menu-item-active-color !important;
+            cursor: default !important;
+          }
         }
       }
 
@@ -305,17 +311,18 @@ div.ccm-panel-header-accordion {
   position: relative;
 
   &.ccm-panel-header-accordion-dropdown-visible nav ul {
-    height: 220px !important;
+    max-height: 220px !important;
   }
 
   nav {
     ul.ccm-panel-header-accordion-dropdown {
-      height: 0;
+      height: auto;
       margin-bottom: 0;
       margin-left: 0;
+      max-height: 0;
       overflow: hidden;
       padding-left: 0;
-      transition: height 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+      transition: max-height 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
     li {
