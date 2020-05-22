@@ -235,11 +235,12 @@ div.ccm-panel-content {
           background-color: $panel-menu-item-active-bg-color;
           color: $panel-menu-item-active-color !important;
           font-weight: $panel-menu-item-active-font-weight;
-            &:hover {
-              background-color: $panel-menu-item-active-bg-color !important;
-              cursor: default !important;
-              color: $panel-menu-item-active-color !important;
-            }
+
+          &:hover {
+            background-color: $panel-menu-item-active-bg-color !important;
+            color: $panel-menu-item-active-color !important;
+            cursor: default !important;
+          }
         }
       }
 
@@ -316,9 +317,9 @@ div.ccm-panel-header-accordion {
   nav {
     ul.ccm-panel-header-accordion-dropdown {
       height: auto;
-      max-height: 0;
       margin-bottom: 0;
       margin-left: 0;
+      max-height: 0;
       overflow: hidden;
       padding-left: 0;
       transition: max-height 0.5s cubic-bezier(0.19, 1, 0.22, 1);
