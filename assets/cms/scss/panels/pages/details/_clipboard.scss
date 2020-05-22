@@ -26,10 +26,17 @@
     .ccm-panel-add-block-draggable-block-type {
       background-color: white;
       border: 1px solid $gray-200;
+      cursor: grab;
       margin: 5px 30px;
       max-height: 120px;
       min-height: 120px;
       overflow: hidden;
+
+      .block-content {
+        margin-right: -280px;
+        transform: scale(0.45);
+        transform-origin: top left;
+      }
     }
   }
 }
