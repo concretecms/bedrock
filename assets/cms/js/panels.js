@@ -435,7 +435,7 @@ function ConcretePanel(options) {
             html.addClass('ccm-panel-open')
             element.find('.ccm-panel-content-wrapper').html('')
             element.addClass('ccm-panel-active ccm-panel-loading')
-            if (identifier == 'dashboard') {
+            /*if (identifier == 'dashboard') {
                 element.find('.ccm-panel-content-wrapper')
                     .load(obj.getURL() + '?cID=' + CCM_CID, function() {
                         var elem = this
@@ -450,7 +450,7 @@ function ConcretePanel(options) {
                             element: elem
                         })
                     })
-            } else {
+            } else {*/
                 $('<div/>').addClass('ccm-panel-content ccm-panel-content-visible')
                     .appendTo(element.find('.ccm-panel-content-wrapper'))
                     .load(obj.getURL() + '?cID=' + CCM_CID, function() {
@@ -466,7 +466,7 @@ function ConcretePanel(options) {
                             element: elem
                         })
                     })
-            }
+            //}
             if (obj.options.overlay) {
                 ConcretePanelManager.showOverlay(obj.options.translucent)
             }
