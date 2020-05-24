@@ -19,8 +19,10 @@
  * Tooltips
  */
 div#ccm-tooltip-holder {
-  position: relative;
-  z-index: $index-level-tooltip-holder;
+  &,
+  .tooltip {
+    z-index: $index-level-tooltip-holder;
+  }
 }
 
 div.tooltip-inner {
