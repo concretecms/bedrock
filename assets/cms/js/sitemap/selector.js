@@ -37,7 +37,7 @@ ConcretePageSelector.prototype = {
     loadingTemplate: '<div class="ccm-item-selector"><div class="ccm-item-selector-choose"><input type="hidden" name="<%=options.inputName%>" value="<%=cID%>"><i class="fa fa-spin fa-spinner"></i> <%=options.loadingText%></div></div>',
     pageLoadedTemplate: '<div class="ccm-item-selector"><div class="ccm-item-selector-item-selected">' +
         '<input type="hidden" name="<%=inputName%>" value="<%=page.cID%>" />' +
-        '<a data-page-selector-action="clear" href="#" class="ccm-item-selector-clear"><i class="fa fa-close"></i></a>' +
+        '<a data-page-selector-action="clear" href="#" class="ccm-item-selector-clear"><i class="fas fa-times"></i></a>' +
         '<div class="ccm-item-selector-item-selected-title launch-tooltip" title="<%- page.url %>"><%=page.name%></div>' +
         '</div></div>',
 
