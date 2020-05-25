@@ -30,6 +30,9 @@
 // Panels
 @import './panels';
 
+// Dialogs
+@import './dialogs';
+
 // In page editing
 @import 'page-areas';
 @import 'inline-toolbar';
@@ -67,6 +70,7 @@
 @import './selectize';
 
 // Miscellaneous components
+@import './vue';
 @import './pagination';
 @import './forms';
 @import './tabs';

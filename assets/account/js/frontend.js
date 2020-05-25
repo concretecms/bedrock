@@ -1,9 +1,16 @@
-import './frontend/draft-list'
-import './frontend/notification'
+/* eslint-disable no-new */
 
-import Vue from 'vue'
+import AvatarCropper from './frontend/components/Avatar/Cropper.vue'
 
-// Load up our cropper
-Vue.component('avatar-cropper', require('./frontend/components/Avatar/Cropper.vue'))
+window.Concrete.Vue.createContext('frontend', {
+    AvatarCropper
+})
 
-window.Vue = Vue;
+if (document.querySelectorAll('[data-view=account]').length) {
+    Concrete.Vue.activateContext('frontend', function (Vue, config) {
+        new Vue({
+            el: '[data-view=account]',
+            components: config.components
+        })
+    })
+}

@@ -364,6 +364,17 @@ function ConcretePanel(options) {
                 })
             })
         })
+
+        const vueInstances = document.querySelectorAll('[vue-enabled]')
+        vueInstances.forEach(function(element) {
+            Concrete.Vue.activateContext('cms', function (Vue, config) {
+                new Vue({
+                    el: element,
+                    components: config.components
+                })
+            })
+        })
+
         $panel.find('.dialog-launch').dialog()
         $panel.find('[data-panel-menu=collapsible-list-group]').each(function () {
             var $clg = $(this)

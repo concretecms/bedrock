@@ -1,9 +1,7 @@
-
 // Import required libraries.
 import _ from 'underscore'
 import NProgress from 'nprogress'
 import PNotify from 'pnotify/dist/es/PNotify'
-import Vue from 'vue';
 
 // JavaScript/jQuery base libraries.
 import 'json5'
@@ -74,11 +72,8 @@ import './express'
 // File Manager
 import './file-manager/uploader'
 import './file-manager/search'
-
-import ConcreteFileInput from '@concretecms/bedrock/assets/cms/components/form/ConcreteFileInput';
-import ConcreteFileChooser from '@concretecms/bedrock/assets/cms/components/file-manager/Chooser';
-Vue.component('ConcreteFileInput', ConcreteFileInput);
-Vue.component('ConcreteFileChooser', ConcreteFileChooser);
+import './file-manager/selector'
+import './file-manager/menu'
 
 // Miscellaneous UI components
 import 'selectize'
@@ -98,15 +93,14 @@ import './boards'
 // Calendar component
 import './calendar'
 
-// Activate Vue for all ccm-ui spaces
-var vueInstances = document.querySelectorAll('div[vue-enabled]');
-vueInstances.forEach(function(element) {
-    new Vue({
-        el: element
-    });
-});
+// Vue components.
+import components from '@concretecms/bedrock/assets/cms/components/index'
+import VueManager from '@concretecms/bedrock/assets/cms/js/vue/Manager'
 
 window.NProgress = NProgress
 window._ = _
 window.PNotify = PNotify
-window.Vue = Vue;
+
+// Register our core components with the vue manager
+VueManager.bindToWindow(window)
+Concrete.Vue.createContext('cms', components)
