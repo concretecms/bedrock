@@ -10,11 +10,17 @@ function ConcretePanel(options) {
     this.detail = false
     this.isPinned = false
 
-    this.pinned = function() { return this.isPinned }
+    this.pinned = function () {
+        return this.isPinned
+    }
 
-    this.willBePinned = function() { return this.isOpen && !this.isPinned }
+    this.willBePinned = function () {
+        return this.isOpen && !this.isPinned
+    }
 
-    this.isPinable = function() { return this.options.pinable }
+    this.isPinable = function () {
+        return this.options.pinable
+    }
 
     this.getPositionClass = function () {
         var ccm_class
@@ -65,8 +71,8 @@ function ConcretePanel(options) {
             $link.addClass('launch-tooltip')
         }
         var panel = this
-        _.defer(function() {
-            Concrete.event.publish('PanelLoad', { panel: panel, element: element })
+        _.defer(function () {
+            Concrete.event.publish('PanelLoad', {panel: panel, element: element})
         })
     }
 
@@ -89,8 +95,8 @@ function ConcretePanel(options) {
             $(this).dequeue()
 
             callback.call(me)
-            setTimeout(function() {
-                Concrete.event.publish('PanelClose', { panel: obj })
+            setTimeout(function () {
+                Concrete.event.publish('PanelClose', {panel: obj})
             }, 0)
         })
     }
@@ -110,8 +116,8 @@ function ConcretePanel(options) {
             var cover = $('<div />').addClass('ccm-panel-cover').appendTo($(this).closest('.ccm-panel'))
             obj.closePanelDetailImmediately()
             var url = $(this).attr('data-launch-sub-panel-url')
-            $('<div />', { class: 'ccm-panel-content ccm-panel-content-appearing' }).appendTo($panel.find('.ccm-panel-content-wrapper')).load(url + '?cID=' + CCM_CID, function () {
-                _.delay(function() {
+            $('<div />', {class: 'ccm-panel-content ccm-panel-content-appearing'}).appendTo($panel.find('.ccm-panel-content-wrapper')).load(url + '?cID=' + CCM_CID, function () {
+                _.delay(function () {
                     cover.remove()
                 }, 250)
                 $panel.find('.ccm-panel-content-visible').removeClass('ccm-panel-content-visible').addClass('ccm-panel-slide-left')
@@ -129,7 +135,7 @@ function ConcretePanel(options) {
         })
     }
 
-    this.goBack = function() {
+    this.goBack = function () {
         var $panel = $('#' + this.getDOMID())
         this.closePanelDetailImmediately()
 
@@ -159,7 +165,12 @@ function ConcretePanel(options) {
         })
 
         var myButtons = [
-            { class: 'btn pull-left btn-sm btn-link', type: 'button', 'data-panel-confirmation-action': 'cancel', text: ccmi18n.cancel }
+            {
+                class: 'btn pull-left btn-sm btn-link',
+                type: 'button',
+                'data-panel-confirmation-action': 'cancel',
+                text: ccmi18n.cancel
+            }
         ]
         for (var i = 0; i < buttons.length; i++) {
             myButtons.push(buttons[i])
@@ -280,7 +291,8 @@ function ConcretePanel(options) {
         }
 
         if (options.url) {
-            var url = options.url + '?cID=' + CCM_CID; var data = null
+            var url = options.url + '?cID=' + CCM_CID;
+            var data = null
             if ($.isPlainObject(options.data)) {
                 data = options.data
             } else {
@@ -288,14 +300,14 @@ function ConcretePanel(options) {
             }
             $content.load(url, data, function () {
                 $.fn.dialog.hideLoader()
-                $content.find('.launch-tooltip').tooltip({ container: '#ccm-tooltip-holder' })
+                $content.find('.launch-tooltip').tooltip({container: '#ccm-tooltip-holder'})
                 obj.loadPanelDetailActions($content)
 
                 _.defer(complete_function)
             })
         } else {
             $.fn.dialog.hideLoader()
-            $content.find('.launch-tooltip').tooltip({ container: '#ccm-tooltip-holder' })
+            $content.find('.launch-tooltip').tooltip({container: '#ccm-tooltip-holder'})
             obj.loadPanelDetailActions($content)
 
             _.defer(complete_function)
@@ -310,13 +322,30 @@ function ConcretePanel(options) {
 
         $content.find('[data-panel-detail-form]').concreteAjaxForm()
 
+        this.activateVue($content.get(0));
+
         $('button[data-panel-detail-action=submit]').on('click', function () {
             $('[data-panel-detail-form]').submit()
         })
 
-        ConcreteEvent.subscribe('AjaxFormSubmitSuccess', function(e, data) {
+        ConcreteEvent.subscribe('AjaxFormSubmitSuccess', function (e, data) {
             if ($('[data-panel-detail-form="' + data.form + '"]').data('action-after-save') == 'reload') {
                 window.location.reload()
+            }
+        })
+    }
+
+    this.activateVue = function(element) {
+        const vueInstances = element.querySelectorAll('[vue-enabled]')
+        vueInstances.forEach(function (element) {
+            if (element.getAttribute('vue-enabled') !== 'activated') {
+                Concrete.Vue.activateContext('cms', function (Vue, config) {
+                    new Vue({
+                        el: element,
+                        components: config.components
+                    })
+                })
+                element.setAttribute('vue-enabled', 'activated');
             }
         })
     }
@@ -324,7 +353,7 @@ function ConcretePanel(options) {
     this.setupPanelDetails = function () {
         var $panel = $('#' + this.getDOMID())
         var obj = this
-        $panel.find('.launch-tooltip').tooltip({ container: '#ccm-tooltip-holder' })
+        $panel.find('.launch-tooltip').tooltip({container: '#ccm-tooltip-holder'})
         $panel.find('[data-panel-menu=accordion]').each(function () {
             var $accordion = $(this)
             var $title = $(this).find('>nav>span')
@@ -347,6 +376,9 @@ function ConcretePanel(options) {
                 })
             })
         })
+
+        this.activateVue($panel.get(0));
+
         $panel.find('[data-panel-menu=dropdown]').each(function () {
             var $dropdown = $(this)
             var $title = $dropdown.find('[data-panel-header=dropdown-menu]')
@@ -364,18 +396,6 @@ function ConcretePanel(options) {
                 })
             })
         })
-
-        /*
-        const vueInstances = document.querySelectorAll('[vue-enabled]')
-        vueInstances.forEach(function(element) {
-            Concrete.Vue.activateContext('cms', function (Vue, config) {
-                new Vue({
-                    el: element,
-                    components: config.components
-                })
-            })
-        })
-         */
 
         $panel.find('.dialog-launch').dialog()
         $panel.find('[data-panel-menu=collapsible-list-group]').each(function () {
@@ -405,7 +425,7 @@ function ConcretePanel(options) {
             $('.ccm-panel-menu-item-active').removeClass('ccm-panel-menu-item-active')
             $(this).addClass('ccm-panel-menu-item-active')
             var identifier = $(this).attr('data-launch-panel-detail')
-            var panelDetailOptions = { identifier: identifier, target: $(this) }
+            var panelDetailOptions = {identifier: identifier, target: $(this)}
             if ($(this).attr('data-panel-transition')) {
                 panelDetailOptions.transition = $(this).attr('data-panel-transition')
             }
@@ -418,15 +438,15 @@ function ConcretePanel(options) {
         obj.loadPanelDetailActions($panel)
     }
 
-    this.show = function(callback) {
+    this.show = function (callback) {
         callback = callback || $.noop
         var $link = $('a[data-launch-panel=' + this.getIdentifier() + ']')
         jQuery.fn.dialog.showLoader()
         $link.toggleClass('ccm-launch-panel-active')
         var element = $('#' + this.getDOMID())
         var obj = this
-        var show = function() {
-            element.off('click.ccm-panel-close').on('click.ccm-panel-close', '.ccm-panel-close a, .ccm-panel-close button', function(e) {
+        var show = function () {
+            element.off('click.ccm-panel-close').on('click.ccm-panel-close', '.ccm-panel-close a, .ccm-panel-close button', function (e) {
                 e.preventDefault()
                 obj.hide()
             })
@@ -435,7 +455,7 @@ function ConcretePanel(options) {
             element.addClass('ccm-panel-active ccm-panel-loading')
             $('<div/>').addClass('ccm-panel-content ccm-panel-content-visible')
                 .appendTo(element.find('.ccm-panel-content-wrapper'))
-                .load(obj.getURL() + '?cID=' + CCM_CID, function() {
+                .load(obj.getURL() + '?cID=' + CCM_CID, function () {
                     var elem = this
                     element.delay(1).queue(function () {
                         $(this).removeClass('ccm-panel-loading').addClass('ccm-panel-loaded')
@@ -459,7 +479,7 @@ function ConcretePanel(options) {
                 isOpen: true
             })
             if (open_panel) {
-                open_panel.hide(function() {
+                open_panel.hide(function () {
                     show.call(this)
                 })
             } else {
@@ -475,7 +495,7 @@ function ConcretePanel(options) {
     }
 }
 
-var ConcretePanelManager = (function() {
+var ConcretePanelManager = (function () {
     var panels = []
 
     return {
@@ -505,12 +525,14 @@ var ConcretePanelManager = (function() {
         exitPanelMode: function (callback) {
             callback = callback || $.noop
             var active = 0
+
             function loopFunction() {
                 active--
                 if (active == 0) {
                     callback(null)
                 }
             }
+
             for (var i = 0; i < panels.length; i++) {
                 if (panels[i].isOpen) {
                     active++

@@ -14,7 +14,6 @@
     })
 
     function fixDialogButtons($dialog) {
-        console.log($dialog.find('.dialog-buttons'));
         var $ccmButtons = $dialog.find('.dialog-buttons').eq(0)
         if ($ccmButtons.length === 0) {
             return
@@ -285,14 +284,17 @@
     }
 
     $.fn.dialog.activateDialogContents = function($dialog) {
-        const vueInstances = document.querySelectorAll('[vue-enabled]')
-        vueInstances.forEach(function(element) {
-            Concrete.Vue.activateContext('cms', function (Vue, config) {
-                new Vue({
-                    el: element,
-                    components: config.components
+        const vueInstances = $dialog.get(0).querySelectorAll('[vue-enabled]')
+        vueInstances.forEach(function (element) {
+            if (element.getAttribute('vue-enabled') !== 'activated') {
+                Concrete.Vue.activateContext('cms', function (Vue, config) {
+                    new Vue({
+                        el: element,
+                        components: config.components
+                    })
                 })
-            })
+                element.setAttribute('vue-enabled', 'activated');
+            }
         })
 
         // handle buttons
