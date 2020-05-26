@@ -12,20 +12,12 @@
     border-left: 0;
   }
 
-  .ccm-file-selector-loading {
-    svg {
-      fill: $blue;
-      height: 24px;
-      width: 24px;
-    }
-  }
-
   .ccm-file-selector-loaded {
     img {
       display: inline-block;
+      margin-right: 0.5rem;
       max-width: 20px;
       max-height: 20px;
-      margin-right: 0.5rem;
     }
   }
 

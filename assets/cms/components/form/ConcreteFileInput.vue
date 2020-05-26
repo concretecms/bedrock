@@ -1,6 +1,6 @@
 <template>
     <div class="ccm-file-selector">
-        <input type="hidden" :name="inputName" :value="fileId" />
+        <input type="hidden" :name="inputName" :value="selectedFileID" />
 
         <div class="ccm-file-selector-choose" v-if="!selectedFile && !isLoading">
             <button type="button" @click="isChooserOpen = true" class="btn btn-secondary">
@@ -8,10 +8,10 @@
             </button>
         </div>
 
-        <div class="ccm-file-selector-loading" v-if="isLoading">
+        <div v-if="isLoading">
             <div class="btn-group">
-                <div class="btn btn-secondary"><svg><use xlink:href="#icon-loader-circles" /></svg></div>
-                <button type="button" @click="selectedFile = null" class="ccm-file-selector-reset btn btn-secondary">
+                <div class="btn btn-secondary"><svg class="ccm-loader-dots"><use xlink:href="#icon-loader-circles" /></svg></div>
+                <button type="button" @click="selectedFileID = null" class="ccm-file-selector-reset btn btn-secondary">
                     <i class="fa fa-times-circle"></i>
                 </button>
             </div>
@@ -23,27 +23,34 @@
                     <span v-html="selectedFile.resultsThumbnailImg"></span>
                     <span class="ccm-file-selector-title">{{selectedFile.title}}</span>
                 </a>
-                <button type="button" @click="selectedFile = null" class="ccm-file-selector-reset btn btn-secondary">
+                <button type="button" @click="selectedFileID = null" class="ccm-file-selector-reset btn btn-secondary">
                     <i class="fa fa-times-circle"></i>
                 </button>
             </div>
         </div>
 
-        <concrete-file-chooser @onChooserClose="isChooserOpen = false"
-                               :is-open="isChooserOpen"></concrete-file-chooser>
+        <concrete-file-chooser
+                v-if="isChooserOpen"
+                @onChooserClose="isChooserOpen = false"
+                v-on:choose-files="chooseFile"
+        ></concrete-file-chooser>
 
 
     </div>
 </template>
 
 <script>
+import ConcreteFileChooser from '../file-manager/Chooser'
 export default {
+    components: {
+        ConcreteFileChooser
+    },
     data() {
         return {
             isLoading: false,
-            file: null,
             isChooserOpen: false,
-            selectedFile: null
+            selectedFile: null /* json object */,
+            selectedFileID: 0 /* integer */
         }
     },
     props: {
@@ -59,18 +66,26 @@ export default {
         },
     },
     watch: {
-        fileId: {
+        selectedFileID: {
             immediate: true,
             handler(value) {
                 if (value > 0) {
                     this.loadFile(value);
                 } else {
-                    this.file = null;
+                    this.selectedFile = null
                 }
             }
         }
     },
+    mounted() {
+        if (this.fileId) {
+            this.selectedFileID = this.fileId
+        }
+    },
     methods: {
+        chooseFile: function(selectedFiles) {
+            this.selectedFileID = selectedFiles[0]
+        },
         loadFile(fileId) {
             var my = this
             my.isLoading = true

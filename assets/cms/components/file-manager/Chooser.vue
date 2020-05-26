@@ -16,7 +16,7 @@
                             <div class="col-4 border-right p-3">
                                 <ul class="nav flex-column">
                                     <li class="nav-item" v-for="item in chooserNavItems" :key="item.key">
-                                        <hr v-if="item.key === 'horizontalrule'" />
+                                        <hr v-if="item.key === 'horizontalrule'"/>
                                         <a v-if="item.key !== 'horizontalrule'"
                                            :class="{'nav-link': true, 'active': activeNavItem === item.key}"
                                            @click="activeNavItem = item.key"
@@ -31,7 +31,10 @@
                                 <transition name="concrete-nav-tab-content-switch">
                                     <div key="recent" v-if="activeNavItem === 'recent'">
                                         <chooser-header v-bind:resultsFormFactor.sync="resultsFormFactor"
-                                                title="My Recent"></chooser-header>
+                                                        title="My Recent"></chooser-header>
+                                        <recent-files v-bind:selectedFiles.sync="selectedFiles"
+                                                      v-bind:resultsFormFactor.sync="resultsFormFactor"
+                                                      v-if="activeNavItem === 'recent'" />
                                     </div>
 
                                     <div key="filemanager" v-if="activeNavItem === 'filemanager'">
@@ -67,7 +70,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Choose</button>
+                    <button type="button" @click="chooseFiles" :disabled="selectedFiles.length === 0" class="btn btn-primary">Choose</button>
                 </div>
             </div>
         </div>
@@ -76,74 +79,64 @@
 </template>
 
 <script>
-    import ChooserHeader from './Chooser/Header'
-
-    export default {
-        components: {
-            ChooserHeader
-        },
-        props: {
-            isOpen: {
-                type: Boolean,
-                required: true,
-                default: false
-            },
-        },
-        data() {
-            return {
-                activeNavItem: 'recent',
-                resultsFormFactor: 'icons',
-                chooserNavItems: [
-                    {
-                        key: 'recent',
-                        title: 'My Recent'
-                    },
-                    {
-                        key: 'filemanager',
-                        title: 'File Manager'
-                    },
-                    {
-                        key: 'sets',
-                        title: 'Sets'
-                    },
-                    {
-                        key: 'presets',
-                        title: 'Saved Searches'
-                    },
-                    {
-                        key: 'search',
-                        title: 'Search'
-                    },
-                    {
-                        key: 'horizontalrule',
-                    },
-                    {
-                        key: 'upload',
-                        title: 'Upload Files'
-                    }
-                ]
-            }
-        },
-        watch: {
-            isOpen: {
-                immediate: true,
-                handler(value) {
-                    if (value) {
-                        $(this.$el).modal('show');
-                    }
+import ChooserHeader from './Chooser/Header'
+import RecentFiles from './Chooser/RecentFiles'
+export default {
+    components: {
+        ChooserHeader,
+        RecentFiles
+    },
+    props: {
+    },
+    data() {
+        return {
+            activeNavItem: 'recent',
+            resultsFormFactor: 'grid',
+            selectedFiles: [],
+            chooserNavItems: [
+                {
+                    key: 'recent',
+                    title: 'My Recent'
+                },
+                {
+                    key: 'filemanager',
+                    title: 'File Manager'
+                },
+                {
+                    key: 'sets',
+                    title: 'Sets'
+                },
+                {
+                    key: 'presets',
+                    title: 'Saved Searches'
+                },
+                {
+                    key: 'search',
+                    title: 'Search'
+                },
+                {
+                    key: 'horizontalrule',
+                },
+                {
+                    key: 'upload',
+                    title: 'Upload Files'
                 }
-            }
-        },
-        methods: {
-            setResultsFormFactor(e) {
-                console.log(e);
-            }
-        },
-        mounted() {
-            var my = this
-            $(my.$el).on('hidden.bs.modal', function(e) {
-                my.$emit('onChooserClose')
-            });
+            ]
         }
+    },
+    methods: {
+        chooseFiles() {
+            var my = this
+            my.$emit('choose-files', this.selectedFiles)
+            $(my.$el).modal('hide')
+        }
+    },
+    mounted() {
+        var my = this
+        $(my.$el).modal('show');
+        $(my.$el).on('hidden.bs.modal', function (e) {
+            my.$emit('onChooserClose')
+        });
     }
+}
 </script>
