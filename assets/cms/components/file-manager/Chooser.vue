@@ -133,7 +133,8 @@ export default {
     },
     mounted() {
         var my = this
-        $(my.$el).modal('show');
+        $(my.$el).modal('show')
+        $(my.$el).appendTo('#ccm-tooltip-holder')
         $(my.$el).on('hidden.bs.modal', function (e) {
             my.$emit('onChooserClose')
         });
