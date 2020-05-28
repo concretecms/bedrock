@@ -22,10 +22,142 @@ function ConcreteFileManager($element, options) {
 
     ConcreteAjaxSearch.call(my, $element, options)
 
+    ConcreteTree.setupTreeEvents()
+
+    my.setupEvents()
     my.setupItemsPerPageOptions()
+    my.setupAddFolder()
+    my.setupFolderNavigation()
+    my.setupFileUploads()
+    my.setupFileDownloads()
 }
 
 ConcreteFileManager.prototype = Object.create(ConcreteAjaxSearch.prototype)
+
+ConcreteFileManager.prototype.setupRowDragging = function() {
+    var my = this
+    var $undroppables = my.$element.find('tr[data-file-manager-tree-node-type!=file_folder]')
+
+    // Mobile check, copied from magnific popup
+    var appVersion = navigator.appVersion
+    var isAndroid = (/android/gi).test(appVersion)
+    var isIOS = (/iphone|ipad|ipod/gi).test(appVersion)
+    var probablyMobile = (isAndroid || isIOS || /(Opera Mini)|Kindle|webOS|BlackBerry|(Opera Mobi)|(Windows Phone)|IEMobile/i.test(navigator.userAgent))
+
+    if (!probablyMobile) {
+        my.$element.find('tr[data-file-manager-tree-node-type]').each(function() {
+            var $this = $(this)
+            var dragClass
+            switch ($(this).attr('data-file-manager-tree-node-type')) {
+            case 'file_folder':
+                dragClass = 'ccm-search-results-folder'
+                break
+            case 'file':
+                dragClass = 'ccm-search-results-file'
+                break
+            }
+
+            if (dragClass) {
+                $this.draggable({
+                    delay: 300,
+                    start: function(e) {
+                        my.interactionIsDragging = true
+                        $('html').addClass('ccm-search-results-dragging')
+                        $undroppables.css('opacity', '0.4')
+                        if (e.altKey) {
+                            my.$element.addClass('ccm-search-results-copy')
+                        }
+                        my.$element.find('.ccm-search-select-hover').removeClass('ccm-search-select-hover')
+                        $(window).on('keydown.concreteSearchResultsCopy', function(e) {
+                            if (e.keyCode == 18) {
+                                my.$element.addClass('ccm-search-results-copy')
+                            } else {
+                                my.$element.removeClass('ccm-search-results-copy')
+                            }
+                        })
+                        $(window).on('keyup.concreteSearchResultsCopy', function(e) {
+                            if (e.keyCode == 18) {
+                                my.$element.removeClass('ccm-search-results-copy')
+                            }
+                        })
+                    },
+                    stop: function() {
+                        $('html').removeClass('ccm-search-results-dragging')
+                        $(window).unbind('.concreteSearchResultsCopy')
+                        $undroppables.css('opacity', '')
+                        my.$element.removeClass('ccm-search-results-copy')
+                        // $('.ccm-search-result-dragging').removeClass('ccm-search-result-dragging');
+                        my.interactionIsDragging = false
+                    },
+                    revert: 'invalid',
+                    helper: function() {
+                        var $selected = my.$element.find('.ccm-search-select-selected')
+                        return $('<div class="' + dragClass + ' ccm-draggable-search-item"><span>' + $selected.length + '</span></div>').data('$selected', $selected)
+                    },
+                    cursorAt: {
+                        left: -20,
+                        top: 5
+                    }
+                })
+            }
+        })
+
+        my.$element.find('tr[data-file-manager-tree-node-type=file_folder], ol[data-search-navigation=breadcrumb] a[data-file-manager-tree-node]').droppable({
+            accept: '.ccm-search-results-folder, .ccm-search-results-file',
+            tolerance: 'pointer',
+            hoverClass: 'ccm-search-select-active-droppable',
+            drop: function(event, ui) {
+                var $sourceItems = ui.helper.data('$selected')
+                var sourceIDs = []
+                var destinationID = $(this).data('file-manager-tree-node')
+                var copyNodes = event.altKey
+
+                $sourceItems.each(function() {
+                    var $sourceItem = $(this)
+                    var sourceID = $sourceItem.data('file-manager-tree-node')
+                    if (sourceID == destinationID) {
+                        $sourceItems = $sourceItems.not(this)
+                    } else {
+                        sourceIDs.push($(this).data('file-manager-tree-node'))
+                    }
+                })
+                if (sourceIDs.length === 0) {
+                    return
+                }
+                if (!copyNodes) {
+                    $sourceItems.hide()
+                }
+                new ConcreteAjaxRequest({
+                    url: CCM_DISPATCHER_FILENAME + '/ccm/system/tree/node/drag_request',
+                    data: {
+                        ccm_token: my.options.upload_token,
+                        copyNodes: copyNodes ? '1' : 0,
+                        sourceTreeNodeIDs: sourceIDs,
+                        treeNodeParentID: destinationID
+                    },
+                    success: function(r) {
+                        if (!copyNodes) {
+                            my.reloadFolder()
+                        }
+                        ConcreteAlert.notify({
+                            message: r.message,
+                            title: r.title
+                        })
+                    },
+                    error: function(xhr) {
+                        $sourceItems.show()
+                        var msg = xhr.responseText
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+                            msg = xhr.responseJSON.errors.join('<br/>')
+                        }
+                        ConcreteAlert.dialog(ccmi18n.error, msg)
+                    }
+                })
+            }
+
+        })
+    }
+}
 
 ConcreteFileManager.prototype.setupBreadcrumb = function(result) {
     var my = this
@@ -60,6 +192,18 @@ ConcreteFileManager.prototype.setupBreadcrumb = function(result) {
                 return false
             })
         }
+    }
+}
+
+ConcreteFileManager.prototype.setupFileDownloads = function() {
+    var my = this
+    if (!$('#ccm-file-manager-download-target').length) {
+        my.$downloadTarget = $('<iframe />', {
+            name: 'ccm-file-manager-download-target',
+            id: 'ccm-file-manager-download-target'
+        }).appendTo(document.body)
+    } else {
+        my.$downloadTarget = $('#ccm-file-manager-download-target')
     }
 }
 
@@ -101,6 +245,11 @@ ConcreteFileManager.prototype.refreshResults = function(files) {
     }
 }
 
+ConcreteFileManager.prototype._launchUploadCompleteDialog = function(files) {
+    var my = this
+    ConcreteFileManager.launchUploadCompleteDialog(files, my)
+}
+
 ConcreteFileManager.prototype.setupFolders = function(result) {
     var my = this
     var $total = my.$element.find('tbody tr')
@@ -120,8 +269,197 @@ ConcreteFileManager.prototype.setupFolders = function(result) {
     })
 }
 
+ConcreteFileManager.prototype.setupEvents = function() {
+    var my = this
+    ConcreteEvent.subscribe('AjaxFormSubmitSuccess', function(e, data) {
+        if (data.form == 'add-folder' || data.form == 'move-to-folder') {
+            my.reloadFolder()
+        }
+    })
+
+    ConcreteEvent.unsubscribe('FileManagerAddFilesComplete')
+    ConcreteEvent.subscribe('FileManagerAddFilesComplete', function(e, data) {
+        my._launchUploadCompleteDialog(data.files)
+    })
+    ConcreteEvent.unsubscribe('FileManagerDeleteFilesComplete')
+    ConcreteEvent.subscribe('FileManagerDeleteFilesComplete', function(e, data) {
+        my.reloadFolder()
+    })
+
+    ConcreteEvent.unsubscribe('ConcreteTreeAddTreeNode.concreteTree')
+    ConcreteEvent.subscribe('ConcreteTreeAddTreeNode.concreteTree', function(e, r) {
+        my.reloadFolder()
+    })
+
+    ConcreteEvent.unsubscribe('ConcreteTreeUpdateTreeNode.concreteTree')
+    ConcreteEvent.subscribe('ConcreteTreeUpdateTreeNode.concreteTree', function(e, r) {
+        my.reloadFolder()
+    })
+
+    ConcreteEvent.unsubscribe('FileManagerJumpToFolder.concreteTree')
+    ConcreteEvent.subscribe('FileManagerJumpToFolder.concreteTree', function(e, r) {
+        my.loadFolder(r.folderID)
+    })
+
+    ConcreteEvent.unsubscribe('ConcreteTreeDeleteTreeNode.concreteTree')
+    ConcreteEvent.subscribe('ConcreteTreeDeleteTreeNode.concreteTree', function(e, r) {
+        my.reloadFolder()
+    })
+
+    ConcreteEvent.unsubscribe('FileManagerUpdateFileProperties')
+    ConcreteEvent.subscribe('FileManagerUpdateFileProperties', function(e, r) {
+        if (r.file.fID) {
+            $('[data-file-manager-file=' + r.file.fID + ']').find('.ccm-search-results-name').text(r.file.title)
+        }
+    })
+}
+
+ConcreteFileManager.prototype.setupImageThumbnails = function() {
+    $('.ccm-file-manager-list-thumbnail[data-hover-image]').each(function(e) {
+        var my = $(this)
+        var style = []
+        var maxWidth = my.data('hover-maxwidth')
+        var maxHeight = my.data('hover-maxheight')
+        if (maxWidth) {
+            style.push('max-width: ' + maxWidth)
+        }
+        if (maxHeight) {
+            style.push('max-height: ' + maxHeight)
+        }
+        style = style.length === 0 ? '' : (' style="' + style.join('; ') + '"')
+        my.popover({
+            animation: true,
+            html: true,
+            content: '<img class="img-fluid" src="' + my.data('hover-image') + '" alt="Thumbnail"' + style + '/>',
+            container: 'body',
+            placement: 'auto',
+            trigger: 'manual'
+        })
+        my.hover(function() {
+            var image = new Image()
+            image.src = my.data('hover-image')
+            if (image.complete) {
+                my.popover('toggle')
+            } else {
+                image.addEventListener('load', function() {
+                    my.popover('toggle')
+                })
+            }
+        })
+        my.closest('.ui-dialog').on('dialogclose', function() {
+            my.popover('dispose')
+        })
+    })
+}
+
+ConcreteFileManager.prototype.showMenu = function($element, $menu, event) {
+    var my = this
+    var concreteMenu = new ConcreteFileMenu($element, {
+        menu: $menu,
+        handle: 'none',
+        container: my
+    })
+    concreteMenu.show(event)
+}
+
+ConcreteFileManager.prototype.activateMenu = function($menu) {
+    var my = this
+    if (my.getSelectedResults().length > 1) {
+        // bulk menu
+        $menu.find('a').on('click.concreteFileManagerBulkAction', function(e) {
+            var value = $(this).attr('data-bulk-action')
+            var type = $(this).attr('data-bulk-action-type')
+            var ids = []
+
+            $.each(my.getSelectedResults(), function(i, result) {
+                ids.push(result.fID)
+            })
+
+            my.handleSelectedBulkAction(value, type, $(this), ids)
+        })
+    }
+
+    // Hide clear if we're not in choose mode
+    if (my.options.selectMode != 'choose') {
+        var $choose = $menu.find('a[data-file-manager-action=choose-new-file]').parent()
+        var $clear = $menu.find('a[data-file-manager-action=clear]').parent()
+        $choose.next('li.divider').remove()
+        $clear.remove()
+        $choose.remove()
+    }
+}
+
+ConcreteFileManager.prototype.setupBulkActions = function() {
+    var my = this
+
+    // Or, maybe we're using a button launcher
+    my.$element.on('click', 'button.btn-menu-launcher', function(event) {
+        var $menu = my.getResultMenu(my.getSelectedResults())
+        if ($menu) {
+            $menu.find('.dialog-launch').dialog()
+            var $list = $menu.find('ul')
+            $list.attr('data-search-file-menu', $menu.attr('data-search-file-menu'))
+            $(this).parent().find('ul').remove()
+            $(this).parent().append($list)
+
+            var fileMenu = new ConcreteFileMenu()
+            fileMenu.setupMenuOptions($(this).next('ul'))
+
+            ConcreteEvent.publish('ConcreteMenuShow', { menu: my, menuElement: $(this).parent() })
+        }
+    })
+}
+
+ConcreteFileManager.prototype.handleSelectedBulkAction = function(value, type, $option, ids) {
+    var my = this
+    var itemIDs = []
+
+    if (value == 'choose') {
+        ConcreteEvent.publish('FileManagerBeforeSelectFile', { fID: ids })
+        ConcreteEvent.publish('FileManagerSelectFile', { fID: ids })
+    } else if (value == 'download') {
+        $.each(ids, function(i, id) {
+            itemIDs.push({ name: 'fID[]', value: id })
+        })
+        my.$downloadTarget.get(0).src = CCM_DISPATCHER_FILENAME + '/ccm/system/file/download?' + $.param(itemIDs)
+    } else {
+        ConcreteAjaxSearch.prototype.handleSelectedBulkAction.call(this, value, type, $option, ids)
+    }
+}
+
 ConcreteFileManager.prototype.reloadFolder = function() {
     this.loadFolder(this.currentFolder)
+}
+
+ConcreteFileManager.prototype.setupAddFolder = function() {
+    var my = this
+    var data = {
+        treeNodeID: my.currentFolder
+    }
+    $('a[data-dialog=add-file-manager-folder]').on('click', function(e) {
+        e.preventDefault()
+        $.fn.dialog.open({
+            width: 550,
+            height: 'auto',
+            modal: true,
+            title: ccmi18n_filemanager.addFiles,
+            data: data,
+            href: CCM_DISPATCHER_FILENAME + '/ccm/system/dialogs/tree/node/add/file_folder'
+        })
+    })
+}
+
+ConcreteFileManager.prototype.setupFolderNavigation = function() {
+    $('a[data-launch-dialog=navigate-file-manager]').on('click', function(e) {
+        e.preventDefault()
+        $.fn.dialog.open({
+            width: '560',
+            height: '500',
+            modal: true,
+            title: ccmi18n_filemanager.jumpToFolder,
+            href: CCM_DISPATCHER_FILENAME + '/ccm/system/dialogs/file/jump_to_folder'
+        })
+    })
 }
 
 ConcreteFileManager.prototype.hoverIsEnabled = function($element) {
@@ -155,6 +493,8 @@ ConcreteFileManager.prototype.updateResults = function(result) {
     ConcreteAjaxSearch.prototype.updateResults.call(my, result)
     my.setupFolders(result)
     my.setupBreadcrumb(result)
+    my.setupRowDragging()
+    my.setupImageThumbnails()
     if (result.itemsPerPage) {
         my.updateActiveItemsPerPageOption(parseInt(result.itemsPerPage))
     }
@@ -230,8 +570,7 @@ ConcreteFileManager.prototype.getResultMenu = function(results) {
  * Static Methods
  */
 ConcreteFileManager.launchDialog = function(callback, opts) {
-    var w = 720
-    var h = 580
+    var w = $(window).width() - 100
     var data = {}
     var i
 
@@ -255,11 +594,11 @@ ConcreteFileManager.launchDialog = function(callback, opts) {
 
     $.fn.dialog.open({
         width: w,
-        height: h,
+        height: '80%',
         href: CCM_DISPATCHER_FILENAME + '/ccm/system/dialogs/file/search',
         modal: true,
         data: data,
-        title: ccmi18n_filemanager.chooseFile,
+        title: ccmi18n_filemanager.title,
         onOpen: function(dialog) {
             ConcreteEvent.unsubscribe('FileManagerSelectFile')
             ConcreteEvent.subscribe('FileManagerSelectFile', function(e, data) {
