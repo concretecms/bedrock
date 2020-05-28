@@ -1,35 +1,37 @@
-<template functional>
+<template>
     <div class="ccm-gallery-image-details">
         <div class="image-preview text-center">
-            <img :src="props.image.imageUrl" />
-            <button class="btn btn-secondary" @click="listeners.delete">Remove from Gallery</button>
+            <img :src="this.$props.image.imageUrl" />
+            <button class="btn btn-secondary" @click="$emit('delete')">Remove from Gallery</button>
         </div>
         <div class="image-details">
             <section>
                 <strong>Custom Attributes</strong>
 
-                <p class="image-title">{{props.image.title}}</p>
-                <p class="image-description">{{props.image.description}}</p>
+                <p class="image-title">{{this.$props.image.title}}</p>
+                <p class="image-description">{{this.$props.image.description}}</p>
 
                 <div class="mb-4 text-right">
-                    <a :href="props.image.detailUrl" target="_blank" class="btn btn-secondary">Edit Attributes</a>
+                    <a :href="this.$props.image.detailUrl" target="_blank" class="btn btn-secondary">Edit Attributes</a>
                 </div>
             </section>
-            <section v-if="!props.image.displayChoices.length">
+
+            <section v-if="!this.$props.image.displayChoices.lenght">
                 <div class="mb-2">
                     <strong>Display Options</strong>
                 </div>
-                <div v-for="(choice, index) in props.image.displayChoices" :key="index">
+                <div v-for="(choice, index) in this.$props.image.displayChoices" :key="index">
                     <input v-if="choice.type === 'text'"
                         :placeholder="choice.title"
                         :name="index"
                         class="form-control mb-3"
-
+                        v-model="choice.value"
                     />
                     <select v-if="choice.type === 'select'"
                         :name="index"
+                        v-model="choice.value"
                         class="form-control mb-3">
-                        <option selected disabled>{{ choice.title }}</option>
+                        <option selected disabled value="0">{{ choice.title }}</option>
                         <option v-for="(option, index ) in choice.options"
                             :key="index"
                             :value="index">
@@ -70,7 +72,7 @@
 
       p {
         margin: 15px 0 15px 15px;
-
+        color: #005164;
         &.image-title {
           font-weight: bold;
         }

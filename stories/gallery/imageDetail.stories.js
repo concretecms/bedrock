@@ -22,7 +22,7 @@ const imageData = {
             type: 'text'
         },
         size: {
-            value: '',
+            value: '0',
             title: 'Size',
             type: 'select',
             options: {
