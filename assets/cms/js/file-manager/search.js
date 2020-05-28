@@ -214,11 +214,13 @@ ConcreteFileManager.prototype.setupFileUploads = function() {
             return my.currentFolder
         }
     }
-    window.concreteFileUploader.start(my.fileUploaderOptions)
+
+    my.$element.parent().concreteFileUploader(my.fileUploaderOptions)
+
     var $dialog = this.$element.closest('.ui-dialog-content')
     if ($dialog.length !== 0) {
         $dialog.on('dialogclose', function() {
-            window.concreteFileUploader.stop(my.fileUploaderOptions)
+            my.$element.parent().concreteFileUploader().close()
         })
     }
     $('a[data-dialog=add-files]').on('click', function(e) {
