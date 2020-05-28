@@ -1,0 +1,24 @@
+.ccm-file-selector {
+  .btn {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .ccm-file-selector-title {
+    font-weight: normal;
+  }
+
+  .ccm-file-selector-reset {
+    border-left: 0;
+  }
+
+  .ccm-file-selector-loaded {
+    img {
+      display: inline-block;
+      margin-right: 0.5rem;
+      max-height: 20px;
+      max-width: 20px;
+    }
+  }
+
+}

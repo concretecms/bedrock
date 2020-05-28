@@ -8,7 +8,7 @@ html.ccm-toolbar-visible {
   }
 
   .ui-dialog {
-    box-shadow: $modal-box-shadow;
+    box-shadow: $modal-content-box-shadow-sm-up;
     padding: 0;
 
     z-index: $index-level-dialog;
