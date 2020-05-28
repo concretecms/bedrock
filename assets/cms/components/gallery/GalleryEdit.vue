@@ -1,9 +1,9 @@
 <template>
     <div class="ccm-gallery-edit">
-        
+
         <ul id="galleryBlock" class="nav nav-tabs" role="tablist">
             <li class="nav-item">
-                <a class="nav-link" 
+                <a class="nav-link"
                     :class="activeTab === 'image' ? 'active' : ''"
                     @click="openTab('image')">
                     Images
@@ -17,32 +17,32 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" 
+                <a class="nav-link"
                     @click="openTab('settings')"
                     :class="activeTab === 'settings' ? 'active' : ''">
                     Settings
                 </a>
             </li>
         </ul>
-        
+
         <div class="tab-content" id="galleryBlockContent">
             <div v-if="activeTab === 'image'"  id="galleryImages">
                 <div class="text-right mt-4">
                     <button class="btn btn-secondary" @click="addImage()">Add Images</button>
                 </div>
-                <div class="image-container mt-4" 
+                <div class="image-container mt-4"
                     ref="imageContainer"
                     :class="Object.keys(this.activeImage).length != 0 ? 'active-image':''">
-                    <ImageCell v-for="(image, index) in $props.gallery" :key="index" 
-                        :src="image.thumbUrl" 
-                        :file-size="image.fileSize" 
-                        size="120" 
+                    <ImageCell v-for="(image, index) in $props.gallery" :key="index"
+                        :src="image.thumbUrl"
+                        :file-size="image.fileSize"
+                        size="120"
                         :isActive="activeImage.id === image.id ? true : false"
-                        @click="openImage(image, $event)" 
-                        @delete="deleteImage(image)" 
-                        />                    
+                        @click="openImage(image, $event)"
+                        @delete="deleteImage(image)"
+                        />
                 </div>
-            
+
                 <div v-if="Object.keys(activeImage).length != 0">
                     <ImageDetail @delete="deleteImage(activeImage)" :image="activeImage"/>
                 </div>
@@ -58,41 +58,49 @@
 </template>
 
 <style lang="scss" scoped>
-.ccm-gallery-edit{
-    .nav {
-        .nav-tab {
-            display: flex;
-        }
-        .nav-item {
-            flex:1;
-            text-align: center;
-            .nav-link {
-                border-color: #f4f4f4;
-                &.active {
-                    border-color: #4a90e2;
-                    &:hover {
-                        border-color: #4a90e2;
-                    }
-                }
-                &:hover {
-                    border-color: #ccc;
-                }
-            }
-        }
+.ccm-gallery-edit {
+  .nav {
+    .nav-tab {
+      display: flex;
     }
-    .image-container {
-        display: flex;
-        justify-content: space-evenly;
-        flex-wrap: wrap;
-        overflow-y: auto;
-        &.active-image {
-            height: 180px;
+
+    .nav-item {
+      flex: 1;
+      text-align: center;
+
+      .nav-link {
+        border-color: #f4f4f4;
+
+        &.active {
+          border-color: #4a90e2;
+
+          &:hover {
+            border-color: #4a90e2;
+          }
         }
-        .ccm-image-cell {
-            position: relative;
-            margin:10px 15px;
+
+        &:hover {
+          border-color: #ccc;
         }
+      }
     }
+  }
+
+  .image-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    overflow-y: auto;
+
+    &.active-image {
+      height: 180px;
+    }
+
+    .ccm-image-cell {
+      margin: 10px 15px;
+      position: relative;
+    }
+  }
 }
 </style>
 
@@ -102,7 +110,7 @@ import ImageDetail from './ImageDetail'
 
 export default {
     components: {
-        ImageCell, 
+        ImageCell,
         ImageDetail,
         ...ImageCell.components,
         ...ImageDetail.components
@@ -116,17 +124,15 @@ export default {
             this.activeTab = tab
         },
         openImage(image, event) {
-            if (Object.keys(this.activeImage).length != 0 && this.activeImage === image) {
+            if (Object.keys(this.activeImage).length !== 0 && this.activeImage === image) {
                 this.closeImage()
             } else {
                 this.activeImage = image
-                this.$nextTick(()=>{
+                this.$nextTick(() => {
                     const container = this.$refs.imageContainer
                     container.scrollTop = event.target.offsetParent.offsetTop - 170
                 })
-                
             }
-            
         },
         closeImage() {
             this.activeImage = {}
@@ -139,7 +145,6 @@ export default {
 
                 const index = this.gallery.indexOf(image)
                 this.gallery.splice(index, 1)
-
             }
         },
         addImage() {
@@ -149,7 +154,7 @@ export default {
     props: {
         gallery: {
             type: Array,
-            required: true 
+            required: true
         }
     }
 }

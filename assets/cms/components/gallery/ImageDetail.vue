@@ -71,8 +71,9 @@
       margin-bottom: 10px;
 
       p {
-        margin: 15px 0 15px 15px;
         color: #005164;
+        margin: 15px 0 15px 15px;
+
         &.image-title {
           font-weight: bold;
         }
