@@ -167,6 +167,7 @@
             escapeClose: true,
             width: w,
             height: h,
+            type: 'GET',
             dialogClass: 'ccm-ui',
             resizable: true,
 
@@ -264,7 +265,7 @@
         } else {
             $.fn.dialog.showLoader()
             $.ajax({
-                type: 'GET',
+                type: finalSettings.type,
                 url: finalSettings.href,
                 data: finalSettings.data,
                 success: function(r) {
@@ -283,17 +284,20 @@
     }
 
     $.fn.dialog.activateDialogContents = function($dialog) {
-        if (document.querySelectorAll('[vue-enabled]').length) {
-            Concrete.Vue.activateContext('cms', function (Vue, config) {
-                new Vue({
-                    el: '[vue-enabled]',
-                    components: config.components
+        const vueInstances = $dialog.get(0).querySelectorAll('[vue-enabled]')
+        vueInstances.forEach(function (element) {
+            if (element.getAttribute('vue-enabled') !== 'activated') {
+                Concrete.Vue.activateContext('cms', function (Vue, config) {
+                    new Vue({
+                        el: element,
+                        components: config.components
+                    })
                 })
-            })
-        }
+                element.setAttribute('vue-enabled', 'activated')
+            }
+        })
 
         // handle buttons
-
         $dialog.find('button[data-dialog-action=cancel]').on('click', function() {
             $.fn.dialog.closeTop()
         })

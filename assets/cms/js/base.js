@@ -75,7 +75,6 @@ import './express'
 import './file-manager/uploader'
 import './file-manager/search'
 import './file-manager/selector'
-import './file-manager/menu'
 
 // Miscellaneous UI components
 import 'selectize'
@@ -88,9 +87,6 @@ import './liveupdate/jquery-liveupdate'
 
 // Help
 import './help/help'
-
-// Boards
-import './boards'
 
 // Calendar component
 import './calendar'

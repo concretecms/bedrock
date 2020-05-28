@@ -19,7 +19,6 @@ $h5-font-size: $font-size-base * 1.25;
 $h6-font-size: $font-size-base * 0.8;
 
 /* special dialog variables */
-$modal-box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.2);
 $modal-header-bg: $blue;
 $modal-title-font-size: 1.5rem;
 $modal-title-font-weight: 400;
@@ -36,6 +35,12 @@ $selectize-dropdown-option-bg-active: $gray-100;
 $selectize-dropdown-border-color: transparent;
 $selectize-dropdown-border-width: 2px;
 $selectize-dropdown-border-radius: 2px;
+
+/* file manager image cell */
+$image-cell-border-color: $gray-400;
+$image-cell-border-hover-color: $blue;
+$image-cell-border-radius: 2px;
+$image-cell-box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.2);
 
 /** --- Zindexes --- **/
 

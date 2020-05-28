@@ -7,6 +7,7 @@
 
 // Support classes
 @import './animate';
+@import './transitions';
 
 // jQuery UI
 @import '~jquery-ui/themes/base/core.css';
@@ -28,6 +29,9 @@
 
 // Panels
 @import './panels';
+
+// Dialogs
+@import './dialogs';
 
 // In page editing
 @import 'page-areas';
@@ -73,6 +77,7 @@
 
 // Miscellaneous components
 @import './vue';
+@import './boards';
 @import './pagination';
 @import './forms';
 @import './tabs';
