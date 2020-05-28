@@ -60,8 +60,9 @@
   .image-preview {
     img {
       height: auto;
+      height: 270px;
       margin-bottom: 10px;
-      width: 100%;
+      width: auto;
     }
   }
 
