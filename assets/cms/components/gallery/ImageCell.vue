@@ -13,11 +13,11 @@
 
 <style lang="scss" scoped>
 .ccm-image-cell {
+  cursor: pointer;
   display: inline-flex;
   flex-direction: column;
+  margin: 10px;
   position: relative;
-  margin:10px;
-  cursor: pointer;
 
   &:hover,
   &.active {
