@@ -93,7 +93,7 @@
     overflow-y: auto;
 
     &.active-image {
-      height: 180px;
+      height: 200px;
     }
 
     .ccm-image-cell {
