@@ -414,7 +414,7 @@ const galleryData = [
                 }
             }
         }
-    },
+    }
 ]
 
 export const basicUsage = () => ({
