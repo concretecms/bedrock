@@ -86,9 +86,6 @@ import './liveupdate/jquery-liveupdate'
 // Help
 import './help/help'
 
-// Boards
-import './boards'
-
 // Calendar component
 import './calendar'
 

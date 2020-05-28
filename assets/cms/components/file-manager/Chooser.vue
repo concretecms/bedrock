@@ -31,7 +31,7 @@
                                 <transition name="concrete-nav-tab-content-switch">
                                     <div key="recent" v-if="activeNavItem === 'recent'">
                                         <chooser-header v-bind:resultsFormFactor.sync="resultsFormFactor"
-                                                        title="My Recent"></chooser-header>
+                                                        title="Recently Uploaded"></chooser-header>
                                         <recent-files v-bind:selectedFiles.sync="selectedFiles"
                                                       v-bind:resultsFormFactor.sync="resultsFormFactor"
                                                       v-if="activeNavItem === 'recent'" />
@@ -96,7 +96,7 @@ export default {
             chooserNavItems: [
                 {
                     key: 'recent',
-                    title: 'My Recent'
+                    title: 'Recently Uploaded'
                 },
                 {
                     key: 'filemanager',
@@ -135,6 +135,7 @@ export default {
         var my = this
         $(my.$el).modal('show')
         $(my.$el).appendTo('#ccm-tooltip-holder')
+        $(my.$el).css('z-index', 20000); // horrible hack for now
         $(my.$el).on('hidden.bs.modal', function (e) {
             my.$emit('onChooserClose')
         });

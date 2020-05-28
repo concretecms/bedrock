@@ -73,7 +73,7 @@ export default {
     mounted() {
         var my = this
         new ConcreteAjaxRequest({
-            url: CCM_DISPATCHER_FILENAME + '/ccm/system/files/mine',
+            url: CCM_DISPATCHER_FILENAME + '/ccm/system/file/chooser/recent',
             success: function (r) {
                 my.rows = []
                 my.fileList = r.data

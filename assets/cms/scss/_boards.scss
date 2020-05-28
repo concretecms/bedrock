@@ -1,0 +1,17 @@
+div.ccm-ui {
+  div.ccm-board-slot-designer {
+    img.ccm-board-slot-designer-thumbnail {
+      max-height: 200px; // todo - this stretches images. let's fix that
+    }
+
+    input[type=checkbox] {
+      position: absolute !important;
+      right: 0;
+      top: 0;
+      margin: 5px 5px 0 0;
+    }
+
+  }
+
+
+}

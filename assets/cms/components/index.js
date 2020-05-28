@@ -7,6 +7,8 @@ import MenuItem from './menu/MenuItem'
 import Icon from './Icon'
 import IconButton from './IconButton'
 import ConcreteFileInput from './form/ConcreteFileInput'
+import Board from './Board'
+import BoardSlot from './BoardSlot'
 
 // Export our component library
 export default {
@@ -18,5 +20,7 @@ export default {
     MenuItem,
     Icon,
     IconButton,
-    ConcreteFileInput
+    ConcreteFileInput,
+    Board,
+    BoardSlot
 }

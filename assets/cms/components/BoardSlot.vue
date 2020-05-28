@@ -9,7 +9,7 @@
 <script>
 /* globals ConcreteMenu */
 /* eslint-disable no-new */
-import '../../in-context-menu'
+import '../js/in-context-menu'
 
 export default {
     props: {
@@ -73,6 +73,16 @@ export default {
                     my.isPinned = r.isPinned
                 }
             })
+        })
+
+        menu.$menu.find('a[data-menu-action=replace-slot]').on('click', function () {
+            $.fn.dialog.open({
+                href: CCM_DISPATCHER_FILENAME + '/ccm/system/dialogs/boards/custom_slot/replace?boardInstanceID=' +
+                        my.slotData.boardInstanceID + '&slot=' + my.slotData.slot,
+                width: '90%',
+                height: '80%',
+                title: 'Replace Slot'
+            });
         })
 
         my.menu = menu
