@@ -16,6 +16,8 @@
   display: inline-flex;
   flex-direction: column;
   position: relative;
+  margin:10px;
+  cursor: pointer;
 
   &:hover,
   &.active {
