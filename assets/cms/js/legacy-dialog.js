@@ -293,7 +293,7 @@
                         components: config.components
                     })
                 })
-                element.setAttribute('vue-enabled', 'activated');
+                element.setAttribute('vue-enabled', 'activated')
             }
         })
 

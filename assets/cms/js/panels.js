@@ -72,7 +72,7 @@ function ConcretePanel(options) {
         }
         var panel = this
         _.defer(function () {
-            Concrete.event.publish('PanelLoad', {panel: panel, element: element})
+            Concrete.event.publish('PanelLoad', { panel: panel, element: element })
         })
     }
 
@@ -96,7 +96,7 @@ function ConcretePanel(options) {
 
             callback.call(me)
             setTimeout(function () {
-                Concrete.event.publish('PanelClose', {panel: obj})
+                Concrete.event.publish('PanelClose', { panel: obj })
             }, 0)
         })
     }
@@ -116,7 +116,7 @@ function ConcretePanel(options) {
             var cover = $('<div />').addClass('ccm-panel-cover').appendTo($(this).closest('.ccm-panel'))
             obj.closePanelDetailImmediately()
             var url = $(this).attr('data-launch-sub-panel-url')
-            $('<div />', {class: 'ccm-panel-content ccm-panel-content-appearing'}).appendTo($panel.find('.ccm-panel-content-wrapper')).load(url + '?cID=' + CCM_CID, function () {
+            $('<div />', { class: 'ccm-panel-content ccm-panel-content-appearing' }).appendTo($panel.find('.ccm-panel-content-wrapper')).load(url + '?cID=' + CCM_CID, function () {
                 _.delay(function () {
                     cover.remove()
                 }, 250)
@@ -291,7 +291,7 @@ function ConcretePanel(options) {
         }
 
         if (options.url) {
-            var url = options.url + '?cID=' + CCM_CID;
+            var url = options.url + '?cID=' + CCM_CID
             var data = null
             if ($.isPlainObject(options.data)) {
                 data = options.data
@@ -300,14 +300,14 @@ function ConcretePanel(options) {
             }
             $content.load(url, data, function () {
                 $.fn.dialog.hideLoader()
-                $content.find('.launch-tooltip').tooltip({container: '#ccm-tooltip-holder'})
+                $content.find('.launch-tooltip').tooltip({ container: '#ccm-tooltip-holder' })
                 obj.loadPanelDetailActions($content)
 
                 _.defer(complete_function)
             })
         } else {
             $.fn.dialog.hideLoader()
-            $content.find('.launch-tooltip').tooltip({container: '#ccm-tooltip-holder'})
+            $content.find('.launch-tooltip').tooltip({ container: '#ccm-tooltip-holder' })
             obj.loadPanelDetailActions($content)
 
             _.defer(complete_function)
@@ -322,7 +322,7 @@ function ConcretePanel(options) {
 
         $content.find('[data-panel-detail-form]').concreteAjaxForm()
 
-        this.activateVue($content.get(0));
+        this.activateVue($content.get(0))
 
         $('button[data-panel-detail-action=submit]').on('click', function () {
             $('[data-panel-detail-form]').submit()
@@ -345,7 +345,7 @@ function ConcretePanel(options) {
                         components: config.components
                     })
                 })
-                element.setAttribute('vue-enabled', 'activated');
+                element.setAttribute('vue-enabled', 'activated')
             }
         })
     }
@@ -353,7 +353,7 @@ function ConcretePanel(options) {
     this.setupPanelDetails = function () {
         var $panel = $('#' + this.getDOMID())
         var obj = this
-        $panel.find('.launch-tooltip').tooltip({container: '#ccm-tooltip-holder'})
+        $panel.find('.launch-tooltip').tooltip({ container: '#ccm-tooltip-holder' })
         $panel.find('[data-panel-menu=accordion]').each(function () {
             var $accordion = $(this)
             var $title = $(this).find('>nav>span')
@@ -377,7 +377,7 @@ function ConcretePanel(options) {
             })
         })
 
-        this.activateVue($panel.get(0));
+        this.activateVue($panel.get(0))
 
         $panel.find('[data-panel-menu=dropdown]').each(function () {
             var $dropdown = $(this)
@@ -425,7 +425,7 @@ function ConcretePanel(options) {
             $('.ccm-panel-menu-item-active').removeClass('ccm-panel-menu-item-active')
             $(this).addClass('ccm-panel-menu-item-active')
             var identifier = $(this).attr('data-launch-panel-detail')
-            var panelDetailOptions = {identifier: identifier, target: $(this)}
+            var panelDetailOptions = { identifier: identifier, target: $(this) }
             if ($(this).attr('data-panel-transition')) {
                 panelDetailOptions.transition = $(this).attr('data-panel-transition')
             }

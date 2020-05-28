@@ -202,8 +202,8 @@ ConcreteFileManager.prototype.getResultMenu = function(results) {
  * Static Methods
  */
 ConcreteFileManager.launchDialog = function(callback, opts) {
-    var w = 720,
-        h = 580;
+    var w = 720
+    var h = 580
     var data = {}
     var i
 

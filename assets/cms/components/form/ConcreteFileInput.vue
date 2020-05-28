@@ -35,7 +35,6 @@
                 v-on:choose-files="chooseFile"
         ></concrete-file-chooser>
 
-
     </div>
 </template>
 
@@ -63,14 +62,14 @@ export default {
         },
         chooseText: {
             type: String
-        },
+        }
     },
     watch: {
         selectedFileID: {
             immediate: true,
             handler(value) {
                 if (value > 0) {
-                    this.loadFile(value);
+                    this.loadFile(value)
                 } else {
                     this.selectedFile = null
                 }

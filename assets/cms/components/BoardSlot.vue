@@ -82,7 +82,7 @@ export default {
                 width: '90%',
                 height: '80%',
                 title: 'Replace Slot'
-            });
+            })
         })
 
         my.menu = menu

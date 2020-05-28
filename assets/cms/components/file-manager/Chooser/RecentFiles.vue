@@ -43,14 +43,14 @@
     </div>
 </template>
 
-
 <script>
+/* eslint-disable no-new */
 export default {
     data() {
         return {
             rows: false,
             fileList: [],
-            selectedFiles: [],
+            selectedFiles: []
         }
     },
     props: {
@@ -95,11 +95,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-    button {
-        .label {
-            margin: 0 10px;
-        }
+  button {
+    .label {
+      margin: 0 10px;
     }
-
+  }
 </style>

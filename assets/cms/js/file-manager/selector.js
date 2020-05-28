@@ -27,7 +27,6 @@ function ConcreteFileSelector($element, options) {
         _.defer(function() { my.$element.html(my._chooseTemplate) })
     })
 
-
     if (my.options.fID) {
         my.loadFile(my.options.fID)
     }
