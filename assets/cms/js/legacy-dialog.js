@@ -284,19 +284,6 @@
     }
 
     $.fn.dialog.activateDialogContents = function($dialog) {
-        const vueInstances = $dialog.get(0).querySelectorAll('[vue-enabled]')
-        vueInstances.forEach(function (element) {
-            if (element.getAttribute('vue-enabled') !== 'activated') {
-                Concrete.Vue.activateContext('cms', function (Vue, config) {
-                    new Vue({
-                        el: element,
-                        components: config.components
-                    })
-                })
-                element.setAttribute('vue-enabled', 'activated')
-            }
-        })
-
         // handle buttons
         $dialog.find('button[data-dialog-action=cancel]').on('click', function() {
             $.fn.dialog.closeTop()
