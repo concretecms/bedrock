@@ -134,9 +134,15 @@
                 // it so that you can't click on blocks while they're disabled, because we
                 // need the file manager menu when editing block design.
                 //              ConcreteMenuManager.disable();
+
                 ConcreteToolbar.disable()
-                ConcreteMenuManager.$clickProxy.hide()
-                $('div.ccm-area').addClass('ccm-area-inline-edit-disabled')
+                if (block.getHandle() !== 'board') {
+                    // This is a huge hack. We need to make this more graceful. The board
+                    // inline editing requires click on hot spots, and the menu manager needs
+                    // to be available. So let's run these only if the block is NOT a board.
+                    ConcreteMenuManager.$clickProxy.hide()
+                    $('div.ccm-area').addClass('ccm-area-inline-edit-disabled')
+                }
                 block.getElem().addClass('ccm-block-edit-inline-active')
 
                 $.ajax({
