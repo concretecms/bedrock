@@ -1,8 +1,7 @@
 <template>
     <div class="ccm-block-edit">
         <i class="slot-pinned fas fa-thumbtack" v-if="isPinned"></i>
-
-        <slot></slot>
+        <div :class="'ccm-board-slot-' + slotData.slot + '-content'"><slot></slot></div>
     </div>
 </template>
 
@@ -10,6 +9,7 @@
 /* globals ConcreteMenu */
 /* eslint-disable no-new */
 import '../js/in-context-menu'
+import Vue from 'vue'
 
 export default {
     props: {
@@ -86,6 +86,21 @@ export default {
         })
 
         my.menu = menu
+
+        ConcreteEvent.subscribe('SaveCustomSlot', function(e, data) {
+            // This is hideous. Horrendous. Refactor this to include the BoardSlot component and the chooser
+            // of slot data within the same component, using the bootstrap-vue modal component
+            if (data.slot === my.slotData.slot) {
+                const res = Vue.compile('<div>' + data.content + '</div>')
+                const element = my.$el.querySelector('.ccm-board-slot-' + data.slot + '-content')
+                new Vue({
+                    el: element,
+                    render: res.render,
+                    staticRenderFns: res.staticRenderFns,
+                    state: my.$state
+                })
+            }
+        })
     }
 }
 </script>

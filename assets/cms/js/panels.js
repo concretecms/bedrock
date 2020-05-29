@@ -322,8 +322,6 @@ function ConcretePanel(options) {
 
         $content.find('[data-panel-detail-form]').concreteAjaxForm()
 
-        this.activateVue($content.get(0))
-
         $('button[data-panel-detail-action=submit]').on('click', function () {
             $('[data-panel-detail-form]').submit()
         })
@@ -331,21 +329,6 @@ function ConcretePanel(options) {
         ConcreteEvent.subscribe('AjaxFormSubmitSuccess', function (e, data) {
             if ($('[data-panel-detail-form="' + data.form + '"]').data('action-after-save') == 'reload') {
                 window.location.reload()
-            }
-        })
-    }
-
-    this.activateVue = function(element) {
-        const vueInstances = element.querySelectorAll('[vue-enabled]')
-        vueInstances.forEach(function (element) {
-            if (element.getAttribute('vue-enabled') !== 'activated') {
-                Concrete.Vue.activateContext('cms', function (Vue, config) {
-                    new Vue({
-                        el: element,
-                        components: config.components
-                    })
-                })
-                element.setAttribute('vue-enabled', 'activated')
             }
         })
     }
@@ -376,8 +359,6 @@ function ConcretePanel(options) {
                 })
             })
         })
-
-        this.activateVue($panel.get(0))
 
         $panel.find('[data-panel-menu=dropdown]').each(function () {
             var $dropdown = $(this)
