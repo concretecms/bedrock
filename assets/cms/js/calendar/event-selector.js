@@ -49,7 +49,7 @@ ConcreteCalendarEventSelector.prototype = {
     loadingTemplate: '<div class="ccm-item-selector"><div class="ccm-item-selector-choose"><input type="hidden" name="<%=options.inputName%>" value="<%=eventID%>"><i class="fa fa-spin fa-spinner"></i> <%=options.loadingText%></div></div>',
     eventLoadedTemplate: '<div class="ccm-item-selector"><div class="ccm-item-selector-item-selected">' +
     '<input type="hidden" name="<%=inputName%>" value="<%=event.id%>" />' +
-    '<a data-calendar-event-selector-action="clear" href="#" class="ccm-item-selector-clear"><i class="fa fa-close"></i></a>' +
+    '<a data-calendar-event-selector-action="clear" href="#" class="ccm-item-selector-clear"><i class="fas fa-times"></i></a>' +
     '<div class="ccm-item-selector-item-selected-title"><%=event.title%></div>' +
     '</div></div>',
 

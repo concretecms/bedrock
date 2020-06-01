@@ -49,7 +49,7 @@ ConcreteUserSelector.prototype = {
     userLoadedTemplate: '<div class="ccm-item-selector"><div class="ccm-item-selector-item-selected">' +
         '<input type="hidden" name="<%=inputName%>" value="<%=user.uID%>" />' +
         '<div class="ccm-item-selector-item-selected-thumbnail"><%=user.avatar%></div>' +
-        '<a data-user-selector-action="clear" href="#" class="ccm-item-selector-clear"><i class="fa fa-close"></i></a>' +
+        '<a data-user-selector-action="clear" href="#" class="ccm-item-selector-clear"><i class="fas fa-times"></i></a>' +
         '<div class="ccm-item-selector-item-selected-title"><%=user.displayName%></div>' +
         '</div></div>',
 
