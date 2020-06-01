@@ -32,18 +32,18 @@
                 </div>
                 <div class="image-container mt-4"
                     ref="imageContainer"
-                    :class="Object.keys(this.activeImage).length != 0 ? 'active-image':''">
+                    :class="activeImage ? 'active-image':''">
                     <ImageCell v-for="(image, index) in $props.gallery" :key="index"
                         :src="image.thumbUrl"
                         :file-size="image.fileSize"
                         size="120"
-                        :isActive="activeImage.id === image.id ? true : false"
+                        :isActive="activeImage && activeImage.id === image.id ? true : false"
                         @click="openImage(image, $event)"
                         @delete="deleteImage(image)"
                         />
                 </div>
 
-                <div v-if="Object.keys(activeImage).length != 0">
+                <div v-if="activeImage">
                     <ImageDetail @delete="deleteImage(activeImage)" :image="activeImage"/>
                 </div>
             </div>
@@ -117,14 +117,14 @@ export default {
     },
     data: () => ({
         activeTab: 'image',
-        activeImage: {}
+        activeImage: null
     }),
     methods: {
         openTab(tab) {
             this.activeTab = tab
         },
         openImage(image, event) {
-            if (Object.keys(this.activeImage).length !== 0 && this.activeImage === image) {
+            if (this.activeImage && this.activeImage === image) {
                 this.closeImage()
             } else {
                 this.activeImage = image
@@ -135,7 +135,7 @@ export default {
             }
         },
         closeImage() {
-            this.activeImage = {}
+            this.activeImage = null
         },
         deleteImage(image) {
             if (confirm('Really delete this image?')) {
