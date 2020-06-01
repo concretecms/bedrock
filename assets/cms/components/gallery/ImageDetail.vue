@@ -16,7 +16,7 @@
                 </div>
             </section>
 
-            <section v-if="!this.$props.image.displayChoices.lenght">
+            <section v-if="!this.$props.image.displayChoices.length">
                 <div class="mb-2">
                     <strong>Display Options</strong>
                 </div>
