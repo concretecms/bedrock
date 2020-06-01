@@ -15,7 +15,7 @@
                     <a :href="props.image.detailUrl" target="_blank" class="btn btn-secondary">Edit Attributes</a>
                 </div>
             </section>
-            <section v-if="!props.image.displayChoices.lenght">
+            <section v-if="!props.image.displayChoices.length">
                 <div class="mb-2">
                     <strong>Display Options</strong>
                 </div>
