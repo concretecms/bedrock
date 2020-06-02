@@ -7,6 +7,7 @@ import MenuItem from './menu/MenuItem'
 import Icon from './Icon'
 import IconButton from './IconButton'
 import ConcreteFileInput from './form/ConcreteFileInput'
+import ConcreteFileChooser from './file-manager/Chooser'
 import Board from './Board'
 import BoardSlot from './BoardSlot'
 
@@ -20,6 +21,7 @@ export default {
     MenuItem,
     Icon,
     IconButton,
+    ConcreteFileChooser,
     ConcreteFileInput,
     Board,
     BoardSlot
