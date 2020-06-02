@@ -1,5 +1,5 @@
 import 'blueimp-file-upload'
-import '../../../cms/js/file-manager/search'
+import '../../../cms/js/file-manager/file-manager'
 
 (function(global, $) {
     'use strict'
