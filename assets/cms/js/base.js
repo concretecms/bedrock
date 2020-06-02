@@ -71,8 +71,7 @@ import './express'
 
 // File Manager
 import './file-manager/uploader'
-import './file-manager/search'
-import './file-manager/selector'
+import './file-manager/file-manager'
 
 // Miscellaneous UI components
 import 'selectize'

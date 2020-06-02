@@ -78,7 +78,7 @@ export default {
             var my = this
             ConcreteFileManager.launchDialog(function(r) {
                 my.loadFile(r.fID)
-            });
+            })
         },
         loadFile(fileId) {
             var my = this

@@ -113,7 +113,7 @@ export default {
     methods: {
         chooseFiles() {
             var my = this
-            window.ConcreteEvent.publish('FileManagerSelectFile', {fID: my.selectedFiles})
+            window.ConcreteEvent.publish('FileManagerSelectFile', { fID: my.selectedFiles })
         }
     }
 }
