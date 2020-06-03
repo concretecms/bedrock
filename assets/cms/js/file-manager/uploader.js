@@ -207,7 +207,7 @@
                         const $ul = $('<ul/>')
                             .attr('role', 'tablist')
                             .attr('id', 'ccm-file-import-tab-menu')
-                            .addClass('nav nav-tabs')
+                            .addClass('nav nav-tabs mb-3 nav-fill')
 
                         let tab = {}
 
@@ -1147,6 +1147,7 @@
                     $dialogEl.dialog({
                         title: ccmi18n_fileuploader.dialogTitle,
                         width: '80%',
+                        height: '800',
                         modal: true,
                         autoOpen: false,
                         buttons: [{
