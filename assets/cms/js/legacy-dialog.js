@@ -13,6 +13,42 @@
         }
     })
 
+    function onDialogCreate($dialog) {
+        $dialog.parent().addClass('animated fadeIn')
+    }
+
+    function onDialogOpen($dialog) {
+        /*
+         * This code causes problems with dialogs that have long dropdowns in them like the files advanced
+         * search. Commenting out for now.
+         */
+        /*
+        var nd = $('.ui-dialog').length
+        if (nd == 1) {
+            $('body').attr('data-last-overflow', $('body').css('overflow'))
+            $('body').css('overflow', 'hidden')
+
+        */
+
+        var overlays = $('.ui-widget-overlay').length
+
+        if (overlays == 1) {
+            $('.ui-widget-overlay').addClass('ui-widget-overlay-active')
+        }
+
+        var $close = $dialog.parent().find('.ui-dialog-titlebar-close')
+        $close.html('<svg><use xlink:href="#icon-dialog-close" /></svg>')
+        $.fn.dialog.activateDialogContents($dialog)
+
+        // on some brother (eg: Chrome) the resizable get hidden because the button pane
+        // in on top of it, here is a fix for this:
+        if ($dialog.jqdialog('option', 'resizable')) {
+            var $wrapper = $($dialog.parent())
+            var z = parseInt($wrapper.find('.ui-dialog-buttonpane').css('z-index'))
+            $wrapper.find('.ui-resizable-handle').css('z-index', z + 1000)
+        }
+
+    }
     function fixDialogButtons($dialog) {
         var $ccmButtons = $dialog.find('.dialog-buttons').eq(0)
         if ($ccmButtons.length === 0) {
@@ -51,8 +87,16 @@
             var arg = arguments[0]
             if ($.isPlainObject(arg)) {
                 var originalOpen = arg.open || null
+                var originalCreate = arg.create || null
+                arg.create = function(e) {
+                    onDialogCreate($(this))
+                    if (originalCreate) {
+                        originalCreate.call(this)
+                    }
+                }
+                arg.dialogClass = 'ccm-ui'
                 arg.open = function(e, ui) {
-                    fixDialogButtons($(this))
+                    onDialogOpen($(this))
                     if (originalOpen) {
                         originalOpen.call(this, e, ui)
                     }
@@ -172,42 +216,13 @@
             resizable: true,
 
             create: function() {
-                $(this).parent().addClass('animated fadeIn')
+                onDialogCreate($(this))
             },
 
             open: function() {
                 // jshint -W061
                 var $dialog = $(this)
-                /*
-                 * This code causes problems with dialogs that have long dropdowns in them like the files advanced
-                 * search. Commenting out for now.
-                 */
-
-                /*
-                var nd = $('.ui-dialog').length
-                if (nd == 1) {
-                    $('body').attr('data-last-overflow', $('body').css('overflow'))
-                    $('body').css('overflow', 'hidden')
-                }
-                */
-
-                var overlays = $('.ui-widget-overlay').length
-
-                if (overlays == 1) {
-                    $('.ui-widget-overlay').addClass('ui-widget-overlay-active')
-                }
-
-                var $close = $dialog.parent().find('.ui-dialog-titlebar-close')
-                $close.html('<svg><use xlink:href="#icon-dialog-close" /></svg>')
-                $.fn.dialog.activateDialogContents($dialog)
-
-                // on some brother (eg: Chrome) the resizable get hidden because the button pane
-                // in on top of it, here is a fix for this:
-                if ($dialog.jqdialog('option', 'resizable')) {
-                    var $wrapper = $($dialog.parent())
-                    var z = parseInt($wrapper.find('.ui-dialog-buttonpane').css('z-index'))
-                    $wrapper.find('.ui-resizable-handle').css('z-index', z + 1000)
-                }
+                onDialogOpen($dialog)
 
                 if (typeof options.onOpen !== 'undefined') {
                     if ((typeof options.onOpen) === 'function') {
