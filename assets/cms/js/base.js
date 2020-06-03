@@ -7,6 +7,8 @@ import PNotify from 'pnotify/dist/es/PNotify'
 import 'json5'
 import 'jquery.cookie'
 import 'jquery-form'
+import 'bootstrap-select'
+import 'dropzone/dist/dropzone'
 
 // jQuery UI components
 import 'jquery-ui/ui/widgets/button'
