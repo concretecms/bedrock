@@ -47,7 +47,6 @@
             var z = parseInt($wrapper.find('.ui-dialog-buttonpane').css('z-index'))
             $wrapper.find('.ui-resizable-handle').css('z-index', z + 1000)
         }
-
     }
     function fixDialogButtons($dialog) {
         var $ccmButtons = $dialog.find('.dialog-buttons').eq(0)
