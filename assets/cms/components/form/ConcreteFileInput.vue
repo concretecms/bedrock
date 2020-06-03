@@ -3,7 +3,7 @@
         <input type="hidden" :name="inputName" :value="selectedFileID" />
 
         <div class="ccm-file-selector-choose" v-if="!selectedFile && !isLoading">
-            <button type="button" @click="isChooserOpen = true" class="btn btn-secondary">
+            <button type="button" @click="openChooser" class="btn btn-secondary">
                 {{chooseText}}
             </button>
         </div>
@@ -29,25 +29,14 @@
             </div>
         </div>
 
-        <concrete-file-chooser
-                v-if="isChooserOpen"
-                @onChooserClose="isChooserOpen = false"
-                v-on:choose-files="chooseFile"
-        ></concrete-file-chooser>
-
     </div>
 </template>
 
 <script>
-import ConcreteFileChooser from '../file-manager/Chooser'
 export default {
-    components: {
-        ConcreteFileChooser
-    },
     data() {
         return {
             isLoading: false,
-            isChooserOpen: false,
             selectedFile: null /* json object */,
             selectedFileID: 0 /* integer */
         }
@@ -85,11 +74,18 @@ export default {
         chooseFile: function(selectedFiles) {
             this.selectedFileID = selectedFiles[0]
         },
+        openChooser: function() {
+            var my = this
+            ConcreteFileManager.launchDialog(function(r) {
+                my.loadFile(r.fID)
+            })
+        },
         loadFile(fileId) {
             var my = this
             my.isLoading = true
             ConcreteFileManager.getFileDetails(fileId, function (r) {
                 my.selectedFile = r.files[0]
+                my.selectedFileID = fileId
                 my.isLoading = false
             })
         }

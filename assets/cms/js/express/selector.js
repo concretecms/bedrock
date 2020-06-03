@@ -36,7 +36,7 @@ ConcreteExpressEntrySelector.prototype = {
     loadingTemplate: '<div class="ccm-item-selector"><div class="ccm-item-selector-choose"><input type="hidden" name="<%=options.inputName%>" value="<%=exEntryID%>"><i class="fa fa-spin fa-spinner"></i> <%=options.loadingText%></div></div>',
     entryLoadedTemplate: '<div class="ccm-item-selector"><div class="ccm-item-selector-item-selected">' +
         '<input type="hidden" name="<%=inputName%>" value="<%=entry.exEntryID%>" />' +
-        '<a data-express-entry-selector-action="clear" href="#" class="ccm-item-selector-clear"><i class="fa fa-close"></i></a>' +
+        '<a data-express-entry-selector-action="clear" href="#" class="ccm-item-selector-clear"><i class="fas fa-times"></i></a>' +
         '<div class="ccm-item-selector-item-selected-title"><%=entry.label%></div>' +
         '</div></div>',
 

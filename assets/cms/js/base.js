@@ -7,6 +7,8 @@ import PNotify from 'pnotify/dist/es/PNotify'
 import 'json5'
 import 'jquery.cookie'
 import 'jquery-form'
+import 'bootstrap-select'
+import 'dropzone/dist/dropzone'
 
 // jQuery UI components
 import 'jquery-ui/ui/widgets/button'
@@ -71,8 +73,7 @@ import './express'
 
 // File Manager
 import './file-manager/uploader'
-import './file-manager/search'
-import './file-manager/selector'
+import './file-manager/file-manager'
 
 // Miscellaneous UI components
 import 'selectize'
