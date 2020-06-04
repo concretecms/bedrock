@@ -220,10 +220,6 @@ div.ccm-panel-content {
     > li {
       margin-left: 0;
       margin-top: 0;
-
-      > ul {
-        margin-left: 25px;
-      }
     }
 
     li {
@@ -272,7 +268,7 @@ div.ccm-panel-content {
       }
 
       ul {
-
+        border-top-width: 0;
         margin-top: 5px;
         padding-left: 0;
 
@@ -281,16 +277,6 @@ div.ccm-panel-content {
           margin-top: 3px;
         }
 
-        a {
-          border-radius: 0;
-          display: inline;
-          font-weight: 400;
-          padding: 0;
-
-          &:hover {
-            background-color: auto;
-          }
-        }
       }
     }
 
