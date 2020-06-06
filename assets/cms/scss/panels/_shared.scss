@@ -250,6 +250,13 @@ div.ccm-panel-content {
 
         &:hover {
           background-color: $panel-menu-item-hover-bg-color;
+          color: $panel-menu-item-hover-color;
+
+        }
+
+        &.ccm-panel-menu-parent-item-active {
+          font-weight: $panel-menu-item-parent-item-active-font-weight;
+          color: $panel-menu-item-parent-item-active-color;
         }
 
         &.ccm-panel-menu-item-active {
@@ -261,6 +268,7 @@ div.ccm-panel-content {
             color: $panel-menu-item-active-color;
           }
         }
+
       }
 
       a:hover {
@@ -269,12 +277,14 @@ div.ccm-panel-content {
 
       ul {
         border-top-width: 0;
-        margin-top: 5px;
+        margin-top: 0;
         padding-left: 0;
+        padding-top: 0;
 
         li {
-          margin-left: 20px;
-          margin-top: 3px;
+          margin-left: 0;
+          margin-top: 0;
+          padding-left: 10px;
         }
 
       }
