@@ -175,7 +175,7 @@ div.ccm-panel-content {
 
 div.ccm-panel-content {
 
-  padding: 20px 15px 0 15px;
+  padding: 20px 15px 0;
 
   header {
     font-weight: 600;
@@ -255,8 +255,8 @@ div.ccm-panel-content {
         }
 
         &.ccm-panel-menu-parent-item-active {
-          font-weight: $panel-menu-item-parent-item-active-font-weight;
           color: $panel-menu-item-parent-item-active-color;
+          font-weight: $panel-menu-item-parent-item-active-font-weight;
         }
 
         &.ccm-panel-menu-item-active {
