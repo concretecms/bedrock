@@ -1,7 +1,7 @@
 // Import required libraries.
 import _ from 'underscore'
 import NProgress from 'nprogress'
-import PNotify from 'pnotify/dist/es/PNotify'
+import PNotify from './pnotify'
 
 // JavaScript/jQuery base libraries.
 import 'json5'

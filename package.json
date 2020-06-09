@@ -38,7 +38,7 @@
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.26",
     "nprogress": "^0.2.0",
-    "pnotify": "^4.0.0",
+    "pnotify": "^5.1.2",
     "popper.js": "^1.15.0",
     "selectize": "^0.12.6",
     "selectize-bootstrap4-theme": "^2.0.2",
