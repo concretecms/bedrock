@@ -108,7 +108,10 @@ class ConcreteAlert {
             type: options.type,
             delay: options.delay,
             stack: stackBottomRight,
-            modules: modules
+            modules: modules,
+            labels: {
+                close: ccmi18n.closeWindow
+            }
         }
 
         if (options.title) {

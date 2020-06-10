@@ -9,7 +9,7 @@ const modules = new Map([
     }]
 ])
 
-class NotificationsBox {
+class PageNotification {
 
     constructor() {
         const notificationsBoxHTML = `
@@ -56,7 +56,7 @@ class NotificationsBox {
     }
 
     static notify (options) {
-        const notificationsBox = NotificationsBox.getInstance()
+        const notificationsBox = PageNotification.getInstance()
         const notifyOptions = $.extend({
             type: 'success',
             icon: 'fas fa-check-mark',
@@ -69,6 +69,9 @@ class NotificationsBox {
         notifyOptions.stack = notificationsBox.innerStack
         notifyOptions.modules = modules
         notifyOptions.width = '100%'
+        notifyOptions.labels = {
+            close: ccmi18n.closeWindow
+        }
 
         const notice = PNotify.alert(notifyOptions)
         notice.on('pnotify:afterClose', () => {
@@ -83,10 +86,10 @@ class NotificationsBox {
     }
 
     static getInstance() {
-        return NotificationsBox._instance || (NotificationsBox._instance = new NotificationsBox())
+        return PageNotification._instance || (PageNotification._instance = new PageNotification())
     }
 }
 
-global.ConcreteNotificationsBox = {
-    notify: (options) => NotificationsBox.notify(options)
+global.ConcretePageNotification = {
+    notify: (options) => PageNotification.notify(options)
 }
