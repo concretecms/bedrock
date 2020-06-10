@@ -30,6 +30,7 @@ import './panels'
 import './toolbar'
 import './legacy-dialog'
 import './alert'
+import './notifications-box'
 
 // Edit Mode
 import './edit-mode'

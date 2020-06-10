@@ -128,3 +128,60 @@ div.ccm-notification-page-alert {
 div#ccm-popup-alert-message {
   word-wrap: break-word;
 }
+
+.ccm-notifications-box {
+  background: $white;
+  bottom: 0;
+  box-shadow: $box-shadow-sm;
+  max-width: 100%;
+  padding: 10px;
+  position: fixed;
+  right: 30px;
+  width: 380px;
+  z-index: 990;
+}
+
+.ccm-notifications-box-header {
+  font-weight: 600;
+  height: 25px;
+  position: relative;
+  text-transform: uppercase;
+
+  > div[data-toggle] {
+    cursor: pointer;
+  }
+}
+
+.ccm-notifications-box-body {
+  max-height: 400px;
+  overflow-y: hidden;
+
+  &.show {
+    // Don't show scrollbar until the box is completely opened
+    overflow-y: auto;
+  }
+
+  > .ccm-notification-elem {
+    margin-top: 10px;
+    position: static;
+  }
+}
+
+.ccm-notifications-box-close {
+  height: 24px;
+  position: absolute;
+  right: 0;
+  top: -1px;
+  width: 24px;
+
+  svg {
+    fill: $gray-500;
+    height: 24px;
+    transition: fill 0.1s ease-in-out;
+    width: 24px;
+  }
+
+  &:hover svg {
+    fill: $blue;
+  }
+}
