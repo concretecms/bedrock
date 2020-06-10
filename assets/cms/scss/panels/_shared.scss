@@ -175,7 +175,7 @@ div.ccm-panel-content {
 
 div.ccm-panel-content {
 
-  padding: 20px 10px 0 16px;
+  padding: 20px 15px 0;
 
   header {
     font-weight: 600;
@@ -220,10 +220,6 @@ div.ccm-panel-content {
     > li {
       margin-left: 0;
       margin-top: 0;
-
-      > ul {
-        margin-left: 25px;
-      }
     }
 
     li {
@@ -231,10 +227,16 @@ div.ccm-panel-content {
       list-style-type: none;
 
       &.active {
-        a {
+        > a {
           background-color: $panel-menu-item-active-bg-color;
-          color: $panel-menu-item-active-color;
+          color: $panel-menu-item-active-color !important;
           font-weight: $panel-menu-item-active-font-weight;
+
+          &:hover {
+            background-color: $panel-menu-item-active-bg-color !important;
+            color: $panel-menu-item-active-color !important;
+            cursor: default !important;
+          }
         }
       }
 
@@ -248,6 +250,13 @@ div.ccm-panel-content {
 
         &:hover {
           background-color: $panel-menu-item-hover-bg-color;
+          color: $panel-menu-item-hover-color;
+
+        }
+
+        &.ccm-panel-menu-parent-item-active {
+          color: $panel-menu-item-parent-item-active-color;
+          font-weight: $panel-menu-item-parent-item-active-font-weight;
         }
 
         &.ccm-panel-menu-item-active {
@@ -259,6 +268,7 @@ div.ccm-panel-content {
             color: $panel-menu-item-active-color;
           }
         }
+
       }
 
       a:hover {
@@ -266,25 +276,17 @@ div.ccm-panel-content {
       }
 
       ul {
-
-        margin-top: 5px;
+        border-top-width: 0;
+        margin-top: 0;
         padding-left: 0;
+        padding-top: 0;
 
         li {
-          margin-left: 20px;
-          margin-top: 3px;
+          margin-left: 0;
+          margin-top: 0;
+          padding-left: 10px;
         }
 
-        a {
-          border-radius: 0;
-          display: inline;
-          font-weight: 400;
-          padding: 0;
-
-          &:hover {
-            background-color: auto;
-          }
-        }
       }
     }
 
@@ -305,17 +307,18 @@ div.ccm-panel-header-accordion {
   position: relative;
 
   &.ccm-panel-header-accordion-dropdown-visible nav ul {
-    height: 220px !important;
+    max-height: 220px !important;
   }
 
   nav {
     ul.ccm-panel-header-accordion-dropdown {
-      height: 0;
+      height: auto;
       margin-bottom: 0;
       margin-left: 0;
+      max-height: 0;
       overflow: hidden;
       padding-left: 0;
-      transition: height 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+      transition: max-height 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
     li {
