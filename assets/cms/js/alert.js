@@ -103,6 +103,7 @@ class ConcreteAlert {
 
         const notifyOptions = {
             text: options.message,
+            textTrusted: true,
             icon: 'fas fa-' + options.icon,
             type: options.type,
             delay: options.delay,
