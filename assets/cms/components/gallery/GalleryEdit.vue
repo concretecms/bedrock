@@ -1,6 +1,6 @@
 <template>
     <div class="ccm-gallery-edit">
-
+        <input type="hidden" name="field_json" :value="JSON.stringify($props.gallery)" />
         <ul id="galleryBlock" class="nav nav-tabs" role="tablist">
             <li class="nav-item">
                 <a class="nav-link"
