@@ -57,16 +57,19 @@ class ConcreteAlert {
             },
             buttons: [{}],
             open: function () {
-                $(this).parent().find('.ui-dialog-buttonpane').addClass('ccm-ui').html('')
-                $(this).parent().find('.ui-dialog-buttonpane').append(
-                    `<button onclick="jQuery.fn.dialog.closeTop()" class="btn btn-default">${ccmi18n.cancel}</button>` +
-                    `<button data-dialog-action="submit-confirmation-dialog" class="btn ${btnClass} pull-right">${btnText}</button></div>`
-                )
+                const $btnPane = $(this).parent().find('.ui-dialog-buttonpane')
+                $btnPane.addClass('ccm-ui').html('')
+                $btnPane.append(`
+                    <button onclick="jQuery.fn.dialog.closeTop()" class="btn btn-secondary">${ccmi18n.cancel}</button>
+                    <button data-dialog-action="submit-confirmation-dialog" class="btn ${btnClass} float-right">${btnText}</button></div>
+                `)
             }
         })
 
         $div.parent().on('click', 'button[data-dialog-action=submit-confirmation-dialog]', function () {
-            return onConfirmation()
+            if (typeof onConfirmation === 'function') {
+                return onConfirmation()
+            }
         })
     }
 
