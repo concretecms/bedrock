@@ -48,6 +48,11 @@ $notification-error-color: color-yiq($notification-error-bg-color) !default;
       border: 0;
       outline: 0;
     }
+
+    .dropdown-menu > li > a {
+      border-radius: 0;
+      display: block;
+    }
   }
 }
 
@@ -59,16 +64,6 @@ $notification-error-color: color-yiq($notification-error-bg-color) !default;
     [dir=rtl] & {
       margin-left: 0;
       margin-right: 0;
-    }
-  }
-}
-
-.ccm-panel-open.ccm-panel-right {
-  .ccm-notification {
-    @include media-breakpoint-only(md) {
-      // Push the dashboard hud notifications outside of the sidebar panel
-      // as they are otherwise covered by that element.
-      left: -260px;
     }
   }
 }
@@ -115,13 +110,6 @@ div.ccm-notification-danger {
   }
 }
 
-div.ccm-notification-page-alert {
-  z-index: $index-level-page-alert;
-  @include media-breakpoint-only(sm) {
-    right: 60px;
-  }
-}
-
 /**
  * Error dialogs
  */
@@ -138,7 +126,7 @@ div#ccm-popup-alert-message {
   position: fixed;
   right: 30px;
   width: 380px;
-  z-index: 990;
+  z-index: $index-level-page-alert;
 }
 
 .ccm-notifications-box-header {
