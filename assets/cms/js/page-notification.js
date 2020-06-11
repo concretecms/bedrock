@@ -1,5 +1,7 @@
+/* global ccmi18n */
+
 import PNotify from './pnotify'
-import * as PNotifyAnimate from '@pnotify/animate';
+import * as PNotifyAnimate from '@pnotify/animate'
 
 const modules = new Map([
     ...PNotify.defaultModules,
@@ -10,7 +12,6 @@ const modules = new Map([
 ])
 
 class PageNotification {
-
     constructor() {
         const notificationsBoxHTML = `
     <div class="ccm-notifications-box">

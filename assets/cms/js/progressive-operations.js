@@ -1,4 +1,4 @@
-/* global NProgress, PNotify */
+/* global NProgress, ConcreteAlert */
 /* eslint-disable eqeqeq */
 
 function ConcreteProgressiveOperation(options) {

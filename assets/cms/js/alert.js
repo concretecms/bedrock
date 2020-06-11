@@ -1,5 +1,7 @@
+/* global ccmi18n */
+
 import PNotify from './pnotify'
-import * as PNotifyAnimate from '@pnotify/animate';
+import * as PNotifyAnimate from '@pnotify/animate'
 
 const modules = new Map([
     ...PNotify.defaultModules,
@@ -19,12 +21,11 @@ const stackBottomRight = new PNotify.Stack({
     push: 'bottom', // Push new notices on top of previous ones.
     maxOpen: 3,
     modal: false
-});
+})
 
 class ConcreteAlert {
-
     static dialog (title, message, onCloseFn) {
-        const $div = $(`<div id="ccm-popup-alert" class="ccm-ui"><div id="ccm-popup-alert-message">${message}</div></div>`);
+        const $div = $(`<div id="ccm-popup-alert" class="ccm-ui"><div id="ccm-popup-alert-message">${message}</div></div>`)
         $div.dialog({
             title: title,
             width: 500,
