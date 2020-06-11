@@ -1,4 +1,4 @@
-/* global NProgress, PNotify */
+/* global NProgress, ConcreteAlert */
 /* eslint-disable eqeqeq */
 
 function ConcreteProgressiveOperation(options) {
@@ -75,7 +75,7 @@ ConcreteProgressiveOperation.prototype.poll = function(batch, token, remaining) 
                         my.setProgressBarStatus(100, 0)
                     } else {
                         NProgress.done()
-                        my.pnotify.remove()
+                        my.pnotify.close()
                     }
                     if (typeof (my.options.onComplete) === 'function') {
                         my.options.onComplete(r)
@@ -89,15 +89,13 @@ ConcreteProgressiveOperation.prototype.poll = function(batch, token, remaining) 
 ConcreteProgressiveOperation.prototype.startPolling = function(batch, token, remaining) {
     var my = this
     if (!my.options.element) {
-        my.pnotify = new PNotify({
-            text: '<div data-wrapper="progressive-operation-status">' + ccmi18n.progressiveOperationLoading + '</div>',
+        my.pnotify = ConcreteAlert.notify({
+            message: '<div data-wrapper="progressive-operation-status">' + ccmi18n.progressiveOperationLoading + '</div>',
             hide: false,
             title: my.options.title,
-            buttons: {
-                closer: false
-            },
+            closer: false,
             type: 'info',
-            icon: 'fa fa-refresh fa-spin'
+            icon: 'sync-alt fa-spin'
         })
     }
 
