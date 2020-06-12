@@ -2,7 +2,15 @@
     <div class="ccm-gallery-image-details">
         <div class="image-preview text-center">
             <img :src="this.$props.image.imageUrl" />
-            <button type="button" class="btn btn-secondary" @click="$emit('delete')">Remove from Gallery</button>
+            <IconButton
+              icon="trash-alt"
+              icon-type="far"
+              @click="$emit('delete')"
+              type="outline"
+            >
+              Remove from Gallery
+            </IconButton>
+            <!-- <button type="button" class="btn btn-secondary" @click="$emit('delete')">Remove from Gallery</button> -->
         </div>
         <div class="image-details">
             <section>
@@ -12,7 +20,14 @@
                 <p class="image-description">{{this.$props.image.description}}</p>
 
                 <div class="mb-4 text-right">
-                    <a :href="this.$props.image.detailUrl" target="_blank" class="btn btn-secondary">Edit Attributes</a>
+                    <IconButton
+                      icon="pencil-alt"
+                      icon-type="fas"
+                      @click="goToDetails($props.image.detailUrl)"
+                      type="outline"
+                    >
+                      Edit Attributes
+                    </IconButton>
                 </div>
             </section>
 
@@ -86,11 +101,22 @@
 </style>
 
 <script>
+import IconButton from '../IconButton'
+
 export default {
+    components: {
+        IconButton,
+        ...IconButton.components
+    },
     props: {
         image: {
             type: Object,
             required: true
+        }
+    },
+    methods: {
+        goToDetails: (url) => {
+            window.open(url, '_blank')
         }
     }
 }
