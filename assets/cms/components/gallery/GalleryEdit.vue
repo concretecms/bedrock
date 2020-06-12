@@ -138,7 +138,6 @@ export default {
             this.activeImage = null
         },
         deleteImage(image) {
-            
             if (this.activeImage === image) {
                 this.closeImage()
             }
