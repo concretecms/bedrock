@@ -2,7 +2,7 @@
     <div class="ccm-gallery-image-details">
         <div class="image-preview text-center">
             <img :src="this.$props.image.imageUrl" />
-            <button class="btn btn-secondary" @click="$emit('delete')">Remove from Gallery</button>
+            <button type="button" class="btn btn-secondary" @click="$emit('delete')">Remove from Gallery</button>
         </div>
         <div class="image-details">
             <section>

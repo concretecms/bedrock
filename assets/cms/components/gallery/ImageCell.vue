@@ -1,6 +1,6 @@
 <template functional>
     <div class="ccm-image-cell text-center" :class="{ active: props.isActive }">
-        <button class="delete" @click="listeners.delete">
+        <button type="button" class="delete" @click="listeners.delete">
             <Icon icon="times" type="fas" color="#fff"/>
         </button>
         <img :src="props.src"
