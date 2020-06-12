@@ -138,14 +138,13 @@ export default {
             this.activeImage = null
         },
         deleteImage(image) {
-            if (confirm('Really delete this image?')) {
-                if (this.activeImage === image) {
-                    this.closeImage()
-                }
-
-                const index = this.gallery.indexOf(image)
-                this.gallery.splice(index, 1)
+            
+            if (this.activeImage === image) {
+                this.closeImage()
             }
+
+            const index = this.gallery.indexOf(image)
+            this.gallery.splice(index, 1)
         },
         addImage() {
             console.log('Add Image')
