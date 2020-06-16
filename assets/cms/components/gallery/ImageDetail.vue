@@ -1,7 +1,9 @@
 <template>
     <div class="ccm-gallery-image-details">
         <div class="image-preview text-center">
-            <img :src="this.$props.image.imageUrl" />
+            <div class="image-container">
+                <img :src="this.$props.image.imageUrl" />
+            </div>
             <IconButton
               icon="trash-alt"
               icon-type="far"
@@ -18,6 +20,9 @@
 
                 <p class="image-title">{{this.$props.image.title}}</p>
                 <p class="image-description">{{this.$props.image.description}}</p>
+                <p class="image-attribute" v-for="([key, value], idx) of image.attributes" :key="idx">
+                    <strong>{{key}}:</strong> {{value}}
+                </p>
 
                 <div class="mb-4 text-right">
                     <IconButton
@@ -68,16 +73,24 @@
 
   .image-preview,
   .image-details {
+    width: 50%;
     flex: 1;
     padding: 10px;
   }
 
   .image-preview {
+    .image-container {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     img {
-      height: auto;
-      height: 270px;
       margin-bottom: 10px;
+      max-width: 100%;
+      max-height: 100%;
       width: auto;
+      height: auto;
     }
   }
 
