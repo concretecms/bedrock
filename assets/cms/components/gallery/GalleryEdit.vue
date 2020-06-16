@@ -91,11 +91,11 @@
   }
 
   .image-container {
+    align-items: center;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     overflow-y: auto;
-    align-items: center;
     position: relative;
 
     &.active-image {
@@ -103,8 +103,8 @@
     }
 
     .ccm-image-cell-container {
-      width: 20%;
       position: relative;
+      width: 20%;
     }
   }
 }
@@ -123,7 +123,7 @@ export default {
     },
     data: () => ({
         activeTab: 'image',
-        activeImage: null,
+        activeImage: null
     }),
     methods: {
         openTab(tab) {
@@ -165,7 +165,7 @@ export default {
                         imageUrl: file.url,
                         thumbUrl: file.url,
                         displayChoices: JSON.parse(JSON.stringify(me.choices)),
-                        fileSize: file.fileSize || '-',
+                        fileSize: file.fileSize || '-'
                     })
 
                     const lastIndex = me.gallery.length - 1

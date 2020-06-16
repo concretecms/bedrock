@@ -73,24 +73,25 @@
 
   .image-preview,
   .image-details {
-    width: 50%;
     flex: 1;
     padding: 10px;
+    width: 50%;
   }
 
   .image-preview {
     .image-container {
-      height: 100%;
-      display: flex;
       align-items: center;
+      display: flex;
+      height: 100%;
       justify-content: center;
     }
+
     img {
-      margin-bottom: 10px;
-      max-width: 100%;
-      max-height: 100%;
-      width: auto;
       height: auto;
+      margin-bottom: 10px;
+      max-height: 100%;
+      max-width: 100%;
+      width: auto;
     }
   }
 
