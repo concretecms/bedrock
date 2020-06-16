@@ -19,16 +19,18 @@
   margin: 10px;
   position: relative;
 
+  &:hover {
+    .delete {
+      opacity: 1;
+      transition: opacity 0.2s ease-out;
+    }
+  }
+
   &:hover,
   &.active {
     img {
       border: 2px solid #4a90e2;
       opacity: 1;
-    }
-
-    .delete {
-      opacity: 1;
-      transition: opacity 0.2s ease-out;
     }
   }
 
