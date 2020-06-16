@@ -30,6 +30,7 @@
                       icon-type="fas"
                       @click="goToDetails($props.image.detailUrl)"
                       type="outline"
+                      v-if="$props.image.detailUrl"
                     >
                       Edit Attributes
                     </IconButton>
