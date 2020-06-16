@@ -3,11 +3,10 @@
         <button type="button" class="delete" @click="listeners.delete">
             <Icon icon="times" type="fas" color="#fff"/>
         </button>
-        <img :src="props.src"
-            :style="{ width: props.size + 'px', height: props.size + 'px' }"
-            @click="listeners.click"
-        />
-        <p>{{ props.fileSize }}</p>
+        <div @click="listeners.click">
+            <img :src="props.src" :style="{ width: props.size + 'px', height: props.size + 'px' }" />
+            <p>{{ props.fileSize }}</p>
+        </div>
     </div>
 </template>
 
