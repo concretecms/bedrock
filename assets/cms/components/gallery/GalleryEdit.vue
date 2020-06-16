@@ -104,6 +104,7 @@
 
     .ccm-image-cell-container {
       position: relative;
+      min-width: 130px;
       width: 20%;
     }
   }
@@ -136,7 +137,7 @@ export default {
                 this.activeImage = index
                 this.$nextTick(() => {
                     const container = this.$refs.imageContainer
-                    container.scrollTop = $(this.$refs.cell[index]).closest('.ccm-image-cell-container').get(0).offsetTop
+                    container.scrollTop = this.$refs.cell[index].offsetTop
                 })
             }
         },
@@ -165,7 +166,8 @@ export default {
                         imageUrl: file.url,
                         thumbUrl: file.url,
                         displayChoices: JSON.parse(JSON.stringify(me.choices)),
-                        fileSize: file.fileSize || '-'
+                        fileSize: file.fileSize || '-',
+                        detailUrl: file.urlDetail
                     })
 
                     const lastIndex = me.gallery.length - 1
