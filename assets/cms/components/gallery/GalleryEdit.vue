@@ -103,8 +103,8 @@
     }
 
     .ccm-image-cell-container {
-      position: relative;
       min-width: 130px;
+      position: relative;
       width: 20%;
     }
   }
