@@ -92,60 +92,6 @@ const galleryData = [
         }
     },
     {
-        id: 4,
-        title: 'Mayan Temple',
-        description: 'A picture of mayan temple in Yucatan, Mexico.',
-        extension: 'jpg',
-        attributes: {},
-        fileSize: '310 kb',
-        imageUrl: 'https://images.pexels.com/photos/3290068/pexels-photo-3290068.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-        thumbUrl: 'https://images.pexels.com/photos/3290068/pexels-photo-3290068.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-        detailUrl: 'https://www.google.com/',
-        displayChoices: {
-            'gallery-specific-options': {
-                value: '',
-                title: 'Gallery Specific Options',
-                type: 'text'
-            },
-            size: {
-                value: '0',
-                title: 'Size',
-                type: 'select',
-                options: {
-                    square: 'Square Image',
-                    default: 'Keep Image Aspect Ratio'
-                }
-            }
-        }
-    },
-    {
-        id: 5,
-        title: 'The Base',
-        description: 'A picture of an interesting stylish looking base.',
-        extension: 'jpg',
-        attributes: {},
-        fileSize: '199 kb',
-        imageUrl: 'https://images.pexels.com/photos/4207892/pexels-photo-4207892.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500',
-        thumbUrl: 'https://images.pexels.com/photos/4207892/pexels-photo-4207892.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500',
-        detailUrl: 'https://www.google.com/',
-        displayChoices: {
-            'gallery-specific-options': {
-                value: '',
-                title: 'Gallery Specific Options',
-                type: 'text'
-            },
-            size: {
-                value: '0',
-                title: 'Size',
-                type: 'select',
-                options: {
-                    square: 'Square Image',
-                    default: 'Keep Image Aspect Ratio'
-                }
-            }
-        }
-    },
-    {
         id: 6,
         title: 'Landscape Montecarlo',
         description: 'A picture Montecarlo desert in Italy',

@@ -3,11 +3,10 @@
         <button type="button" class="delete" @click="listeners.delete">
             <Icon icon="times" type="fas" color="#fff"/>
         </button>
-        <img :src="props.src"
-            :style="{ width: props.size + 'px', height: props.size + 'px' }"
-            @click="listeners.click"
-        />
-        <p>{{ props.fileSize }}</p>
+        <div @click="listeners.click">
+            <img :src="props.src" :style="{ width: props.size + 'px', height: props.size + 'px' }" />
+            <p>{{ props.fileSize }}</p>
+        </div>
     </div>
 </template>
 
@@ -19,16 +18,18 @@
   margin: 10px;
   position: relative;
 
+  &:hover {
+    .delete {
+      opacity: 1;
+      transition: opacity 0.2s ease-out;
+    }
+  }
+
   &:hover,
   &.active {
     img {
       border: 2px solid #4a90e2;
       opacity: 1;
-    }
-
-    .delete {
-      opacity: 1;
-      transition: opacity 0.2s ease-out;
     }
   }
 

@@ -28,23 +28,27 @@
         <div class="tab-content" id="galleryBlockContent">
             <div v-if="activeTab === 'image'"  id="galleryImages">
                 <div class="text-right mt-4">
-                    <button class="btn btn-secondary" @click="addImage()">Add Images</button>
+                    <icon-button icon="plus" icon-type="fas" type="outline" class="btn btn-secondary" @click="addImage()">
+                        Add Images
+                    </icon-button>
                 </div>
                 <div class="image-container mt-4"
                     ref="imageContainer"
-                    :class="activeImage ? 'active-image':''">
-                    <ImageCell v-for="(image, index) in $props.gallery" :key="index"
-                        :src="image.thumbUrl"
-                        :file-size="image.fileSize"
-                        size="120"
-                        :isActive="activeImage && activeImage.id === image.id ? true : false"
-                        @click="openImage(image, $event)"
-                        @delete="deleteImage(image)"
-                        />
+                    :class="activeImage !== null ? 'active-image' : ''">
+                    <div ref="cell" class="ccm-image-cell-container" v-for="(image, index) in $props.gallery" :key="index">
+                        <ImageCell
+                            :src="image.thumbUrl"
+                            :file-size="image.fileSize"
+                            size="120"
+                            :isActive="activeImage === index ? true : false"
+                            @click="openImage(image, index, $event)"
+                            @delete="deleteImage(index)"
+                            />
+                    </div>
                 </div>
 
-                <div v-if="activeImage">
-                    <ImageDetail @delete="deleteImage(activeImage)" :image="activeImage"/>
+                <div v-if="activeImage !== null">
+                    <ImageDetail @delete="deleteImage(activeImage)" :image="this.gallery[activeImage]" />
                 </div>
             </div>
             <div v-if="activeTab === 'design'"  id="galleryDesign">
@@ -87,18 +91,21 @@
   }
 
   .image-container {
+    align-items: center;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     overflow-y: auto;
+    position: relative;
 
     &.active-image {
       height: 200px;
     }
 
-    .ccm-image-cell {
-      margin: 10px 15px;
+    .ccm-image-cell-container {
+      min-width: 130px;
       position: relative;
+      width: 20%;
     }
   }
 }
@@ -123,35 +130,59 @@ export default {
         openTab(tab) {
             this.activeTab = tab
         },
-        openImage(image, event) {
-            if (this.activeImage && this.activeImage === image) {
+        openImage(image, index, event) {
+            if (this.activeImage && this.activeImage === index) {
                 this.closeImage()
             } else {
-                this.activeImage = image
+                this.activeImage = index
                 this.$nextTick(() => {
                     const container = this.$refs.imageContainer
-                    container.scrollTop = event.target.offsetParent.offsetTop - 170
+                    container.scrollTop = this.$refs.cell[index].offsetTop
                 })
             }
         },
         closeImage() {
             this.activeImage = null
         },
-        deleteImage(image) {
-            if (this.activeImage === image) {
+        deleteImage(index) {
+            if (this.activeImage === index) {
                 this.closeImage()
             }
 
-            const index = this.gallery.indexOf(image)
             this.gallery.splice(index, 1)
         },
         addImage() {
-            console.log('Add Image')
+            const me = this
+
+            ConcreteFileManager.launchDialog(function(data) {
+                ConcreteFileManager.getFileDetails(data.fID, function(file) {
+                    file = file.files[0] || {}
+                    me.gallery.push({
+                        id: data.fID,
+                        title: file.title,
+                        description: file.description,
+                        src: file.url,
+                        attributes: [],
+                        imageUrl: file.url,
+                        thumbUrl: file.url,
+                        displayChoices: JSON.parse(JSON.stringify(me.choices)),
+                        fileSize: file.fileSize || '-',
+                        detailUrl: file.urlDetail
+                    })
+
+                    const lastIndex = me.gallery.length - 1
+                    me.openImage(me.gallery[lastIndex], lastIndex)
+                })
+            })
         }
     },
     props: {
         gallery: {
             type: Array,
+            required: true
+        },
+        choices: {
+            type: Object,
             required: true
         }
     }
