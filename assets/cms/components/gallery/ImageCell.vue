@@ -1,6 +1,6 @@
 <template functional>
     <div class="ccm-image-cell-grid">
-      <div class="ccm-image-cell v-component text-center" :class="{ active: props.isActive }">
+      <div class="ccm-image-cell text-center" :class="{ active: props.isActive }">
           <button type="button" class="delete" @click="listeners.delete">
               <Icon icon="times" type="fas" color="#fff"/>
           </button>
@@ -11,6 +11,50 @@
       </div>
     </div>
 </template>
+
+<style lang="scss" scoped>
+  .ccm-image-cell {
+    cursor: pointer;
+    display: inline-flex;
+    flex-direction: column;
+    margin: 0.625rem;
+    position: relative;
+
+    &:hover {
+      .delete {
+        opacity: 1;
+        transition: opacity 0.2s ease-out;
+      }
+    }
+
+    p {
+      font-size: 1rem;
+      letter-spacing: 0;
+      margin-top: 0.625rem;
+      text-transform: uppercase;
+    }
+
+    img {
+      padding: 0.5rem;
+    }
+
+    .delete {
+      background-color: $gray-600;
+      border: 0;
+      border-radius: 20px;
+      box-shadow: $image-cell-box-shadow;
+      float: left;
+      height: 30px;
+      margin-right: -10px;
+      margin-top: -10px;
+      opacity: 0;
+      position: absolute;
+      right: 0;
+      width: 30px;
+      z-index: 90;
+    }
+  }
+</style>
 
 <script>
 import Icon from '../Icon'
