@@ -39,10 +39,10 @@
     }
 
     .delete {
-      background-color: $gray-600;
+      background-color: #6a6f7b;
       border: 0;
       border-radius: 20px;
-      box-shadow: $image-cell-box-shadow;
+      box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.2);
       float: left;
       height: 30px;
       margin-right: -10px;
