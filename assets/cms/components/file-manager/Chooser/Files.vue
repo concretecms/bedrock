@@ -3,7 +3,7 @@
         <svg v-if="isLoading" class="ccm-loader-dots"><use xlink:href="#icon-loader-circles" /></svg>
         <div v-if="!isLoading">
             <div class="ccm-image-cell-grid container-fluid pl-0" v-if="resultsFormFactor === 'grid'">
-                <div v-for="row in rows" class="row text-center">
+                <div v-for="row in rows" class="row text-center" :key="row.index">
                     <div class="col-md-3" v-for="file in row" :key="file.fID + 'grid'">
                         <div class="ccm-image-cell">
                             <label :for="'file-' + file.fID"><span v-html="file.resultsThumbnailImg"></span></label>
@@ -58,6 +58,10 @@ export default {
             type: String,
             required: false,
             default: 'grid' // grid | list
+        },
+        routePath: {
+            type: String,
+            required: true
         }
     },
     computed: {
@@ -65,31 +69,41 @@ export default {
             return this.rows === false
         }
     },
+    methods: {
+        getFiles() {
+            const my = this
+            new ConcreteAjaxRequest({
+                url: CCM_DISPATCHER_FILENAME + this.$props.routePath,
+                success: function (r) {
+                    if (r.data.length) {
+                        my.rows = []
+                        my.fileList = r.data
+                        let currentRow = []
+                        r.data.forEach(function(image, i) {
+                            currentRow.push(image)
+                            if ((i + 1) % 4 === 0) {
+                                my.rows.push(currentRow)
+                                currentRow = []
+                            }
+                        })
+                        if (currentRow.length) {
+                            my.rows.push(currentRow)
+                        }
+                    }
+                }
+            })
+        }
+    },
     watch: {
         selectedFiles: function(value) {
             this.$emit('update:selectedFiles', value)
+        },
+        routePath: function() {
+            this.getFiles()
         }
     },
     mounted() {
-        var my = this
-        new ConcreteAjaxRequest({
-            url: CCM_DISPATCHER_FILENAME + '/ccm/system/file/chooser/recent',
-            success: function (r) {
-                my.rows = []
-                my.fileList = r.data
-                let currentRow = []
-                r.data.forEach(function(image, i) {
-                    currentRow.push(image)
-                    if ((i + 1) % 4 === 0) {
-                        my.rows.push(currentRow)
-                        currentRow = []
-                    }
-                })
-                if (currentRow.length) {
-                    my.rows.push(currentRow)
-                }
-            }
-        })
+        this.getFiles()
     }
 }
 </script>
