@@ -1,5 +1,43 @@
 /**
- * Page/entity selector
+ * New selector style
+ */
+.ccm-item-selector-group {
+  .btn {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .ccm-item-selector-title {
+    font-weight: normal;
+  }
+
+  .ccm-item-selector-reset {
+    border-left: 0;
+  }
+
+  .ccm-item-selector-loaded {
+
+    a.btn {
+      max-width: 400px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    img {
+      display: inline-block;
+      margin-right: 0.5rem;
+      max-height: 20px;
+      max-width: 20px;
+    }
+
+  }
+
+}
+
+
+/**
+ * Old selector style.
  */
 div.ccm-item-selector {
   background-color: $blue;

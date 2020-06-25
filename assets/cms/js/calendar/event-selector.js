@@ -13,7 +13,7 @@ function ConcreteCalendarEventSelector($element, options) {
 
     my.$element = $element
     my.options = options
-    my._chooseTemplate = _.template(my.chooseTemplate, { options: my.options })
+    my._chooseTemplate = _.template(my.chooseTemplate)({ options: my.options })
     my._loadingTemplate = _.template(my.loadingTemplate)
     my._eventLoadedTemplate = _.template(my.eventLoadedTemplate)
 
