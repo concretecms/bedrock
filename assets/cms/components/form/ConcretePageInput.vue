@@ -75,14 +75,14 @@ export default {
         },
         openChooser: function() {
             var my = this
-            ConcretePageAjaxSearch.launchDialog(function(data) {
+            window.ConcretePageAjaxSearch.launchDialog(function(data) {
                 my.loadPage(data.cID)
             })
         },
         loadPage(cID) {
             var my = this
             my.isLoading = true
-            ConcretePageAjaxSearch.getPageDetails(cID, function(r) {
+            window.ConcretePageAjaxSearch.getPageDetails(cID, function(r) {
                 my.selectedPage = r.pages[0]
                 my.selectedPageId = r.pages[0].cID
                 my.isLoading = false
