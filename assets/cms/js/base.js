@@ -8,6 +8,7 @@ import 'json5'
 import 'jquery.cookie'
 import 'jquery-form'
 import 'bootstrap-select'
+import 'ajax-bootstrap-select'
 import 'dropzone/dist/dropzone'
 
 // jQuery UI components
