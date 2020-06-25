@@ -1,8 +1,8 @@
 <template>
     <div class="ccm-item-selector-group">
-        <input type="hidden" :name="inputName" :value="selectedFileID" />
+        <input type="hidden" :name="inputName" :value="selectedPageId" />
 
-        <div class="ccm-item-selector-choose" v-if="!selectedFile && !isLoading">
+        <div class="ccm-item-selector-choose" v-if="!selectedPage && !isLoading">
             <button type="button" @click="openChooser" class="btn btn-secondary">
                 {{chooseText}}
             </button>
@@ -11,19 +11,18 @@
         <div v-if="isLoading">
             <div class="btn-group">
                 <div class="btn btn-secondary"><svg class="ccm-loader-dots"><use xlink:href="#icon-loader-circles" /></svg></div>
-                <button type="button" @click="selectedFileID = null" class="ccm-item-selector-reset btn btn-secondary">
+                <button type="button" @click="selectedPageId = null" class="ccm-item-selector-reset btn btn-secondary">
                     <i class="fa fa-times-circle"></i>
                 </button>
             </div>
         </div>
 
-        <div class="ccm-item-selector-loaded" v-if="selectedFile !== null">
+        <div class="ccm-item-selector-loaded" v-if="selectedPage !== null">
             <div class="btn-group">
-                <a :href="selectedFile.urlDetail" target="_blank" class="btn btn-secondary">
-                    <span v-html="selectedFile.resultsThumbnailImg"></span>
-                    <span class="ccm-item-selector-title">{{selectedFile.title}}</span>
+                <a :href="selectedPage.url" target="_blank" class="btn btn-secondary">
+                    <span class="ccm-item-selector-title">{{selectedPage.name}}</span>
                 </a>
-                <button type="button" @click="selectedFileID = null" class="ccm-item-selector-reset btn btn-secondary">
+                <button type="button" @click="selectedPageId = null" class="ccm-item-selector-reset btn btn-secondary">
                     <i class="fa fa-times-circle"></i>
                 </button>
             </div>
@@ -37,8 +36,8 @@ export default {
     data() {
         return {
             isLoading: false,
-            selectedFile: null /* json object */,
-            selectedFileID: 0 /* integer */
+            selectedPage: null /* json object */,
+            selectedPageId: 0 /* integer */
         }
     },
     props: {
@@ -46,7 +45,7 @@ export default {
             type: String,
             required: true
         },
-        fileId: {
+        pageId: {
             type: Number
         },
         chooseText: {
@@ -54,38 +53,38 @@ export default {
         }
     },
     watch: {
-        selectedFileID: {
-            immediate: true,
+        selectedPageId: {
             handler(value) {
                 if (value > 0) {
-                    this.loadFile(value)
+                    this.loadPage(value)
                 } else {
-                    this.selectedFile = null
+                    this.selectedPage = null
                 }
+                this.$emit('change', value)
             }
         }
     },
     mounted() {
-        if (this.fileId) {
-            this.selectedFileID = this.fileId
+        if (this.pageId) {
+            this.selectedPageId = this.pageId
         }
     },
     methods: {
-        chooseFile: function(selectedFiles) {
-            this.selectedFileID = selectedFiles[0]
+        choosePage: function(selectedPages) {
+            this.selectedPageId = selectedPages[0]
         },
         openChooser: function() {
             var my = this
-            ConcreteFileManager.launchDialog(function(r) {
-                my.loadFile(r.fID)
+            window.ConcretePageAjaxSearch.launchDialog(function(data) {
+                my.loadPage(data.cID)
             })
         },
-        loadFile(fileId) {
+        loadPage(cID) {
             var my = this
             my.isLoading = true
-            ConcreteFileManager.getFileDetails(fileId, function (r) {
-                my.selectedFile = r.files[0]
-                my.selectedFileID = fileId
+            window.ConcretePageAjaxSearch.getPageDetails(cID, function(r) {
+                my.selectedPage = r.pages[0]
+                my.selectedPageId = r.pages[0].cID
                 my.isLoading = false
             })
         }
