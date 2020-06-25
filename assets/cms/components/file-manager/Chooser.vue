@@ -21,9 +21,10 @@
                     <div key="recent" v-if="activeNavItem === 'recent'">
                         <chooser-header v-bind:resultsFormFactor.sync="resultsFormFactor"
                                         title="Recently Uploaded"></chooser-header>
-                        <recent-files v-bind:selectedFiles.sync="selectedFiles"
-                                      v-bind:resultsFormFactor.sync="resultsFormFactor"
-                                      v-if="activeNavItem === 'recent'" />
+                        <files :selectedFiles.sync="selectedFiles"
+                            :resultsFormFactor.sync="resultsFormFactor"
+                            routePath="/ccm/system/file/chooser/recent"
+                            v-if="activeNavItem === 'recent'" />
                     </div>
 
                     <div key="filemanager" v-if="activeNavItem === 'filemanager'">
@@ -34,7 +35,9 @@
                     <div key="sets" v-if="activeNavItem === 'sets'">
                         <chooser-header v-bind:resultsFormFactor.sync="resultsFormFactor"
                                         title="File Sets"></chooser-header>
-                        Coming Soon
+                        <sets :selectedFiles.sync="selectedFiles"
+                            :resultsFormFactor.sync="resultsFormFactor"
+                            v-if="activeNavItem === 'sets'"/>
                     </div>
                     <div key="presets" v-if="activeNavItem === 'presets'">
                         <chooser-header v-bind:resultsFormFactor.sync="resultsFormFactor"
@@ -66,11 +69,14 @@
 
 <script>
 import ChooserHeader from './Chooser/Header'
-import RecentFiles from './Chooser/RecentFiles'
+import Files from './Chooser/Files'
+import Sets from './Chooser/Sets'
+
 export default {
     components: {
         ChooserHeader,
-        RecentFiles
+        Files,
+        Sets
     },
     props: {
     },
