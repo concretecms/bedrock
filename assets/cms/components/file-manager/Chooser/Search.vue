@@ -46,15 +46,16 @@ export default {
         selectedFiles: function(value) {
             this.$emit('update:selectedFiles', value)
         }
-    },
+    }
 }
 </script>
 
 <style lang="scss" scoped>
 .search-icon {
-    display: inline-block;
-    .icon {
-        font-size:7rem;
-    }
+  display: inline-block;
+
+  .icon {
+    font-size: 7rem;
+  }
 }
 </style>
