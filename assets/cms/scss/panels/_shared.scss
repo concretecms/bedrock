@@ -358,6 +358,33 @@ div.ccm-panel-header-accordion {
   }
 }
 
+/**
+ * Panel search input
+ * Used by both block and container add panel (left hand menu)
+ */
+#ccm-panel-add-block {
+  .ccm-panel-header-search {
+    position: relative;
+
+    input {
+      // lint was rejecting booder: none which is a standard css value
+      border-width: 0;
+      padding: 10px 35px 10px 10px;
+      width: 100%;
+    }
+
+    svg {
+      fill: $gray-600;
+      height: 20px;
+      position: absolute;
+      right: 7px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+    }
+  }
+}
+
 // so far only used in the add blocks panel but it makes more sense styling it here
 .ccm-panel-header-list-grid-view-switcher {
   background-color: $dark;
