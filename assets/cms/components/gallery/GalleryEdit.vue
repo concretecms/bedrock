@@ -46,7 +46,7 @@
             </div>
             <div v-if="activeTab === 'settings'" id="gallerySettings">
                 <h3 class="comingsoon">
-                    Settings Coming Soon
+                    No Options Currently Available.
                 </h3>
             </div>
         </div>
