@@ -11,13 +11,6 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link"
-                    @click="openTab('design')"
-                    :class="activeTab === 'design' ? 'active' : ''">
-                    Design
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"
                     @click="openTab('settings')"
                     :class="activeTab === 'settings' ? 'active' : ''">
                     Settings
@@ -51,11 +44,10 @@
                     <ImageDetail @delete="deleteImage(activeImage)" :image="this.gallery[activeImage]" />
                 </div>
             </div>
-            <div v-if="activeTab === 'design'"  id="galleryDesign">
-                Design Content
-            </div>
-            <div v-if="activeTab === 'settings'"  id="gallerySettings">
-                Settings Content
+            <div v-if="activeTab === 'settings'" id="gallerySettings">
+                <h3 class="comingsoon">
+                    Settings Coming Soon
+                </h3>
             </div>
         </div>
     </div>
@@ -63,6 +55,19 @@
 
 <style lang="scss" scoped>
 .ccm-gallery-edit {
+  .comingsoon {
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 100px;
+  }
+
   .nav {
     .nav-tab {
       display: flex;
@@ -74,6 +79,7 @@
 
       .nav-link {
         border-color: #f4f4f4;
+        cursor: pointer;
 
         &.active {
           border-color: #4a90e2;
