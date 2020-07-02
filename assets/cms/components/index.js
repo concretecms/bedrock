@@ -1,4 +1,6 @@
 import { ToggleButton } from 'vue-js-toggle-button'
+import VCalendar from 'v-calendar/lib/components/calendar.umd'
+import VDatePicker from 'v-calendar/lib/components/date-picker.umd'
 import Toggle from './form/Toggle'
 import ContextMenu from './menu/ContextMenu'
 import MenuButton from './menu/MenuButton'
@@ -15,6 +17,8 @@ import BoardSlot from './BoardSlot'
 
 // Export our component library
 export default {
+    VCalendar,
+    VDatePicker,
     Toggle,
     ToggleButton,
     ContextMenu,
