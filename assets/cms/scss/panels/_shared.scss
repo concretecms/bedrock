@@ -364,6 +364,7 @@ div.ccm-panel-header-accordion {
  */
 #ccm-panel-add-block {
   .ccm-panel-header-search {
+    margin-bottom: $form-group-margin-bottom;
     position: relative;
 
     input {
