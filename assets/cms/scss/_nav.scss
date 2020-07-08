@@ -1,7 +1,12 @@
-.nav {
-  .nav-item {
+div.ccm-ui {
+  .nav {
     a.nav-link {
       color: $gray-400;
+      transition: $btn-transition;
+
+      &:hover {
+        color: $gray-800;
+      }
 
       &.active {
         color: $blue;

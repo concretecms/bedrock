@@ -11,5 +11,16 @@
   opacity: 0;
 }
 
+/**
+ * Deleting items
+ */
+.concrete-delete-item-enter-active,
+.concrete-delete-item-leave-active {
+  transition: opacity 0.15s ease-out;
+}
 
+.concrete-delete-item-enter,
+.concrete-delete-item-leave-to {
+  opacity: 0;
+}
 
