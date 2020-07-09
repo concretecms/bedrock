@@ -47,7 +47,9 @@
                     <div key="search" v-if="activeNavItem === 'search'">
                         <chooser-header v-bind:resultsFormFactor.sync="resultsFormFactor"
                                         title="Search"></chooser-header>
-                        Coming Soon
+                        <search :selectedFiles.sync="selectedFiles"
+                            :resultsFormFactor.sync="resultsFormFactor"
+                            v-if="activeNavItem === 'search'"/>
                     </div>
                     <div key="upload" v-if="activeNavItem === 'upload'">
                         <chooser-header title="File Manager" :showListSelector="false"></chooser-header>
@@ -71,12 +73,14 @@
 import ChooserHeader from './Chooser/Header'
 import Files from './Chooser/Files'
 import Sets from './Chooser/Sets'
+import Search from './Chooser/Search'
 
 export default {
     components: {
         ChooserHeader,
         Files,
-        Sets
+        Sets,
+        Search
     },
     props: {
     },
