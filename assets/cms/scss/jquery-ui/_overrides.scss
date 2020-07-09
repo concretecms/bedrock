@@ -22,10 +22,6 @@ html.ccm-toolbar-visible {
     &.ui-widget-content {
       border: none;
       border-radius: $modal-content-border-radius;
-
-      a {
-        color: $link-color;
-      }
     }
 
     .ui-dialog-content {
