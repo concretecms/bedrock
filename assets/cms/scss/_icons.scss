@@ -1,6 +1,8 @@
-a.icon-link i.fa {
-  color: $body-color;
-  text-decoration: none;
+a.icon-link {
+  i {
+    color: $gray-600;
+    text-decoration: none;
+  }
 }
 
 a.icon-link.launch-tooltip {
