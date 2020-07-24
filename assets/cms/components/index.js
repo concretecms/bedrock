@@ -12,6 +12,7 @@ import ConcreteFileInput from './form/ConcreteFileInput'
 import ConcretePageInput from './form/ConcretePageInput'
 import ConcreteEventOccurrenceInput from './form/ConcreteEventOccurrenceInput'
 import ConcreteFileChooser from './file-manager/Chooser'
+import ConcreteSitemapSearch from './sitemap/SitemapSearch'
 import Board from './Board'
 import BoardSlot from './BoardSlot'
 
@@ -30,6 +31,7 @@ export default {
     ConcreteFileChooser,
     ConcreteFileInput,
     ConcretePageInput,
+    ConcreteSitemapSearch,
     ConcreteEventOccurrenceInput,
     Board,
     BoardSlot
