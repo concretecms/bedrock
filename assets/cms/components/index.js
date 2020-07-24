@@ -12,6 +12,7 @@ import ConcreteFileInput from './form/ConcreteFileInput'
 import ConcretePageInput from './form/ConcretePageInput'
 import ConcreteEventOccurrenceInput from './form/ConcreteEventOccurrenceInput'
 import ConcreteFileChooser from './file-manager/Chooser'
+import ConcreteGroupChooser from './groups/Chooser'
 import Board from './Board'
 import BoardSlot from './BoardSlot'
 
@@ -29,6 +30,7 @@ export default {
     IconButton,
     ConcreteFileChooser,
     ConcreteFileInput,
+    ConcreteGroupChooser,
     ConcretePageInput,
     ConcreteEventOccurrenceInput,
     Board,
