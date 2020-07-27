@@ -19,19 +19,19 @@
 </template>
 
 <script>
-    import Icon from '../Icon';
-    import PageList from './PageList';
+import Icon from '../../Icon'
+import PageList from './../PageList'
 
-    export default {
-        components: {PageList, Icon},
-        props: {
-            chooseText: String,
-        },
-        data: () => ({
-            keyword: '',
-            routePath: '/ccm/system/page/search/'
-        }),
-    };
+export default {
+    components: { PageList, Icon },
+    props: {
+        chooseText: String
+    },
+    data: () => ({
+        keyword: '',
+        routePath: '/ccm/system/page/chooser/search/'
+    })
+}
 </script>
 
 <style lang="scss" scoped>
