@@ -94,13 +94,35 @@
   }
 }
 
+#ccm-dialog-attributes-container {
+  display: block;
+  float: left;
+  width: 100%;
+}
+
+#ccm-dialog-attributes-menu {
+  display: block;
+  float: left;
+  margin: 0;
+  padding: 0;
+  width: 30%;
+}
+
+#ccm-dialog-attributes-detail {
+  display: block;
+  float: left;
+  margin: 0 0 0 65px;
+  padding: 0;
+  width: calc(70% - 65px);
+}
+
 /**
  * Attributes Details Page
  */
 #ccm-detail-page-attributes {
   h3 {
     margin-bottom: 40px;
-    margin-left: 15px;
+    margin-left: 0;
   }
 
   .ccm-detail-page-attributes-id {
@@ -110,8 +132,8 @@
   // Fixed and selectable attributes
   .form-group {
     opacity: 1;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-left: 0;
+    padding-right: 0;
     transition: $transition-fade;
 
     .col-form-label {
