@@ -54,6 +54,7 @@
 </template>
 
 <script>
+/* eslint-disable no-new */
 export default {
     components: {
     },
@@ -62,7 +63,7 @@ export default {
             type: String,
             required: false,
             default: 'default' /* values are default or select */
-        },
+        }
     },
     data() {
         return {
@@ -82,13 +83,13 @@ export default {
             if (my.mode === 'select') {
                 options.onClick = function(node) {
                     if (node.data.gID) {
-                        my.triggerSelect(node.data.gID, node.title);
+                        my.triggerSelect(node.data.gID, node.title)
                     } else {
-                        return false;
+                        return false
                     }
                 }
             }
-            $('[data-tree=group]').concreteTree(options);
+            $('[data-tree=group]').concreteTree(options)
         }
     },
     mounted() {
@@ -97,7 +98,7 @@ export default {
             method: 'POST',
             url: CCM_DISPATCHER_FILENAME + '/ccm/system/group/chooser/tree',
             data: {
-                ccm_token: CCM_SECURITY_TOKEN,
+                ccm_token: CCM_SECURITY_TOKEN
             },
             success: function (r) {
                 my.treeID = r.treeID
@@ -110,12 +111,12 @@ export default {
                 window.location.href = CCM_DISPATCHER_FILENAME + '/dashboard/users/groups/edit/' + group.gID
             }
             if (this.mode === 'select') {
-                this.triggerSelect(group.gID, group.gDisplayName);
+                this.triggerSelect(group.gID, group.gDisplayName)
             }
         },
         triggerSelect(gID, gName) {
-            ConcreteEvent.publish('SelectGroup', {gID: gID, gName: gName});
-            this.$emit('select', {gID: gID, gName: gName})
+            ConcreteEvent.publish('SelectGroup', { gID: gID, gName: gName })
+            this.$emit('select', { gID: gID, gName: gName })
         },
         performSearch(event) {
             this.searchSubmitted = 'searching'
