@@ -57,7 +57,7 @@ export default {
             new ConcreteAjaxRequest({
                 url: CCM_DISPATCHER_FILENAME + this.$props.routePath,
                 error: function(r) {
-                    ConcreteAlert.dialog(ccmi18n.error, ConcreteAjaxRequest.errorResponseToString(r));
+                    ConcreteAlert.dialog(ccmi18n.error, ConcreteAjaxRequest.errorResponseToString(r))
                 },
                 success: function (r) {
                     if (r.data.length) {
@@ -70,10 +70,10 @@ export default {
         },
         sortBy(column) {
             if (column === this.sortByColumn) {
-                this.sortByDirection = this.sortByDirection === 'asc' ? 'desc' : 'asc';
+                this.sortByDirection = this.sortByDirection === 'asc' ? 'desc' : 'asc'
             }
 
-            this.sortByColumn = column;
+            this.sortByColumn = column
         },
         getSortColumnClassName(column) {
             let className = ''
@@ -86,7 +86,7 @@ export default {
     },
     computed: {
         sortedUserList() {
-            const sorted = _.sortBy(this.userList, this.sortByColumn);
+            const sorted = _.sortBy(this.userList, this.sortByColumn)
 
             if (this.sortByDirection === 'desc') {
                 return sorted.reverse()
@@ -98,7 +98,7 @@ export default {
     watch: {
         selectedUsers(value) {
             if (!Array.isArray(value)) {
-                value = [value];
+                value = [value]
             }
 
             this.$emit('update:selectedUsers', value)
