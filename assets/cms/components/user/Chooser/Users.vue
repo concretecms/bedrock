@@ -2,19 +2,19 @@
     <div>
         <svg v-if="isLoading" class="ccm-loader-dots"><use xlink:href="#icon-loader-circles" /></svg>
         <div v-if="!isLoading">
-            <table class="table ccm-image-chooser-list-view">
+            <table class="ccm-search-results-table">
                 <thead>
                     <tr>
                         <th></th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Date</th>
+                        <th @click="sortBy('name')" :class="getSortColumnClassName('name')"><a href="javascript:void(0)">Username</a></th>
+                        <th @click="sortBy('email')" :class="getSortColumnClassName('email')"><a href="javascript:void(0)">Email</a></th>
+                        <th @click="sortBy('dateAdded')" :class="getSortColumnClassName('dateAdded')"><a href="javascript:void(0)">Date</a></th>
                         <th>Status</th>
-                        <th># Logins</th>
+                        <th @click="sortBy('totalLogins')" :class="getSortColumnClassName('totalLogins')"><a href="javascript:void(0)"># Logins</a></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="user in userList" :key="user.id + 'list'">
+                    <tr v-for="user in sortedUserList" :key="user.id + 'list'">
                         <td><input v-model="selectedUsers" :type="multipleSelection ? 'checkbox' : 'radio'" :id="'user-' + user.id" :value="user.id"></td>
                         <td>{{user.name}}</td>
                         <td>{{user.email}}</td>
@@ -35,7 +35,9 @@ export default {
         return {
             isLoading: true,
             userList: [],
-            selectedUsers: []
+            selectedUsers: [],
+            sortByColumn: 'dateAdded',
+            sortByDirection: 'desc'
         }
     },
     props: {
@@ -65,17 +67,43 @@ export default {
                     my.isLoading = false
                 }
             })
+        },
+        sortBy(column) {
+            if (column === this.sortByColumn) {
+                this.sortByDirection = this.sortByDirection === 'asc' ? 'desc' : 'asc';
+            }
+
+            this.sortByColumn = column;
+        },
+        getSortColumnClassName(column) {
+            let className = ''
+            if (column === this.sortByColumn) {
+                className = `ccm-results-list-active-sort-${this.sortByDirection}`
+            }
+
+            return className
+        }
+    },
+    computed: {
+        sortedUserList() {
+            const sorted = _.sortBy(this.userList, this.sortByColumn);
+
+            if (this.sortByDirection === 'desc') {
+                return sorted.reverse()
+            }
+
+            return sorted
         }
     },
     watch: {
-        selectedUsers: function(value) {
+        selectedUsers(value) {
             if (!Array.isArray(value)) {
                 value = [value];
             }
 
             this.$emit('update:selectedUsers', value)
         },
-        routePath: function() {
+        routePath() {
             this.getUsers()
         }
     },
