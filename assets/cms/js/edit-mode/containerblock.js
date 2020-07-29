@@ -23,8 +23,8 @@ import _ from 'underscore'
 
         bindDelete: function ContainerBlockDelete() {
             var my = this
-            var deleter = my.getElem().find('a[data-inline-command=delete-block')
-            deleter.on('click', function() {
+            var deleter = my.getElem().find('a[data-inline-command=delete-block]')
+            deleter.on('click.containerDelete', function() {
                 my.delete()
             })
         },
