@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <div class="ccm-ui">
         <div class="form-inline mt-3 mb-1">
             <div class="form-group ml-auto">
                 <label class="mr-2">Search</label>
-                <input class="form-control" v-model="keyword" />
+                <input type="search" v-model="keyword" class="form-control" autocomplete="off">
             </div>
         </div>
         <div v-show="!keyword" class="text-center mt-5">
