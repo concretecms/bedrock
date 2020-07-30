@@ -136,9 +136,10 @@ div#ccm-intelligent-search-results {
     a {
       border-color: transparent;
       color: #888;
-      display: block;
       padding: 1px 15px;
       text-decoration: none;
+      display: inline-block;
+      white-space: pre-wrap;
     }
 
     a:hover {
