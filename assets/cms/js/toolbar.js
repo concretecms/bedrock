@@ -239,8 +239,7 @@
 
                 $.getJSON(CCM_DISPATCHER_FILENAME + '/ccm/system/marketplace/search', {
                     q: remotesearchquery
-                },
-                function(r) {
+                }).done(function(r) {
                     $('#ccm-intelligent-search-results-list-marketplace').parent().addClass('ccm-intelligent-search-results-module-loaded')
                     $('#ccm-intelligent-search-results-list-marketplace').html('')
                     for (var i = 0; i < r.length; i++) {
@@ -256,14 +255,13 @@
                         $('#ccm-intelligent-search-results li:visible a:first').addClass('ccm-intelligent-search-result-selected')
                     }
                     activateIntelligentSearchResults()
-                }).error(function() {
+                }).fail(function() {
                     $('#ccm-intelligent-search-results-list-marketplace').parent().hide()
                 })
 
                 $.getJSON(CCM_DISPATCHER_FILENAME + '/ccm/system/backend/get_remote_help', {
                     q: remotesearchquery
-                },
-                function(r) {
+                }).done(function(r) {
                     $('#ccm-intelligent-search-results-list-help').parent().addClass('ccm-intelligent-search-results-module-loaded')
                     $('#ccm-intelligent-search-results-list-help').html('')
                     for (var i = 0; i < r.length; i++) {
@@ -278,14 +276,13 @@
                         $('#ccm-intelligent-search-results li:visible a:first').addClass('ccm-intelligent-search-result-selected')
                     }
                     activateIntelligentSearchResults()
-                }).error(function() {
+                }).fail(function() {
                     $('#ccm-intelligent-search-results-list-help').parent().hide()
                 })
 
                 $.getJSON(CCM_DISPATCHER_FILENAME + '/ccm/system/backend/intelligent_search', {
                     q: remotesearchquery
-                },
-                function(r) {
+                }).done(function(r) {
                     $('#ccm-intelligent-search-results-list-your-site').parent().addClass('ccm-intelligent-search-results-module-loaded')
                     $('#ccm-intelligent-search-results-list-your-site').html('')
                     for (var i = 0; i < r.length; i++) {
@@ -300,7 +297,7 @@
                         $('#ccm-intelligent-search-results li:visible a:first').addClass('ccm-intelligent-search-result-selected')
                     }
                     activateIntelligentSearchResults()
-                }).error(function() {
+                }).fail(function() {
                     $('#ccm-intelligent-search-results-list-your-site').parent().hide()
                 })
             }, 500)
