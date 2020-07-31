@@ -13,7 +13,9 @@
             <p><b>Let's get some info on what you're looking for.</b></p>
         </div>
         <div>
-            <PageList v-if="this.keyword" :routePath="this.routePath + this.keyword"/>
+            <PageList v-if="this.keyword"
+                      :routePath="this.routePath + this.keyword"
+                      @click="page => choosePage(page)"/>
         </div>
     </div>
 </template>
@@ -30,7 +32,16 @@ export default {
     data: () => ({
         keyword: '',
         routePath: '/ccm/system/page/chooser/search/'
-    })
+    }),
+    methods: {
+        choosePage (page) {
+            window.ConcreteEvent.publish('SitemapSelectPage', {
+                instance: this,
+                cID: page.cID,
+                title: page.name
+            })
+        }
+    }
 }
 </script>
 

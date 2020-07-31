@@ -14,7 +14,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="page in pageList" :key="page.cID + 'list'">
+            <tr v-for="page in pageList" :key="page.cID + 'list'" @click="choosePage(page)">
                 <td>{{page.type}}</td>
                 <td>{{page.name}}</td>
                 <td>{{page.datePublic}}</td>
@@ -56,6 +56,15 @@
                         }
                     }
                 });
+            },
+
+            /**
+             * After clicking signal the parent component a click took place on
+             * a page row and send the cID of the clicked page.
+             * @param {Object} page - Page object with all of the properties that the list has available
+             */
+            choosePage (page) {
+                this.$emit('click', page);
             }
         },
         watch: {
