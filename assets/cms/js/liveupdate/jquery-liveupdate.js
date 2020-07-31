@@ -90,7 +90,7 @@
                     var val = $(this).find('a,span').html().toLowerCase()
                     self.cache.push(val)
                 } else if (lutype == 'fileset') {
-                    self.cache.push($(this).find('span[data-label=file-set-name]').html().toLowerCase())
+                    self.cache.push($(this).find('label.form-check-label').html().toLowerCase())
                 } else if (lutype == 'folder') {
                     self.cache.push($(this).find('span[data-label=folder-name]').html().toLowerCase())
                 } else if (lutype == 'intelligent-search') {
