@@ -26,9 +26,6 @@ import PageList from './../PageList'
 
 export default {
     components: { PageList, Icon },
-    props: {
-        chooseText: String
-    },
     data: () => ({
         keyword: '',
         routePath: '/ccm/system/page/chooser/search/'
