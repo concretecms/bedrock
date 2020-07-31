@@ -3,7 +3,7 @@
         <svg v-if="isLoading" class="ccm-loader-dots">
             <use xlink:href="#icon-loader-circles"/>
         </svg>
-        <table v-else class="table ccm-page-list-view">
+        <table v-else class="table ccm-page-list-view ccm-search-results-table">
             <thead>
             <tr>
                 <th>Type</th>
@@ -14,7 +14,11 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="page in pageList" :key="page.cID + 'list'" @click="choosePage(page)">
+            <tr v-for="page in pageList" :key="page.cID + 'list'"
+                @click="choosePage(page)"
+                @mouseover="mouseOver = page.cID"
+                @mouseout="mouseOver = 0"
+                :class="{'ccm-search-select-hover': mouseOver === page.cID}">
                 <td>{{page.type}}</td>
                 <td>{{page.name}}</td>
                 <td>{{page.datePublic}}</td>
@@ -28,12 +32,14 @@
 
 <script>
 /**
- * @vue-data {false|Array<Object>} pageList - pages to display. When not yet initialised this is set to false.
- * @vue-prop {String} routePath - Origin for pageList data which is fetched by ConcreteAjaxRequest
+ * @vue-data {false|Array<Object>} pageList - Pages to display. When not yet initialised this is set to false.
+ * @vue-data {Number} mouseOver - Contains cID of the page row that the mouse hovers over for adding a hover class name.
+ * @vue-prop {String} routePath - Origin for pageList data which is fetched by ConcreteAjaxRequest.
  */
 export default {
     data: () => ({
-        pageList: false
+        pageList: false,
+        mouseOver: 0,
     }),
     props: {
         routePath: {
