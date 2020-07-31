@@ -39,7 +39,7 @@
 export default {
     data: () => ({
         pageList: false,
-        mouseOver: 0,
+        mouseOver: 0
     }),
     props: {
         routePath: {
@@ -54,10 +54,10 @@ export default {
     },
     methods: {
         /**
-          * Retrieves pages from the routePath url. On success this updates
-          * this.pageList. That triggers Vue to rerender search result
-          * @returns ConcreteAjaxRequest - The request that performs the fetch and updates this.pageList
-          */
+         * Retrieves pages from the routePath url. On success this updates
+         * this.pageList. That triggers Vue to rerender search result
+         * @returns ConcreteAjaxRequest - The request that performs the fetch and updates this.pageList
+         */
         fetchPages () {
             return new ConcreteAjaxRequest({
                 url: CCM_DISPATCHER_FILENAME + this.$props.routePath,
