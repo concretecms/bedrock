@@ -47,7 +47,7 @@
              * Retrieves pages from the routePath url. On success this updates
              * this.pageList. That triggers Vue to rerender search result
              */
-            getPages () {
+            fetchPages () {
                 new ConcreteAjaxRequest({
                     url: CCM_DISPATCHER_FILENAME + this.$props.routePath,
                     success: r => {
@@ -68,12 +68,12 @@
             }
         },
         watch: {
-            routePath: function () {
-                this.getPages();
+            routePath: () => {
+                this.fetchPages();
             }
         },
         mounted () {
-            this.getPages();
+            this.fetchPages();
         }
     };
 </script>
