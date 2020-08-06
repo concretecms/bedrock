@@ -1,0 +1,23 @@
+.ccm-ui {
+    div.ccm-page-chooser-search-view {
+        .ccm-panel-header-search {
+            position: relative;
+
+            svg {
+                cursor: pointer;
+                fill: #6a6f7b;
+                height: 20px;
+                position: absolute;
+                right: 7px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 20px;
+            }
+        }
+
+        .form-control {
+            padding: 10px 35px 10px 10px;
+            width: 100%;
+        }
+    }
+}

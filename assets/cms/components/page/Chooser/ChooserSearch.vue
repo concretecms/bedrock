@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="ccm-page-chooser-search-view">
         <div class="form-inline mt-3">
             <div class="form-group">
                 <div class="ccm-panel-header-search">
