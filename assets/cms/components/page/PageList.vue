@@ -57,7 +57,7 @@ export default {
         pagination: {
             total: 0,
             count: 0,
-            per_page: 2,
+            per_page: 20,
             current_page: 1,
             total_pages: 0
         }
