@@ -94,6 +94,8 @@ export default {
 
             this.orderBy = sortField
 
+            this.fetchPages()
+
             // Cancel href click
             event.stopPropagation()
         },
@@ -142,14 +144,6 @@ export default {
     },
     watch: {
         currentPage () {
-            this.fetchPages()
-        },
-
-        orderBy () {
-            this.fetchPages()
-        },
-
-        orderByDirection () {
             this.fetchPages()
         },
 
