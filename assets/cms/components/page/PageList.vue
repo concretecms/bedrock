@@ -41,19 +41,24 @@
 import BootstrapPagination from '../BootstrapPagination'
 
 /**
- * @vue-data {false|Array<Object>} pageList - Pages to display. When not yet initialised this is set to false.
+ * @vue-data {Number} currentPage - Number of the page that is displayed and highlighted in pagination.
+ * @vue-data {String} latestSearchID - ID that helps to only display the most recently requested search result.
  * @vue-data {Number} mouseOver - Contains cID of the page row that the mouse hovers over for adding a hover class name.
+ * @vue-data {String} orderBy - Sort column name.
+ * @vue-data {String} orderByDirection - Sort direction desc/asc.
+ * @vue-data {false|Array<Object>} pageList - Pages to display. When not yet initialised this is set to false.
+ * @vue-data {Object} pagination - Data on pagination that is passed to pagination component.
  * @vue-prop {String} [keywords] - Optional search parameter
  * @vue-prop {String} routePath - Origin for pageList data which is fetched by ConcreteAjaxRequest.
  */
 export default {
     components: { BootstrapPagination },
     data: () => ({
+        currentPage: 1,
         latestSearchID: null,
         mouseOver: 0,
         orderBy: 'c.cDateModified',
         orderByDirection: 'desc',
-        currentPage: 1,
         pageList: false,
         pagination: {
             total: 0,
