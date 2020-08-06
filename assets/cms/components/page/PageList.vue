@@ -49,6 +49,7 @@ import BootstrapPagination from '../BootstrapPagination'
 export default {
     components: { BootstrapPagination },
     data: () => ({
+        latestSearchID: null,
         mouseOver: 0,
         orderBy: 'c.cDateModified',
         orderByDirection: 'desc',
@@ -103,6 +104,8 @@ export default {
          * @returns ConcreteAjaxRequest - The request that performs the fetch and updates this.pageList
          */
         fetchPages () {
+            const currentSearch = Math.random().toString(36).slice(2);
+            this.latestSearchID = currentSearch;
             return new ConcreteAjaxRequest({
                 url: CCM_DISPATCHER_FILENAME + this.$props.routePath + this.keywords +
                         '?ccm_order_by=' + this.orderBy +
@@ -110,8 +113,8 @@ export default {
                         '&ccm_paging_p=' + this.currentPage +
                         '&itemsPerPage=' + this.pagination.per_page,
                 success: response => {
-                    // Check the results match the highlighted page number (this might be a delayed result)
-                    if (response.meta && response.meta.pagination && response.meta.pagination.current_page !== this.currentPage) {
+                    // Do not update if the id is not the most recent search (the response might be a delayed result)
+                    if (this.latestSearchID !== currentSearch) {
                         return
                     }
 
