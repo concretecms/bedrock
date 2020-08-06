@@ -1,9 +1,13 @@
 <template>
     <div>
         <div class="form-inline mt-3">
-            <div class="form-group ml-auto">
-                <label class="mr-2">Search</label>
-                <input class="form-control" v-model="keywords"/>
+            <div class="form-group">
+                <div class="ccm-panel-header-search">
+                    <svg @click="onClickSearchButton">
+                        <use xlink:href="#icon-search"></use>
+                    </svg>
+                    <input type="text" class="form-control" placeholder="Search" autocomplete="false" @keypress="onKeypress($event)" v-model="searchText">
+                </div>
             </div>
         </div>
         <div v-show="!keywords" class="text-center mt-5">
@@ -29,10 +33,19 @@
     export default {
         components: {Icon, PageList},
         data: () => ({
+            searchText: '',
             keywords: '',
             routePath: '/ccm/system/page/chooser/search/'
         }),
         methods: {
+            onClickSearchButton () {
+                this.keywords = this.searchText;
+            },
+            onKeypress (event) {
+                if (event.keyCode === 13) {
+                    this.keywords = this.searchText;
+                }
+            },
             choosePage (page) {
                 window.ConcreteEvent.publish('SitemapSelectPage', {
                     instance: this,
