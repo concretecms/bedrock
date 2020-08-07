@@ -27,34 +27,34 @@
 </template>
 
 <script>
-    import Icon from '../../Icon';
-    import PageList from './../PageList';
+import Icon from '../../Icon'
+import PageList from './../PageList'
 
-    export default {
-        components: {Icon, PageList},
-        data: () => ({
-            searchText: '',
-            keywords: '',
-            routePath: '/ccm/system/page/chooser/search/'
-        }),
-        methods: {
-            onClickSearchButton () {
-                this.keywords = this.searchText;
-            },
-            onKeypress (event) {
-                if (event.keyCode === 13) {
-                    this.keywords = this.searchText;
-                }
-            },
-            choosePage (page) {
-                window.ConcreteEvent.publish('SitemapSelectPage', {
-                    instance: this,
-                    cID: page.cID,
-                    title: page.name
-                });
+export default {
+    components: { Icon, PageList },
+    data: () => ({
+        searchText: '',
+        keywords: '',
+        routePath: '/ccm/system/page/chooser/search/'
+    }),
+    methods: {
+        onClickSearchButton () {
+            this.keywords = this.searchText
+        },
+        onKeypress (event) {
+            if (event.keyCode === 13) {
+                this.keywords = this.searchText
             }
+        },
+        choosePage (page) {
+            window.ConcreteEvent.publish('SitemapSelectPage', {
+                instance: this,
+                cID: page.cID,
+                title: page.name
+            })
         }
-    };
+    }
+}
 </script>
 
 <style lang="scss" scoped>

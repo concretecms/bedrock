@@ -111,8 +111,8 @@ export default {
          * @returns ConcreteAjaxRequest - The request that performs the fetch and updates this.pageList
          */
         fetchPages () {
-            const currentSearch = Math.random().toString(36).slice(2);
-            this.latestSearchID = currentSearch;
+            const currentSearch = Math.random().toString(36).slice(2)
+            this.latestSearchID = currentSearch
             return new ConcreteAjaxRequest({
                 url: CCM_DISPATCHER_FILENAME + this.$props.routePath + this.keywords +
                         '?ccm_order_by=' + this.orderBy +
