@@ -1,12 +1,16 @@
 <template>
-    <header>
-        <button type="button" @click="toggleFormFactor" v-if="showFormFactorSelector"
-                class="btn btn-sm float-right btn-secondary">
-            <i v-if="resultsFormFactor === 'grid'" class="fas fa-th"></i>
-            <i v-if="resultsFormFactor === 'list'" class="fas fa-list"></i>
-        </button>
-        <h5>{{title}}</h5>
-    </header>
+    <div class="row">
+        <div class="mb-3 col-sm-12">
+            <header>
+                <button type="button" @click="toggleFormFactor" v-if="showFormFactorSelector"
+                        class="btn btn-sm float-right btn-secondary">
+                    <i v-if="resultsFormFactor === 'grid'" class="fas fa-th"></i>
+                    <i v-if="resultsFormFactor === 'list'" class="fas fa-list"></i>
+                </button>
+                <h5>{{title}}</h5>
+            </header>
+        </div>
+    </div>
 </template>
 
 <script>

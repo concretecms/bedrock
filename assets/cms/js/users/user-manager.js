@@ -10,9 +10,9 @@ class ConcreteUserManager {
         $.fn.dialog.open({
             title: ccmi18n.chooseUser,
             href: `${CCM_DISPATCHER_FILENAME}/ccm/system/dialogs/user/search`,
-            width: '90%',
+            width: '740px',
             modal: true,
-            height: '70%',
+            height: '600px',
             data: options,
             onOpen: function() {
                 ConcreteEvent.unsubscribe('UserSearchDialogSelectUser.core')

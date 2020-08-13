@@ -1,22 +1,32 @@
 <template>
     <div class="ccm-ui">
-        <div class="form-inline mt-3 mb-1">
-            <div class="form-group ml-auto">
-                <label class="mr-2">Search</label>
-                <input type="search" v-model="keyword" class="form-control" autocomplete="off">
+        <div class="row mb-3">
+            <div class="col-md-6 ml-auto">
+                <form @submit.prevent="search">
+                    <div class="ccm-header-search-form-input input-group">
+                        <input type="text" class="form-control border-right-0" placeholder="Search" autocomplete="false" v-model="searchText">
+                        <div class="input-group-append">
+                            <button type="submit" class="input-group-icon">
+                                <svg width="16" height="16">
+                                    <use xlink:href="#icon-search"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-        <div v-show="!keyword" class="text-center mt-5">
+        <div v-show="!keywords" class="text-center mt-5">
             <span class="search-icon my-4">
                 <Icon icon="search" type="fas" color="#f4f4f4"/>
             </span>
             <p><b>Let's get some info on what you're looking for.</b></p>
         </div>
         <div>
-            <users v-if="this.keyword"
+            <users v-if="keywords"
                 :selectedUsers.sync="selectedUsers"
                 :multipleSelection="multipleSelection"
-                :routePath="this.routePath + this.keyword"/>
+                :routePath="this.routePath + keywords"/>
         </div>
     </div>
 </template>
@@ -31,10 +41,16 @@ export default {
         Users
     },
     data: () => ({
-        keyword: '',
+        keywords: '',
+        searchText: '',
         selectedUsers: [],
         routePath: '/ccm/system/user/chooser/search/'
     }),
+    methods: {
+        search () {
+            this.keywords = this.searchText
+        }
+    },
     props: {
         multipleSelection: {
             type: Boolean,

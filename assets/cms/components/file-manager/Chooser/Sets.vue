@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="form-inline mt-3">
+        <div class="form-inline">
             <div class="form-group ml-auto">
                 <label class="mr-2">File Set</label>
                 <select class="form-control file-set-menu" v-model="activeSet">
