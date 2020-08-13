@@ -9,6 +9,7 @@ import MenuItem from './menu/MenuItem'
 import Icon from './Icon'
 import IconButton from './IconButton'
 import ConcreteFileInput from './form/ConcreteFileInput'
+import ConcretePageChooserSearch from './page/Chooser/ChooserSearch'
 import ConcretePageInput from './form/ConcretePageInput'
 import ConcreteUserInput from './form/ConcreteUserInput'
 import ConcreteEventOccurrenceInput from './form/ConcreteEventOccurrenceInput'
@@ -34,6 +35,7 @@ export default {
     ConcreteFileChooser,
     ConcreteFileInput,
     ConcreteGroupChooser,
+    ConcretePageChooserSearch,
     ConcretePageInput,
     ConcreteUserInput,
     ConcreteEventOccurrenceInput,
