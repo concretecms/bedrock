@@ -1,13 +1,19 @@
 <template>
     <div class="ccm-page-chooser-search-view">
-        <div class="form-inline mt-3">
-            <div class="form-group">
-                <div class="ccm-panel-header-search">
-                    <svg @click="onClickSearchButton">
-                        <use xlink:href="#icon-search"></use>
-                    </svg>
-                    <input type="text" class="form-control" placeholder="Search" autocomplete="false" @keypress="onKeypress($event)" v-model="searchText">
-                </div>
+        <div class="row mb-3">
+            <div class="col-md-4 ml-auto">
+                <form @submit.prevent="search">
+                    <div class="ccm-header-search-form-input input-group">
+                        <input type="text" class="form-control border-right-0" placeholder="Search" autocomplete="false" v-model="searchText">
+                        <div class="input-group-append">
+                            <button type="submit" class="input-group-icon">
+                                <svg width="16" height="16">
+                                    <use xlink:href="#icon-search"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
         <div v-show="!keywords" class="text-center mt-5">
@@ -38,13 +44,8 @@ export default {
         routePath: '/ccm/system/page/chooser/search/'
     }),
     methods: {
-        onClickSearchButton () {
+        search () {
             this.keywords = this.searchText
-        },
-        onKeypress (event) {
-            if (event.keyCode === 13) {
-                this.keywords = this.searchText
-            }
         },
         choosePage (page) {
             window.ConcreteEvent.publish('SitemapSelectPage', {

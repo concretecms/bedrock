@@ -1,22 +1,32 @@
 <template>
     <div>
-        <div class="form-inline mt-3">
-            <div class="form-group ml-auto">
-                <label class="mr-2">Search</label>
-                <input class="form-control" v-model="keyword" />
+        <div class="row mb-3">
+            <div class="col-md-4 ml-auto">
+                <form @submit.prevent="search">
+                    <div class="ccm-header-search-form-input input-group">
+                        <input type="text" class="form-control border-right-0" placeholder="Search" autocomplete="false" v-model="searchText">
+                        <div class="input-group-append">
+                            <button type="submit" class="input-group-icon">
+                                <svg width="16" height="16">
+                                    <use xlink:href="#icon-search"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-        <div v-show="!keyword" class="text-center mt-5">
+        <div v-show="!keywords" class="text-center mt-5">
             <span class="search-icon my-4">
                 <Icon icon="search" type="fas" color="#f4f4f4"/>
             </span>
             <p><b>Let's get some info on what you're looking for.</b></p>
         </div>
         <div>
-            <files v-if="this.keyword"
+            <files v-if="keywords"
                 :selectedFiles.sync="selectedFiles"
                 :resultsFormFactor="this.$props.resultsFormFactor"
-                :routePath="this.routePath + this.keyword"/>
+                :routePath="this.routePath + this.keywords"/>
         </div>
     </div>
 </template>
@@ -31,7 +41,8 @@ export default {
         Files
     },
     data: () => ({
-        keyword: '',
+        searchText: '',
+        keywords: '',
         selectedFiles: [],
         routePath: '/ccm/system/file/chooser/search/'
     }),
@@ -40,6 +51,11 @@ export default {
             type: String,
             required: false,
             default: 'grid' // grid | list
+        }
+    },
+    methods: {
+        search () {
+            this.keywords = this.searchText
         }
     },
     watch: {

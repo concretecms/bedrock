@@ -103,11 +103,9 @@ ConcreteAjaxSearch.prototype.createMenu = function ($selector) {
  * Static Methods
  */
 ConcretePageAjaxSearch.launchDialog = function(callback) {
-    var w = $(window).width() - 53
-
     $.fn.dialog.open({
-        width: w,
-        height: '100%',
+        width: '90%',
+        height: '75%',
         href: CCM_DISPATCHER_FILENAME + '/ccm/system/dialogs/page/sitemap_selector',
         modal: true,
         title: ccmi18n_sitemap.pageLocationTitle,

@@ -28,17 +28,17 @@
                 </tr>
                 </tbody>
             </table>
-            <BootstrapPagination
-                v-if="pagination.total_pages > 1"
+            <Pagination
+                v-if="pagination"
                 v-model="currentPage"
                 :total-rows="pagination.total"
-                :per-page="pagination.per_page"></BootstrapPagination>
+                :per-page="pagination.per_page"></Pagination>
         </div>
     </div>
 </template>
 
 <script>
-import BootstrapPagination from '../BootstrapPagination'
+import Pagination from '../Pagination'
 
 /**
  * @vue-data {Number} currentPage - Number of the page that is displayed and highlighted in pagination.
@@ -52,7 +52,7 @@ import BootstrapPagination from '../BootstrapPagination'
  * @vue-prop {String} routePath - Origin for pageList data which is fetched by ConcreteAjaxRequest.
  */
 export default {
-    components: { BootstrapPagination },
+    components: { Pagination },
     data: () => ({
         currentPage: 1,
         latestSearchID: null,
@@ -149,6 +149,10 @@ export default {
     },
     watch: {
         currentPage () {
+            this.fetchPages()
+        },
+
+        keywords() {
             this.fetchPages()
         },
 
