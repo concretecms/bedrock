@@ -59,7 +59,7 @@ import _ from 'underscore'
 
             var url = CCM_DISPATCHER_FILENAME + `/ccm/system/block/process/alias/${cID}/${area_handle}/${pcID}/${dragAreaBlockID || '0'}`
 
-            $.getJSON(url, {ccm_token: CCM_SECURITY_TOKEN}, function (response) {
+            $.getJSON(url, { ccm_token: CCM_SECURITY_TOKEN }, function (response) {
                 my.handleAddResponse(response, area, dragAreaBlock, function () {
                     ConcreteEvent.fire('EditModeAddClipboardComplete', {
                         block: my
