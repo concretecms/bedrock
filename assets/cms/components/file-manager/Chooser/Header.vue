@@ -8,13 +8,19 @@
                     <i v-if="resultsFormFactor === 'list'" class="fas fa-list"></i>
                 </button>
                 <h5>{{title}}</h5>
+                <breadcrumb v-if="breadcrumbItems" :breadcrumb-items="breadcrumbItems" @itemClick="onBreadcrumbItemClick" />
             </header>
         </div>
     </div>
 </template>
 
 <script>
+import Breadcrumb from '../../Breadcrumb'
+
 export default {
+    components: {
+        Breadcrumb
+    },
     props: {
         title: {
             type: String,
@@ -28,17 +34,25 @@ export default {
         resultsFormFactor: {
             type: String,
             required: false,
-            default: 'grid' // grid | list
+            default: 'grid',
+            validator: value => ['grid', 'list'].indexOf(value) !== -1
+        },
+        breadcrumbItems: {
+            type: Array,
+            required: false
         }
     },
     methods: {
         toggleFormFactor() {
-            var my = this
+            const my = this
             if (this.resultsFormFactor === 'grid') {
                 my.$emit('update:resultsFormFactor', 'list')
             } else {
                 my.$emit('update:resultsFormFactor', 'grid')
             }
+        },
+        onBreadcrumbItemClick(item) {
+            this.$emit('breadcrumbItemClick', item)
         }
     }
 }

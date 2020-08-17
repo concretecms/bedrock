@@ -1,71 +1,67 @@
 <template>
     <div>
-    <div class="container-fluid h-100">
-        <div class="row h-100">
-            <div class="col-4 border-right p-3">
-                <ul class="nav flex-column">
-                    <li class="nav-item" v-for="item in chooserNavItems" :key="item.key">
-                        <hr v-if="item.key === 'horizontalrule'"/>
-                        <a v-if="item.key !== 'horizontalrule'"
-                           :class="{'nav-link': true, 'active': activeNavItem === item.key}"
-                           @click="activeNavItem = item.key"
-                           href="javascript:void(0)">
-                            {{item.title}}
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-8 p-3">
+        <div class="container-fluid h-100">
+            <div class="row h-100">
+                <div class="col-4 border-right p-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item" v-for="item in chooserNavItems" :key="item.key">
+                            <hr v-if="item.key === 'horizontalrule'"/>
+                            <a v-if="item.key !== 'horizontalrule'"
+                               :class="{'nav-link': true, 'active': activeNavItem === item.key}"
+                               @click="activeNavItem = item.key"
+                               href="javascript:void(0)">
+                                {{item.title}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-8 p-3">
 
-                <transition name="concrete-nav-tab-content-switch">
-                    <div key="recent" v-if="activeNavItem === 'recent'">
-                        <chooser-header v-bind:resultsFormFactor.sync="resultsFormFactor"
-                                        title="Recently Uploaded"></chooser-header>
-                        <files :selectedFiles.sync="selectedFiles"
-                            :resultsFormFactor.sync="resultsFormFactor"
-                            routePath="/ccm/system/file/chooser/recent"
-                            v-if="activeNavItem === 'recent'" />
-                    </div>
+                    <transition name="concrete-nav-tab-content-switch">
+                        <div key="recent" v-if="activeNavItem === 'recent'">
+                            <chooser-header v-bind:resultsFormFactor.sync="resultsFormFactor" title="Recently Uploaded"></chooser-header>
+                            <files :selectedFiles.sync="selectedFiles"
+                                :resultsFormFactor.sync="resultsFormFactor"
+                                routePath="/ccm/system/file/chooser/recent"
+                                v-if="activeNavItem === 'recent'" />
+                        </div>
 
-                    <div key="filemanager" v-if="activeNavItem === 'filemanager'">
-                        <chooser-header v-bind:resultsFormFactor.sync="resultsFormFactor"
-                                        title="File Manager"></chooser-header>
-                        Coming Soon
-                    </div>
-                    <div key="sets" v-if="activeNavItem === 'sets'">
-                        <chooser-header v-bind:resultsFormFactor.sync="resultsFormFactor"
-                                        title="File Sets"></chooser-header>
-                        <sets :selectedFiles.sync="selectedFiles"
-                            :resultsFormFactor.sync="resultsFormFactor"
-                            v-if="activeNavItem === 'sets'"/>
-                    </div>
-                    <div key="presets" v-if="activeNavItem === 'presets'">
-                        <chooser-header v-bind:resultsFormFactor.sync="resultsFormFactor"
-                                        title="Saved Searches"></chooser-header>
-                        Coming Soon
-                    </div>
-                    <div key="search" v-if="activeNavItem === 'search'">
-                        <chooser-header v-bind:resultsFormFactor.sync="resultsFormFactor"
-                                        title="Search"></chooser-header>
-                        <search :selectedFiles.sync="selectedFiles"
-                            :resultsFormFactor.sync="resultsFormFactor"
-                            v-if="activeNavItem === 'search'"/>
-                    </div>
-                    <div key="upload" v-if="activeNavItem === 'upload'">
-                        <chooser-header title="File Manager" :showListSelector="false"></chooser-header>
-                        Coming Soon
-                    </div>
+                        <div key="filemanager" v-if="activeNavItem === 'filemanager'">
+                            <file-manager :selectedFiles.sync="selectedFiles" :resultsFormFactor.sync="resultsFormFactor" v-if="activeNavItem === 'filemanager'"/>
+                        </div>
 
-                </transition>
+                        <div key="sets" v-if="activeNavItem === 'sets'">
+                            <chooser-header v-bind:resultsFormFactor.sync="resultsFormFactor" title="File Sets"></chooser-header>
+                            <sets :selectedFiles.sync="selectedFiles"
+                                :resultsFormFactor.sync="resultsFormFactor"
+                                v-if="activeNavItem === 'sets'"/>
+                        </div>
 
+                        <div key="presets" v-if="activeNavItem === 'presets'">
+                            <saved-search :selectedFiles.sync="selectedFiles"
+                                  :resultsFormFactor.sync="resultsFormFactor"
+                                  v-if="activeNavItem === 'presets'"/>
+                        </div>
+
+                        <div key="search" v-if="activeNavItem === 'search'">
+                            <chooser-header v-bind:resultsFormFactor.sync="resultsFormFactor" title="Search"></chooser-header>
+                            <search :selectedFiles.sync="selectedFiles"
+                                :resultsFormFactor.sync="resultsFormFactor"
+                                v-if="activeNavItem === 'search'"/>
+                        </div>
+
+                        <div key="upload" v-show="activeNavItem === 'upload'">
+                            <chooser-header title="Upload Files" :show-form-factor-selector="false"/>
+                            <uploader/>
+                        </div>
+                    </transition>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="dialog-buttons">
-        <button class="btn btn-secondary" data-dialog-action="cancel">Cancel</button>
-        <button type="button" @click="chooseFiles" :disabled="selectedFiles.length === 0" class="btn btn-primary">Choose</button>
-    </div>
-
+        <div class="dialog-buttons">
+            <button class="btn btn-secondary" data-dialog-action="cancel">Cancel</button>
+            <button type="button" @click="chooseFiles" :disabled="selectedFiles.length === 0" class="btn btn-primary">Choose</button>
+        </div>
     </div>
 </template>
 
@@ -73,14 +69,20 @@
 import ChooserHeader from './Chooser/Header'
 import Files from './Chooser/Files'
 import Sets from './Chooser/Sets'
+import SavedSearch from './Chooser/SavedSearch'
 import Search from './Chooser/Search'
+import Uploader from './Uploader'
+import FileManager from "./Chooser/FileManager";
 
 export default {
     components: {
+        FileManager,
         ChooserHeader,
         Files,
+        SavedSearch,
         Sets,
-        Search
+        Search,
+        Uploader
     },
     props: {
     },
@@ -117,12 +119,13 @@ export default {
                     key: 'upload',
                     title: 'Upload Files'
                 }
-            ]
+            ],
+            breadcrumbItems: []
         }
     },
     methods: {
         chooseFiles() {
-            var my = this
+            const my = this
             window.ConcreteEvent.publish('FileManagerSelectFile', { fID: my.selectedFiles })
         }
     }
