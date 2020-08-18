@@ -7,7 +7,6 @@
 </template>
 
 <script>
-/* global CCM_DISPATCHER_FILENAME */
 /* eslint-disable no-new */
 import ChooserHeader from './Header'
 import Uploader from '../Uploader'
@@ -18,7 +17,7 @@ export default {
         Uploader
     },
     data: () => ({
-        selectedFiles: [],
+        selectedFiles: []
     }),
     props: {
         title: {

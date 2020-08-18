@@ -33,7 +33,7 @@
 </style>
 
 <script>
-/* global CCM_DISPATCHER_FILENAME, ConcreteAjaxRequest */
+/* global ConcreteAjaxRequest */
 /* eslint-disable no-new */
 import ChooserHeader from './Header'
 import Files from './Files'

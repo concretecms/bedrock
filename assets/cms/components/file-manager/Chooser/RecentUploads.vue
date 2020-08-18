@@ -9,7 +9,6 @@
 </template>
 
 <script>
-/* global CCM_DISPATCHER_FILENAME */
 /* eslint-disable no-new */
 import ChooserHeader from './Header'
 import Files from './Files'
