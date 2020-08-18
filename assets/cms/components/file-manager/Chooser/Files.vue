@@ -137,6 +137,7 @@ export default {
             const my = this
             my.rows = false
             my.fileList = []
+            my.selectedFiles = [] // Reset Selected Files
 
             new ConcreteAjaxRequest({
                 url: this.fetchRoute,

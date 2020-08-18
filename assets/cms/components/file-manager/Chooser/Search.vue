@@ -28,7 +28,7 @@
             <files v-if="keywords"
                 :selectedFiles.sync="selectedFiles"
                 :resultsFormFactor="formFactor"
-                :routePath="this.routePath + this.keywords"
+                :routePath="routePath + keywords"
                 :multipleSelection="multipleSelection"/>
         </div>
     </div>
