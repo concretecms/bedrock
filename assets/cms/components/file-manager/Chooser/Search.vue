@@ -34,7 +34,6 @@
 </template>
 
 <script>
-/* global CCM_DISPATCHER_FILENAME */
 /* eslint-disable no-new */
 import Icon from '../../Icon'
 import ChooserHeader from './Header'
