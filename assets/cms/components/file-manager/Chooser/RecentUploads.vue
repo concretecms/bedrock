@@ -4,7 +4,8 @@
 
         <files :selectedFiles.sync="selectedFiles"
                :resultsFormFactor="formFactor"
-               routePath="/ccm/system/file/chooser/recent"/>
+               routePath="/ccm/system/file/chooser/recent"
+               :multipleSelection="multipleSelection"/>
     </div>
 </template>
 
@@ -32,6 +33,10 @@ export default {
         title: {
             type: String,
             required: true
+        },
+        multipleSelection: {
+            type: Boolean,
+            default: true
         }
     },
     watch: {

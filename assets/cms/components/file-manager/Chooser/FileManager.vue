@@ -9,6 +9,7 @@
                :resultsFormFactor="formFactor"
                :routePath="routePath + activeFolder"
                :enable-pagination="true"
+               :multipleSelection="multipleSelection"
                @folderClick="activeFolder = $event"/>
     </div>
 </template>
@@ -41,6 +42,10 @@ export default {
         title: {
             type: String,
             required: true
+        },
+        multipleSelection: {
+            type: Boolean,
+            default: true
         }
     },
     created() {

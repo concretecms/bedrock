@@ -9,7 +9,7 @@
                             <label :for="'file-' + (file.fID || file.treeNodeID)"><span v-html="file.resultsThumbnailImg"></span></label>
                             <div class="ccm-image-cell-title">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" v-if="!file.isFolder" v-model="selectedFiles" type="checkbox" :id="'file-' + file.fID" :value="file.fID">
+                                    <input class="form-check-input" v-if="!file.isFolder" v-model="selectedFiles" :type="multipleSelection ? 'checkbox' : 'radio'" :id="'file-' + file.fID" :value="file.fID">
                                     <label class="form-check-label" :for="'file-' + (file.fID || file.treeNodeID)">{{file.title}}</label>
                                 </div>
                             </div>
@@ -30,7 +30,7 @@
                     </thead>
                     <tbody>
                         <tr v-for="file in fileList" :key="(file.fID || file.treeNodeID) + 'list'" @click="onItemClick(file)">
-                            <td><input v-if="!file.isFolder" v-model="selectedFiles" type="checkbox" :id="'file-' + file.fID" :value="file.fID"></td>
+                            <td><input v-if="!file.isFolder" v-model="selectedFiles" :type="multipleSelection ? 'checkbox' : 'radio'" :id="'file-' + file.fID" :value="file.fID"></td>
                             <td class="ccm-image-chooser-icon"><span v-html="file.resultsThumbnailImg" width="32" height="32"></span></td>
                             <td>{{file.fID}}</td>
                             <td>{{file.title}}</td>
@@ -64,7 +64,7 @@
 }
 </style>
 <script>
-/* global CCM_DISPATCHER_FILENAME */
+/* global CCM_DISPATCHER_FILENAME, ConcreteAjaxRequest */
 /* eslint-disable no-new */
 import Pagination from '../../Pagination'
 
@@ -103,6 +103,10 @@ export default {
         routePath: {
             type: String,
             required: true
+        },
+        multipleSelection: {
+            type: Boolean,
+            default: true
         }
     },
     computed: {
@@ -174,18 +178,22 @@ export default {
             if (file.isFolder) {
                 this.$emit('folderClick', file.treeNodeID)
             } else if (this.resultsFormFactor === 'list') {
-                const fileIndex = this.selectedFiles.indexOf(file.fID)
-                if (fileIndex === -1) {
-                    this.selectedFiles.push(file.fID)
+                if (this.multipleSelection) {
+                    const fileIndex = this.selectedFiles.indexOf(file.fID)
+                    if (fileIndex === -1) {
+                        this.selectedFiles.push(file.fID)
+                    } else {
+                        this.selectedFiles.splice(fileIndex, 1)
+                    }
                 } else {
-                    this.selectedFiles.splice(fileIndex, 1)
+                    this.selectedFiles = file.fID
                 }
             }
         }
     },
     watch: {
         selectedFiles: function(value) {
-            this.$emit('update:selectedFiles', value)
+            this.$emit('update:selectedFiles', Array.isArray(value) ? value : [value])
         },
         routePath: function() {
             this.getFiles()

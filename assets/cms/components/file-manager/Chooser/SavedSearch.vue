@@ -21,6 +21,7 @@
                 :selectedFiles.sync="selectedFiles"
                 :resultsFormFactor="formFactor"
                 :routePath="routePath + activeSearchPreset"
+                :multipleSelection="multipleSelection"
                 @folderClick="activeFolder = $event"/>
         </div>
     </div>
@@ -33,7 +34,7 @@
 </style>
 
 <script>
-/* global ConcreteAjaxRequest */
+/* global CCM_DISPATCHER_FILENAME, ConcreteAjaxRequest */
 /* eslint-disable no-new */
 import ChooserHeader from './Header'
 import Files from './Files'
@@ -62,6 +63,10 @@ export default {
         title: {
             type: String,
             required: true
+        },
+        multipleSelection: {
+            type: Boolean,
+            default: true
         }
     },
     methods: {

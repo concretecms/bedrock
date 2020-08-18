@@ -7,7 +7,7 @@
                         <li class="nav-item" v-for="item in chooserNavItems" :key="item.key">
                             <hr v-if="item.key === 'horizontalrule'"/>
                             <a v-else :class="{'nav-link': true, 'active': activeNavItem.key === item.key}"
-                               @click.prevent="activeNavItem = item"
+                               @click.prevent="activateTab(item)"
                                href="javascript:void(0)">
                                 {{item.title}}
                             </a>
@@ -18,6 +18,7 @@
                     <transition name="concrete-nav-tab-content-switch">
                         <component :is="activeNavItem.key"
                                    :title="activeNavItem.title"
+                                   :multipleSelection="multipleSelection"
                                    :selectedFiles.sync="selectedFiles"
                                    :resultsFormFactor.sync="resultsFormFactor"
                         />
@@ -33,6 +34,7 @@
 </template>
 
 <script>
+/* global ConcreteEvent */
 import RecentUploads from './Chooser/RecentUploads'
 import FileManager from './Chooser/FileManager'
 import FileSets from './Chooser/FileSets'
@@ -86,13 +88,26 @@ export default {
             breadcrumbItems: []
         }
     },
+    props: {
+        multipleSelection: {
+            type: Boolean,
+            default: true
+        }
+    },
     created() {
         this.activeNavItem = _.first(this.chooserNavItems)
     },
     methods: {
+        activateTab(item) {
+            this.activeNavItem = item
+
+            // Reset Selected Files because the component always rerender after Tab switch
+            // Otherwise we have to use keep-alive built-in component [@see https://vuejs.org/v2/api/#keep-alive]
+            // to keep selection from different Tabs
+            this.selectedFiles = []
+        },
         chooseFiles() {
-            const my = this
-            window.ConcreteEvent.publish('FileManagerSelectFile', { fID: my.selectedFiles })
+            ConcreteEvent.publish('FileManagerSelectFile', { fID: this.selectedFiles })
         }
     }
 }

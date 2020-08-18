@@ -28,7 +28,8 @@
             <files v-if="keywords"
                 :selectedFiles.sync="selectedFiles"
                 :resultsFormFactor="formFactor"
-                :routePath="this.routePath + this.keywords"/>
+                :routePath="this.routePath + this.keywords"
+                :multipleSelection="multipleSelection"/>
         </div>
     </div>
 </template>
@@ -62,6 +63,10 @@ export default {
         title: {
             type: String,
             required: true
+        },
+        multipleSelection: {
+            type: Boolean,
+            default: true
         }
     },
     methods: {

@@ -17,7 +17,8 @@
             <files v-if="activeSet"
                 :selectedFiles.sync="selectedFiles"
                 :resultsFormFactor="formFactor"
-                :routePath="routePath + activeSet"/>
+                :routePath="routePath + activeSet"
+                :multipleSelection="multipleSelection"/>
         </div>
     </div>
 </template>
@@ -56,6 +57,10 @@ export default {
         title: {
             type: String,
             required: true
+        },
+        multipleSelection: {
+            type: Boolean,
+            default: true
         }
     },
     methods: {
