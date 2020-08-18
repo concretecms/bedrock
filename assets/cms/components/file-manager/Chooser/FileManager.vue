@@ -1,12 +1,12 @@
 <template>
     <div>
-        <chooser-header :resultsFormFactor.sync="resultsFormFactor"
+        <chooser-header :resultsFormFactor.sync="formFactor"
                         :breadcrumb-items="breadcrumbItems"
                         @breadcrumbItemClick="activeFolder = $event.folderId"
-                        title="File Manager"/>
+                        :title="title"/>
 
         <files :selectedFiles.sync="selectedFiles"
-               :resultsFormFactor="resultsFormFactor"
+               :resultsFormFactor="formFactor"
                :routePath="routePath + activeFolder"
                :enable-pagination="true"
                @folderClick="activeFolder = $event"/>
@@ -14,9 +14,9 @@
 </template>
 
 <script>
-/* global CCM_DISPATCHER_FILENAME */
+/* global CCM_DISPATCHER_FILENAME, ConcreteAjaxRequest */
 /* eslint-disable no-new */
-import ChooserHeader from '../Chooser/Header'
+import ChooserHeader from './Header'
 import Files from './Files'
 
 export default {
@@ -28,7 +28,8 @@ export default {
         activeFolder: '',
         selectedFiles: [],
         breadcrumbItems: [],
-        routePath: '/ccm/system/file/chooser/get_folder_files/'
+        routePath: '/ccm/system/file/chooser/get_folder_files/',
+        formFactor: 'grid'
     }),
     props: {
         resultsFormFactor: {
@@ -37,6 +38,10 @@ export default {
             default: 'grid', // grid | list
             validator: value => ['grid', 'list'].indexOf(value) !== -1
         },
+        title: {
+            type: String,
+            required: true
+        }
     },
     created() {
         this.fetchBreadcrumb(this.activeFolder)
@@ -58,9 +63,12 @@ export default {
         selectedFiles(value) {
             this.$emit('update:selectedFiles', value)
         },
-        resultsFormFactor(value) {
+        formFactor(value) {
             this.$emit('update:resultsFormFactor', value)
         }
+    },
+    mounted() {
+        this.formFactor = this.resultsFormFactor
     }
 }
 </script>

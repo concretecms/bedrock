@@ -41,7 +41,7 @@ export default {
         breadcrumbItems: {
             type: Array,
             required: true
-        },
+        }
     },
     methods: {
         isItemActive(itemIndex) {

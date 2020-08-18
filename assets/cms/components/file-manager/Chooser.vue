@@ -6,9 +6,8 @@
                     <ul class="nav flex-column">
                         <li class="nav-item" v-for="item in chooserNavItems" :key="item.key">
                             <hr v-if="item.key === 'horizontalrule'"/>
-                            <a v-if="item.key !== 'horizontalrule'"
-                               :class="{'nav-link': true, 'active': activeNavItem === item.key}"
-                               @click="activeNavItem = item.key"
+                            <a v-else :class="{'nav-link': true, 'active': activeNavItem.key === item.key}"
+                               @click.prevent="activeNavItem = item"
                                href="javascript:void(0)">
                                 {{item.title}}
                             </a>
@@ -16,44 +15,12 @@
                     </ul>
                 </div>
                 <div class="col-8 p-3">
-
                     <transition name="concrete-nav-tab-content-switch">
-                        <div key="recent" v-if="activeNavItem === 'recent'">
-                            <chooser-header v-bind:resultsFormFactor.sync="resultsFormFactor" title="Recently Uploaded"></chooser-header>
-                            <files :selectedFiles.sync="selectedFiles"
-                                :resultsFormFactor.sync="resultsFormFactor"
-                                routePath="/ccm/system/file/chooser/recent"
-                                v-if="activeNavItem === 'recent'" />
-                        </div>
-
-                        <div key="filemanager" v-if="activeNavItem === 'filemanager'">
-                            <file-manager :selectedFiles.sync="selectedFiles" :resultsFormFactor.sync="resultsFormFactor" v-if="activeNavItem === 'filemanager'"/>
-                        </div>
-
-                        <div key="sets" v-if="activeNavItem === 'sets'">
-                            <chooser-header v-bind:resultsFormFactor.sync="resultsFormFactor" title="File Sets"></chooser-header>
-                            <sets :selectedFiles.sync="selectedFiles"
-                                :resultsFormFactor.sync="resultsFormFactor"
-                                v-if="activeNavItem === 'sets'"/>
-                        </div>
-
-                        <div key="presets" v-if="activeNavItem === 'presets'">
-                            <saved-search :selectedFiles.sync="selectedFiles"
-                                  :resultsFormFactor.sync="resultsFormFactor"
-                                  v-if="activeNavItem === 'presets'"/>
-                        </div>
-
-                        <div key="search" v-if="activeNavItem === 'search'">
-                            <chooser-header v-bind:resultsFormFactor.sync="resultsFormFactor" title="Search"></chooser-header>
-                            <search :selectedFiles.sync="selectedFiles"
-                                :resultsFormFactor.sync="resultsFormFactor"
-                                v-if="activeNavItem === 'search'"/>
-                        </div>
-
-                        <div key="upload" v-show="activeNavItem === 'upload'">
-                            <chooser-header title="Upload Files" :show-form-factor-selector="false"/>
-                            <uploader/>
-                        </div>
+                        <component :is="activeNavItem.key"
+                                   :title="activeNavItem.title"
+                                   :selectedFiles.sync="selectedFiles"
+                                   :resultsFormFactor.sync="resultsFormFactor"
+                        />
                     </transition>
                 </div>
             </div>
@@ -66,46 +33,42 @@
 </template>
 
 <script>
-import ChooserHeader from './Chooser/Header'
-import Files from './Chooser/Files'
-import Sets from './Chooser/Sets'
+import RecentUploads from './Chooser/RecentUploads'
+import FileManager from './Chooser/FileManager'
+import FileSets from './Chooser/FileSets'
 import SavedSearch from './Chooser/SavedSearch'
 import Search from './Chooser/Search'
-import Uploader from './Uploader'
-import FileManager from "./Chooser/FileManager";
+import FileUpload from './Chooser/FileUpload'
 
 export default {
     components: {
+        RecentUploads,
         FileManager,
-        ChooserHeader,
-        Files,
+        FileSets,
         SavedSearch,
-        Sets,
         Search,
-        Uploader
-    },
-    props: {
+        FileUpload
     },
     data() {
         return {
-            activeNavItem: 'recent',
+            activeNavItem: null,
             resultsFormFactor: 'grid',
             selectedFiles: [],
             chooserNavItems: [
                 {
-                    key: 'recent',
+                    key: 'recent-uploads',
                     title: 'Recently Uploaded'
                 },
                 {
-                    key: 'filemanager',
+                    key: 'file-manager',
                     title: 'File Manager'
                 },
                 {
-                    key: 'sets',
-                    title: 'Sets'
+                    key: 'file-sets',
+                    title: 'File Sets'
                 },
                 {
-                    key: 'presets',
+                    key: 'saved-search',
                     title: 'Saved Searches'
                 },
                 {
@@ -116,12 +79,15 @@ export default {
                     key: 'horizontalrule'
                 },
                 {
-                    key: 'upload',
+                    key: 'file-upload',
                     title: 'Upload Files'
                 }
             ],
             breadcrumbItems: []
         }
+    },
+    created() {
+        this.activeNavItem = _.first(this.chooserNavItems)
     },
     methods: {
         chooseFiles() {

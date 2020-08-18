@@ -49,7 +49,7 @@ export default {
         },
         options: {
             type: Object,
-            default: {}
+            default: () => ({})
         }
     },
     computed: {
@@ -85,7 +85,7 @@ export default {
                 success: function (data, response) {
                     response.files.forEach(function (file) {
                         if (typeof file.fID !== 'undefined') {
-                            const fileAlreadyAdded = _.findWhere(me.uploadedFiles, {fID: file.fID}) !== undefined
+                            const fileAlreadyAdded = _.findWhere(me.uploadedFiles, { fID: file.fID }) !== undefined
 
                             if (!fileAlreadyAdded) {
                                 me.uploadedFiles.push(file)
@@ -115,7 +115,6 @@ export default {
 
                 queuecomplete: function () {
                     if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
-
                         if (me.uploadedFiles.length !== 0) {
                             if (typeof me.options.formData.fID === 'undefined') {
                                 ConcreteEvent.publish('FileManagerAddFilesComplete', {
@@ -177,7 +176,7 @@ export default {
             this.refresh()
 
             this.$emit('uploadProgressStateChange', val)
-        },
+        }
     },
     methods: {
         refresh() {

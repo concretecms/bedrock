@@ -1,5 +1,7 @@
 <template>
     <div>
+        <chooser-header :resultsFormFactor.sync="formFactor" :title="title"/>
+
         <div class="row mb-3">
             <div class="col-md-4 ml-auto">
                 <form @submit.prevent="search">
@@ -25,32 +27,42 @@
         <div>
             <files v-if="keywords"
                 :selectedFiles.sync="selectedFiles"
-                :resultsFormFactor="this.$props.resultsFormFactor"
+                :resultsFormFactor="formFactor"
                 :routePath="this.routePath + this.keywords"/>
         </div>
     </div>
 </template>
 
 <script>
+/* global CCM_DISPATCHER_FILENAME */
+/* eslint-disable no-new */
 import Icon from '../../Icon'
+import ChooserHeader from './Header'
 import Files from '../Chooser/Files'
 
 export default {
     components: {
         Icon,
+        ChooserHeader,
         Files
     },
     data: () => ({
         searchText: '',
         keywords: '',
         selectedFiles: [],
-        routePath: '/ccm/system/file/chooser/search/'
+        routePath: '/ccm/system/file/chooser/search/',
+        formFactor: 'grid'
     }),
     props: {
         resultsFormFactor: {
             type: String,
             required: false,
-            default: 'grid' // grid | list
+            default: 'grid', // grid | list
+            validator: value => ['grid', 'list'].indexOf(value) !== -1
+        },
+        title: {
+            type: String,
+            required: true
         }
     },
     methods: {
@@ -59,9 +71,15 @@ export default {
         }
     },
     watch: {
-        selectedFiles: function(value) {
+        selectedFiles(value) {
             this.$emit('update:selectedFiles', value)
+        },
+        formFactor(value) {
+            this.$emit('update:resultsFormFactor', value)
         }
+    },
+    mounted() {
+        this.formFactor = this.resultsFormFactor
     }
 }
 </script>

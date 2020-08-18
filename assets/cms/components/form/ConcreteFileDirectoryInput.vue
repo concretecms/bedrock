@@ -47,7 +47,7 @@
 
 <script>
 /* eslint-disable no-new */
-/* global CCM_DISPATCHER_FILENAME, CCM_SECURITY_TOKEN, ConcreteAjaxRequest, _ */
+/* global CCM_DISPATCHER_FILENAME, CCM_SECURITY_TOKEN, ConcreteAjaxRequest, Vue, _ */
 export default {
     data: () => ({
         showAddDirectoryInput: false,
@@ -75,13 +75,13 @@ export default {
         disabled: {
             type: Boolean,
             default: false
-        },
+        }
     },
     watch: {
         selectedDirectoryID() {
             $(this.$refs.directoryInput).selectpicker('val', this.selectedDirectoryID)
 
-            this.$emit('change', this.selectedDirectoryID)
+            this.$emit('change', parseInt(this.selectedDirectoryID))
         },
         directories() {
             const me = this
@@ -89,7 +89,7 @@ export default {
                 $(me.$refs.directoryInput).selectpicker('refresh')
 
                 if (me.directories.length > 0) {
-                    const isSelectedOptionInDirList = _.findWhere(me.directories, {directoryId: me.selectedDirectoryID}) !== undefined
+                    const isSelectedOptionInDirList = _.findWhere(me.directories, { directoryId: me.selectedDirectoryID }) !== undefined
 
                     if (!isSelectedOptionInDirList) {
                         me.selectedDirectoryID = _.first(me.directories).directoryId

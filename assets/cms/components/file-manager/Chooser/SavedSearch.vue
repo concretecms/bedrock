@@ -1,14 +1,14 @@
 <template>
     <div>
-        <chooser-header :resultsFormFactor.sync="resultsFormFactor"
+        <chooser-header :resultsFormFactor.sync="formFactor"
                         :breadcrumb-items="breadcrumbItems"
                         @breadcrumbItemClick="activeFolder = $event.folderId"
-                        title="Saved Searches"/>
+                        :title="title"/>
 
         <div class="form-inline">
             <div class="form-group ml-auto">
-                <label class="mr-2">Search Presets</label>
-                <select class="form-control search-presets-menu" v-model="activeSearchPreset">
+                <label for="searchPresets" class="mr-2">Search Presets</label>
+                <select id="searchPresets" class="form-control search-presets-menu" v-model="activeSearchPreset">
                     <option value="" selected>Select a Preset</option>
                     <option v-for="searchPreset in searchPresets" :key="searchPreset.id" :value="searchPreset.id">
                         {{searchPreset.presetName}}
@@ -19,7 +19,7 @@
         <div class="mt-3" v-show="activeSearchPreset">
             <files v-if="activeSearchPreset"
                 :selectedFiles.sync="selectedFiles"
-                :resultsFormFactor="resultsFormFactor"
+                :resultsFormFactor="formFactor"
                 :routePath="routePath + activeSearchPreset"
                 @folderClick="activeFolder = $event"/>
         </div>
@@ -33,9 +33,9 @@
 </style>
 
 <script>
-/* global CCM_DISPATCHER_FILENAME */
+/* global CCM_DISPATCHER_FILENAME, ConcreteAjaxRequest */
 /* eslint-disable no-new */
-import ChooserHeader from '../Chooser/Header'
+import ChooserHeader from './Header'
 import Files from './Files'
 
 export default {
@@ -49,13 +49,19 @@ export default {
         activeSearchPreset: '',
         selectedFiles: [],
         breadcrumbItems: [],
-        routePath: '/ccm/system/file/chooser/get_search_preset/'
+        routePath: '/ccm/system/file/chooser/get_search_preset/',
+        formFactor: 'grid'
     }),
     props: {
         resultsFormFactor: {
             type: String,
             required: false,
-            default: 'grid' // grid | list
+            default: 'grid', // grid | list
+            validator: value => ['grid', 'list'].indexOf(value) !== -1
+        },
+        title: {
+            type: String,
+            required: true
         }
     },
     methods: {
@@ -72,11 +78,13 @@ export default {
         selectedFiles(value) {
             this.$emit('update:selectedFiles', value)
         },
-        resultsFormFactor(value) {
+        formFactor(value) {
             this.$emit('update:resultsFormFactor', value)
         }
     },
     mounted() {
+        this.formFactor = this.resultsFormFactor
+
         this.fetchSearchPresets()
     }
 }

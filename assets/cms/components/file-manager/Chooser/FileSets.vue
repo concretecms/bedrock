@@ -1,9 +1,11 @@
 <template>
     <div>
+        <chooser-header :resultsFormFactor.sync="formFactor" :title="title"/>
+
         <div class="form-inline">
             <div class="form-group ml-auto">
-                <label class="mr-2">File Set</label>
-                <select class="form-control file-set-menu" v-model="activeSet">
+                <label for="fileSetSelector" class="mr-2">File Set</label>
+                <select id="fileSetSelector" class="form-control file-set-menu" v-model="activeSet">
                     <option value="" selected>Select a Set</option>
                     <option v-for="set in sets" :key="set.id" :value="set.id">
                         {{set.name}}
@@ -11,11 +13,11 @@
                 </select>
             </div>
         </div>
-        <div class="mt-3" v-show="this.activeSet">
-            <files v-if="this.activeSet"
+        <div class="mt-3" v-show="activeSet">
+            <files v-if="activeSet"
                 :selectedFiles.sync="selectedFiles"
-                :resultsFormFactor="this.$props.resultsFormFactor"
-                :routePath="this.routePath + this.activeSet"/>
+                :resultsFormFactor="formFactor"
+                :routePath="routePath + activeSet"/>
         </div>
     </div>
 </template>
@@ -27,30 +29,39 @@
 </style>
 
 <script>
+/* global CCM_DISPATCHER_FILENAME, ConcreteAjaxRequest */
 /* eslint-disable no-new */
+import ChooserHeader from './Header'
 import Files from './Files'
 
 export default {
     components: {
+        ChooserHeader,
         Files
     },
     data: () => ({
         sets: [],
         activeSet: '',
         selectedFiles: [],
-        routePath: '/ccm/system/file/chooser/get_file_set/'
+        routePath: '/ccm/system/file/chooser/get_file_set/',
+        formFactor: 'grid'
     }),
     props: {
         resultsFormFactor: {
             type: String,
             required: false,
-            default: 'grid' // grid | list
+            default: 'grid', // grid | list
+            validator: value => ['grid', 'list'].indexOf(value) !== -1
+        },
+        title: {
+            type: String,
+            required: true
         }
     },
     methods: {
         getSets() {
             new ConcreteAjaxRequest({
-                url: CCM_DISPATCHER_FILENAME + '/ccm/system/file/chooser/get_file_sets',
+                url: `${CCM_DISPATCHER_FILENAME}/ccm/system/file/chooser/get_file_sets`,
                 success: (e) => {
                     this.sets = e
                 }
@@ -58,11 +69,16 @@ export default {
         }
     },
     watch: {
-        selectedFiles: function(value) {
+        selectedFiles(value) {
             this.$emit('update:selectedFiles', value)
+        },
+        formFactor(value) {
+            this.$emit('update:resultsFormFactor', value)
         }
     },
     mounted() {
+        this.formFactor = this.resultsFormFactor
+
         this.getSets()
     }
 }
