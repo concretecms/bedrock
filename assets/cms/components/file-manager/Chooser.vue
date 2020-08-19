@@ -1,109 +1,76 @@
 <template>
     <div>
-    <div class="container-fluid h-100">
-        <div class="row h-100">
-            <div class="col-4 border-right p-3">
-                <ul class="nav flex-column">
-                    <li class="nav-item" v-for="item in chooserNavItems" :key="item.key">
-                        <hr v-if="item.key === 'horizontalrule'"/>
-                        <a v-if="item.key !== 'horizontalrule'"
-                           :class="{'nav-link': true, 'active': activeNavItem === item.key}"
-                           @click="activeNavItem = item.key"
-                           href="javascript:void(0)">
-                            {{item.title}}
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-8 p-3">
-
-                <transition name="concrete-nav-tab-content-switch">
-                    <div key="recent" v-if="activeNavItem === 'recent'">
-                        <chooser-header v-bind:resultsFormFactor.sync="resultsFormFactor"
-                                        title="Recently Uploaded"></chooser-header>
-                        <files :selectedFiles.sync="selectedFiles"
-                            :resultsFormFactor.sync="resultsFormFactor"
-                            routePath="/ccm/system/file/chooser/recent"
-                            v-if="activeNavItem === 'recent'" />
-                    </div>
-
-                    <div key="filemanager" v-if="activeNavItem === 'filemanager'">
-                        <chooser-header v-bind:resultsFormFactor.sync="resultsFormFactor"
-                                        title="File Manager"></chooser-header>
-                        Coming Soon
-                    </div>
-                    <div key="sets" v-if="activeNavItem === 'sets'">
-                        <chooser-header v-bind:resultsFormFactor.sync="resultsFormFactor"
-                                        title="File Sets"></chooser-header>
-                        <sets :selectedFiles.sync="selectedFiles"
-                            :resultsFormFactor.sync="resultsFormFactor"
-                            v-if="activeNavItem === 'sets'"/>
-                    </div>
-                    <div key="presets" v-if="activeNavItem === 'presets'">
-                        <chooser-header v-bind:resultsFormFactor.sync="resultsFormFactor"
-                                        title="Saved Searches"></chooser-header>
-                        Coming Soon
-                    </div>
-                    <div key="search" v-if="activeNavItem === 'search'">
-                        <chooser-header v-bind:resultsFormFactor.sync="resultsFormFactor"
-                                        title="Search"></chooser-header>
-                        <search :selectedFiles.sync="selectedFiles"
-                            :resultsFormFactor.sync="resultsFormFactor"
-                            v-if="activeNavItem === 'search'"/>
-                    </div>
-                    <div key="upload" v-if="activeNavItem === 'upload'">
-                        <chooser-header title="File Manager" :showListSelector="false"></chooser-header>
-                        Coming Soon
-                    </div>
-
-                </transition>
-
+        <div class="container-fluid h-100">
+            <div class="row h-100">
+                <div class="col-4 border-right p-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item" v-for="item in chooserNavItems" :key="item.key">
+                            <hr v-if="item.key === 'horizontalrule'"/>
+                            <a v-else :class="{'nav-link': true, 'active': activeNavItem.key === item.key}"
+                               @click.prevent="activateTab(item)"
+                               href="javascript:void(0)">
+                                {{item.title}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-8 p-3">
+                    <transition name="concrete-nav-tab-content-switch">
+                        <component :is="activeNavItem.key"
+                                   :title="activeNavItem.title"
+                                   :multipleSelection="multipleSelection"
+                                   :selectedFiles.sync="selectedFiles"
+                                   :resultsFormFactor.sync="resultsFormFactor"
+                        />
+                    </transition>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="dialog-buttons">
-        <button class="btn btn-secondary" data-dialog-action="cancel">Cancel</button>
-        <button type="button" @click="chooseFiles" :disabled="selectedFiles.length === 0" class="btn btn-primary">Choose</button>
-    </div>
-
+        <div class="dialog-buttons">
+            <button class="btn btn-secondary" data-dialog-action="cancel">Cancel</button>
+            <button type="button" @click="chooseFiles" :disabled="selectedFiles.length === 0" class="btn btn-primary">Choose</button>
+        </div>
     </div>
 </template>
 
 <script>
-import ChooserHeader from './Chooser/Header'
-import Files from './Chooser/Files'
-import Sets from './Chooser/Sets'
+/* global ConcreteEvent */
+import RecentUploads from './Chooser/RecentUploads'
+import FileManager from './Chooser/FileManager'
+import FileSets from './Chooser/FileSets'
+import SavedSearch from './Chooser/SavedSearch'
 import Search from './Chooser/Search'
+import FileUpload from './Chooser/FileUpload'
 
 export default {
     components: {
-        ChooserHeader,
-        Files,
-        Sets,
-        Search
-    },
-    props: {
+        RecentUploads,
+        FileManager,
+        FileSets,
+        SavedSearch,
+        Search,
+        FileUpload
     },
     data() {
         return {
-            activeNavItem: 'recent',
+            activeNavItem: null,
             resultsFormFactor: 'grid',
             selectedFiles: [],
             chooserNavItems: [
                 {
-                    key: 'recent',
+                    key: 'recent-uploads',
                     title: 'Recently Uploaded'
                 },
                 {
-                    key: 'filemanager',
+                    key: 'file-manager',
                     title: 'File Manager'
                 },
                 {
-                    key: 'sets',
-                    title: 'Sets'
+                    key: 'file-sets',
+                    title: 'File Sets'
                 },
                 {
-                    key: 'presets',
+                    key: 'saved-search',
                     title: 'Saved Searches'
                 },
                 {
@@ -114,16 +81,32 @@ export default {
                     key: 'horizontalrule'
                 },
                 {
-                    key: 'upload',
+                    key: 'file-upload',
                     title: 'Upload Files'
                 }
             ]
         }
     },
+    props: {
+        multipleSelection: {
+            type: Boolean,
+            default: true
+        }
+    },
+    created() {
+        this.activeNavItem = _.first(this.chooserNavItems)
+    },
     methods: {
+        activateTab(item) {
+            this.activeNavItem = item
+
+            // Reset Selected Files because the component always rerender after Tab switch
+            // Otherwise we have to use keep-alive built-in component [@see https://vuejs.org/v2/api/#keep-alive]
+            // to keep selection from different Tabs
+            this.selectedFiles = []
+        },
         chooseFiles() {
-            var my = this
-            window.ConcreteEvent.publish('FileManagerSelectFile', { fID: my.selectedFiles })
+            ConcreteEvent.publish('FileManagerSelectFile', { fID: this.selectedFiles })
         }
     }
 }

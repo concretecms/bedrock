@@ -8,6 +8,7 @@ import MenuDivider from './menu/MenuDivider'
 import MenuItem from './menu/MenuItem'
 import Icon from './Icon'
 import IconButton from './IconButton'
+import ConcreteFileDirectoryInput from './form/ConcreteFileDirectoryInput'
 import ConcreteFileInput from './form/ConcreteFileInput'
 import ConcretePageChooserSearch from './page/Chooser/ChooserSearch'
 import ConcretePageInput from './form/ConcretePageInput'
@@ -39,6 +40,7 @@ export default {
     ConcretePageInput,
     ConcreteUserInput,
     ConcreteEventOccurrenceInput,
+    ConcreteFileDirectoryInput,
     Board,
     BoardSlot
 }
