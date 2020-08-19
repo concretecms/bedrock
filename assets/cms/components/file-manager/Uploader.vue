@@ -14,7 +14,6 @@
 </template>
 
 <script>
-/* global Vue */
 import UploadFromComputer from './Uploader/UploadFromComputer'
 import ConcreteFileDirectoryInput from '../form/ConcreteFileDirectoryInput'
 
@@ -25,9 +24,7 @@ export default {
     },
     data: () => ({
         uploadDirectoryId: 0,
-        isUploadInProgress: false,
-        eventBus: new Vue()
-    }),
-    props: {}
+        isUploadInProgress: false
+    })
 }
 </script>

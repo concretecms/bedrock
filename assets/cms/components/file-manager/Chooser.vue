@@ -84,8 +84,7 @@ export default {
                     key: 'file-upload',
                     title: 'Upload Files'
                 }
-            ],
-            breadcrumbItems: []
+            ]
         }
     },
     props: {

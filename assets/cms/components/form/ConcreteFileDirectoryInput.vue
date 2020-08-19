@@ -47,7 +47,7 @@
 
 <script>
 /* eslint-disable no-new */
-/* global CCM_DISPATCHER_FILENAME, CCM_SECURITY_TOKEN, ConcreteAjaxRequest, Vue, _ */
+/* global CCM_DISPATCHER_FILENAME, CCM_SECURITY_TOKEN, ConcreteAjaxRequest, _ */
 export default {
     data: () => ({
         showAddDirectoryInput: false,
@@ -85,7 +85,7 @@ export default {
         },
         directories() {
             const me = this
-            Vue.nextTick(function () {
+            me.$nextTick(() => {
                 $(me.$refs.directoryInput).selectpicker('refresh')
 
                 if (me.directories.length > 0) {

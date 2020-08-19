@@ -24,8 +24,14 @@
                         <th></th>
                         <th></th>
                         <th>ID</th>
-                        <th :class="getSortColumnClassName('title')"><a href="#" @click.prevent="sortBy('title')">Name</a></th>
-                        <th :class="getSortColumnClassName('fvDateAdded')"><a href="#" @click.prevent="sortBy('fvDateAdded')">Uploaded</a></th>
+                        <th :class="getSortColumnClassName('fv.fvTitle')">
+                            <a v-if="enableSort" href="#" @click.prevent="sortBy('fv.fvTitle')">Name</a>
+                            <span v-else>Name</span>
+                        </th>
+                        <th :class="getSortColumnClassName(dateSortColumn)">
+                            <a v-if="enableSort" href="#" @click.prevent="sortBy(dateSortColumn)">Uploaded</a>
+                            <span v-else>Uploaded</span>
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -72,24 +78,27 @@ export default {
     components: {
         Pagination
     },
-    data() {
-        return {
-            currentPage: 1,
-            rows: false,
-            fileList: [],
-            selectedFiles: [],
-            sortByColumn: '',
-            sortByDirection: 'desc',
-            pagination: {
-                total: 0,
-                count: 0,
-                per_page: 10,
-                current_page: 1,
-                total_pages: 0
-            }
-        }
-    },
+    data: () => ({
+        currentPage: 1,
+        rows: false,
+        fileList: [],
+        selectedFiles: [],
+        sortByColumn: '',
+        sortByDirection: 'desc',
+        pagination: null,
+        queryParams: {
+            pagination_page: 'ccm_paging_p',
+            sort_column: 'ccm_order_by',
+            sort_direction: 'ccm_order_by_direction'
+        },
+        viewIsLoading: false,
+    }),
     props: {
+        enableSort: {
+            type: Boolean,
+            required: false,
+            default: false
+        },
         enablePagination: {
             type: Boolean,
             required: false,
@@ -113,23 +122,35 @@ export default {
         isLoading() {
             return this.rows === false
         },
+        isFolderItemList() {
+            if (this.fileList.length > 0) {
+                const firstRow = _.first(this.fileList)
+
+                return !_.isUndefined(firstRow.treeNodeID)
+            }
+
+            return false
+        },
+        dateSortColumn() {
+            return this.isFolderItemList ? 'dateModified' : 'f.fDateAdded'
+        },
         fetchRoute() {
             let routePath = CCM_DISPATCHER_FILENAME + this.$props.routePath
             let qs = '?'
-            if (this.sortByColumn !== '') {
-                routePath += `${qs}ccm_order_by=${this.sortByColumn}&ccm_order_by_direction=${this.sortByDirection}`
+            if (this.enableSort && this.sortByColumn !== '') {
+                routePath += `${qs}${this.queryParams.sort_column}=${this.sortByColumn}&${this.queryParams.sort_direction}=${this.sortByDirection}`
                 qs = '&'
             }
 
-            if (this.enablePagination) {
-                routePath += `${qs}ccm_paging_p=${this.currentPage}&itemsPerPage=${this.pagination.per_page}`
+            if (this.enablePagination && this.pagination) {
+                routePath += `${qs}${this.queryParams.pagination_page}=${this.currentPage}&itemsPerPage=${this.pagination.per_page}`
                 qs = '&'
             }
 
             return routePath
         },
         haveToPaginate() {
-            return this.pagination.total_pages > 1
+            return this.enablePagination && this.pagination && this.pagination.total_pages > 1
         }
     },
     methods: {
@@ -138,10 +159,11 @@ export default {
             my.rows = false
             my.fileList = []
             my.selectedFiles = [] // Reset Selected Files
+            my.viewIsLoading = true
 
             new ConcreteAjaxRequest({
                 url: this.fetchRoute,
-                success: function (r) {
+                success: r => {
                     my.rows = []
                     if (r.data.length) {
                         my.fileList = r.data
@@ -153,15 +175,32 @@ export default {
                                 currentRow = []
                             }
                         })
+
                         if (currentRow.length) {
                             my.rows.push(currentRow)
                         }
                     }
+
+                    if (r.meta) {
+                        if (r.meta.pagination) {
+                            my.pagination = r.meta.pagination
+                        }
+
+                        if (r.meta.query_params) {
+                            my.queryParams = r.meta.query_params
+                        }
+                    }
+
+                    // Prevent re-fetching data
+                    // as changing pagination & queryParams data will fire `fetchRoute` watcher
+                    my.$nextTick(() => {
+                        my.viewIsLoading = false
+                    })
                 }
             })
         },
         sortBy(column) {
-            if (column === this.sortByColumn) {
+            if (column === this.sortByColumn || (this.sortByColumn === '' && column === this.dateSortColumn)) {
                 this.sortByDirection = this.sortByDirection === 'asc' ? 'desc' : 'asc'
             }
 
@@ -169,8 +208,10 @@ export default {
         },
         getSortColumnClassName(column) {
             let className = ''
-            if (column === this.sortByColumn) {
-                className = `ccm-results-list-active-sort-${this.sortByDirection}`
+            if (this.enableSort) {
+                if (column === this.sortByColumn || (this.sortByColumn === '' && column === this.dateSortColumn)) {
+                    className = `ccm-results-list-active-sort-${this.sortByDirection}`
+                }
             }
 
             return className
@@ -193,15 +234,21 @@ export default {
         }
     },
     watch: {
-        selectedFiles: function(value) {
+        selectedFiles(value) {
             this.$emit('update:selectedFiles', Array.isArray(value) ? value : [value])
         },
-        routePath: function() {
-            this.getFiles()
+        routePath() {
+            // Reset Pagination if base route has changed
+            this.currentPage = 1
+        },
+        fetchRoute: {
+            immediate: true,
+            handler() {
+                if (!this.viewIsLoading) {
+                    this.getFiles()
+                }
+            }
         }
-    },
-    mounted() {
-        this.getFiles()
     }
 }
 </script>

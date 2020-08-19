@@ -21,6 +21,7 @@
                 :selectedFiles.sync="selectedFiles"
                 :resultsFormFactor="formFactor"
                 :routePath="routePath + activeSearchPreset"
+                :enable-pagination="true"
                 :multipleSelection="multipleSelection"
                 @folderClick="activeFolder = $event"/>
         </div>
@@ -73,7 +74,7 @@ export default {
         fetchSearchPresets() {
             new ConcreteAjaxRequest({
                 url: `${CCM_DISPATCHER_FILENAME}/ccm/system/file/chooser/get_search_presets`,
-                success: (r) => {
+                success: r => {
                     this.searchPresets = r
                 }
             })

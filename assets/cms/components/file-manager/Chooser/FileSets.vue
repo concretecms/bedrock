@@ -18,6 +18,8 @@
                 :selectedFiles.sync="selectedFiles"
                 :resultsFormFactor="formFactor"
                 :routePath="routePath + activeSet"
+                :enable-pagination="true"
+                :enable-sort="true"
                 :multipleSelection="multipleSelection"/>
         </div>
     </div>
@@ -67,8 +69,8 @@ export default {
         getSets() {
             new ConcreteAjaxRequest({
                 url: `${CCM_DISPATCHER_FILENAME}/ccm/system/file/chooser/get_file_sets`,
-                success: (e) => {
-                    this.sets = e
+                success: r => {
+                    this.sets = r
                 }
             })
         }

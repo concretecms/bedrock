@@ -3,13 +3,13 @@
         <nav :aria-label="ariaLabel">
             <ul class="pagination">
                 <li class="page-item">
-                    <a class="page-link" href="#" :aria-label="labelPrevPage" @click="onClick('prev')">
+                    <a class="page-link" href="#" :aria-label="labelPrevPage" @click.prevent="onClick('prev')">
                         <span aria-hidden="true">{{prevText}}</span>
                     </a>
                 </li>
-                <li v-for="page in pageList" :key="page.number" :class="{'page-item': true, 'active': page.number === currentPage}"><a class="page-link" href="#" @click="onClick(page.number, $event)">{{page.text || page.number}}</a></li>
+                <li v-for="page in pageList" :key="page.number" :class="{'page-item': true, 'active': page.number === currentPage}"><a class="page-link" href="#" @click.prevent="onClick(page.number)">{{page.text || page.number}}</a></li>
                 <li class="page-item">
-                    <a class="page-link" href="#" :aria-label="labelNextPage" @click="onClick('next')">
+                    <a class="page-link" href="#" :aria-label="labelNextPage" @click.prevent="onClick('next')">
                         <span aria-hidden="true">{{nextText}}</span>
                     </a>
                 </li>
@@ -168,7 +168,7 @@ export default {
         this.localNumberOfPages = this.numberOfPages
     },
     methods: {
-        onClick (num, event) {
+        onClick (num) {
             // Prev/next
             if (num === 'prev') {
                 num = Math.max(1, this.currentPage - 1)
@@ -189,9 +189,6 @@ export default {
 
             // Emit event triggered by user interaction
             this.$emit('change', this.currentPage)
-
-            // Cancel href click
-            event.stopPropagation()
         }
     }
 }

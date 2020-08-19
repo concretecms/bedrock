@@ -29,6 +29,8 @@
                 :selectedFiles.sync="selectedFiles"
                 :resultsFormFactor="formFactor"
                 :routePath="routePath + keywords"
+                :enable-pagination="true"
+                :enable-sort="true"
                 :multipleSelection="multipleSelection"/>
         </div>
     </div>

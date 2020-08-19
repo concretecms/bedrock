@@ -9,6 +9,7 @@
                :resultsFormFactor="formFactor"
                :routePath="routePath + activeFolder"
                :enable-pagination="true"
+               :enable-sort="true"
                :multipleSelection="multipleSelection"
                @folderClick="activeFolder = $event"/>
     </div>
@@ -55,7 +56,7 @@ export default {
         fetchBreadcrumb(folderId = '') {
             new ConcreteAjaxRequest({
                 url: `${CCM_DISPATCHER_FILENAME}/ccm/system/file/chooser/get_breadcrumb/${folderId}`,
-                success: (r) => {
+                success: r => {
                     this.breadcrumbItems = r.data
                 }
             })
