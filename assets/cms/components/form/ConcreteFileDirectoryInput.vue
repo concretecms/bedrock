@@ -104,7 +104,7 @@ export default {
         },
         disabled() {
             const me = this
-            Vue.nextTick(function () {
+            me.$nextTick(function () {
                 $(me.$refs.directoryInput).selectpicker('refresh')
             })
         }

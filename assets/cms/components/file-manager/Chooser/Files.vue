@@ -91,7 +91,7 @@ export default {
             sort_column: 'ccm_order_by',
             sort_direction: 'ccm_order_by_direction'
         },
-        viewIsLoading: false,
+        viewIsLoading: false
     }),
     props: {
         enableSort: {
