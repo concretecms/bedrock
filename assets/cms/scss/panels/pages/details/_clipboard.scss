@@ -23,7 +23,8 @@
       }
     }
 
-    .ccm-panel-add-block-draggable-block-type {
+    .ccm-panel-add-block-draggable-block-type,
+    .ccm-panel-add-orphaned-block {
       background-color: white;
       border: 1px solid $gray-200;
       cursor: grab;

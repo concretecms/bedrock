@@ -360,7 +360,8 @@ div.ccm-panel-header-accordion {
 
 // This is a fix for when the dropdown is open in the blocks panel.
 // It stops the blocks under the dropdown from taking the focus away from the dropdown
-#ccm-panel-add-blocktypes-list.ccm-no-pointer-events a.ccm-panel-add-block-draggable-block-type-dragger {
+#ccm-panel-add-blocktypes-list.ccm-no-pointer-events a.ccm-panel-add-block-draggable-block-type-dragger,
+#ccm-panel-add-blocktypes-list.ccm-no-pointer-events a.ccm-panel-add-orphaned-block-dragger {
   pointer-events: none;
 }
 /**

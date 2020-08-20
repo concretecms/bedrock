@@ -134,7 +134,8 @@
   }
 }
 
-a.ccm-panel-add-block-draggable-block-type {
+a.ccm-panel-add-block-draggable-block-type,
+a.ccm-panel-add-orphaned-block {
   .ccm-stack-dragging-wrapper {
     align-items: center;
     background-color: $panel-background-color-accent;
