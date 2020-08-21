@@ -29,14 +29,13 @@ import Dropzone from 'dropzone/dist/dropzone'
             })
             if ((obj.$editMessageHolder) && (!(obj.$editMessageHolder.find('.dropzone').attr('data-dropzone-applied')))) {
                 obj.$editMessageHolder.find('.dropzone').not('[data-drozpone-applied="true"]').dropzone({ // dropzone reply form
-                    url: CCM_TOOLS_PATH + '/conversations/add_file',
-                    success: function(file, raw) {
+                    url: CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/add_file',
+                    success: function(file, response) {
                         var self = this
                         $(file.previewTemplate).click(function() {
                             self.removeFile(file)
                             $('input[rel="' + $(this).attr('rel') + '"]').remove()
                         })
-                        var response = JSON.parse(raw)
                         if (!response.error) {
                             $(this.element).closest('div.ccm-conversation-edit-message').find('form.aux-reply-form').append('<input rel="' + response.timestamp + '" type="hidden" name="attachments[]" value="' + response.id + '" />')
                         } else {
@@ -119,14 +118,13 @@ import Dropzone from 'dropzone/dist/dropzone'
                             done()
                         }
                     },
-                    url: CCM_TOOLS_PATH + '/conversations/add_file',
-                    success: function(file, raw) {
+                    url: CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/add_file',
+                    success: function(file, response) {
                         var self = this
                         $(file.previewTemplate).click(function() {
                             $('input[rel="' + $(this).attr('rel') + '"]').remove()
                             self.removeFile(file)
                         })
-                        var response = JSON.parse(raw)
                         if (!response.error) {
                             $('div[rel="' + response.tag + '"] form.main-reply-form').append('<input rel="' + response.timestamp + '" type="hidden" name="attachments[]" value="' + response.id + '" />')
                         } else {
@@ -153,14 +151,13 @@ import Dropzone from 'dropzone/dist/dropzone'
 
             if (!($(obj.$replyholder.find('.dropzone')).attr('data-dropzone-applied'))) {
                 obj.$replyholder.find('.dropzone').not('[data-drozpone-applied="true"]').dropzone({ // dropzone reply form
-                    url: CCM_TOOLS_PATH + '/conversations/add_file',
-                    success: function(file, raw) {
+                    url: CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/add_file',
+                    success: function(file, response) {
                         var self = this
                         $(file.previewTemplate).click(function() {
                             self.removeFile(file)
                             $('input[rel="' + $(this).attr('rel') + '"]').remove()
                         })
-                        var response = JSON.parse(raw)
                         if (!response.error) {
                             $(this.element).closest('div.ccm-conversation-add-reply').find('form.aux-reply-form').append('<input rel="' + response.timestamp + '" type="hidden" name="attachments[]" value="' + response.id + '" />')
                         } else {
