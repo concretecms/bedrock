@@ -279,10 +279,9 @@ import Dropzone from 'dropzone/dist/dropzone'
             $.ajax({
                 type: 'post',
                 data: formArray,
-                url: CCM_TOOLS_PATH + '/conversations/delete_file',
+                url: CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/delete_file',
                 success: function(response) {
-                    var parsedData = JSON.parse(response)
-                    $('p[rel="' + parsedData.attachmentID + '"]').parent('.attachment-container').fadeOut(300, function() { $(this).remove() })
+                    $('p[rel="' + response.attachmentID + '"]').parent('.attachment-container').fadeOut(300, function() { $(this).remove() })
                     if (attachmentsDialog.dialog) {
                         attachmentsDialog.dialog('close')
                         obj.publish('conversationDeleteAttachment', { cnvMessageAttachmentID: cnvMessageAttachmentID })
