@@ -715,7 +715,7 @@ window._ = _
         updateCount: function() {
             var obj = this
             obj.publish('conversationBeforeUpdateCount')
-            obj.$messagecnt.load(CCM_TOOLS_PATH + '/conversations/count_header', {
+            obj.$messagecnt.load(CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/count_header', {
                 cnvID: obj.options.cnvID
             }, function() {
                 obj.publish('conversationUpdateCount')
