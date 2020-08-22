@@ -531,7 +531,7 @@ window._ = _
                 type: 'post',
                 data: formArray,
                 dataType: 'json',
-                url: CCM_TOOLS_PATH + '/conversations/delete_message',
+                url: CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/delete_message',
                 success: function(r) {
                     if (!r.error) {
                         var $parent = $('[data-conversation-message-id=' + msgID + ']')
