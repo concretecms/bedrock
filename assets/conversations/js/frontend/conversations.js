@@ -748,7 +748,7 @@ window._ = _
                 dataType: 'json',
                 type: 'post',
                 data: formArray,
-                url: CCM_TOOLS_PATH + '/conversations/add_message',
+                url: CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/add_message',
                 success: function(r) {
                     if (!r) {
                         obj.handlePostError($form)
