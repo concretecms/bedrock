@@ -455,7 +455,7 @@ window._ = _
                     data: data,
                     url: CCM_TOOLS_PATH + '/conversations/rate',
                     success: function(html) {
-                        $('span[data-message-rating="' + cnvMessageID + '"]').load(CCM_TOOLS_PATH + '/conversations/get_rating', {
+                        $('span[data-message-rating="' + cnvMessageID + '"]').load(CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/get_rating', {
                             cnvMessageID: cnvMessageID
                         })
                     }
