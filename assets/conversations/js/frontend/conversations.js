@@ -574,7 +574,7 @@ window._ = _
             $.ajax({
                 type: 'post',
                 data: formArray,
-                url: CCM_TOOLS_PATH + '/conversations/edit_message',
+                url: CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/edit_message',
                 success: function(html) {
                     var $parent = $('.ccm-conversation-message[data-conversation-message-id=' + msgID + ']')
                     var $previousContents = $parent
