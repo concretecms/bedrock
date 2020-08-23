@@ -426,7 +426,7 @@ window._ = _
                 $.ajax({
                     type: 'post',
                     data: data,
-                    url: CCM_TOOLS_PATH + '/conversations/message_page',
+                    url: CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/message_page',
                     success: function(html) {
                         obj.$messages.append(html)
                         $('.ccm-conversation-messages .dropdown-toggle').dropdown()
