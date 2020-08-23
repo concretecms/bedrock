@@ -649,7 +649,7 @@ window._ = _
             $.ajax({
                 type: 'post',
                 data: formArray,
-                url: CCM_TOOLS_PATH + '/conversations/message_detail',
+                url: CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/message_detail',
                 success: function(html) {
                     var $parent = $('.ccm-conversation-message[data-conversation-message-id=' + json.cnvMessageParentID + ']')
 
@@ -704,7 +704,7 @@ window._ = _
             $.ajax({
                 type: 'post',
                 data: formArray,
-                url: CCM_TOOLS_PATH + '/conversations/message_detail',
+                url: CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/message_detail',
                 success: function(html) {
                     var $parent = $('[data-conversation-message-id=' + json.cnvMessageID + ']')
                     $parent.after(html).remove()
