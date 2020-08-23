@@ -442,7 +442,7 @@ window._ = _
             obj.$element.on('click.cnv', '.conversation-rate-message', function() {
                 var cnvMessageID = $(this).closest('[data-conversation-message-id]').attr('data-conversation-message-id')
                 var cnvRatingTypeHandle = $(this).attr('data-conversation-rating-type')
-                obj.$messagerating.load(CCM_TOOLS_PATH + '/conversations/rate')
+                obj.$messagerating.load(CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/rate')
                 var data = {
                     cnvID: obj.options.cnvID,
                     cID: obj.options.cID,
@@ -453,7 +453,7 @@ window._ = _
                 $.ajax({
                     type: 'post',
                     data: data,
-                    url: CCM_TOOLS_PATH + '/conversations/rate',
+                    url: CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/rate',
                     success: function(html) {
                         $('span[data-message-rating="' + cnvMessageID + '"]').load(CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/get_rating', {
                             cnvMessageID: cnvMessageID
