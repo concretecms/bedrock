@@ -609,7 +609,7 @@ window._ = _
             $.ajax({
                 type: 'post',
                 data: formArray,
-                url: CCM_TOOLS_PATH + '/conversations/flag_message',
+                url: CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/flag_message/0',
                 success: function(html) {
                     var $parent = $('.ccm-conversation-message[data-conversation-message-id=' + msgID + ']')
 
