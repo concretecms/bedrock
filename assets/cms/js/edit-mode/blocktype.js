@@ -118,7 +118,6 @@ import _ from 'underscore'
                     arHandle: area_handle,
                     btID: block_type_id,
                     mode: 'edit',
-                    processBlock: 1,
                     add: 1,
                     ccm_token: CCM_SECURITY_TOKEN,
                     arCustomTemplates: area.getCustomTemplates(),
