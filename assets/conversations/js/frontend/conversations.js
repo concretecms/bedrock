@@ -100,7 +100,7 @@ window._ = _
             var attachmentOverridesEnabled = (obj.options.attachmentOverridesEnabled)
 
             if (obj.options.method == 'ajax') {
-                $.post(CCM_TOOLS_PATH + '/conversations/view_ajax', {
+                $.post(CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/view_ajax', {
                     cnvID: obj.options.cnvID,
                     cID: obj.options.cID,
                     blockID: obj.options.blockID,
@@ -360,7 +360,7 @@ window._ = _
                 obj.editMessage($link.attr('data-conversation-message-id'))
             })
             obj.$element.on('change.cnv', 'select[data-sort=conversation-message-list]', function() {
-                obj.$messagelist.load(CCM_TOOLS_PATH + '/conversations/view_ajax', {
+                obj.$messagelist.load(CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/view_ajax', {
                     cnvID: obj.options.cnvID,
                     task: 'get_messages',
                     cID: obj.options.cID,
