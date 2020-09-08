@@ -426,7 +426,7 @@ data.result = my.displaySingleLevel(data.node);
                 dataType: 'json',
                 type: 'POST',
                 data: params,
-                url: CCM_TOOLS_PATH + '/dashboard/sitemap_update',
+                url: CCM_DISPATCHER_FILENAME + '/ccm/system/backend/dashboard/sitemap_update',
                 success: function(r) {
                     node.setStatus('ok')
                     ConcreteAlert.notify({
@@ -604,7 +604,7 @@ data.result = my.displaySingleLevel(data.node);
  */
 
     ConcreteSitemap.exitEditMode = function(cID) {
-        $.get(CCM_TOOLS_PATH + '/dashboard/sitemap_check_in?cID=' + cID + '&ccm_token=' + CCM_SECURITY_TOKEN)
+        $.get(CCM_DISPATCHER_FILENAME + '/ccm/system/backend/dashboard/sitemap_check_in?cID=' + cID + '&ccm_token=' + CCM_SECURITY_TOKEN)
     }
 
     ConcreteSitemap.submitDragRequest = function($form) {
