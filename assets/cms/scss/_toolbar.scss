@@ -304,6 +304,11 @@ div#ccm-toolbar-disabled {
 }
 
 /* Responsive Toolbar */
+#ccm-dashboard-content {
+  @media only screen and (max-width: 768px) {
+    margin-right: 0 !important;
+  }
+}
 ul.mobile-menu {
   li {
     display: flex;
