@@ -70,8 +70,11 @@ export default {
                         action: 'pin'
                     },
                     success: function (r) {
+                        /*
                         menu.$menu.find('a').hide()
                         my.slotType = r.slotType
+                        */
+                        window.location.reload()
                     }
                 })
             })
@@ -84,8 +87,11 @@ export default {
                         boardInstanceID: my.slotData.boardInstanceID
                     },
                     success: function (r) {
+                        /*
                         menu.$menu.find('a').hide()
                         my.slotType = r.slotType
+                         */
+                        window.location.reload()
                     }
                 })
             })
@@ -103,6 +109,7 @@ export default {
             my.menu = menu
 
             ConcreteEvent.subscribe('SaveCustomSlot', function (e, data) {
+                /*
                 // This is hideous. Horrendous. Refactor this to include the BoardSlot component and the chooser
                 // of slot data within the same component, using the bootstrap-vue modal component
                 if (data.slot === my.slotData.slot) {
@@ -115,6 +122,8 @@ export default {
                         state: my.$state
                     })
                 }
+                 */
+                window.location.reload()
             })
         }
     }
