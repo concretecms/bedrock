@@ -11,7 +11,7 @@
 /* globals ConcreteMenu */
 /* eslint-disable no-new */
 import '../js/in-context-menu'
-import Vue from 'vue'
+// import Vue from 'vue'
 
 export default {
     props: {
