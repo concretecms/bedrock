@@ -147,6 +147,29 @@
     background-color: #007cce;
     background-image: none;
   }
+
+  li.ccm-inline-toolbar-icon-cell > div.ccm-dropdown-menu {
+    display: none;
+
+    &::before {
+      border-color: transparent transparent #000;
+      border-style: solid;
+      border-width: 0 5px 5px;
+      content: ' ';
+      height: 0;
+      left: 11px;
+      position: absolute;
+      top: -5px;
+      width: 0;
+    }
+
+    &.active {
+      box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.43);
+      display: block;
+      margin-top: 1px;
+      position: absolute;
+    }
+  }
 }
 
 #ccm-inline-toolbar-container {
