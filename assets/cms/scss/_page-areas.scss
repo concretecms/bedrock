@@ -434,7 +434,6 @@ div.ccm-area[data-total-blocks='0'] {
 }
 
 a.ccm-block-edit-drag,
-a.ccm-panel-add-orphaned-block-dragger,
 a.ccm-panel-add-block-draggable-block-type-dragger {
   bottom: 0;
   cursor: -moz-grab;
@@ -455,7 +454,6 @@ a.ccm-panel-add-block-draggable-block-type-dragger {
 
 body {
   > a.ccm-block-edit-drag,
-  > a.ccm-panel-add-orphaned-block-dragger,
   > a.ccm-panel-add-block-draggable-block-type-dragger {
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;

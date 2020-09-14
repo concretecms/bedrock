@@ -47,7 +47,6 @@
 }
 
 a.ccm-panel-add-block-draggable-block-type,
-a.ccm-panel-add-orphaned-block,
 a.ccm-panel-add-container-item {
   color: $dark;
   display: block;
@@ -114,7 +113,6 @@ a.ccm-panel-add-container-item {
 }
 
 #ccm-panel-add-blocktypes-list.ccm-stacked-list a,
-a.ccm-panel-add-orphaned-block.ccm-stacked-list,
 a.ccm-panel-add-block-draggable-block-type.ccm-stacked-list {
   align-items: center;
   display: flex;

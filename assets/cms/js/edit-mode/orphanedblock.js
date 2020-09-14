@@ -1,32 +1,27 @@
 /* eslint-disable no-new, no-unused-vars, camelcase */
-/* global _, Concrete, ConcreteEvent, ConcretePanelManager, ConcreteToolbar, CCM_SECURITY_TOKEN, CCM_DISPATCHER_FILENAME */
+/* global _, Concrete, ConcreteEvent, ConcretePanelManager, CCM_SECURITY_TOKEN, CCM_DISPATCHER_FILENAME */
 
 import _ from 'underscore'
 
-;(function(window, $) {
+(function (window, $) {
     'use strict'
 
-    var OrphanedBlock = Concrete.OrphanedBlock = function OrphanedBlock(elem, edit_mode, dragger, default_area) {
-        this.init.apply(this, _(arguments).toArray())
+    /**
+     * Orphaned block used in panels
+     * @type {Function}
+     */
+    var OrphanedBlock = Concrete.OrphanedBlock = function OrphanedBlock(elem, edit_mode, default_area) {
+        this.init.apply(this, _.toArray(arguments))
     }
 
-    OrphanedBlock.prototype = _.extend(Object.create(Concrete.Block.prototype), {
+    OrphanedBlock.prototype = _.extend(Object.create(Concrete.BlockType.prototype), {
 
-        init: function(elem, edit_mode, dragger, default_area) {
+        init: function orphanedBlockInit(elem, edit_mode, default_area) {
             var my = this
-            Concrete.Block.prototype.init.apply(my, _(arguments).toArray())
-            my.setAttr('defaultArea', default_area || null)
-
-            if (default_area) {
-                if (default_area.acceptsOrphanedBlock(my.getHandle())) {
-                    my.handleDefaultArea()
-                } else {
-                    my.removeElement()
-                }
-            }
+            Concrete.BlockType.prototype.init.call(my, elem, edit_mode, elem.find('.block-content'), default_area)
         },
 
-        handleDefaultArea: function() {
+        handleDefaultArea: function () {
             var my = this
             $.pep.unbind(my.getPeper())
             my.getPeper().click(function (e) {
@@ -35,68 +30,25 @@ import _ from 'underscore'
                 return false
             }).css({
                 cursor: 'pointer'
+            }).children('.block-name').css({
+                cursor: 'pointer'
             })
         },
 
-        removeElement: function() {
-            var panel = this.getPeper().closest('.ccm-panel-content-inner')
-            this.getPeper().closest('li').remove()
-
-            panel.children('.ccm-panel-add-block-set').each(function() {
-                var ul = $(this).children('ul')
-                if (!ul.children().length) {
-                    $(this).remove()
-                }
-            })
+        removeElement: function () {
+            this.getElem().remove()
         },
 
-        handleClick: function() {
-            var my = this; var default_area = my.getAttr('defaultArea')
-
-            ConcretePanelManager.exitPanelMode(function() {
-                _.defer(function() {
-                    my.addToDragArea(_.last(default_area.getDragAreas()))
-                })
-            })
-        },
-
-        pepStart: function blockTypePepStart(context, event, pep) {
-            var my = this; var panel
-            Concrete.Block.prototype.pepStart.call(this, context, event, pep)
-
-            my.setAttr('closedPanel', _(ConcretePanelManager.getPanels()).find(function (panel) {
-                return panel.isOpen
-            }))
-
-            if ((panel = my.getAttr('closedPanel'))) {
-                panel.hide()
-            }
-        },
-
-        pepStop: function blockTypePepStop(context, event, pep) {
-            var my = this; var drag_area; var panel
-
-            if ((drag_area = my.getSelected())) {
-                my.addToDragArea(drag_area)
-            } else {
-                if ((panel = my.getAttr('closedPanel'))) {
-                    panel.show()
-                }
-            }
-
-            _.defer(function () {
-                Concrete.event.fire('EditModeBlockDragStop', { block: my, pep: pep, event: event })
-            })
-
-            my.getDragger().remove()
-            my.setAttr('dragger', null)
-        },
-
-        addToDragArea: function blockTypeAddToDragArea(drag_area) {
-            var my = this; var elem = my.getElem()
+        addToDragArea: function OrphanedBlockAddToDragArea(drag_area) {
+            var my = this
+            var elem = my.getElem()
             var blockId = my.getId()
             var sourceAreaHandle = elem.data('sourceAreaHandle')
             var targetArea = drag_area.getArea()
+
+            ConcretePanelManager.exitPanelMode()
+            $.fn.dialog.closeAll()
+            $.fn.dialog.showLoader()
 
             var send = {
                 ccm_token: window.CCM_SECURITY_TOKEN,
@@ -131,7 +83,7 @@ import _ from 'underscore'
                     if (loaderDisplayed) {
                         $.fn.dialog.hideLoader()
                     }
-                    ConcreteAjaxRequest.validateResponse(r, function(ok) {
+                    ConcreteAjaxRequest.validateResponse(r, function (ok) {
                         if (ok) {
                             ConcreteToolbar.disableDirectExit()
 
