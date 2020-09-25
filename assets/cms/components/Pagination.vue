@@ -2,14 +2,14 @@
     <div class="ccm-search-results-pagination">
         <nav :aria-label="ariaLabel">
             <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#" :aria-label="labelPrevPage" @click="onClick('prev')">
+                <li :class="{'page-item': true, 'disabled': prevDisabled}">
+                    <a class="page-link" href="#" :aria-label="labelPrevPage" @click="onClick('prev', $event)">
                         <span aria-hidden="true">{{prevText}}</span>
                     </a>
                 </li>
                 <li v-for="page in pageList" :key="page.number" :class="{'page-item': true, 'active': page.number === currentPage}"><a class="page-link" href="#" @click="onClick(page.number, $event)">{{page.text || page.number}}</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" :aria-label="labelNextPage" @click="onClick('next')">
+                <li :class="{'page-item': true, 'disabled': nextDisabled}">
+                    <a class="page-link" href="#" :aria-label="labelNextPage" @click="onClick('next', $event)">
                         <span aria-hidden="true">{{nextText}}</span>
                     </a>
                 </li>
@@ -108,6 +108,18 @@ export default {
         }
     },
     computed: {
+        nextDisabled () {
+            return this.mode === 'paging'
+                ? this.currentPage === this.localNumberOfPages
+                : this.nextCursor === null;
+        },
+
+        prevDisabled () {
+            return this.mode === 'paging'
+                ? this.currentPage === 1
+                : this.prevCursor === null;
+        },
+
         numberOfPages () {
             return Math.max(1, Math.ceil(this.totalRows / this.perPage))
         },
