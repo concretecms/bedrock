@@ -134,18 +134,6 @@ export default {
                 startPage = Math.min(this.localNumberOfPages - nrOfPages + 1, startPage)
             }
 
-            // Make sure the number of pages in pagination stay the same
-            if (startPage === 1) {
-                nrOfPages = Math.min(nrOfPages + 2, this.localNumberOfPages)
-            } else if (startPage === 2) {
-                nrOfPages = Math.min(nrOfPages + 1, this.localNumberOfPages)
-            }
-
-            if (this.currentPage >= this.localNumberOfPages - 2) {
-                nrOfPages = Math.min(nrOfPages + 2, this.localNumberOfPages)
-                startPage = this.localNumberOfPages - nrOfPages + 1
-            }
-
             const endPage = startPage + nrOfPages - 1
 
             const pages = [...new Array(nrOfPages)].map((val, i) => ({ number: startPage + i }))
