@@ -77,7 +77,7 @@ export default {
         currentPage = currentPage > 0 ? currentPage : 1
 
         return {
-            targetNumberOfLinks: 3,
+            targetNumberOfLinks: 7,
             currentPage,
             localNumberOfPages: 1
         }
