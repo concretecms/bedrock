@@ -95,10 +95,10 @@ export default {
     data () {
         let currentPage = parseInt(this.value);
 
-        if (this.mode === 'cursor') {
-            currentPage = this.value
-        } else {
+        if (this.mode === 'paging') {
             currentPage = currentPage > 0 ? currentPage : 1
+        } else {
+            currentPage = this.value
         }
 
         return {
