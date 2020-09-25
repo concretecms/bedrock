@@ -28,8 +28,9 @@
  * @vue-prop {String} labelNextPage - Aria-label attribute on the next button
  * @vue-prop {String} prevText - Text on the previous button
  * @vue-prop {String} labelPrevPage - Aria-label attribute on the previous button
+ * @vue-prop {String} mode - Type of paging to display. Modes: 'paging' is regular with page numbers, 'cursor' is next-prev navigation.
  * @vue-prop {Number,String} perPage - Number of results displayed per page
- * @vue-prop {Number,String} totalRows - Total number of results
+ * @vue-prop {Number,String} totalRows - Total number of results. Use -1 to only display the current page.
  */
 export default {
     model: {
@@ -40,6 +41,18 @@ export default {
         ariaLabel: {
             type: String
         },
+        mode: {
+            type: String,
+            default: 'paging',
+            validator: value => ['paging', 'cursor'].indexOf(value) > -1
+        },
+        nextCursor: {
+            type: [Number, String],
+            default: null,
+            // Matches a valid curor, which contains page numbers separated by
+            // a pipe character or an empty string. Examples: 16 and 11|24|80.
+            validator: value => !value || typeof value === 'number' || !!value.match(/^\d+(\|\d+)*$/)
+        },
         nextText: {
             type: String,
             default: 'Next →'
@@ -47,6 +60,13 @@ export default {
         labelNextPage: {
             type: String,
             default: 'Next'
+        },
+        prevCursor: {
+            type: [Number, String, null],
+            default: null,
+            // Matches a valid curor, which contains page numbers separated by
+            // a pipe character or an empty string. Examples: 16 and 11|24|80.
+            validator: value => !value || typeof value === 'number' || !!value.match(/^(\d+(\|\d+)*)?$/)
         },
         labelPrevPage: {
             type: String,
@@ -64,17 +84,22 @@ export default {
         totalRows: {
             type: [Number, String],
             default: 0,
-            validator: value => value >= 0
+            validator: value => value >= -1
         },
         value: {
             type: [Number, String],
             default: null,
-            validator: value => value >= 0
+            validator: value => typeof value === 'string' || value >= -1
         }
     },
     data () {
-        let currentPage = parseInt(this.value)
-        currentPage = currentPage > 0 ? currentPage : 1
+        let currentPage = parseInt(this.value);
+
+        if (this.mode === 'cursor') {
+            currentPage = this.value
+        } else {
+            currentPage = currentPage > 0 ? currentPage : 1
+        }
 
         return {
             targetNumberOfLinks: 7,
@@ -92,6 +117,12 @@ export default {
          * @returns {{number: *}[]}
          */
         pageList () {
+            // If totalRows is -1 we won't figure out nr of pages and don't
+            // display the current page number. This happens in 'cusrsor' mode.
+            if (this.totalRows === -1 || this.mode === 'cursor') {
+                return [];
+            }
+
             let startPage = 1
             let nrOfPages = Math.min(this.localNumberOfPages, this.targetNumberOfLinks)
             if (this.localNumberOfPages > nrOfPages) {
@@ -154,14 +185,10 @@ export default {
     },
     watch: {
         value (newValue, oldValue) {
-            if (newValue !== oldValue) {
-                this.currentPage = Math.max(1, newValue)
-            }
+            this.currentPage = this.mode === 'paging' ? Math.max(1, newValue) : newValue
         },
         currentPage (newValue, oldValue) {
-            if (newValue !== oldValue) {
-                this.$emit('input', newValue > 0 ? newValue : null)
-            }
+            this.$emit('input', this.mode === 'paging' ? (newValue > 0 ? newValue : null) : newValue)
         }
     },
     created () {
@@ -169,19 +196,30 @@ export default {
     },
     methods: {
         onClick (num, event) {
-            // Prev/next
-            if (num === 'prev') {
-                num = Math.max(1, this.currentPage - 1)
-            } else if (num === 'next') {
-                // Gets corrected if too high
-                num = this.currentPage + 1
-            }
+            if (this.mode === 'paging') {
+                // Prev/next
+                if (num === 'prev') {
+                    num = Math.max(1, this.currentPage - 1)
+                } else if (num === 'next') {
+                    // Gets corrected if too high
+                    num = this.currentPage + 1
+                }
 
-            if (num < 1) {
-                // Ignore ellipsis clicked
-                return
-            } else if (num > this.numberOfPages) {
-                num = this.numberOfPages
+                if (num < 1) {
+                    // Ignore ellipsis clicked
+                    return
+                } else if (num > this.numberOfPages && this.totalRows > 0) {
+                    // Only when totalRows is set limit num because we then also
+                    // know the total nr of rows.
+                    num = this.numberOfPages
+                }
+            } else {
+                // Prev/next
+                if (num === 'prev') {
+                    num = this.prevCursor;
+                } else if (num === 'next') {
+                    num = this.nextCursor;
+                }
             }
 
             // Update the v-model
