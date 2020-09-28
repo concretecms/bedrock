@@ -160,7 +160,8 @@ div.ccm-panel-content {
   transition: transform cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
   width: 320px;
 
-  button.ccm-delete-clipboard-item {
+  button.ccm-delete-clipboard-item,
+  button.ccm-delete-orphaned-block-item {
     color: #a2a3a8;
 
     &:hover {

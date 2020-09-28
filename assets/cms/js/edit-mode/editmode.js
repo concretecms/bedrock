@@ -486,6 +486,13 @@
             $(element).find('input[data-input=search-blocks]').liveUpdate('ccm-panel-add-blocktypes-list', 'blocktypes')
             $(element).find('input[data-input=search-blocks]').focus()
 
+            $(element).find('a.ccm-panel-add-orphaned-block').each(function () {
+                var block; var me = $(this); var dragger = $('<a/>').addClass('ccm-panel-add-orphaned-block-dragger').appendTo(me)
+                block = new Concrete.OrphanedBlock($(this), my, dragger, next_area)
+
+                block.setPeper(dragger)
+            })
+
             $(element).find('a.ccm-panel-add-block-draggable-block-type').each(function () {
                 var block; var me = $(this); var dragger = $('<a/>').addClass('ccm-panel-add-block-draggable-block-type-dragger').appendTo(me)
                 block = new Concrete.BlockType($(this), my, dragger, next_area)

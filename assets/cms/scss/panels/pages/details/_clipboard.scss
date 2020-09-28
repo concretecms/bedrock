@@ -1,4 +1,5 @@
-.ccm-panel-add-clipboard-block-item {
+.ccm-panel-add-clipboard-block-item,
+.ccm-panel-add-orphaned-block-item {
   border-bottom: 1px solid $gray-200;
   margin: 5px 0;
   padding-bottom: 5px;
@@ -41,7 +42,8 @@
   }
 }
 
-.ccm-delete-clipboard-item {
+.ccm-delete-clipboard-item,
+.ccm-delete-orphaned-block-item {
   &:hover {
     text-decoration: none !important;
   }
