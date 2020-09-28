@@ -46,6 +46,10 @@ class PageNotification {
         this._$notificationsBox.find('.collapse').collapse('show')
     }
 
+    setupContent () {
+        this._$notificationsBox.find('.dialog-launch').dialog()
+    }
+
     clear () {
         this.innerStack.close()
         this.close()
@@ -75,6 +79,9 @@ class PageNotification {
         }
 
         const notice = PNotify.alert(notifyOptions)
+        notice.on('pnotify:afterOpen', () => {
+            notificationsBox.setupContent()
+        })
         notice.on('pnotify:afterClose', () => {
             if (notificationsBox.innerStack.length === 1) {
                 notificationsBox.close()
