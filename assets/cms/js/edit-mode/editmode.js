@@ -268,8 +268,10 @@
                 // got to grab the message too, eventually
                 $.ajax({
                     type: 'POST',
-                    url: CCM_TOOLS_PATH + '/pile_manager',
-                    data: 'cID=' + block.getCID() + '&bID=' + block.getId() + '&arHandle=' + encodeURIComponent(area.getHandle()) + '&btask=add&scrapbookName=userScrapbook&ccm_token=' + encodeURIComponent(token),
+                    url: CCM_DISPATCHER_FILENAME + `/ccm/system/block/process/copy/${block.getCID()}/${encodeURIComponent(area.getHandle())}/${block.getId()}`,
+                    data: {
+                        ccm_token: token
+                    },
                     success: function (resp) {
                         ConcreteAlert.notify({
                             message: ccmi18n.copyBlockToScrapbookMsg,
