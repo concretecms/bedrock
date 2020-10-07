@@ -47,6 +47,7 @@ import './progressive-operations'
 // Search
 import './search/base'
 import './search/table'
+import './search/field-selector';
 
 // Tree
 import './tree'
