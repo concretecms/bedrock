@@ -12,15 +12,13 @@
         my.$element = $element
         my.options = options
 
-        var $container = $('div[data-container=search-fields]'),
-            renderFieldRowTemplate = _.template(
+        var $container = $('div[data-container=search-fields]')
+        var renderFieldRowTemplate = _.template(
             $('script[data-template=search-field-row]').html()
         )
 
         my.$element.find('[data-search-field-key]').on('click', function() {
-
             var key = $(this).data('search-field-key')
-
             if (key) {
                 $.concreteAjax({
                     url: $(this).attr('data-action'),
@@ -51,7 +49,7 @@
 
         $container.on('click', 'a[data-search-remove=search-field]', function(e) {
             e.preventDefault()
-            var $row = $(this).parentsUntil('.ccm-search-field-selector-row').parent();
+            var $row = $(this).parentsUntil('.ccm-search-field-selector-row').parent()
             $row.remove()
         })
 
@@ -80,7 +78,6 @@
                 plugins: ['remove_button']
             })
         }
-
     }
 
     // jQuery Plugin
