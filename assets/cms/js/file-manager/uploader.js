@@ -403,6 +403,8 @@
 
                         const $select = $('<select/>')
                             .addClass('ccm-directory-selector')
+                            .attr('data-size', 5)
+                            .attr('data-live-search', 'true')
                             .attr('id', selectDirectoryId)
 
                         const $selectDirectoryInputGroupPrepend = $('<div/>')
