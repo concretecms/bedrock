@@ -219,7 +219,7 @@ export default {
 
             ConcreteAlert.notify({
                 title: 'Complete',
-                message: 'The upload was successfully.'
+                message: ccmi18n_fileuploader.uploadSuccessfulMessage
             })
         }
     }

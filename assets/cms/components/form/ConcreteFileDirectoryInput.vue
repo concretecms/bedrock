@@ -4,7 +4,7 @@
             <div class="form-group">
                 <label :for="directorySelectInputId" v-if="inputLabel">{{inputLabel}}</label>
                 <div v-if="showAddDirectoryButton" class="input-group">
-                    <select :id="directorySelectInputId" :name="inputName" class="ccm-directory-selector form-control" v-model="selectedDirectoryID" ref="directoryInput" :disabled="disabled">
+                    <select :id="directorySelectInputId" :name="inputName" data-size="5" data-live-search="true" class="ccm-directory-selector form-control" v-model="selectedDirectoryID" ref="directoryInput" :disabled="disabled">
                         <option v-for="directory in directories" :class="`level-${directory.directoryLevel}`" :value="directory.directoryId" data-icon="fas fa-folder">
                             {{ directory.directoryName }}
                         </option>
