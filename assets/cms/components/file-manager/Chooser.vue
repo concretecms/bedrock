@@ -4,7 +4,7 @@
             <div class="row h-100">
                 <div class="col-4 border-right p-3">
                     <ul class="nav flex-column">
-                        <li class="nav-item" v-for="item in chooserNavItems" :key="item.key">
+                        <li class="nav-item" v-for="item in choosers" :key="item.key">
                             <a :class="{'nav-link': true, 'active': activeNavItem.key === item.key}"
                                @click.prevent="activateTab(item)"
                                href="javascript:void(0)">
@@ -14,7 +14,7 @@
                     </ul>
                     <hr>
                     <ul class="nav flex-column">
-                        <li class="nav-item" v-for="item in uploaderNavItems" :key="item.key">
+                        <li class="nav-item" v-for="item in uploaders" :key="item.key">
                             <a :class="{'nav-link': true, 'active': activeNavItem.key === item.key}"
                                @click.prevent="activateTab(item)"
                                href="javascript:void(0)">
@@ -68,8 +68,18 @@ export default {
             filesReadyToUpload: 0,
             activeNavItem: null,
             resultsFormFactor: 'grid',
-            selectedFiles: [],
-            chooserNavItems: [
+            selectedFiles: []
+        }
+    },
+    computed: {
+        uploadReady() {
+            return this.filesReadyToUpload > 0
+        }
+    },
+    props: {
+        choosers: {
+            type: Array,
+            default: [
                 {
                     key: 'recent-uploads',
                     title: 'Recently Uploaded'
@@ -79,39 +89,27 @@ export default {
                     title: 'File Manager'
                 },
                 {
-                    key: 'file-sets',
-                    title: 'File Sets'
-                },
-                {
-                    key: 'saved-search',
-                    title: 'Saved Searches'
-                },
-                {
                     key: 'search',
                     title: 'Search'
                 }
-            ],
-            uploaderNavItems: [
+            ]
+        },
+        uploaders: {
+            type: Array,
+            default: [
                 {
                     key: 'file-upload',
                     title: 'Upload Files'
                 }
             ]
-        }
-    },
-    computed: {
-        uploadReady() {
-            return this.filesReadyToUpload > 0
-        }
-    },
-    props: {
+        },
         multipleSelection: {
             type: Boolean,
             default: true
         }
     },
     created() {
-        this.activeNavItem = _.first(this.chooserNavItems)
+        this.activeNavItem = _.first(this.choosers)
     },
     mounted() {
         var my = this
