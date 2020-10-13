@@ -53,12 +53,18 @@ export default {
         }
     },
     computed: {
+        filesInQueue() {
+            if (this.dropzone) {
+                return this.dropzone.files.length
+            }
+            return 0
+        },
         dropzoneSettings() {
             const me = this
             return {
                 url: `${CCM_DISPATCHER_FILENAME}/ccm/system/file/upload`,
                 previewTemplate: this.itemTemplate,
-                autoProcessQueue: true,
+                autoProcessQueue: false,
                 uploadMultiple: true,
                 parallelUploads: 4,
                 paramName: 'files',
@@ -116,6 +122,7 @@ export default {
                 queuecomplete: function () {
                     if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
                         if (me.uploadedFiles.length !== 0) {
+                            /*
                             if (typeof me.options.formData.fID === 'undefined') {
                                 ConcreteEvent.publish('FileManagerAddFilesComplete', {
                                     files: me.uploadedFiles
@@ -125,6 +132,12 @@ export default {
                                     files: me.uploadedFiles
                                 })
                             }
+                             */
+                            const fileIds = [];
+                            me.uploadedFiles.forEach(function(file) {
+                                fileIds.push(file.fID)
+                            })
+                            ConcreteEvent.publish('FileManagerSelectFile', { fID: fileIds })
 
                             me.uploadedFiles = []
                         }
@@ -164,8 +177,17 @@ export default {
 
         $(me.$refs.dropzoneElement).dropzone(me.dropzoneSettings)
         $(window).on('resize', _.throttle(me.refresh, 100))
+
+        ConcreteEvent.subscribe('FileUploaderUploadSelectedFiles', function(e) {
+            me.dropzone.options.autoProcessQueue = true
+            me.dropzone.processQueue()
+        })
     },
     watch: {
+        filesInQueue() {
+            const filesInQueue = this.filesInQueue
+            ConcreteEvent.publish('FileUploaderFilesReadyToUpload', filesInQueue)
+        },
         isUploadInProgress(val, oldVal) {
             if (oldVal === false) {
                 NProgress.start()
