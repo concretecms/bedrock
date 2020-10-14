@@ -1069,7 +1069,6 @@
 
                                     fileUploader.uploadComplete()
                                 }
-
                             }
 
                             fileUploader.uploadedFiles = []

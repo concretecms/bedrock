@@ -13,7 +13,7 @@
 </template>
 
 <script>
-/* global CCM_DISPATCHER_FILENAME, CCM_SECURITY_TOKEN, ConcreteAlert, ConcreteEvent, NProgress, _ */
+/* global CCM_DISPATCHER_FILENAME, ccmi18n_fileuploader, CCM_SECURITY_TOKEN, ConcreteAlert, ConcreteEvent, NProgress, _ */
 export default {
     data: () => ({
         dropzone: null,
@@ -125,19 +125,15 @@ export default {
                 queuecomplete: function () {
                     if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
                         if (me.uploadedFiles.length !== 0) {
-
-                            const fileIds = [];
+                            const fileIds = []
                             me.uploadedFiles.forEach(function(file) {
                                 fileIds.push(file.fID)
                             })
                             ConcreteEvent.publish('FileManagerSelectFile', { fID: fileIds })
-
                             me.uploadedFiles = []
                         }
-
                         me.uploadComplete()
                     }
-
                     me.refresh()
                 },
 
