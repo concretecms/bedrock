@@ -322,7 +322,37 @@ div#ccm-toolbar-disabled {
 }
 
 /* Responsive Toolbar */
-
+#ccm-dashboard-content {
+  @media only screen and (max-width: 768px) {
+    margin-right: 0 !important;
+  }
+}
+ul.mobile-menu {
+  li {
+    display: flex;
+    max-width: 100%;
+    flex-wrap: wrap;
+    a, li, ul, i {
+      flex: 1 0 auto;
+      max-width: 100%;
+    }
+    ul {
+      min-width: 100%;
+      li {
+        a {
+          width: 100%;
+        }
+      }
+    }
+    a {
+      height: 50px !important;
+      min-width: 200px;
+      flex: 1 0 auto;
+      //max-width: 100%;
+      max-width: 258px;
+    }
+  }
+}
 .ccm-toolbar-mobile-menu-button {
   border-left: 1px solid $gray-200;
   cursor: pointer;
