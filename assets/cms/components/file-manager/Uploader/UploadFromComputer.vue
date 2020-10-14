@@ -13,7 +13,7 @@
 </template>
 
 <script>
-/* global CCM_DISPATCHER_FILENAME, CCM_SECURITY_TOKEN, ConcreteAlert, ConcreteEvent, NProgress, _ */
+/* global CCM_DISPATCHER_FILENAME, ccmi18n_fileuploader, CCM_SECURITY_TOKEN, ConcreteAlert, ConcreteEvent, NProgress, _ */
 export default {
     data: () => ({
         dropzone: null,
@@ -45,24 +45,41 @@ export default {
     props: {
         uploadDirectoryId: {
             type: Number,
-            required: true
+            required: false,
+            default: null
+        },
+        maxFiles: {
+            type: Number,
+            required: false,
+            default: null
         },
         options: {
             type: Object,
             default: () => ({})
+        },
+        replaceFileId: {
+            type: Number,
+            required: false,
+            default: null
         }
     },
     computed: {
+        filesInQueue() {
+            if (this.dropzone) {
+                return this.dropzone.files.length
+            }
+            return 0
+        },
         dropzoneSettings() {
             const me = this
             return {
                 url: `${CCM_DISPATCHER_FILENAME}/ccm/system/file/upload`,
                 previewTemplate: this.itemTemplate,
-                autoProcessQueue: true,
+                autoProcessQueue: false,
                 uploadMultiple: true,
                 parallelUploads: 4,
                 paramName: 'files',
-                maxFiles: null,
+                maxFiles: this.maxFiles,
                 autoQueue: true,
 
                 addedfiles: function () {
@@ -98,15 +115,7 @@ export default {
                     formData.append('responseFormat', 'dropzone')
                     formData.append('ccm_token', CCM_SECURITY_TOKEN)
                     formData.append('currentFolder', me.uploadDirectoryId)
-
-                    if (typeof me.options.formData === 'object') {
-                        let key = ''
-
-                        for (key in me.options.formData) {
-                            // noinspection JSUnfilteredForInLoop
-                            formData.append(key, me.options.formData[key])
-                        }
-                    }
+                    formData.append('fID', me.replaceFileId)
                 },
 
                 totaluploadprogress: function (progress) {
@@ -116,22 +125,15 @@ export default {
                 queuecomplete: function () {
                     if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
                         if (me.uploadedFiles.length !== 0) {
-                            if (typeof me.options.formData.fID === 'undefined') {
-                                ConcreteEvent.publish('FileManagerAddFilesComplete', {
-                                    files: me.uploadedFiles
-                                })
-                            } else {
-                                ConcreteEvent.publish('FileManagerReplaceFileComplete', {
-                                    files: me.uploadedFiles
-                                })
-                            }
-
+                            const fileIds = []
+                            me.uploadedFiles.forEach(function(file) {
+                                fileIds.push(file.fID)
+                            })
+                            ConcreteEvent.publish('FileManagerSelectFile', { fID: fileIds })
                             me.uploadedFiles = []
                         }
-
                         me.uploadComplete()
                     }
-
                     me.refresh()
                 },
 
@@ -160,12 +162,21 @@ export default {
     },
     mounted() {
         const me = this
-        me.options.formData = me.options.formData || {}
+        const settings = me.dropzoneSettings
 
-        $(me.$refs.dropzoneElement).dropzone(me.dropzoneSettings)
+        $(me.$refs.dropzoneElement).dropzone(settings)
         $(window).on('resize', _.throttle(me.refresh, 100))
+
+        ConcreteEvent.subscribe('FileUploaderUploadSelectedFiles', function(e) {
+            me.dropzone.options.autoProcessQueue = true
+            me.dropzone.processQueue()
+        })
     },
     watch: {
+        filesInQueue() {
+            const filesInQueue = this.filesInQueue
+            ConcreteEvent.publish('FileUploaderFilesReadyToUpload', filesInQueue)
+        },
         isUploadInProgress(val, oldVal) {
             if (oldVal === false) {
                 NProgress.start()
@@ -195,12 +206,6 @@ export default {
             thumbnailWidth -= 42 // padding + border (see css declaration of .ccm-file-upload-item-wrapper)
 
             $container.find('.ccm-file-upload-item-wrapper').css('width', `${thumbnailWidth}px`)
-
-            if (typeof this.options.formData.fID !== 'undefined') {
-                this.dropzone.options.maxFiles = 1
-            } else {
-                this.dropzone.options.maxFiles = null
-            }
         },
         reset() {
             this.isUploadInProgress = false
@@ -219,7 +224,7 @@ export default {
 
             ConcreteAlert.notify({
                 title: 'Complete',
-                message: 'The upload was successfully.'
+                message: ccmi18n_fileuploader.uploadSuccessfulMessage
             })
         }
     }

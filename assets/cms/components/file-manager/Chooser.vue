@@ -4,9 +4,18 @@
             <div class="row h-100">
                 <div class="col-4 border-right p-3">
                     <ul class="nav flex-column">
-                        <li class="nav-item" v-for="item in chooserNavItems" :key="item.key">
-                            <hr v-if="item.key === 'horizontalrule'"/>
-                            <a v-else :class="{'nav-link': true, 'active': activeNavItem.key === item.key}"
+                        <li class="nav-item" v-for="item in choosers" :key="item.key">
+                            <a :class="{'nav-link': true, 'active': activeNavItem.key === item.key}"
+                               @click.prevent="activateTab(item)"
+                               href="javascript:void(0)">
+                                {{item.title}}
+                            </a>
+                        </li>
+                    </ul>
+                    <hr>
+                    <ul class="nav flex-column">
+                        <li class="nav-item" v-for="item in uploaders" :key="item.key">
+                            <a :class="{'nav-link': true, 'active': activeNavItem.key === item.key}"
                                @click.prevent="activateTab(item)"
                                href="javascript:void(0)">
                                 {{item.title}}
@@ -14,6 +23,7 @@
                         </li>
                     </ul>
                 </div>
+                <hr>
                 <div class="col-8 p-3">
                     <transition name="concrete-nav-tab-content-switch">
                         <component :is="activeNavItem.key"
@@ -21,6 +31,7 @@
                                    :multipleSelection="multipleSelection"
                                    :selectedFiles.sync="selectedFiles"
                                    :resultsFormFactor.sync="resultsFormFactor"
+                                   :filesReadyToUpload.sync="filesReadyToUpload"
                         />
                     </transition>
                 </div>
@@ -28,7 +39,8 @@
         </div>
         <div class="dialog-buttons">
             <button class="btn btn-secondary" data-dialog-action="cancel">Cancel</button>
-            <button type="button" @click="chooseFiles" :disabled="selectedFiles.length === 0" class="btn btn-primary">Choose</button>
+            <button type="button" v-show="!isAddNewFilesMode()" @click="chooseFiles" :disabled="selectedFiles.length === 0" class="btn btn-primary">Choose</button>
+            <button type="button" v-show="isAddNewFilesMode()" @click="uploadFiles" :disabled="uploadReady === false" class="btn btn-primary">Upload</button>
         </div>
     </div>
 </template>
@@ -53,10 +65,21 @@ export default {
     },
     data() {
         return {
+            filesReadyToUpload: 0,
             activeNavItem: null,
             resultsFormFactor: 'grid',
-            selectedFiles: [],
-            chooserNavItems: [
+            selectedFiles: []
+        }
+    },
+    computed: {
+        uploadReady() {
+            return this.filesReadyToUpload > 0
+        }
+    },
+    props: {
+        choosers: {
+            type: Array,
+            default: [
                 {
                     key: 'recent-uploads',
                     title: 'Recently Uploaded'
@@ -66,37 +89,38 @@ export default {
                     title: 'File Manager'
                 },
                 {
-                    key: 'file-sets',
-                    title: 'File Sets'
-                },
-                {
-                    key: 'saved-search',
-                    title: 'Saved Searches'
-                },
-                {
                     key: 'search',
                     title: 'Search'
-                },
-                {
-                    key: 'horizontalrule'
-                },
+                }
+            ]
+        },
+        uploaders: {
+            type: Array,
+            default: [
                 {
                     key: 'file-upload',
                     title: 'Upload Files'
                 }
             ]
-        }
-    },
-    props: {
+        },
         multipleSelection: {
             type: Boolean,
             default: true
         }
     },
     created() {
-        this.activeNavItem = _.first(this.chooserNavItems)
+        this.activeNavItem = _.first(this.choosers)
+    },
+    mounted() {
+        var my = this
+        ConcreteEvent.subscribe('FileUploaderFilesReadyToUpload', function(e, filesReadyToUpload) {
+            my.filesReadyToUpload = filesReadyToUpload
+        })
     },
     methods: {
+        isAddNewFilesMode() {
+            return this.activeNavItem.key === 'file-upload'
+        },
         activateTab(item) {
             this.activeNavItem = item
 
@@ -107,6 +131,9 @@ export default {
         },
         chooseFiles() {
             ConcreteEvent.publish('FileManagerSelectFile', { fID: this.selectedFiles })
+        },
+        uploadFiles() {
+            ConcreteEvent.publish('FileUploaderUploadSelectedFiles')
         }
     }
 }

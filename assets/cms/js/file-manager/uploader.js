@@ -153,6 +153,7 @@
                                 .attr('name', 'removeFilesAfterPost')
                                 .attr('type', 'checkbox')
                                 .attr('id', checkboxId)
+                                .attr('value', '1')
                                 .addClass('form-check-input')
 
                             const $label = $('<label/>')
@@ -403,6 +404,8 @@
 
                         const $select = $('<select/>')
                             .addClass('ccm-directory-selector')
+                            .attr('data-size', 5)
+                            .attr('data-live-search', 'true')
                             .attr('id', selectDirectoryId)
 
                         const $selectDirectoryInputGroupPrepend = $('<div/>')
@@ -592,7 +595,7 @@
 
                     for (error of errors) {
                         // noinspection JSUnresolvedVariable
-                        ConcreteAlert.notify({
+                        ConcreteAlert.error({
                             title: ccmi18n_fileuploader.errorNotificationTitle,
                             message: error,
                             appendTo: document.body
@@ -615,13 +618,15 @@
                         fileIds.push($(this).val())
                     })
 
+                    var removeFilesAfterPost = $dialogEl.find('input[name=removeFilesAfterPost').is(':checked') ? 1 : 0
+
                     $.ajax({
                         url: CCM_DISPATCHER_FILENAME + '/ccm/system/file/import_incoming',
                         method: 'POST',
                         data: $.extend({
                             ccm_token: CCM_SECURITY_TOKEN,
                             send_file: fileIds,
-                            removeFilesAfterPost: $dialogEl.find('input[name=removeFilesAfterPost]').val(),
+                            removeFilesAfterPost: removeFilesAfterPost,
                             currentFolder: $dialogEl.find('select.ccm-directory-selector').find('option:selected').val()
                         }, fileUploader.options.formData),
                         dataType: 'json',
@@ -629,6 +634,10 @@
                             if (!data.error) {
                                 // refresh for the case files has been deleted
                                 fileUploader.fetchFilesFromIncomingDirectory()
+
+                                ConcreteEvent.publish('FileManagerAddFilesComplete', {
+                                    files: data.files
+                                })
 
                                 fileUploader.uploadComplete()
                             } else {
@@ -651,7 +660,9 @@
                         success: function (data) {
                             if (!data.error) {
                                 $dialogEl.find('.ccm-remote-file-url').val('')
-                                fileUploader.uploadComplete()
+                                ConcreteEvent.publish('FileManagerAddFilesComplete', {
+                                    files: data.files
+                                })
                             } else {
                                 fileUploader.raiseError(data.errors)
                             }
@@ -1056,11 +1067,11 @@
                                         })
                                     }
 
-                                    fileUploader.uploadedFiles = []
+                                    fileUploader.uploadComplete()
                                 }
-
-                                fileUploader.uploadComplete()
                             }
+
+                            fileUploader.uploadedFiles = []
 
                             fileUploader.reset()
                             fileUploader.refresh()
@@ -1099,13 +1110,6 @@
                     fileUploader.reset()
 
                     $dialogEl.dialog('close')
-
-                    // noinspection JSUnresolvedVariable
-                    ConcreteAlert.notify({
-                        title: ccmi18n_fileuploader.uploadSuccessfulTitle,
-                        message: ccmi18n_fileuploader.uploadSuccessfulMessage,
-                        appendTo: document.body
-                    })
                 },
 
                 initIncomingDirectoryTab: function () {

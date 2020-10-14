@@ -17,6 +17,7 @@ import ConcreteEventOccurrenceInput from './form/ConcreteEventOccurrenceInput'
 import ConcreteFileChooser from './file-manager/Chooser'
 import ConcreteUserChooser from './user/Chooser'
 import ConcreteGroupChooser from './groups/Chooser'
+import ConcreteFileUploader from './file-manager/Uploader/UploadFromComputer'
 import Board from './Board'
 import BoardSlot from './BoardSlot'
 
@@ -35,6 +36,7 @@ export default {
     ConcreteUserChooser,
     ConcreteFileChooser,
     ConcreteFileInput,
+    ConcreteFileUploader,
     ConcreteGroupChooser,
     ConcretePageChooserSearch,
     ConcretePageInput,
