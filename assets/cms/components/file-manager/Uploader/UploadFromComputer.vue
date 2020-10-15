@@ -115,7 +115,9 @@ export default {
                     formData.append('responseFormat', 'dropzone')
                     formData.append('ccm_token', CCM_SECURITY_TOKEN)
                     formData.append('currentFolder', me.uploadDirectoryId)
-                    formData.append('fID', me.replaceFileId)
+                    if (me.replaceFileId) {
+                        formData.append('fID', me.replaceFileId)
+                    }
                 },
 
                 totaluploadprogress: function (progress) {
