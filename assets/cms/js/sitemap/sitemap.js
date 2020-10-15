@@ -53,7 +53,7 @@ localeTemplate: '<li <% if (selectedLocale) { %>class="active"<% } %>><a href="#
         },
 
         setupSiteTreeSelector: function(tree) {
-            var my = this
+            var my = this, $optgroup, $options;
             if (!tree) {
                 return false
             }
@@ -61,37 +61,41 @@ localeTemplate: '<li <% if (selectedLocale) { %>class="active"<% } %>><a href="#
                 if (!my.$element.find('div.ccm-sitemap-tree-selector-wrapper select').length) {
                     my.$element.find('div.ccm-sitemap-tree-selector-wrapper').append($(my.localesWrapperTemplate))
                     var $menu = my.$element.find('div.ccm-sitemap-tree-selector-wrapper select')
-                    var itemIDs = []
-                    $.each(tree.entries, function(i, entry) {
-                        if (entry.isSelected) {
-                            itemIDs.push(entry.siteTreeID)
-                        }
+
+                    $.each(tree.entryGroups, function (gi, group) {
+                        $optgroup = $('<optgroup label="' + group.label + '">');
+
+                        $.each(tree.entries, function (ti, entry) {
+                            if (entry.class == group.value) {
+                                $options = '<option value="' + entry.siteTreeID + '" data-content=\'<div class="option">' + entry.element + '</div>\'';
+
+                                if (entry.isSelected) {
+                                    $options += ' selected';
+                                }
+
+                                $options += '>' + entry.title + '</option>';
+                                $optgroup.append($options);
+                            }
+                        });
+
+                        $menu.append($optgroup);
                     })
 
-                    $menu.selectize({
-                        maxItems: 1,
-                        valueField: 'siteTreeID',
-                        searchField: 'title',
-                        options: tree.entries,
-                        items: itemIDs,
-                        optgroups: tree.entryGroups,
-                        optgroupField: 'class',
-                        onItemAdd: function(option) {
-                            var treeID = option
+                    $menu.selectpicker({
+                        liveSearch: true,
+                        maxOptions: 1,
+                        styleBase: 'item selectize-input items has-options full has-items', // class added to the box too keep the proper design
+                    });
+
+                    $menu.on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+                        var treeID = $(this).selectpicker('val');
+                        if (treeID != previousValue) {
                             var source = my.getTree().options.source
                             my.options.siteTreeID = treeID
                             source.data.siteTreeID = treeID
                             my.getTree().reload(source)
-                        },
-                        render: {
-                            option: function(data, escape) {
-                                return '<div class="option">' + data.element + '</div>'
-                            },
-                            item: function(data, escape) {
-                                return '<div class="item">' + data.element + '</div>'
-                            }
                         }
-                    })
+                    });
                 }
             }
         },

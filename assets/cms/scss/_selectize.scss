@@ -18,6 +18,9 @@ div.ccm-ui {
 
       }
     }
+    &.dropdown-toggle::after {
+      margin-left: -$selectize-input-padding-x;
+    }
   }
 
 }
