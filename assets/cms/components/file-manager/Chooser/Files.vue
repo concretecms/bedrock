@@ -109,6 +109,10 @@ export default {
             required: false,
             default: 'grid' // grid | list
         },
+        additionalQueryParams: {
+            type: Array,
+            required: false
+        },
         routePath: {
             type: String,
             required: true
@@ -145,6 +149,13 @@ export default {
             if (this.enablePagination && this.pagination) {
                 routePath += `${qs}${this.queryParams.pagination_page}=${this.currentPage}&itemsPerPage=${this.pagination.per_page}`
                 qs = '&'
+            }
+
+            if (typeof this.$props.additionalQueryParams === 'object') {
+                for (var item of this.$props.additionalQueryParams) {
+                    routePath += qs + encodeURIComponent(item.key) + '=' + encodeURIComponent(item.value)
+                    qs = '&'
+                }
             }
 
             return routePath
