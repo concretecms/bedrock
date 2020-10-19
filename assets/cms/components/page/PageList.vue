@@ -29,10 +29,14 @@
                 </tbody>
             </table>
             <Pagination
-                v-if="pagination"
+                :key="ccm.pagination_mode"
+                v-if="ccm.pagination_show"
                 v-model="currentPage"
                 :total-rows="pagination.total"
-                :per-page="pagination.per_page"></Pagination>
+                :per-page="pagination.per_page"
+                :mode="ccm.pagination_mode"
+                :prev-cursor="ccm.ccm_cursor_prev"
+                :next-cursor="ccm.ccm_cursor_next"></Pagination>
         </div>
     </div>
 </template>
@@ -54,12 +58,18 @@ import Pagination from '../Pagination'
 export default {
     components: { Pagination },
     data: () => ({
-        currentPage: 1,
+        currentPage: -1,
         latestSearchID: null,
         mouseOver: 0,
         orderBy: 'c.cDateModified',
         orderByDirection: 'desc',
         pageList: false,
+        ccm: {
+            pagination_mode: 'paging',
+            pagination_show: false,
+            ccm_cursor_prev: null,
+            ccm_cursor_next: null
+        },
         pagination: {
             total: 0,
             count: 0,
@@ -113,16 +123,31 @@ export default {
         fetchPages () {
             const currentSearch = Math.random().toString(36).slice(2)
             this.latestSearchID = currentSearch
+
+            // Paging string is different when only prev/next is possible
+            let ccm_paging_or_cursor = '&ccm_paging_p=' + this.currentPage
+            if (this.ccm.pagination_mode === 'cursor') {
+                ccm_paging_or_cursor = '&ccm_cursor=' + this.currentPage
+            }
+
             return new ConcreteAjaxRequest({
                 url: CCM_DISPATCHER_FILENAME + this.$props.routePath + this.keywords +
                         '?ccm_order_by=' + this.orderBy +
                         '&ccm_order_by_direction=' + this.orderByDirection +
-                        '&ccm_paging_p=' + this.currentPage +
+                        ccm_paging_or_cursor +
                         '&itemsPerPage=' + this.pagination.per_page,
                 success: response => {
                     // Do not update if the id is not the most recent search (the response might be a delayed result)
                     if (this.latestSearchID !== currentSearch) {
                         return
+                    }
+
+                    // Update ccm data
+                    if (response.meta && response.meta.ccm) {
+                        this.ccm.pagination_mode = response.meta.ccm.pagination_mode || 'paging';
+                        this.ccm.pagination_show = !!response.meta.ccm.pagination_show;
+                        this.ccm.ccm_cursor_prev = response.meta.ccm.ccm_cursor_prev;
+                        this.ccm.ccm_cursor_next = response.meta.ccm.ccm_cursor_next;
                     }
 
                     // Update pagination
