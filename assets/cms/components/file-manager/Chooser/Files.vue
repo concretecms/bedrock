@@ -176,6 +176,7 @@ export default {
                 url: this.fetchRoute,
                 success: r => {
                     my.rows = []
+                    r.data = r.data || {}
                     if (r.data.length) {
                         my.fileList = r.data
                         let currentRow = []

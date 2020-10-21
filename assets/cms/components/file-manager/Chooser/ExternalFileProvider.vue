@@ -7,8 +7,7 @@
         <form @submit.prevent="search">
           <div class="ccm-header-search-form-input input-group">
             <select v-show="extraData.supportFileTypes" class="form-control" v-model="selectedFileType">
-              <option value="" selected>Please select</option>
-              <option v-for="(item, key) in extraData.fileTypes" v-bind:value="key">
+              <option v-for="(item, key) in fileTypes" v-bind:value="key">
                 {{ item }}
               </option>
             </select>
@@ -58,7 +57,7 @@ export default {
     Files
   },
   data: () => ({
-    id: 0,
+    fileTypes: [],
     searchText: '',
     selectedFileType: '',
     keywords: '',
@@ -93,6 +92,14 @@ export default {
   methods: {
     search() {
       this.keywords = this.searchText
+    },
+    getFileTypes() {
+      return new ConcreteAjaxRequest({
+        url: `${CCM_DISPATCHER_FILENAME}/ccm/system/file/chooser/external_file_provider/${this.$props.id}/get_file_types`,
+        success: r => {
+          this.fileTypes = r
+        }
+      })
     }
   },
   watch: {
@@ -105,6 +112,7 @@ export default {
   },
   mounted() {
     this.formFactor = this.resultsFormFactor
+    this.getFileTypes()
   }
 }
 </script>
