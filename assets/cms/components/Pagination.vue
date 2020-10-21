@@ -93,7 +93,7 @@ export default {
         }
     },
     data () {
-        let currentPage = parseInt(this.value);
+        let currentPage = parseInt(this.value)
 
         if (this.mode === 'paging') {
             currentPage = currentPage > 0 ? currentPage : 1
@@ -111,13 +111,13 @@ export default {
         nextDisabled () {
             return this.mode === 'paging'
                 ? this.currentPage === this.localNumberOfPages
-                : this.nextCursor === null;
+                : this.nextCursor === null
         },
 
         prevDisabled () {
             return this.mode === 'paging'
                 ? this.currentPage === 1
-                : this.prevCursor === null;
+                : this.prevCursor === null
         },
 
         numberOfPages () {
@@ -132,11 +132,11 @@ export default {
             // If totalRows is -1 we won't figure out nr of pages and don't
             // display the current page number. This happens in 'cusrsor' mode.
             if (this.totalRows === -1 || this.mode === 'cursor') {
-                return [];
+                return []
             }
 
             let startPage = 1
-            let nrOfPages = Math.min(this.localNumberOfPages, this.targetNumberOfLinks)
+            const nrOfPages = Math.min(this.localNumberOfPages, this.targetNumberOfLinks)
             if (this.localNumberOfPages > nrOfPages) {
                 // Set start page to current page minus half of the maximum number of links.
                 // This keeps the current page in the middle (unless this sets start page to less then 1).
@@ -216,9 +216,9 @@ export default {
             } else {
                 // Prev/next
                 if (num === 'prev') {
-                    num = this.prevCursor;
+                    num = this.prevCursor
                 } else if (num === 'next') {
-                    num = this.nextCursor;
+                    num = this.nextCursor
                 }
             }
 
