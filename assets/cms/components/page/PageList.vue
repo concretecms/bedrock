@@ -125,16 +125,16 @@ export default {
             this.latestSearchID = currentSearch
 
             // Paging string is different when only prev/next is possible
-            let ccm_paging_or_cursor = '&ccm_paging_p=' + this.currentPage
+            let pagingOrCursor = '&ccm_paging_p=' + this.currentPage
             if (this.ccm.pagination_mode === 'cursor') {
-                ccm_paging_or_cursor = '&ccm_cursor=' + this.currentPage
+                pagingOrCursor = '&ccm_cursor=' + this.currentPage
             }
 
             return new ConcreteAjaxRequest({
                 url: CCM_DISPATCHER_FILENAME + this.$props.routePath + this.keywords +
                         '?ccm_order_by=' + this.orderBy +
                         '&ccm_order_by_direction=' + this.orderByDirection +
-                        ccm_paging_or_cursor +
+                    pagingOrCursor +
                         '&itemsPerPage=' + this.pagination.per_page,
                 success: response => {
                     // Do not update if the id is not the most recent search (the response might be a delayed result)
@@ -144,10 +144,10 @@ export default {
 
                     // Update ccm data
                     if (response.meta && response.meta.ccm) {
-                        this.ccm.pagination_mode = response.meta.ccm.pagination_mode || 'paging';
-                        this.ccm.pagination_show = !!response.meta.ccm.pagination_show;
-                        this.ccm.ccm_cursor_prev = response.meta.ccm.ccm_cursor_prev;
-                        this.ccm.ccm_cursor_next = response.meta.ccm.ccm_cursor_next;
+                        this.ccm.pagination_mode = response.meta.ccm.pagination_mode || 'paging'
+                        this.ccm.pagination_show = !!response.meta.ccm.pagination_show
+                        this.ccm.ccm_cursor_prev = response.meta.ccm.ccm_cursor_prev
+                        this.ccm.ccm_cursor_next = response.meta.ccm.ccm_cursor_next
                     }
 
                     // Update pagination
