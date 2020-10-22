@@ -90,6 +90,14 @@ div.ccm-ui {
             width: 41px;
           }
         }
+
+        &.ccm-search-results-favorite-switcher {
+          width: 1px;
+
+          i {
+            cursor: pointer;
+          }
+        }
       }
     }
 
