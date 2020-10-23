@@ -29,11 +29,13 @@
                         <component :is="activeNavItem.componentKey"
                                    :title="activeNavItem.title"
                                    :id="activeNavItem.id"
+                                   :startFolder="activeNavItem.id"
                                    :extraData="activeNavItem.data || {}"
                                    :multipleSelection="multipleSelection"
                                    :selectedFiles.sync="selectedFiles"
                                    :resultsFormFactor.sync="resultsFormFactor"
                                    :filesReadyToUpload.sync="filesReadyToUpload"
+                                   ref="c"
                         />
                     </transition>
                 </div>
@@ -58,6 +60,7 @@ import SavedSearch from './Chooser/SavedSearch'
 import Search from './Chooser/Search'
 import ExternalFileProvider from './Chooser/ExternalFileProvider'
 import FileUpload from './Chooser/FileUpload'
+import FolderBookmark from './Chooser/FolderBookmark'
 
 export default {
     components: {
@@ -67,7 +70,8 @@ export default {
         SavedSearch,
         Search,
         ExternalFileProvider,
-        FileUpload
+        FileUpload,
+        FolderBookmark
     },
     data() {
         return {
