@@ -100,7 +100,7 @@ window._ = _
             var attachmentOverridesEnabled = (obj.options.attachmentOverridesEnabled)
 
             if (obj.options.method == 'ajax') {
-                $.post(CCM_TOOLS_PATH + '/conversations/view_ajax', {
+                $.post(CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/view_ajax', {
                     cnvID: obj.options.cnvID,
                     cID: obj.options.cID,
                     blockID: obj.options.blockID,
@@ -360,7 +360,7 @@ window._ = _
                 obj.editMessage($link.attr('data-conversation-message-id'))
             })
             obj.$element.on('change.cnv', 'select[data-sort=conversation-message-list]', function() {
-                obj.$messagelist.load(CCM_TOOLS_PATH + '/conversations/view_ajax', {
+                obj.$messagelist.load(CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/view_ajax', {
                     cnvID: obj.options.cnvID,
                     task: 'get_messages',
                     cID: obj.options.cID,
@@ -426,7 +426,7 @@ window._ = _
                 $.ajax({
                     type: 'post',
                     data: data,
-                    url: CCM_TOOLS_PATH + '/conversations/message_page',
+                    url: CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/message_page',
                     success: function(html) {
                         obj.$messages.append(html)
                         $('.ccm-conversation-messages .dropdown-toggle').dropdown()
@@ -442,7 +442,7 @@ window._ = _
             obj.$element.on('click.cnv', '.conversation-rate-message', function() {
                 var cnvMessageID = $(this).closest('[data-conversation-message-id]').attr('data-conversation-message-id')
                 var cnvRatingTypeHandle = $(this).attr('data-conversation-rating-type')
-                obj.$messagerating.load(CCM_TOOLS_PATH + '/conversations/rate')
+                obj.$messagerating.load(CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/rate')
                 var data = {
                     cnvID: obj.options.cnvID,
                     cID: obj.options.cID,
@@ -453,9 +453,9 @@ window._ = _
                 $.ajax({
                     type: 'post',
                     data: data,
-                    url: CCM_TOOLS_PATH + '/conversations/rate',
+                    url: CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/rate',
                     success: function(html) {
-                        $('span[data-message-rating="' + cnvMessageID + '"]').load(CCM_TOOLS_PATH + '/conversations/get_rating', {
+                        $('span[data-message-rating="' + cnvMessageID + '"]').load(CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/get_rating', {
                             cnvMessageID: cnvMessageID
                         })
                     }
@@ -531,7 +531,7 @@ window._ = _
                 type: 'post',
                 data: formArray,
                 dataType: 'json',
-                url: CCM_TOOLS_PATH + '/conversations/delete_message',
+                url: CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/delete_message',
                 success: function(r) {
                     if (!r.error) {
                         var $parent = $('[data-conversation-message-id=' + msgID + ']')
@@ -574,7 +574,7 @@ window._ = _
             $.ajax({
                 type: 'post',
                 data: formArray,
-                url: CCM_TOOLS_PATH + '/conversations/edit_message',
+                url: CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/edit_message',
                 success: function(html) {
                     var $parent = $('.ccm-conversation-message[data-conversation-message-id=' + msgID + ']')
                     var $previousContents = $parent
@@ -609,7 +609,7 @@ window._ = _
             $.ajax({
                 type: 'post',
                 data: formArray,
-                url: CCM_TOOLS_PATH + '/conversations/flag_message',
+                url: CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/flag_message/0',
                 success: function(html) {
                     var $parent = $('.ccm-conversation-message[data-conversation-message-id=' + msgID + ']')
 
@@ -649,7 +649,7 @@ window._ = _
             $.ajax({
                 type: 'post',
                 data: formArray,
-                url: CCM_TOOLS_PATH + '/conversations/message_detail',
+                url: CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/message_detail',
                 success: function(html) {
                     var $parent = $('.ccm-conversation-message[data-conversation-message-id=' + json.cnvMessageParentID + ']')
 
@@ -704,7 +704,7 @@ window._ = _
             $.ajax({
                 type: 'post',
                 data: formArray,
-                url: CCM_TOOLS_PATH + '/conversations/message_detail',
+                url: CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/message_detail',
                 success: function(html) {
                     var $parent = $('[data-conversation-message-id=' + json.cnvMessageID + ']')
                     $parent.after(html).remove()
@@ -715,7 +715,7 @@ window._ = _
         updateCount: function() {
             var obj = this
             obj.publish('conversationBeforeUpdateCount')
-            obj.$messagecnt.load(CCM_TOOLS_PATH + '/conversations/count_header', {
+            obj.$messagecnt.load(CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/count_header', {
                 cnvID: obj.options.cnvID
             }, function() {
                 obj.publish('conversationUpdateCount')
@@ -748,7 +748,7 @@ window._ = _
                 dataType: 'json',
                 type: 'post',
                 data: formArray,
-                url: CCM_TOOLS_PATH + '/conversations/add_message',
+                url: CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/add_message',
                 success: function(r) {
                     if (!r) {
                         obj.handlePostError($form)
@@ -801,7 +801,7 @@ window._ = _
                 dataType: 'json',
                 type: 'post',
                 data: formArray,
-                url: CCM_TOOLS_PATH + '/conversations/update_message',
+                url: CCM_DISPATCHER_FILENAME + '/ccm/frontend/conversations/update_message',
                 success: function(r) {
                     if (!r) {
                         obj.handlePostError($form)
