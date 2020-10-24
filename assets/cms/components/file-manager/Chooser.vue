@@ -60,7 +60,6 @@ import SavedSearch from './Chooser/SavedSearch'
 import Search from './Chooser/Search'
 import ExternalFileProvider from './Chooser/ExternalFileProvider'
 import FileUpload from './Chooser/FileUpload'
-import FolderBookmark from './Chooser/FolderBookmark'
 
 export default {
     components: {
@@ -70,8 +69,7 @@ export default {
         SavedSearch,
         Search,
         ExternalFileProvider,
-        FileUpload,
-        FolderBookmark
+        FileUpload
     },
     data() {
         return {
@@ -151,6 +149,7 @@ export default {
                     externalFileProviderTypeHandle: this.activeNavItem.data.typeHandle,
                     externalFileProviderName: this.activeNavItem.data.name,
                     externalFileProviderId: this.activeNavItem.id,
+                    externalFileProviderUploadDirectoryId: this.$refs.c.$refs.folderSelector.selectedDirectoryID,
                     selectedFile: {
                         fID: this.selectedFiles[0]
                     }
@@ -158,6 +157,9 @@ export default {
             } else {
                 return new ConcreteAjaxRequest({
                     url: CCM_DISPATCHER_FILENAME + '/ccm/system/file/chooser/external_file_provider/' + this.activeNavItem.id + '/import_file/' + this.selectedFiles[0],
+                    data: {
+                        uploadDirectoryId: this.$refs.c.$refs.folderSelector.selectedDirectoryID
+                    },
                     success: r => {
                         ConcreteEvent.publish('FileManagerSelectFile', {
                             fID: [r.importedFileId]

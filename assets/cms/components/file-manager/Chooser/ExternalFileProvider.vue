@@ -36,11 +36,19 @@
              :selectedFiles.sync="selectedFiles"
              :resultsFormFactor="formFactor"
              :routePath="routePath + id + '/search/' + keywords"
-             :additionalQueryParams="[{key: 'selectedFileType', value: selectedFileType}]"
+             :additionalQueryParams="[{key: 'selectedFileType', value: selectedFileType}, {key: 'uploadDirectoryId', value: uploadDirectoryId}]"
              :enable-pagination="true"
              :enable-sort="true"
              :multipleSelection="multipleSelection"/>
     </div>
+
+    <concrete-file-directory-input
+        input-label="Upload files to"
+        input-name="uploadDirectoryId"
+        :show-add-directory-button="true"
+        ref="folderSelector"
+        @change="uploadDirectoryId = $event"/>
+
   </div>
 </template>
 
@@ -49,14 +57,17 @@
 import Icon from '../../Icon'
 import ChooserHeader from './Header'
 import Files from './Files'
+import ConcreteFileDirectoryInput from '../../form/ConcreteFileDirectoryInput'
 
 export default {
   components: {
     Icon,
     ChooserHeader,
-    Files
+    Files,
+    ConcreteFileDirectoryInput
   },
   data: () => ({
+    uploadDirectoryId: 0,
     fileTypes: [],
     searchText: '',
     selectedFileType: '',
@@ -113,6 +124,7 @@ export default {
   mounted() {
     this.formFactor = this.resultsFormFactor
     this.getFileTypes()
+    this.$refs.folderSelector.selectedDirectoryID = this.extraData.uploadDirectoryId
   }
 }
 </script>
