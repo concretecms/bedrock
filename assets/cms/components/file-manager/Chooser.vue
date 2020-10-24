@@ -60,7 +60,6 @@ import SavedSearch from './Chooser/SavedSearch'
 import Search from './Chooser/Search'
 import ExternalFileProvider from './Chooser/ExternalFileProvider'
 import FileUpload from './Chooser/FileUpload'
-import FolderBookmark from './Chooser/FolderBookmark'
 
 export default {
     components: {
@@ -70,8 +69,7 @@ export default {
         SavedSearch,
         Search,
         ExternalFileProvider,
-        FileUpload,
-        FolderBookmark
+        FileUpload
     },
     data() {
         return {
