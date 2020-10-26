@@ -1,5 +1,5 @@
 /* eslint-disable no-new, no-unused-vars, camelcase, eqeqeq */
-/* global Concrete, ConcreteAlert, ConcreteEvent, ConcreteMenuManager, ConcretePanelManager, ConcreteToolbar, ConcreteAjaxRequest, ccmi18n, _, CCM_DISPATCHER_FILENAME, CCM_TOOLS_PATH */
+/* global Concrete, ConcreteAlert, ConcreteEvent, ConcreteMenuManager, ConcretePanelManager, ConcreteToolbar, ConcreteAjaxRequest, ccmi18n, _, CCM_DISPATCHER_FILENAME */
 
 ;(function(window, $) {
     'use strict'
