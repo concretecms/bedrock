@@ -43,6 +43,7 @@
     </div>
 
     <concrete-file-directory-input
+        v-if="keywords != ''"
         input-label="Upload files to"
         input-name="uploadDirectoryId"
         :show-add-directory-button="true"
