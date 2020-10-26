@@ -4,7 +4,7 @@ import _ from 'underscore'
 window._ = _
 
 /* eslint-disable no-new, no-unused-vars, camelcase, eqeqeq */
-/* global ConcreteEvent, CCM_TOOLS_PATH */
+/* global ConcreteEvent */
 
 /*
  * $.fn.concreteConversation

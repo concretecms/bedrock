@@ -23,7 +23,6 @@ globals:
   CKEDITOR: readonly
   CCM_APPLICATION_URL: readonly
   CCM_ACTIVE_LOCALE: readonly
-  CCM_TOOLS_PATH: readonly
   # Internationalization
   ccmi18n: readonly
   ccmi18n_sitemap: readonly

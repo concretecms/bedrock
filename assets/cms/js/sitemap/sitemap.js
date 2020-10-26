@@ -1,5 +1,5 @@
 /* eslint-disable no-new, no-unused-vars, camelcase, eqeqeq */
-/* global _, ccmi18n_sitemap, CCM_DISPATCHER_FILENAME, CCM_SECURITY_TOKEN, CCM_REL, CCM_TOOLS_PATH, Concrete, ConcreteAlert, ConcretePageMenu, ccm_parseJSON, ConcreteProgressiveOperation, ConcreteEvent */
+/* global _, ccmi18n_sitemap, CCM_DISPATCHER_FILENAME, CCM_SECURITY_TOKEN, CCM_REL, Concrete, ConcreteAlert, ConcretePageMenu, ccm_parseJSON, ConcreteProgressiveOperation, ConcreteEvent */
 
 /* Base search class for AJAX forms in the UI */
 ;(function(global, $) {

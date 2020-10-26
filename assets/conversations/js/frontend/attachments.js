@@ -2,7 +2,6 @@
 import Dropzone from 'dropzone/dist/dropzone'
 
 /* eslint-disable no-new, no-unused-vars, camelcase, eqeqeq */
-/* global CCM_TOOLS_PATH */
 
 ;(function(global, $) {
     'use strict'
