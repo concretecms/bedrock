@@ -102,11 +102,19 @@ ConcreteAjaxSearch.prototype.createMenu = function ($selector) {
 /**
  * Static Methods
  */
-ConcretePageAjaxSearch.launchDialog = function(callback) {
+ConcretePageAjaxSearch.launchDialog = function(callback, options) {
+    options = $.extend({
+        includeSystemPages: false,
+        askIncludeSystemPages: false,
+    }, options || {});
+    var url = CCM_DISPATCHER_FILENAME + '/ccm/system/dialogs/page/sitemap_selector?' + [
+        'includeSystemPages=' + (options.includeSystemPages ? 1 : 0),
+        'askIncludeSystemPages=' + (options.askIncludeSystemPages ? 1 : 0),
+    ].join('&');
     $.fn.dialog.open({
         width: '90%',
         height: '75%',
-        href: CCM_DISPATCHER_FILENAME + '/ccm/system/dialogs/page/sitemap_selector',
+        href: url,
         modal: true,
         title: ccmi18n_sitemap.pageLocationTitle,
         onClose: function() {
