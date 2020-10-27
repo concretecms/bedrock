@@ -1,15 +1,14 @@
 /* eslint-disable no-new, no-unused-vars, camelcase, eqeqeq */
 
-/* Extend bootstrap-select */ ;
+/* Extend ajax-bootstrap-select */ ;
 ;(function (global, $) {
-  // grab a reference to the existing complete and destroy functions
+  // grab a reference to existing functions
   var _init = window.AjaxBootstrapSelect.prototype.init,
     _complete = window.AjaxBootstrapSelectRequest.prototype.complete,
     _setStatus = window.AjaxBootstrapSelectList.prototype.setStatus;
 
   // extend the prototype with own functions
   $.extend(true, window.AjaxBootstrapSelect.prototype, {
-    // this will replace the original AjaxBootstrapSelect.init function
     init: function () {
       var that = this;
 
@@ -69,10 +68,11 @@
     setStatus: function () {
       if (this.plugin && this.plugin.selectpicker) {
         if (arguments[0]) {
+          // bootstrap-select does this but for some reason ajax-bootstrap-select doesn't so I put it back here
           arguments[0] = arguments[0].replace('{0}', '"' + this.plugin.selectpicker.$searchbox.val() + '"');
         }
       }
       _setStatus.apply(this, arguments);
-        },
+    },
   });
 })(window, jQuery); // eslint-disable-line semi

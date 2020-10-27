@@ -2,7 +2,7 @@
 
 /* Extend bootstrap-select */
 ;(function (global, $) {
-  // grab a reference to the existing init and destroy functions
+  // grab a reference to existing functions
   var _init = $.fn.selectpicker.Constructor.prototype.init,
     _destroy = $.fn.selectpicker.Constructor.prototype.destroy;
 
@@ -22,6 +22,7 @@
           $addedNode.addClass('ccm-enhanced-select-input-add-new-term');
         }
       }
+
       // always add the required selectize-input class name if not present
       if (this.options.styleBase.indexOf('ccm-enhanced-select') == -1) {
         this.options.styleBase += ' ccm-enhanced-select';
@@ -40,15 +41,6 @@
                 if (mutation.addedNodes.length > 0) {
                   mutation.addedNodes.forEach(function (addedNode) {
                     addNoResultClassName(addedNode);
-                    // $addedNode = $(addedNode);
-                    // $addedNodeBsSelect = $addedNode.closest('.bootstrap-select');
-                    // if (
-                    //   addedNode.className == "no-results" &&
-                    //   $addedNodeBsSelect.length &&
-                    //   $addedNodeBsSelect.find('select').selectpicker('liveSearch') == true
-                    // ) {
-                    //   $addedNode.addClass('ccm-enhanced-select-input-add-new-term');
-                    // }
                   });
                 }
               }
@@ -63,22 +55,13 @@
           $('html').addEventListener("DOMNodeInserted", function (event) {
             event.stopImmediatePropagation();
             addNoResultClassName(event.target);
-            // var $addedNode = $(event.target);
-            // $addedNodeBsSelect = $addedNode.closest('.bootstrap-select');
-            // if (
-            //   addedNode.className == "no-results" &&
-            //   $addedNodeBsSelect.length &&
-            //   $addedNodeBsSelect.find('select').selectpicker('liveSearch') == true
-            // ) {
-            //   $addedNode.addClass('ccm-enhanced-select-input-add-new-term');
-            // }
           }, true);
         }
 
         $(document.body).on('click', '.no-results.ccm-enhanced-select-input-add-new-term', function (ev) {
           ev.stopPropagation();
 
-          // the .no-results element is rremoved and added to the DOM when needed
+          // the .no-results element is removed and added to the DOM when needed
           // So let's turn off the click handler every time
           $(this).off('click');
 
