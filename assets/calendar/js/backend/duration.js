@@ -131,20 +131,20 @@
 
         setupTimes: function () {
             var my = this
-            var $startTime = my.$element.find('select[data-select=start-time]');
-            $startTime.addClass('selectize-control');
+            var $startTime = my.$element.find('select[data-select=start-time]')
+            $startTime.addClass('selectize-control')
             $startTime.selectpicker({
                 liveSearch: true,
-                liveSearchStyle: 'startsWith',
-            });
+                liveSearchStyle: 'startsWith'
+            })
             $startTime.on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
                 my.calculateEndDate()
-            });
+            })
 
             my.$element.find('select[data-select=end-time]').addClass('selectize-control').selectpicker({
                 liveSearch: true,
-                liveSearchStyle: 'startsWith',
-            });
+                liveSearchStyle: 'startsWith'
+            })
         },
 
         getSelectedEndDate: function () {
@@ -248,7 +248,7 @@
             $bsSelect.addClass('selectize-control')
             $bsSelect.selectpicker({
                 liveSearch: true,
-                liveSearchStyle: 'startsWith',
+                liveSearchStyle: 'startsWith'
             })
             $bsSelect.selectpicker('val', endTime)
         },

@@ -127,7 +127,7 @@
             selects.selectpicker({
                 liveSearch: true,
                 width: '100%'
-            });
+            })
         }
         // var selects = this.$element.find('.selectize-select')
         // if (selects.length) {

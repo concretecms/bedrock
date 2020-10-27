@@ -41,7 +41,7 @@
                             selects.selectpicker({
                                 liveSearch: true,
                                 width: '100%'
-                            });
+                            })
                         }
                     }
                 })
@@ -78,7 +78,7 @@
             selects.selectpicker({
                 liveSearch: true,
                 width: '100%'
-            });
+            })
         }
     }
 

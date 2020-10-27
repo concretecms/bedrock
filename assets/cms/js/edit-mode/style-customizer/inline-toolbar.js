@@ -102,13 +102,13 @@ ConcreteInlineStyleCustomizer.prototype = {
     },
 
     setupSelectBoxes: function() {
-        var my = this,
-            $customClass = my.$toolbar.find('#customClass');
+        var my = this
+        var $customClass = my.$toolbar.find('#customClass')
 
         $customClass.selectpicker({
             liveSearch: true,
-            allowAdd: true, // new option used by our extension of bootstrap-select
-        });
+            allowAdd: true // new option used by our extension of bootstrap-select
+        })
     },
 
     setupSliders: function() {

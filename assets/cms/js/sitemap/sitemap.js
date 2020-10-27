@@ -53,7 +53,7 @@ localeTemplate: '<li <% if (selectedLocale) { %>class="active"<% } %>><a href="#
         },
 
         setupSiteTreeSelector: function(tree) {
-            var my = this, $optgroup, $options;
+            var my = this; var $optgroup; var $options
             if (!tree) {
                 return false
             }
@@ -63,38 +63,38 @@ localeTemplate: '<li <% if (selectedLocale) { %>class="active"<% } %>><a href="#
                     var $menu = my.$element.find('div.ccm-sitemap-tree-selector-wrapper select')
 
                     $.each(tree.entryGroups, function (gi, group) {
-                        $optgroup = $('<optgroup label="' + group.label + '">');
+                        $optgroup = $('<optgroup label="' + group.label + '">')
 
                         $.each(tree.entries, function (ti, entry) {
                             if (entry.class == group.value) {
-                                $options = '<option value="' + entry.siteTreeID + '" data-content=\'<div class="option">' + entry.element + '</div>\'';
+                                $options = '<option value="' + entry.siteTreeID + '" data-content=\'<div class="option">' + entry.element + '</div>\''
 
                                 if (entry.isSelected) {
-                                    $options += ' selected';
+                                    $options += ' selected'
                                 }
 
-                                $options += '>' + entry.title + '</option>';
-                                $optgroup.append($options);
+                                $options += '>' + entry.title + '</option>'
+                                $optgroup.append($options)
                             }
-                        });
+                        })
 
-                        $menu.append($optgroup);
+                        $menu.append($optgroup)
                     })
 
                     $menu.selectpicker({
                         liveSearch: true,
-                        maxOptions: 1,
-                    });
+                        maxOptions: 1
+                    })
 
                     $menu.on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-                        var treeID = $(this).selectpicker('val');
+                        var treeID = $(this).selectpicker('val')
                         if (treeID != previousValue) {
                             var source = my.getTree().options.source
                             my.options.siteTreeID = treeID
                             source.data.siteTreeID = treeID
                             my.getTree().reload(source)
                         }
-                    });
+                    })
                 }
             }
         },
