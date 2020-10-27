@@ -136,7 +136,6 @@
             $startTime.selectpicker({
                 liveSearch: true,
                 liveSearchStyle: 'startsWith',
-                styleBase: 'selectize-input', // class added to the box too keep the proper design
             });
             $startTime.on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
                 my.calculateEndDate()
@@ -145,7 +144,6 @@
             my.$element.find('select[data-select=end-time]').addClass('selectize-control').selectpicker({
                 liveSearch: true,
                 liveSearchStyle: 'startsWith',
-                styleBase: 'selectize-input', // class added to the box too keep the proper design
             });
         },
 
@@ -251,7 +249,6 @@
             $bsSelect.selectpicker({
                 liveSearch: true,
                 liveSearchStyle: 'startsWith',
-                styleBase: 'selectize-input', // class added to the box too keep the proper design
             })
             $bsSelect.selectpicker('val', endTime)
         },
