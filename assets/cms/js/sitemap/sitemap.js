@@ -84,7 +84,6 @@ localeTemplate: '<li <% if (selectedLocale) { %>class="active"<% } %>><a href="#
                     $menu.selectpicker({
                         liveSearch: true,
                         maxOptions: 1,
-                        styleBase: 'selectize-input', // class added to the box too keep the proper design
                     });
 
                     $menu.on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
