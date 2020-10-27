@@ -121,12 +121,20 @@
     }
 
     ConcreteAjaxSearch.prototype.setupSelectize = function() {
-        var selects = this.$element.find('.selectize-select')
+        var selects = this.$element.find('.ccm-enhanced-select')
+        console.log('base')
         if (selects.length) {
-            selects.selectize({
-                plugins: ['remove_button']
-            })
+            selects.selectpicker({
+                liveSearch: true,
+                width: '100%'
+            });
         }
+        // var selects = this.$element.find('.selectize-select')
+        // if (selects.length) {
+        //     selects.selectize({
+        //         plugins: ['remove_button']
+        //     })
+        // }
     }
 
     /**
