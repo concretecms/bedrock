@@ -10,6 +10,15 @@
 
         this.options = options
         this.setupAdvancedSearch()
+        this.setupItemsPerPage()
+    }
+
+    ConcreteExpressEntryList.prototype.setupItemsPerPage = function() {
+        var bID = this.options.bID
+        var $itemsPerPageSelector = $('select[data-express-entry-list-select-items-per-page=' + bID + ']')
+        $itemsPerPageSelector.on('change', function() {
+            window.location.href = $itemsPerPageSelector.find('option:selected').attr('data-location')
+        })
     }
 
     ConcreteExpressEntryList.prototype.setupAdvancedSearch = function() {
