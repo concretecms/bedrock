@@ -1217,7 +1217,6 @@
                         },
 
                         open: function () {
-
                             if (fileUploader.isFunction(fileUploader.options.folderID)) {
                                 fileUploader.fetchDirectories(parseInt(fileUploader.options.folderID()))
                             } else {
