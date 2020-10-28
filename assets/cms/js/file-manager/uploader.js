@@ -804,12 +804,6 @@
                     $dialogEl.find('select.ccm-directory-selector')
                         .selectpicker()
                         .addClass('form-control')
-
-                    if (fileUploader.isFunction(fileUploader.options.folderID)) {
-                        fileUploader.fetchDirectories(parseInt(fileUploader.options.folderID()))
-                    } else {
-                        fileUploader.fetchDirectories()
-                    }
                 },
 
                 fetchFilesFromIncomingDirectory: function () {
@@ -1223,6 +1217,13 @@
                         },
 
                         open: function () {
+
+                            if (fileUploader.isFunction(fileUploader.options.folderID)) {
+                                fileUploader.fetchDirectories(parseInt(fileUploader.options.folderID()))
+                            } else {
+                                fileUploader.fetchDirectories()
+                            }
+
                             /*
                              * Ugly polyfill to re-initialize the bootstrap tab navigation
                              * because within a dynamic window the tab's wont work after
