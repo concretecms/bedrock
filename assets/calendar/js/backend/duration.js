@@ -132,7 +132,6 @@
         setupTimes: function () {
             var my = this
             var $startTime = my.$element.find('select[data-select=start-time]')
-            $startTime.addClass('selectize-control')
             $startTime.selectpicker({
                 liveSearch: true,
                 liveSearchStyle: 'startsWith'
@@ -141,7 +140,7 @@
                 my.calculateEndDate()
             })
 
-            my.$element.find('select[data-select=end-time]').addClass('selectize-control').selectpicker({
+            my.$element.find('select[data-select=end-time]').selectpicker({
                 liveSearch: true,
                 liveSearchStyle: 'startsWith'
             })
@@ -245,7 +244,6 @@
             my.$element.find('input[name=' + my.options.namespace + '_pdEndDate_pub_' + my.getSetID() + ']').datepicker('setDate', endDateFormatted)
 
             var $bsSelect = my.$element.find('select[name=' + my.options.namespace + '_pdEndDateSelectTime_' + my.getSetID() + ']')
-            $bsSelect.addClass('selectize-control')
             $bsSelect.selectpicker({
                 liveSearch: true,
                 liveSearchStyle: 'startsWith'
