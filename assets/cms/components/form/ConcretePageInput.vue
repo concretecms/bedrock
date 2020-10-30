@@ -89,7 +89,7 @@ export default {
                 },
                 {
                     includeSystemPages: my.includeSystemPages,
-                    askIncludeSystemPages: my.askIncludeSystemPages,
+                    askIncludeSystemPages: my.askIncludeSystemPages
                 }
             )
         },
