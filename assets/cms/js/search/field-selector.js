@@ -36,10 +36,11 @@
                         var $content = $container.append(
                             renderFieldRowTemplate({ field: r })
                         )
-                        var selects = $content.find('select.selectize-select')
+                        var selects = $content.find('select.ccm-enhanced-select')
                         if (selects.length) {
-                            selects.selectize({
-                                plugins: ['remove_button']
+                            selects.selectpicker({
+                                liveSearch: true,
+                                width: '100%'
                             })
                         }
                     }
@@ -72,10 +73,11 @@
             })
         }
 
-        var selects = $container.find('select.selectize-select')
+        var selects = $container.find('select.ccm-enhanced-select')
         if (selects.length) {
-            selects.selectize({
-                plugins: ['remove_button']
+            selects.selectpicker({
+                liveSearch: true,
+                width: '100%'
             })
         }
     }

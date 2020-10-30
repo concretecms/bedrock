@@ -131,13 +131,19 @@
 
         setupTimes: function () {
             var my = this
-            my.$element.find('select[data-select=start-time]').selectize({
-                onChange: function (value) {
-                    my.calculateEndDate()
-                }
+            var $startTime = my.$element.find('select[data-select=start-time]')
+            $startTime.addClass('selectize-control')
+            $startTime.selectpicker({
+                liveSearch: true,
+                liveSearchStyle: 'startsWith'
             })
-            my.$element.find('select[data-select=end-time]').selectize({
-                copyClassesToDropdown: false
+            $startTime.on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+                my.calculateEndDate()
+            })
+
+            my.$element.find('select[data-select=end-time]').addClass('selectize-control').selectpicker({
+                liveSearch: true,
+                liveSearchStyle: 'startsWith'
             })
         },
 
@@ -238,8 +244,13 @@
 
             my.$element.find('input[name=' + my.options.namespace + '_pdEndDate_pub_' + my.getSetID() + ']').datepicker('setDate', endDateFormatted)
 
-            var $selectize = my.$element.find('select[name=' + my.options.namespace + '_pdEndDateSelectTime_' + my.getSetID() + ']').selectize()
-            $selectize[0].selectize.setValue(endTime)
+            var $bsSelect = my.$element.find('select[name=' + my.options.namespace + '_pdEndDateSelectTime_' + my.getSetID() + ']')
+            $bsSelect.addClass('selectize-control')
+            $bsSelect.selectpicker({
+                liveSearch: true,
+                liveSearchStyle: 'startsWith'
+            })
+            $bsSelect.selectpicker('val', endTime)
         },
 
         setupDates: function () {
