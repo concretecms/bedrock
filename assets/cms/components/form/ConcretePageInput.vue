@@ -50,6 +50,14 @@ export default {
         },
         chooseText: {
             type: String
+        },
+        includeSystemPages: {
+            type: Boolean,
+            default: false
+        },
+        askIncludeSystemPages: {
+            type: Boolean,
+            default: false
         }
     },
     watch: {
@@ -75,9 +83,15 @@ export default {
         },
         openChooser: function() {
             var my = this
-            window.ConcretePageAjaxSearch.launchDialog(function(data) {
-                my.loadPage(data.cID)
-            })
+            window.ConcretePageAjaxSearch.launchDialog(
+                function(data) {
+                    my.loadPage(data.cID)
+                },
+                {
+                    includeSystemPages: my.includeSystemPages,
+                    askIncludeSystemPages: my.askIncludeSystemPages,
+                }
+            )
         },
         loadPage(cID) {
             var my = this
