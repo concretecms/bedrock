@@ -105,12 +105,12 @@ ConcreteAjaxSearch.prototype.createMenu = function ($selector) {
 ConcretePageAjaxSearch.launchDialog = function(callback, options) {
     options = $.extend({
         includeSystemPages: false,
-        askIncludeSystemPages: false,
-    }, options || {});
+        askIncludeSystemPages: false
+    }, options || {})
     var url = CCM_DISPATCHER_FILENAME + '/ccm/system/dialogs/page/sitemap_selector?' + [
         'includeSystemPages=' + (options.includeSystemPages ? 1 : 0),
-        'askIncludeSystemPages=' + (options.askIncludeSystemPages ? 1 : 0),
-    ].join('&');
+        'askIncludeSystemPages=' + (options.askIncludeSystemPages ? 1 : 0)
+    ].join('&')
     $.fn.dialog.open({
         width: '90%',
         height: '75%',
