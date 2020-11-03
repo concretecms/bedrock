@@ -38,7 +38,7 @@ ConcreteExpressEntryAjaxSearch.launchDialog = function(entityID, callback) {
 
 ConcreteExpressEntryAjaxSearch.getEntryDetails = function(exEntryID, callback) {
     $.ajax({
-        type: 'post',
+        type: 'get',
         dataType: 'json',
         url: CCM_DISPATCHER_FILENAME + '/ccm/system/express/entry/get_json',
         data: { exEntryID: exEntryID },
@@ -52,7 +52,7 @@ ConcreteExpressEntryAjaxSearch.getEntryDetails = function(exEntryID, callback) {
 }
 
 // jQuery Plugin
-$.fn.concreteExpressPageAjaxSearch = function(options) {
+$.fn.concreteExpressEntryAjaxSearch = function(options) {
     return $.each($(this), function(i, obj) {
         new ConcreteExpressEntryAjaxSearch($(this), options)
     })
