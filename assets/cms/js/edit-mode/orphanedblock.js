@@ -24,7 +24,7 @@ import _ from 'underscore'
         handleDefaultArea: function () {
             var my = this
             $.pep.unbind(my.getPeper())
-            my.getPeper().click(function (e) {
+            my.getPeper().click(function () {
                 my.handleClick()
 
                 return false
@@ -40,58 +40,30 @@ import _ from 'underscore'
         },
 
         addToDragArea: function OrphanedBlockAddToDragArea(drag_area) {
-            var my = this
-            var elem = my.getElem()
-            var blockId = my.getId()
-            var sourceAreaHandle = elem.data('sourceAreaHandle')
-            var targetArea = drag_area.getArea()
+            var my = this; var elem = my.getElem()
+            var area = drag_area.getArea()
+            var area_handle = area.getHandle()
+            var dragAreaBlockID = 0
+            var cID = elem.data('cid')
+            var dragAreaBlock = drag_area.getBlock()
+            var pcID = 0
+
+            if (dragAreaBlock) {
+                dragAreaBlockID = dragAreaBlock.getId()
+            }
 
             ConcretePanelManager.exitPanelMode()
             $.fn.dialog.closeAll()
             $.fn.dialog.showLoader()
 
-            var send = {
-                ccm_token: window.CCM_SECURITY_TOKEN,
-                area: targetArea.getId(),
-                sourceArea: sourceAreaHandle,
-                block: blockId,
-                blocks: []
-            }
+            var url = CCM_DISPATCHER_FILENAME + `/ccm/system/block/process/alias/${cID}/${area_handle}/0/0/${my.getId()}`
 
-            var loaderDisplayed = false
-
-            targetArea = targetArea.inEditMode(targetArea.getEditMode())
-
-            send.blocks.push(my.getId())
-
-            _(targetArea.getBlocks()).each(function (block, key) {
-                send.blocks.push(block.getId())
-            })
-            my.bindMenu()
-            var timeout = setTimeout(function () {
-                loaderDisplayed = true
-                $.fn.dialog.showLoader()
-            }, 150)
-
-            $.concreteAjax({
-                url: CCM_DISPATCHER_FILENAME + '/ccm/system/page/arrange_blocks?cID=' + my.getCID(),
-                dataType: 'json',
-                data: send,
-                skipResponseValidation: true,
-                success: function (r) {
-                    clearTimeout(timeout)
-                    if (loaderDisplayed) {
-                        $.fn.dialog.hideLoader()
-                    }
-                    ConcreteAjaxRequest.validateResponse(r, function (ok) {
-                        if (ok) {
-                            ConcreteToolbar.disableDirectExit()
-
-                            // @todo: If there is a better way to force the destination area to reload the blocks replace the window.location.reload() statement.
-                            window.location.reload()
-                        }
+            $.getJSON(url, { ccm_token: CCM_SECURITY_TOKEN }, function (response) {
+                my.handleAddResponse(response, area, dragAreaBlock, function () {
+                    ConcreteEvent.fire('EditModeAddClipboardComplete', {
+                        block: my
                     })
-                }
+                })
             })
         }
     })
