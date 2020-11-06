@@ -39,7 +39,7 @@ import _ from 'underscore'
 
             ConcretePanelManager.exitPanelMode()
 
-            var url = CCM_DISPATCHER_FILENAME + `/ccm/system/block/process/alias/${CCM_CID}/${area_handle}/${elem.data('cID')}/${dragAreaBlockID || '0'}`
+            var url = CCM_DISPATCHER_FILENAME + `/ccm/system/block/process/alias/${CCM_CID}/${area_handle}/${elem.data('cID')}/${dragAreaBlockID || '0'}/0`
 
             $.getJSON(url, { ccm_token: CCM_SECURITY_TOKEN }, function (response) {
                 my.handleAddResponse(response, area, dragAreaBlock)
