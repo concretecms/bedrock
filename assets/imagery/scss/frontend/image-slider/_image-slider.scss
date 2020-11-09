@@ -5,22 +5,12 @@
 }
 
 .ccm-image-slider-text {
-  left: 0;
-  position: absolute;
-  top: 10%;
-  width: 45%;
+  clear: both;
+  padding-top: 1rem;
 }
 
 .ccm-image-slider-title {
-  margin-top: auto;
-}
-
-.ccm-image-slider-container a.mega-link-overlay {
-  height: 100%;
-  left: 0;
-  position: absolute;
-  width: 100%;
-  z-index: 20;
+  margin-bottom: 1rem;
 }
 
 .rslides {
