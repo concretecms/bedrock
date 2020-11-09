@@ -143,9 +143,9 @@
     // jQuery Plugin
     $.fn.concreteAjaxBlockForm = function (options) {
         return $.each($(this), function (i, obj) {
-            new ConcreteAjaxBlockForm($(this), options);
-        });
-    };
+            (() => new ConcreteAjaxBlockForm($(this), options))()
+        })
+    }
 
     global.ConcreteAjaxBlockForm = ConcreteAjaxBlockForm
 })(global, jQuery)
