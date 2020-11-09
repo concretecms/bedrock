@@ -33,7 +33,7 @@
 }
 
 .rslides_nav {
-  background: transparent url('../images/responsive-slides/arrows.gif') no-repeat left top;
+  background: transparent url($concrete-path + 'images/responsive-slides/arrows.gif') no-repeat left top;
   height: 61px;
   left: 0;
   margin-top: -45px;
