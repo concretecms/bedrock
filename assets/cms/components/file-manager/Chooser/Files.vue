@@ -9,7 +9,8 @@
                             <label :for="'file-' + (file.fID || file.treeNodeID)"><span v-html="file.resultsThumbnailImg"></span></label>
                             <div class="ccm-image-cell-title">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" v-if="!file.isFolder" v-model="selectedFiles" :type="multipleSelection ? 'checkbox' : 'radio'" :id="'file-' + file.fID" :value="file.fID">
+                                    <input class="form-check-input" type="checkbox" v-if="multipleSelection && !file.isFolder" v-model="selectedFiles" :id="'file-' + file.fID" :value="file.fID">
+                                    <input class="form-check-input" type="radio" v-if="!multipleSelection && !file.isFolder" v-model="selectedFiles" :id="'file-' + file.fID" :value="file.fID">
                                     <label class="form-check-label" :for="'file-' + (file.fID || file.treeNodeID)">{{file.title}}</label>
                                 </div>
                             </div>
@@ -36,7 +37,10 @@
                     </thead>
                     <tbody>
                         <tr v-for="file in fileList" :key="(file.fID || file.treeNodeID) + 'list'" @click="onItemClick(file)">
-                            <td><input v-if="!file.isFolder" v-model="selectedFiles" :type="multipleSelection ? 'checkbox' : 'radio'" :id="'file-' + file.fID" :value="file.fID"></td>
+                            <td>
+                                <input type="checkbox" v-if="multipleSelection && !file.isFolder" v-model="selectedFiles" :id="'file-' + file.fID" :value="file.fID">
+                                <input type="radio" v-if="!multipleSelection && !file.isFolder" v-model="selectedFiles" :id="'file-' + file.fID" :value="file.fID">
+                            </td>
                             <td class="ccm-image-chooser-icon"><span v-html="file.resultsThumbnailImg" width="32" height="32"></span></td>
                             <td>{{file.fID}}</td>
                             <td>{{file.title}}</td>
@@ -231,17 +235,6 @@ export default {
         onItemClick(file) {
             if (file.isFolder) {
                 this.$emit('folderClick', file.treeNodeID)
-            } else if (this.resultsFormFactor === 'list') {
-                if (this.multipleSelection) {
-                    const fileIndex = this.selectedFiles.indexOf(file.fID)
-                    if (fileIndex === -1) {
-                        this.selectedFiles.push(file.fID)
-                    } else {
-                        this.selectedFiles.splice(fileIndex, 1)
-                    }
-                } else {
-                    this.selectedFiles = file.fID
-                }
             }
         }
     },
