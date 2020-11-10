@@ -13,6 +13,7 @@
   backface-visibility: hidden;
   display: none;
   left: 0;
+  margin-bottom: 0 !important;
   position: absolute;
   top: 0;
   width: 100%;
@@ -33,7 +34,7 @@
 }
 
 .rslides_nav {
-  background: transparent url('../images/responsive-slides/arrows.gif') no-repeat left top;
+  background: transparent url($concrete-path + 'images/responsive-slides/arrows.gif') no-repeat left top;
   height: 61px;
   left: 0;
   margin-top: -45px;
@@ -50,7 +51,7 @@
 .rslides_tabs {
   padding-bottom: 10px;
   padding-left: 0;
-  padding-top: 15px;
+  padding-top: 0;
 }
 
 .rslides_tabs li {
