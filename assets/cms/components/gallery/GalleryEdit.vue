@@ -19,7 +19,7 @@
         </ul>
 
         <div class="tab-content" id="galleryBlockContent">
-            <div v-if="activeTab === 'image'"  id="galleryImages">
+            <div v-show="activeTab === 'image'"  id="galleryImages">
                 <div class="text-right mt-4">
                     <icon-button icon="plus" icon-type="fas" type="outline" class="btn btn-secondary" @click="addImage()">
                         Add Images
@@ -28,26 +28,38 @@
                 <div class="image-container mt-4"
                     ref="imageContainer"
                     :class="activeImage !== null ? 'active-image' : ''">
-                    <div ref="cell" class="ccm-image-cell-container" v-for="(image, index) in $props.gallery" :key="index">
-                        <ImageCell
-                            :src="image.thumbUrl"
-                            :file-size="image.fileSize"
-                            size="120"
-                            :isActive="activeImage === index ? true : false"
-                            @click="openImage(image, index, $event)"
-                            @delete="deleteImage(index)"
-                            />
-                    </div>
+                    <draggable class="image-container" v-model="$props.gallery" group="people" @start="drag=true" @end="drag=false">
+                      <div v-for="(image, index) in $props.gallery" :key="index">
+                        <div ref="cell" class="ccm-image-cell-container">
+                          <ImageCell
+                              :src="image.thumbUrl"
+                              :file-size="image.fileSize"
+                              size="120"
+                              :isActive="activeImage === index ? true : false"
+                              @click="openImage(image, index, $event)"
+                              @delete="deleteImage(index)"
+                          />
+                        </div>
+                      </div>
+                    </draggable>
+
                 </div>
 
                 <div v-if="activeImage !== null">
                     <ImageDetail @delete="deleteImage(activeImage)" :image="this.gallery[activeImage]" />
                 </div>
             </div>
-            <div v-if="activeTab === 'settings'" id="gallerySettings">
-                <h3 class="comingsoon">
-                    No Options Currently Available.
+            <div v-show="activeTab === 'settings'" id="gallerySettings">
+                <h3>
+                  Settings
                 </h3>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="includeDownloadLink" :value="1" :checked="$root.includeDownloadLink" name="includeDownloadLink">
+                  <label class="form-check-label" for="includeDownloadLink">
+                      Include link to download original
+                  </label>
+                </div>
             </div>
         </div>
     </div>
@@ -120,9 +132,11 @@
 <script>
 import ImageCell from './ImageCell'
 import ImageDetail from './ImageDetail'
+import draggable from 'vuedraggable'
 
 export default {
     components: {
+        draggable,
         ImageCell,
         ImageDetail,
         ...ImageCell.components,
@@ -161,24 +175,28 @@ export default {
             const me = this
 
             ConcreteFileManager.launchDialog(function(data) {
-                ConcreteFileManager.getFileDetails(data.fID, function(file) {
-                    file = file.files[0] || {}
-                    me.gallery.push({
-                        id: data.fID,
-                        title: file.title,
-                        description: file.description,
-                        src: file.url,
-                        attributes: [],
-                        imageUrl: file.url,
-                        thumbUrl: file.url,
-                        displayChoices: JSON.parse(JSON.stringify(me.choices)),
-                        fileSize: file.fileSize || '-',
-                        detailUrl: file.urlDetail
-                    })
+                for (var fID of data.fID) {
+                    ConcreteFileManager.getFileDetails(fID, function (file) {
+                        file = file.files[0] || {}
+                        me.gallery.push({
+                            id: file.fID,
+                            title: file.title,
+                            description: file.description,
+                            src: file.url,
+                            attributes: [],
+                            imageUrl: file.url,
+                            thumbUrl: file.url,
+                            displayChoices: JSON.parse(JSON.stringify(me.choices)),
+                            fileSize: file.fileSize || '-',
+                            detailUrl: file.urlDetail
+                        })
 
-                    const lastIndex = me.gallery.length - 1
-                    me.openImage(me.gallery[lastIndex], lastIndex)
-                })
+                        const lastIndex = me.gallery.length - 1
+                        me.openImage(me.gallery[lastIndex], lastIndex)
+                    })
+                }
+            }, {
+                multipleSelection: true
             })
         }
     },
