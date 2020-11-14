@@ -39,9 +39,9 @@ ConcreteProgressiveOperation.prototype.setProgressBarStatus = function(completio
     }
 }
 
-ConcreteProgressiveOperation.prototype.poll = function(batch, token, remaining) {
+ConcreteProgressiveOperation.prototype.poll = function(processId, token, remaining) {
     var my = this
-    var url = CCM_DISPATCHER_FILENAME + '/ccm/system/batch/monitor/' + batch + '/' + token
+    var url = CCM_DISPATCHER_FILENAME + '/ccm/system/process/monitor/' + processId + '/' + token
 
     if (my.total == -1) {
         // We haven't set the total yet.
@@ -64,10 +64,10 @@ ConcreteProgressiveOperation.prototype.poll = function(batch, token, remaining) 
         type: 'POST',
         dataType: 'json',
         success: function(r) {
-            var remaining = r.total - r.completed
+            var remaining = r.process.batch.pendingJobs
             if (remaining > 0) {
                 setTimeout(function() {
-                    my.poll(batch, token, remaining)
+                    my.poll(processId, token, remaining)
                 }, my.options.pollRetryTimeout)
             } else {
                 setTimeout(function() {
@@ -86,7 +86,7 @@ ConcreteProgressiveOperation.prototype.poll = function(batch, token, remaining) 
     })
 }
 
-ConcreteProgressiveOperation.prototype.startPolling = function(batch, token, remaining) {
+ConcreteProgressiveOperation.prototype.startPolling = function(processId, token, remaining) {
     var my = this
     if (!my.options.element) {
         my.pnotify = ConcreteAlert.notify({
@@ -99,7 +99,7 @@ ConcreteProgressiveOperation.prototype.startPolling = function(batch, token, rem
         })
     }
 
-    my.poll(batch, token, remaining)
+    my.poll(processId, token, remaining)
 }
 
 ConcreteProgressiveOperation.prototype.initProgressBar = function() {
@@ -128,7 +128,7 @@ ConcreteProgressiveOperation.prototype.execute = function() {
         // We have already performed the submit as part of another operation,
         // like a concrete5 ajax form submission
         var remaining = my.options.response.total - my.options.response.completed
-        my.startPolling(my.options.response.batch, my.options.response.token, remaining)
+        my.startPolling(my.options.response.process.id, my.options.response.token, remaining)
     } else {
         $.concreteAjax({
             loader: false,
@@ -137,8 +137,8 @@ ConcreteProgressiveOperation.prototype.execute = function() {
             data: my.options.data,
             dataType: 'json',
             success: function(r) {
-                var remaining = r.total - r.completed
-                my.startPolling(r.batch, r.token, remaining)
+                var remaining = r.process.batch.pendingJobs
+                my.startPolling(r.process.id, r.token, remaining)
             }
         })
     }
