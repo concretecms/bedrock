@@ -81,4 +81,21 @@ section#ccm-panel-page-versions {
   }
 }
 
+div#ccm-panel-detail-page-versions {
+  div.ccm-panel-detail-content {
+    height: 100%;
+    padding: 0;
+    width: 100%;
+
+    iframe {
+      background: transparent;
+      box-sizing: border-box;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      top: 0;
+      width: 100%;
+    }
+  }
+}
 
