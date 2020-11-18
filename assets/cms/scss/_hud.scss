@@ -26,6 +26,10 @@ $notification-error-color: color-yiq($notification-error-bg-color) !default;
     padding-top: 0.25rem;
   }
 
+  div.ccm-notification-content {
+
+  }
+
   div.ccm-notification-title {
     font-size: 1.3rem;
     margin-bottom: 0;
@@ -157,6 +161,11 @@ div#ccm-popup-alert-message {
     margin-top: 10px;
     position: static;
   }
+
+  .pnotify-closer {
+    display: none; // Don't show the closer inside the nested page notification box
+  }
+
 }
 
 .ccm-notifications-box-close {
