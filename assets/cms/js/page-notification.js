@@ -68,6 +68,7 @@ class PageNotification {
             title: false,
             text: false,
             textTrusted: true,
+            maxTextHeight: null,
             hide: false
         }, options)
 
