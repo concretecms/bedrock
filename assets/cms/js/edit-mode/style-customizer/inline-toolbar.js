@@ -104,8 +104,8 @@ ConcreteInlineStyleCustomizer.prototype = {
     setupSelectBoxes: function() {
         var my = this
 
-        my.$toolbar.find('.selectpicker').selectpicker();
-        
+        my.$toolbar.find('.selectpicker').selectpicker()
+
         var $customClass = my.$toolbar.find('#customClass')
 
         $customClass.selectpicker({
