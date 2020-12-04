@@ -39,10 +39,8 @@ ConcreteProgressiveOperation.prototype.setProgressBarStatus = function(completio
     }
 }
 
-ConcreteProgressiveOperation.prototype.poll = function(processId, token, remaining) {
+ConcreteProgressiveOperation.prototype.updateTotals = function(processId, token, remaining) {
     var my = this
-    var url = CCM_DISPATCHER_FILENAME + '/ccm/system/process/monitor/' + processId + '/' + token
-
     if (my.total == -1) {
         // We haven't set the total yet.
         my.total = remaining
@@ -57,6 +55,27 @@ ConcreteProgressiveOperation.prototype.poll = function(processId, token, remaini
         var completion = ((my.total - remaining) / my.total) * 100
         my.setProgressBarStatus(completion, remaining)
     }
+}
+
+ConcreteProgressiveOperation.prototype.completeOperation = function() {
+    var my = this
+    if (my.options.element) {
+        my.setProgressBarStatus(100, 0)
+    } else {
+        NProgress.done()
+        my.pnotify.close()
+    }
+    if (typeof (my.options.onComplete) === 'function') {
+        my.options.onComplete(r)
+    }
+}
+
+ConcreteProgressiveOperation.prototype.poll = function(processId, token, remaining) {
+    var my = this
+
+    my.updateTotals(processId, token, remaining)
+
+    var url = CCM_DISPATCHER_FILENAME + '/ccm/system/process/monitor/' + processId + '/' + token
 
     $.concreteAjax({
         loader: false,
@@ -71,22 +90,14 @@ ConcreteProgressiveOperation.prototype.poll = function(processId, token, remaini
                 }, my.options.pollRetryTimeout)
             } else {
                 setTimeout(function() {
-                    if (my.options.element) {
-                        my.setProgressBarStatus(100, 0)
-                    } else {
-                        NProgress.done()
-                        my.pnotify.close()
-                    }
-                    if (typeof (my.options.onComplete) === 'function') {
-                        my.options.onComplete(r)
-                    }
+                    my.completeOperation()
                 }, 1000)
             }
         }
     })
 }
 
-ConcreteProgressiveOperation.prototype.startPolling = function(processId, token, remaining) {
+ConcreteProgressiveOperation.prototype.showStatus = function() {
     var my = this
     if (!my.options.element) {
         my.pnotify = ConcreteAlert.notify({
@@ -98,8 +109,6 @@ ConcreteProgressiveOperation.prototype.startPolling = function(processId, token,
             icon: 'sync-alt fa-spin'
         })
     }
-
-    my.poll(processId, token, remaining)
 }
 
 ConcreteProgressiveOperation.prototype.initProgressBar = function() {
@@ -127,8 +136,9 @@ ConcreteProgressiveOperation.prototype.execute = function() {
     if (my.options.response) {
         // We have already performed the submit as part of another operation,
         // like a concrete5 ajax form submission
-        var remaining = my.options.response.total - my.options.response.completed
-        my.startPolling(my.options.response.process.id, my.options.response.token, remaining)
+        // todo, make work again.
+        //var remaining = my.options.response.total - my.options.response.completed
+        //my.startOperation(my.options.response.process.id, my.options.response.token, remaining)
     } else {
         $.concreteAjax({
             loader: false,
@@ -137,8 +147,24 @@ ConcreteProgressiveOperation.prototype.execute = function() {
             data: my.options.data,
             dataType: 'json',
             success: function(r) {
-                var remaining = r.process.batch.pendingJobs
-                my.startPolling(r.process.id, r.token, remaining)
+                my.showStatus()
+                if (my.options.requiresPolling) {
+                    my.poll(r.process.id, r.token, r.process.batch)
+                } else {
+                    my.updateTotals(r.process.id, r.token, r.process.batch.pendingJobs)
+                    const url = new URL(r.eventSource)
+                    url.searchParams.append('topic', 'https://global.concretecms.com/batches/' + r.process.batch.id)
+                    const eventSource = new EventSource(url)
+                    eventSource.onmessage = event => {
+                        var data = JSON.parse(event.data)
+                        var remaining = data.batch.pendingJobs
+                        if (remaining > 0) {
+                            my.updateTotals(r.process.id, r.token, remaining)
+                        } else {
+                            my.completeOperation()
+                        }
+                    }
+                }
             }
         })
     }
