@@ -44,7 +44,8 @@ import './ajax-request/form'
 import './ajax-request/block'
 
 // Progressive operations
-import './progressive-operations'
+import './processes'
+import './progressive-operations' // legacy handler
 
 // Search
 import './search/base'

@@ -42,7 +42,7 @@
                 </div>
                 <div class="row process-progress-wrapper" v-show="process.batch !== null && process.dateCompleted === null">
                     <div class="col-md-12">
-                        <div class="mt-2 ml-4 progress process-progress">
+                        <div class="mt-2 progress process-progress">
                             <div class="progress-bar" role="progressbar" :style="'width: ' + process.progress + '%'"></div>
                         </div>
                     </div>
@@ -101,6 +101,16 @@ export default {
             required: false,
             default: null
         },
+        consume: { /** whether to actually consume through the UI */
+            type: Boolean,
+            required: false,
+            default: false,
+        },
+        consumeToken: {
+            type: String,
+            required: true,
+            default: null
+        },
         currentProcessId: {
             type: String,
             required: false,
@@ -125,6 +135,11 @@ export default {
         'openProcesses': [],
         'subscribedProcesses': []
     }),
+    mounted() {
+        if (this.consumeToken && this.consume) {
+            this.runConsume()
+        }
+    },
     methods: {
         deleteProcess(process) {
             var modalTarget = '#delete-process-' + process.id
@@ -142,6 +157,41 @@ export default {
                 }
             })
 
+        },
+        /**
+         *
+         * Note: this function is only run when a) the CLI worker is disabled and app-consuming of the queue
+         * is used (the default) and b) when mercure is not enabled for realtime updates.
+         */
+        runConsume: function() {
+            var my = this
+            var watchedProcessIds = [];
+            my.processes.forEach(function(process) {
+                watchedProcessIds.push(process.id)
+            })
+            new ConcreteAjaxRequest({
+                url: CCM_DISPATCHER_FILENAME + '/ccm/system/messenger/consume/',
+                data: {
+                    'token': my.consumeToken,
+                    'watchedProcessIds': watchedProcessIds
+                },
+                success: r => {
+                    if (r.processes.length) {
+                        r.processes.forEach(function (responseProcess) {
+                            my.processes.forEach(function (process) {
+                                if (process.id == responseProcess.id) {
+                                    process.progress = responseProcess.progress
+                                    process.dateCompleted = responseProcess.dateCompleted
+                                    process.dateCompletedString = responseProcess.dateCompletedString
+                                }
+                            })
+                        })
+                    }
+                    if (r.messages > 0) {
+                        this.runConsume()
+                    }
+                }
+            })
         },
         closeProcess(process) {
             this.openProcesses.splice(this.openProcesses.indexOf(process.id), 1)
@@ -245,57 +295,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-@import '~bootstrap/scss/functions';
-@import '~bootstrap/scss/variables';
-
-div.process-progress {
-    height: 2px;
-}
-
-div.process-card {
-    margin-bottom: 1rem;
-    padding: 0.75rem;
-}
-
-div.process-card-expandable {
-    transition: $transition-base;
-    cursor: pointer;
-    &:hover {
-        border: 1px solid $blue;
-    }
-}
-
-.process-card-animation {
-    backface-visibility: hidden;
-    z-index: 1;
-}
-
-/* moving */
-.process-card-animation-move {
-    transition: all 600ms ease-in-out 50ms;
-}
-
-/* appearing */
-.process-card-animation-enter-active {
-    transition: all 400ms ease-out;
-}
-
-/* disappearing */
-.process-card-animation-leave-active {
-    transition: all 200ms ease-in;
-    z-index: 0;
-}
-
-/* appear at / disappear to */
-.process-card-animation-enter,
-.process-card-animation-leave-to {
-    opacity: 0;
-
-    div.process-progress-wrapper {
-        opacity: 0;
-    }
-}
-
-</style>
