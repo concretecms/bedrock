@@ -8,7 +8,9 @@ import 'json5'
 import 'jquery.cookie'
 import 'jquery-form'
 import 'bootstrap-select'
+import './modifiable-bootstrap-select'
 import 'ajax-bootstrap-select'
+import './modifiable-ajax-bootstrap-select'
 import 'dropzone/dist/dropzone'
 
 // jQuery UI components
@@ -47,6 +49,7 @@ import './progressive-operations'
 // Search
 import './search/base'
 import './search/table'
+import './search/field-selector'
 
 // Tree
 import './tree'

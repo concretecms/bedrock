@@ -7,12 +7,14 @@ class ConcreteFileManager {
         var data = {}
         var i
 
-        var options = {
+        var options = $.extend({
             filters: [],
             multipleSelection: false // Multiple selection switch
-        }
+        }, opts)
 
-        $.extend(options, opts)
+        if (options.multipleSelection) {
+            data.multipleSelection = true
+        }
 
         if (options.filters.length > 0) {
             data['field[]'] = []
@@ -35,7 +37,7 @@ class ConcreteFileManager {
             onOpen: function(dialog) {
                 ConcreteEvent.unsubscribe('FileManagerSelectFile')
                 ConcreteEvent.subscribe('FileManagerSelectFile', function(e, r) {
-                    var response = {}
+                    var response = r || {}
                     if (!options.multipleSelection) {
                         response.fID = r.fID[0]
                     } else {

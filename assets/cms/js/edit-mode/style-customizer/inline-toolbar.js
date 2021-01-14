@@ -8,17 +8,13 @@ function ConcreteInlineStyleCustomizer($element, options) {
     my.options = options
     my.$element = $element
     my.$toolbar = my.$element.find('>ul')
-    my.$toolbar.find('div.dropdown-menu').on('click', function(e) {
-        if ($(e.target).is('button')) {
-            return true
-        } else {
-            e.stopPropagation() // stop the menu from closing
-        }
-    })
 
     my.setupForm()
     my.setupButtons()
     my.setupSliders()
+    my.setupDeviceVisibilityComponent()
+    my.setupDropdowns()
+    my.setupSelectBoxes()
 }
 
 ConcreteInlineStyleCustomizer.prototype = {
@@ -47,13 +43,13 @@ ConcreteInlineStyleCustomizer.prototype = {
 
     setupButtons: function() {
         var my = this
-        my.$toolbar.on('click.inlineStyleCustomizer', 'button[data-action=cancel-design]', function() {
+        my.$toolbar.on('click.inlineStyleCustomizer', 'input[data-action=cancel-design]', function() {
             my.$element.hide()
             ConcreteEvent.fire('EditModeExitInline')
             return false
         })
 
-        my.$toolbar.on('click.inlineStyleCustomizer', 'button[data-action=reset-design]', function() {
+        my.$toolbar.on('click.inlineStyleCustomizer', 'input[data-action=reset-design]', function() {
             $.concreteAjax({
                 url: $(this).attr('data-reset-action'),
                 success: function(resp) {
@@ -63,12 +59,58 @@ ConcreteInlineStyleCustomizer.prototype = {
             return false
         })
 
-        my.$toolbar.on('click.inlineStyleCustomizer', 'button[data-action=save-design]', function() {
+        my.$toolbar.on('click.inlineStyleCustomizer', 'input[data-action=save-design]', function() {
             // move the toolbar back into the form so it submits. so great.
             my.$toolbar.hide().prependTo(my.$element)
             my.$element.submit()
             ConcreteEvent.unsubscribe('EditModeExitInlineComplete')
             return false
+        })
+    },
+
+    setupDropdowns: function() {
+        var my = this
+        my.$toolbar.find('.ccm-inline-toolbar-icon-cell > a').on('click', function () {
+            const $dropdown = $(this).parent().find('.ccm-dropdown-menu')
+            const isActive = $dropdown.hasClass('active')
+            my.$toolbar.find('.ccm-inline-toolbar-icon-selected').removeClass('ccm-inline-toolbar-icon-selected')
+
+            $('.ccm-dropdown-menu').removeClass('active')
+
+            if (!isActive) {
+                $dropdown.addClass('active')
+                $(this).parent().addClass('ccm-inline-toolbar-icon-selected')
+            }
+        })
+    },
+
+    setupDeviceVisibilityComponent: function() {
+        var my = this
+        my.$toolbar.find('button[data-hide-on-device]').on('click', function (e) {
+            e.stopPropagation()
+
+            const input = $(this).attr('data-hide-on-device')
+
+            if ($(this).hasClass('active')) {
+                $(this).removeClass('active')
+                $($('input[data-hide-on-device-input=' + input + ']').val(1))
+            } else {
+                $(this).addClass('active')
+                $($('input[data-hide-on-device-input=' + input + ']').val(0))
+            }
+        })
+    },
+
+    setupSelectBoxes: function() {
+        var my = this
+
+        my.$toolbar.find('.selectpicker').selectpicker()
+
+        var $customClass = my.$toolbar.find('#customClass')
+
+        $customClass.selectpicker({
+            liveSearch: true,
+            allowAdd: true // new option used by our extension of bootstrap-select
         })
     },
 
@@ -199,6 +241,16 @@ $.fn.concreteBlockInlineStyleCustomizer = function (options) {
 $.fn.concreteAreaInlineStyleCustomizer = function (options) {
     return $.each($(this), function (i, obj) {
         new ConcreteAreaInlineStyleCustomizer($(this), options)
+    })
+}
+
+$.fn.concreteInlineStyleCustomizer = function (options) {
+    return $.each($(this), function (i, obj) {
+        if ($(this).data('targetElement') === 'block') {
+            new ConcreteBlockInlineStyleCustomizer($(this), options)
+        } else {
+            new ConcreteAreaInlineStyleCustomizer($(this), options)
+        }
     })
 }
 

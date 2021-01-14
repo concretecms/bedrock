@@ -6,6 +6,11 @@ div#ccm-panel-check-in {
     margin-bottom: 0;
   }
 
+  .ccm-panel-content-inner {
+    padding-left: 20px;
+    padding-right: 20px; /* this panel needs a little more content area because if its big buttons */
+  }
+
   .ccm-panel-check-in-comments {
     padding: 10px 0 25px;
   }
@@ -17,10 +22,6 @@ div#ccm-panel-check-in {
 
   .ccm-panel-check-in-publish {
     margin-bottom: 30px;
-
-    .btn-group .btn {
-      padding: 8px 16px;
-    }
   }
 }
 

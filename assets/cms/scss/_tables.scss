@@ -24,6 +24,7 @@ div.ccm-ui {
         &.ccm-results-list-active-sort-desc {
           a {
             color: $blue;
+            white-space: nowrap;
 
             &:hover {
               color: black;
@@ -89,6 +90,14 @@ div.ccm-ui {
             width: 41px;
           }
         }
+
+        &.ccm-search-results-favorite-switcher {
+          width: 1px;
+
+          i {
+            cursor: pointer;
+          }
+        }
       }
     }
 
@@ -112,10 +121,6 @@ div.ccm-ui {
       }
     }
 
-    .ccm-search-results-name {
-      width: 40%;
-    }
-
     .ccm-search-results-menu-launcher {
       transition: $transition-base;
 
@@ -124,6 +129,7 @@ div.ccm-ui {
       }
     }
 
+    tr.ccm-search-results-hoverable:hover,
     tr.ccm-menu-item-active,
     tr.ccm-parent-menu-item-active,
     tr.ccm-search-select-hover,

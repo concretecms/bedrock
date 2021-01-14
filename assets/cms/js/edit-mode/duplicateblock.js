@@ -57,21 +57,9 @@ import _ from 'underscore'
             $.fn.dialog.closeAll()
             $.fn.dialog.showLoader()
 
-            var settings = {
-                cID: cID,
-                arHandle: area_handle,
-                btID: block_type_id,
-                mode: 'edit',
-                processBlock: 1,
-                add: 1,
-                btask: 'alias_existing_block',
-                pcID: [pcID],
-                ccm_token: CCM_SECURITY_TOKEN
-            }
-            if (dragAreaBlockID) {
-                settings.dragAreaBlockID = dragAreaBlockID
-            }
-            $.getJSON(CCM_DISPATCHER_FILENAME, settings, function (response) {
+            var url = CCM_DISPATCHER_FILENAME + `/ccm/system/block/process/alias/${cID}/${area_handle}/${pcID}/${dragAreaBlockID || '0'}/0`
+
+            $.getJSON(url, { ccm_token: CCM_SECURITY_TOKEN }, function (response) {
                 my.handleAddResponse(response, area, dragAreaBlock, function () {
                     ConcreteEvent.fire('EditModeAddClipboardComplete', {
                         block: my

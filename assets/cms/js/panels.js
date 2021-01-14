@@ -333,6 +333,18 @@ function ConcretePanel(options) {
         })
     }
 
+    this.getPostParams = function () {
+        var areaHandles = []
+
+        $('.ccm-area').each(function() {
+            areaHandles.push($(this).data('areaHandle'))
+        })
+
+        return {
+            usedAreas: areaHandles
+        }
+    }
+
     this.setupPanelDetails = function () {
         var $panel = $('#' + this.getDOMID())
         var obj = this
@@ -370,10 +382,17 @@ function ConcretePanel(options) {
                 }
                 var $content = $panel.find('.ccm-panel-content')
                 $.fn.dialog.showLoader()
-                $content.load(url + '?cID=' + CCM_CID + '&tab=' + $(this).attr('data-panel-dropdown-tab'), function () {
-                    $title.html($(this).text())
-                    $.fn.dialog.hideLoader()
-                    obj.onPanelLoad(this)
+
+                $.ajax({
+                    url: url + '?cID=' + CCM_CID + '&tab=' + $(this).attr('data-panel-dropdown-tab'),
+                    type: 'POST',
+                    data: obj.getPostParams(),
+                    success: function (html) {
+                        $content.html(html)
+                        $title.html($($content.get(0)).text())
+                        $.fn.dialog.hideLoader()
+                        obj.onPanelLoad($content.get(0))
+                    }
                 })
             })
         })
@@ -434,10 +453,15 @@ function ConcretePanel(options) {
             html.addClass('ccm-panel-open')
             element.find('.ccm-panel-content-wrapper').html('')
             element.addClass('ccm-panel-active ccm-panel-loading')
-            $('<div/>').addClass('ccm-panel-content ccm-panel-content-visible')
+            var $div = $('<div/>').addClass('ccm-panel-content ccm-panel-content-visible')
                 .appendTo(element.find('.ccm-panel-content-wrapper'))
-                .load(obj.getURL() + '?cID=' + CCM_CID, function () {
-                    var elem = this
+
+            $.ajax({
+                url: obj.getURL() + '?cID=' + CCM_CID,
+                type: 'POST',
+                data: obj.getPostParams(),
+                success: function(html) {
+                    $div.html(html)
                     element.delay(1).queue(function () {
                         $(this).removeClass('ccm-panel-loading').addClass('ccm-panel-loaded')
                         $(this).dequeue()
@@ -446,9 +470,10 @@ function ConcretePanel(options) {
                     obj.isOpen = true
                     Concrete.event.publish('PanelOpen', {
                         panel: obj,
-                        element: elem
+                        element: $div.get(0)
                     })
-                })
+                }
+            })
             if (obj.options.overlay) {
                 ConcretePanelManager.showOverlay(obj.options.translucent)
             }

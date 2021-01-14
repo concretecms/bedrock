@@ -1,5 +1,5 @@
 /* eslint-disable no-new, no-unused-vars, camelcase, eqeqeq */
-/* global _, ccmi18n_sitemap, CCM_DISPATCHER_FILENAME, CCM_SECURITY_TOKEN, CCM_REL, CCM_TOOLS_PATH, Concrete, ConcreteAlert, ConcretePageMenu, ccm_parseJSON, ConcreteProgressiveOperation, ConcreteEvent */
+/* global _, ccmi18n_sitemap, CCM_DISPATCHER_FILENAME, CCM_SECURITY_TOKEN, CCM_REL, Concrete, ConcreteAlert, ConcretePageMenu, ccm_parseJSON, ConcreteProgressiveOperation, ConcreteEvent */
 
 /* Base search class for AJAX forms in the UI */
 ;(function(global, $) {
@@ -43,9 +43,7 @@
     ConcreteSitemap.prototype = {
 
         sitemapTemplate: '<div class="ccm-sitemap-wrapper"><div class="ccm-sitemap-tree-selector-wrapper"></div><div class="ccm-sitemap-tree"></div></div>',
-        localesWrapperTemplate: '<select class="form-control selectize-control" data-select="site-trees"></select>',
-        /*
-localeTemplate: '<li <% if (selectedLocale) { %>class="active"<% } %>><a href="#" data-locale-site-tree="<%=treeID%>"><img src="<%=icon%>"> <span><%=localeDisplayName%></span></a></li>', */
+        localesWrapperTemplate: '<select class="form-control" data-select="site-trees"></select>',
 
         getTree: function() {
             var my = this
@@ -61,73 +59,56 @@ localeTemplate: '<li <% if (selectedLocale) { %>class="active"<% } %>><a href="#
                 if (!my.$element.find('div.ccm-sitemap-tree-selector-wrapper select').length) {
                     my.$element.find('div.ccm-sitemap-tree-selector-wrapper').append($(my.localesWrapperTemplate))
                     var $menu = my.$element.find('div.ccm-sitemap-tree-selector-wrapper select')
-                    var itemIDs = []
-                    $.each(tree.entries, function(i, entry) {
-                        if (entry.isSelected) {
-                            itemIDs.push(entry.siteTreeID)
-                        }
+
+                    if (tree.entryGroups && tree.entryGroups.length) {
+                        $.each(tree.entryGroups, function (gi, group) {
+                            var $optgroup = $('<optgroup label="' + group.label + '">')
+
+                            $.each(tree.entries, function (ti, entry) {
+                                if (entry.class == group.value) {
+                                    var $option = '<option value="' + entry.siteTreeID + '" data-content=\'<div class="option">' + entry.element + '</div>\''
+
+                                    if (entry.isSelected) {
+                                        $option += ' selected'
+                                    }
+
+                                    $option += '>' + entry.title + '</option>'
+                                    $optgroup.append($option)
+                                }
+                            })
+
+                            $menu.append($optgroup)
+                        })
+                    } else {
+                        $.each(tree.entries, function (ti, entry) {
+                            var $option = '<option value="' + entry.siteTreeID + '" data-content=\'<div class="option">' + entry.element + '</div>\''
+
+                            if (entry.isSelected) {
+                                $option += ' selected'
+                            }
+
+                            $option += '>' + entry.title + '</option>'
+                            $menu.append($option)
+                        })
+                    }
+
+                    $menu.selectpicker({
+                        liveSearch: true,
+                        maxOptions: 1
                     })
 
-                    $menu.selectize({
-                        maxItems: 1,
-                        valueField: 'siteTreeID',
-                        searchField: 'title',
-                        options: tree.entries,
-                        items: itemIDs,
-                        optgroups: tree.entryGroups,
-                        optgroupField: 'class',
-                        onItemAdd: function(option) {
-                            var treeID = option
+                    $menu.on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+                        var treeID = $(this).selectpicker('val')
+                        if (treeID != previousValue) {
                             var source = my.getTree().options.source
                             my.options.siteTreeID = treeID
                             source.data.siteTreeID = treeID
                             my.getTree().reload(source)
-                        },
-                        render: {
-                            option: function(data, escape) {
-                                return '<div class="option">' + data.element + '</div>'
-                            },
-                            item: function(data, escape) {
-                                return '<div class="item">' + data.element + '</div>'
-                            }
                         }
                     })
                 }
             }
         },
-
-        /*
-setupLocales: function(locales) {
-var my = this;
-if (!locales) {
-return;
-}
-
-if (locales.length < 2) {
-return;
-}
-if (!my.$element.find('div.ccm-sitemap-locales-wrapper ul').length) {
-var $menu = $(my.localesWrapperTemplate);
-var _locale = _.template(my.localeTemplate);
-for (var i = 0; i < locales.length; i++) {
-var data = locales[i];
-$menu.append(_locale(data));
-}
-
-$menu.find('a[data-locale-site-tree]').on('click', function(e) {
-e.preventDefault();
-var treeID = $(this).attr('data-locale-site-tree');
-var source = my.getTree().options.source;
-$menu.find('li').removeClass('active');
-$(this).parent().addClass('active');
-my.options.siteTreeID = treeID;
-source.data.siteTreeID = treeID;
-my.getTree().reload(source);
-});
-my.$element.find('div.ccm-sitemap-locales-wrapper').append($menu);
-}
-},
-*/
 
         setupTree: function() {
             var minExpandLevel
@@ -226,13 +207,6 @@ my.$element.find('div.ccm-sitemap-locales-wrapper').append($menu);
                     my.homeCID = 'homeCID' in treeData ? treeData.homeCID : null
                     my.setupSiteTreeSelector(treeData.trees)
                 },
-                /*
-renderNode: function(event, data) {
-if (my.options.selectMode != false) {
-$(span).find('.fa').remove();
-}
-my.$sitemap.children('.ccm-pagination-bound').remove();
-}, */
 
                 selectMode: treeSelectMode,
                 checkbox: checkbox,
@@ -245,13 +219,6 @@ my.$sitemap.children('.ccm-pagination-bound').remove();
                         return false
                     }
                 },
-                /*
-expand: function(event, data) {
-if (my.options.displaySingleLevel) {
-data.result = my.displaySingleLevel(data.node);
-}
-},
-*/
 
                 click: function(event, data) {
                     var node = data.node
@@ -426,7 +393,7 @@ data.result = my.displaySingleLevel(data.node);
                 dataType: 'json',
                 type: 'POST',
                 data: params,
-                url: CCM_TOOLS_PATH + '/dashboard/sitemap_update',
+                url: CCM_DISPATCHER_FILENAME + '/ccm/system/backend/dashboard/sitemap_update',
                 success: function(r) {
                     node.setStatus('ok')
                     ConcreteAlert.notify({
@@ -604,7 +571,7 @@ data.result = my.displaySingleLevel(data.node);
  */
 
     ConcreteSitemap.exitEditMode = function(cID) {
-        $.get(CCM_TOOLS_PATH + '/dashboard/sitemap_check_in?cID=' + cID + '&ccm_token=' + CCM_SECURITY_TOKEN)
+        $.get(CCM_DISPATCHER_FILENAME + '/ccm/system/backend/dashboard/sitemap_check_in?cID=' + cID + '&ccm_token=' + CCM_SECURITY_TOKEN)
     }
 
     ConcreteSitemap.submitDragRequest = function($form) {

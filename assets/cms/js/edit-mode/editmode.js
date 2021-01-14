@@ -1,5 +1,5 @@
 /* eslint-disable no-new, no-unused-vars, camelcase, eqeqeq */
-/* global Concrete, ConcreteAlert, ConcreteEvent, ConcreteMenuManager, ConcretePanelManager, ConcreteToolbar, ConcreteAjaxRequest, ccmi18n, _, CCM_DISPATCHER_FILENAME, CCM_TOOLS_PATH */
+/* global Concrete, ConcreteAlert, ConcreteEvent, ConcreteMenuManager, ConcretePanelManager, ConcreteToolbar, ConcreteAjaxRequest, ccmi18n, _, CCM_DISPATCHER_FILENAME */
 
 ;(function(window, $) {
     'use strict'
@@ -268,8 +268,10 @@
                 // got to grab the message too, eventually
                 $.ajax({
                     type: 'POST',
-                    url: CCM_TOOLS_PATH + '/pile_manager',
-                    data: 'cID=' + block.getCID() + '&bID=' + block.getId() + '&arHandle=' + encodeURIComponent(area.getHandle()) + '&btask=add&scrapbookName=userScrapbook&ccm_token=' + encodeURIComponent(token),
+                    url: CCM_DISPATCHER_FILENAME + `/ccm/system/block/process/copy/${block.getCID()}/${encodeURIComponent(area.getHandle())}/${block.getId()}`,
+                    data: {
+                        ccm_token: token
+                    },
                     success: function (resp) {
                         ConcreteAlert.notify({
                             message: ccmi18n.copyBlockToScrapbookMsg,
@@ -485,6 +487,13 @@
 
             $(element).find('input[data-input=search-blocks]').liveUpdate('ccm-panel-add-blocktypes-list', 'blocktypes')
             $(element).find('input[data-input=search-blocks]').focus()
+
+            $(element).find('a.ccm-panel-add-orphaned-block').each(function () {
+                var block; var me = $(this); var dragger = $('<a/>').addClass('ccm-panel-add-orphaned-block-dragger').appendTo(me)
+                block = new Concrete.OrphanedBlock($(this), my, dragger, next_area)
+
+                block.setPeper(dragger)
+            })
 
             $(element).find('a.ccm-panel-add-block-draggable-block-type').each(function () {
                 var block; var me = $(this); var dragger = $('<a/>').addClass('ccm-panel-add-block-draggable-block-type-dragger').appendTo(me)

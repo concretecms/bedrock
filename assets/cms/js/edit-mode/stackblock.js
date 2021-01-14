@@ -39,22 +39,9 @@ import _ from 'underscore'
 
             ConcretePanelManager.exitPanelMode()
 
-            var settings = {
-                cID: CCM_CID,
-                bID: elem.data('block-id'),
-                arHandle: area_handle,
-                btID: block_type_id,
-                mode: 'edit',
-                processBlock: 1,
-                add: 1,
-                btask: 'alias_existing_block',
-                pcID: [elem.data('cID')],
-                ccm_token: CCM_SECURITY_TOKEN
-            }
-            if (dragAreaBlockID) {
-                settings.dragAreaBlockID = dragAreaBlockID
-            }
-            $.getJSON(CCM_DISPATCHER_FILENAME, settings, function (response) {
+            var url = CCM_DISPATCHER_FILENAME + `/ccm/system/block/process/alias/${CCM_CID}/${area_handle}/${elem.data('cID')}/${dragAreaBlockID || '0'}/0`
+
+            $.getJSON(url, { ccm_token: CCM_SECURITY_TOKEN }, function (response) {
                 my.handleAddResponse(response, area, dragAreaBlock)
             })
         }

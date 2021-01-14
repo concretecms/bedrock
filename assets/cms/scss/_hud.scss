@@ -157,6 +157,11 @@ div#ccm-popup-alert-message {
     margin-top: 10px;
     position: static;
   }
+
+  .pnotify-closer {
+    display: none; // Don't show the closer inside the nested page notification box
+  }
+
 }
 
 .ccm-notifications-box-close {

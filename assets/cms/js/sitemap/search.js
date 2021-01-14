@@ -102,13 +102,19 @@ ConcreteAjaxSearch.prototype.createMenu = function ($selector) {
 /**
  * Static Methods
  */
-ConcretePageAjaxSearch.launchDialog = function(callback) {
-    var w = $(window).width() - 53
-
+ConcretePageAjaxSearch.launchDialog = function(callback, options) {
+    options = $.extend({
+        includeSystemPages: false,
+        askIncludeSystemPages: false
+    }, options || {})
+    var url = CCM_DISPATCHER_FILENAME + '/ccm/system/dialogs/page/sitemap_selector?' + [
+        'includeSystemPages=' + (options.includeSystemPages ? 1 : 0),
+        'askIncludeSystemPages=' + (options.askIncludeSystemPages ? 1 : 0)
+    ].join('&')
     $.fn.dialog.open({
-        width: w,
-        height: '100%',
-        href: CCM_DISPATCHER_FILENAME + '/ccm/system/dialogs/page/sitemap_selector',
+        width: '90%',
+        height: '75%',
+        href: url,
         modal: true,
         title: ccmi18n_sitemap.pageLocationTitle,
         onClose: function() {
@@ -184,7 +190,7 @@ var ConcretePageAjaxSearchMenu = {
             '<a class="dropdown-item dialog-launch" dialog-on-close="ConcreteSitemap.exitEditMode(<%=item.cID%>)" dialog-width="350" dialog-height="500" dialog-modal="false" dialog-title="' + ccmi18n_sitemap.pageDesign + '" href="' + CCM_DISPATCHER_FILENAME + '/ccm/system/dialogs/page/design?cID=<%=item.cID%>">' + ccmi18n_sitemap.pageDesign + '</a></li>',
             '<% } %>',
             '<% if (item.canViewPageVersions) { %>',
-            '<a class="dropdown-item dialog-launch" dialog-on-close="ConcreteSitemap.exitEditMode(<%=item.cID%>)" dialog-width="640" dialog-height="340" dialog-modal="false" dialog-title="' + ccmi18n_sitemap.pageVersions + '" href="' + CCM_DISPATCHER_FILENAME + '/ccm/system/panels/page/versions?cID=<%=item.cID%>">' + ccmi18n_sitemap.pageVersions + '</a></li>',
+            '<a class="dropdown-item dialog-launch" dialog-on-close="ConcreteSitemap.exitEditMode(<%=item.cID%>)" dialog-width="640" dialog-height="340" dialog-modal="false" dialog-title="' + ccmi18n_sitemap.pageVersions + '" href="' + CCM_DISPATCHER_FILENAME + '/ccm/system/dialogs/page/versions?cID=<%=item.cID%>">' + ccmi18n_sitemap.pageVersions + '</a></li>',
             '<% } %>',
             '<% if (item.canDeletePage) { %>',
             '<a class="dropdown-item dialog-launch" dialog-on-close="ConcreteSitemap.exitEditMode(<%=item.cID%>)" dialog-width="360" dialog-height="250" dialog-modal="false" dialog-title="' + ccmi18n_sitemap.deletePage + '" href="' + CCM_DISPATCHER_FILENAME + '/ccm/system/dialogs/page/delete_from_sitemap?cID=<%=item.cID%>">' + ccmi18n_sitemap.deletePage + '</a></li>',

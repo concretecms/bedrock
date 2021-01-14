@@ -13,6 +13,9 @@ $panel-menu-item-active-color: white;
 $panel-menu-item-active-font-weight: 600;
 $panel-menu-item-transition: all 0.1s ease-in;
 
+/* colors */
+$table-row-highlight-bg: #d2eafa;
+
 /* headings */
 $h1-font-size: $font-size-base * 3.5;
 $h2-font-size: $font-size-base * 2;
@@ -80,7 +83,7 @@ $index-level-inline-dropdowns: 700;
 $index-level-status-bar: 800;
 
 /* Page alert (blue boxes) –similar to dashboard help but at the page level. Should come below the dialog overlay and the intelligent search */
-$index-level-page-alert: 990;
+$index-level-page-alert: 840;
 
 /* Panels */
 $index-level-panel-overlay: 850; /* this is the overlay over the main content. must come below the panel z-index */
@@ -124,9 +127,9 @@ $lightbox-loader: 2300;
 $lightbox-content: 2400;
 $lightbox-arrows: 2400;
 
-/* Redactor dropdown –can be either inline OR in a dialog box so we have to come above dialog. Hopefully this doesn't
+/* Editor dropdown –can be either inline OR in a dialog box so we have to come above dialog. Hopefully this doesn't
 cause other problems */
-$index-level-redactor-toolbar-dropdown: 2500;
+$index-level-editor-toolbar-dropdown: 2500;
 
 /* Dialog Content */
 $index-level-dialog-content: 3000;
