@@ -101,16 +101,6 @@ export default {
             required: false,
             default: null
         },
-        consume: { /** whether to actually consume through the UI */
-            type: Boolean,
-            required: false,
-            default: false,
-        },
-        consumeToken: {
-            type: String,
-            required: true,
-            default: null
-        },
         currentProcessId: {
             type: String,
             required: false,
@@ -135,11 +125,6 @@ export default {
         'openProcesses': [],
         'subscribedProcesses': []
     }),
-    mounted() {
-        if (this.consumeToken && this.consume) {
-            this.runConsume()
-        }
-    },
     methods: {
         deleteProcess(process) {
             var modalTarget = '#delete-process-' + process.id
@@ -158,41 +143,7 @@ export default {
             })
 
         },
-        /**
-         *
-         * Note: this function is only run when a) the CLI worker is disabled and app-consuming of the queue
-         * is used (the default) and b) when mercure is not enabled for realtime updates.
-         */
-        runConsume: function() {
-            var my = this
-            var watchedProcessIds = [];
-            my.processes.forEach(function(process) {
-                watchedProcessIds.push(process.id)
-            })
-            new ConcreteAjaxRequest({
-                url: CCM_DISPATCHER_FILENAME + '/ccm/system/messenger/consume/',
-                data: {
-                    'token': my.consumeToken,
-                    'watchedProcessIds': watchedProcessIds
-                },
-                success: r => {
-                    if (r.processes.length) {
-                        r.processes.forEach(function (responseProcess) {
-                            my.processes.forEach(function (process) {
-                                if (process.id == responseProcess.id) {
-                                    process.progress = responseProcess.progress
-                                    process.dateCompleted = responseProcess.dateCompleted
-                                    process.dateCompletedString = responseProcess.dateCompletedString
-                                }
-                            })
-                        })
-                    }
-                    if (r.messages > 0) {
-                        this.runConsume()
-                    }
-                }
-            })
-        },
+
         closeProcess(process) {
             this.openProcesses.splice(this.openProcesses.indexOf(process.id), 1)
         },
@@ -276,6 +227,20 @@ export default {
                                 }
                             }
                             my.subscribedProcesses.push(process.id)
+                        }
+                    })
+                } else {
+                    // we must poll for the activity.
+                    new ConcreteAjaxRequest({
+                        loader: false,
+                        url: CCM_DISPATCHER_FILENAME + '/ccm/system/messenger/consume/',
+                        data: {
+                            'token': token
+                        },
+                        success: r => {
+                            if (r.messages > 0) {
+                                this.consume(token)
+                            }
                         }
                     })
                 }
