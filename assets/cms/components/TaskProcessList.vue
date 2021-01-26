@@ -96,6 +96,16 @@ export default {
         Icon
     },
     props: {
+        poll: { /** whether to poll or use an event source */
+            type: Boolean,
+            required: false,
+            default: false,
+        },
+        pollToken: {
+            type: String,
+            required: false,
+            default: null
+        },
         eventSource: {
             type: String,
             required: false,
@@ -143,7 +153,45 @@ export default {
             })
 
         },
+        runPoll() {
+            var my = this
+            // we must poll for the activity.
+            var watchedProcessIds = [];
+            my.processes.forEach(function(process) {
+                watchedProcessIds.push(process.id)
+            })
+            new ConcreteAjaxRequest({
+                loader: false,
+                url: CCM_DISPATCHER_FILENAME + '/ccm/system/processes/poll/',
+                data: {
+                    'token': my.pollToken,
+                    'watchedProcessIds': watchedProcessIds
+                },
+                success: r => {
+                    var pollAgain = false
+                    if (r.processes.length) {
+                        r.processes.forEach(function (responseProcess) {
+                            my.processes.forEach(function (process) {
+                                if (process.id == responseProcess.id) {
+                                    process.progress = responseProcess.progress
+                                    process.dateCompleted = responseProcess.dateCompleted
+                                    process.dateCompletedString = responseProcess.dateCompletedString
 
+                                    if (process.progress < 100) {
+                                        pollAgain = true
+                                    }
+                                }
+                            })
+                        })
+                    }
+                    if (pollAgain) {
+                        setTimeout(function() {
+                            my.runPoll()
+                        }, 5000)
+                    }
+                }
+            })
+        },
         closeProcess(process) {
             this.openProcesses.splice(this.openProcesses.indexOf(process.id), 1)
         },
@@ -229,20 +277,8 @@ export default {
                             my.subscribedProcesses.push(process.id)
                         }
                     })
-                } else {
-                    // we must poll for the activity.
-                    new ConcreteAjaxRequest({
-                        loader: false,
-                        url: CCM_DISPATCHER_FILENAME + '/ccm/system/messenger/consume/',
-                        data: {
-                            'token': token
-                        },
-                        success: r => {
-                            if (r.messages > 0) {
-                                this.consume(token)
-                            }
-                        }
-                    })
+                } else if (my.poll) {
+                    this.runPoll()
                 }
             }
         },

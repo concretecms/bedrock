@@ -136,7 +136,8 @@ ConcreteProgressiveOperation.prototype.execute = function() {
     }
 
     if (my.options.response) {
-        ConcreteEvent.publish('TaskActivityWindowShow', {'token': r.viewToken})
+        ConcreteEvent.publish('TaskActivityWindowShow', {'token': my.options.response.viewToken})
+        my.consumeIfNecessary(my.options.response)
     } else {
         $.concreteAjax({
             url: my.options.url,
@@ -145,9 +146,17 @@ ConcreteProgressiveOperation.prototype.execute = function() {
             dataType: 'json',
             success: function(r) {
                 ConcreteEvent.publish('TaskActivityWindowShow', {'token': r.viewToken})
+                my.consumeIfNecessary(r)
             }
         })
     }
 }
+
+ConcreteProgressiveOperation.prototype.consumeIfNecessary = function(response) {
+    if (response.consumeToken) {
+        ConcreteQueueConsumer.consume(response.consumeToken)
+    }
+}
+
 
 global.ConcreteProgressiveOperation = ConcreteProgressiveOperation

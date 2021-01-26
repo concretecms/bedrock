@@ -3,6 +3,7 @@
 class ConcreteQueueConsumer {
 
     static consume(token) {
+        var my = this
         new ConcreteAjaxRequest({
             loader: false,
             url: CCM_DISPATCHER_FILENAME + '/ccm/system/messenger/consume/',
@@ -11,7 +12,9 @@ class ConcreteQueueConsumer {
             },
             success: r => {
                 if (r.messages > 0) {
-                    this.consume(token)
+                    setTimeout(function() {
+                        my.consume(token)
+                    }, 2000)
                 }
             }
         })
