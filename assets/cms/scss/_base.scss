@@ -11,13 +11,13 @@
 @import './transitions';
 
 // jQuery UI
-@import '~jquery-ui/themes/base/core.css';
-@import '~jquery-ui/themes/base/resizable.css';
-@import '~jquery-ui/themes/base/dialog.css';
-@import '~jquery-ui/themes/base/datepicker.css';
-@import '~jquery-ui/themes/base/draggable.css';
-@import '~jquery-ui/themes/base/sortable.css';
-@import '~jquery-ui/themes/base/slider.css';
+@import 'node_modules/jquery-ui/themes/base/core';
+@import 'node_modules/jquery-ui/themes/base/resizable';
+@import 'node_modules/jquery-ui/themes/base/dialog';
+@import 'node_modules/jquery-ui/themes/base/datepicker';
+@import 'node_modules/jquery-ui/themes/base/draggable';
+@import 'node_modules/jquery-ui/themes/base/sortable';
+@import 'node_modules/jquery-ui/themes/base/slider';
 @import './jquery-ui/theme';
 @import './jquery-ui/overrides';
 
@@ -54,10 +54,10 @@
 @import './sitemap';
 
 // Fancytree
-@import '~jquery.fancytree/dist/skin-bootstrap/ui.fancytree.css';
+@import 'node_modules/jquery.fancytree/dist/skin-bootstrap/ui.fancytree';
 
 // Help System
-@import '~bootstrap-tourist/bootstrap-tourist.css';
+@import 'node_modules/bootstrap-tourist/bootstrap-tourist';
 
 // File Manager
 @import './file-manager';
@@ -66,14 +66,14 @@
 @import './file-uploader';
 
 // Bootstrap Select
-@import '~bootstrap-select/sass/bootstrap-select';
-@import '~ajax-bootstrap-select/dist/css/ajax-bootstrap-select';
+@import 'node_modules/bootstrap-select/sass/bootstrap-select';
+@import 'node_modules/ajax-bootstrap-select/dist/css/ajax-bootstrap-select';
 
 // Forms
 @import './forms';
 
 // Selectize
-@import '~selectize-bootstrap4-theme/scss/selectize.bootstrap4';
+@import 'node_modules/selectize-bootstrap4-theme/scss/selectize.bootstrap4';
 
 @import './selectize';
 
@@ -87,7 +87,7 @@
 @import './item-select-list';
 @import './permission-grid';
 @import './tooltips';
-@import '~spectrum-colorpicker/spectrum.css';
+@import 'node_modules/spectrum-colorpicker/spectrum';
 @import './icons';
 @import './date-time';
 @import './dropdown';
