@@ -64,6 +64,7 @@ import './in-context-menu'
 import './sitemap/menu'
 import './sitemap/search'
 import './sitemap/selector'
+import './sitemap/sitemap-selector'
 
 // Users
 import './users'

@@ -24,7 +24,7 @@
             selectMode: my.options.mode,
             minExpandLevel: 0,
             siteTreeID: my.options.siteTreeID,
-            dataSource: CCM_DISPATCHER_FILENAME + '/ccm/system/page/select_sitemap',
+            dataSource: CCM_DISPATCHER_FILENAME + '/ccm/system/page/sitemap_data',
             ajaxData: {
                 startingPoint: my.options.startingPoint,
                 ccm_token: my.options.token,
