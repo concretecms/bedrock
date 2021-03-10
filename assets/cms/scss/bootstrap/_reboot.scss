@@ -13,3 +13,7 @@
   text-align: left; // 3
   text-size-adjust: 100%; // 4
 }
+
+.ccm-ui * {
+  box-sizing: border-box; // 1
+}
