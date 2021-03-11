@@ -50,17 +50,13 @@
                 }
             },
             onSelectNode: function(node, flag) {
-                if (node.data.checkbox) {
-                    if (flag) {
-                        if (my.options.mode == 'single') {
-                            my.deselectAll()
-                        }
-                        my.select(node)
-                    } else {
-                        my.deselect(node)
+                if (flag) {
+                    if (my.options.mode == 'single') {
+                        my.deselectAll()
                     }
+                    my.select(node)
                 } else {
-                    return false
+                    my.deselect(node)
                 }
             }
         })
