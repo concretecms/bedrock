@@ -130,7 +130,8 @@ export default {
                 url: `${CCM_DISPATCHER_FILENAME}/ccm/system/file/create_directory?_=${Date.now()}`,
                 data: {
                     ccm_token: CCM_SECURITY_TOKEN,
-                    directoryName: me.newDirectoryName
+                    directoryName: me.newDirectoryName,
+                    currentFolder: me.selectedDirectoryID
                 },
                 success: function (r) {
                     // re-fetch the directories and select the new folder
