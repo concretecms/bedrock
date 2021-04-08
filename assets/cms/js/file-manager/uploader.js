@@ -721,7 +721,8 @@
                         method: 'POST',
                         data: {
                             ccm_token: CCM_SECURITY_TOKEN,
-                            directoryName: directoryName
+                            directoryName: directoryName,
+                            currentFolder: $dialogEl.find('select.ccm-directory-selector').find('option:selected').val()
                         },
                         dataType: 'json',
                         success: function (data) {

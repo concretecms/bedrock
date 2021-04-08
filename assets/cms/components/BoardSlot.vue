@@ -83,7 +83,7 @@ export default {
                 new ConcreteAjaxRequest({
                     url: CCM_DISPATCHER_FILENAME + '/ccm/system/board/instance/clear_slot',
                     data: {
-                        slot: my.slotData.slot,
+                        boardInstanceSlotRuleID: my.slotData.boardInstanceSlotRuleID,
                         boardInstanceID: my.slotData.boardInstanceID
                     },
                     success: function (r) {
