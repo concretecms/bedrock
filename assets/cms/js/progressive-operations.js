@@ -128,12 +128,6 @@ ConcreteProgressiveOperation.prototype.initProgressBar = function() {
 
 ConcreteProgressiveOperation.prototype.execute = function() {
     var my = this
-    if (my.options.element && my.options.element.length) {
-        my.initProgressBar()
-        my.setProgressBarStatus(0, -1)
-    } else {
-        NProgress.set(0)
-    }
 
     if (my.options.response) {
         ConcreteEvent.publish('TaskActivityWindowShow', {'token': my.options.response.viewToken})
@@ -145,7 +139,7 @@ ConcreteProgressiveOperation.prototype.execute = function() {
             data: my.options.data,
             dataType: 'json',
             success: function(r) {
-                ConcreteEvent.publish('TaskActivityWindowShow', {'token': r.viewToken})
+                ConcreteEvent.publish('`TaskActivityWindowShow`', {'token': r.viewToken})
                 my.consumeIfNecessary(r)
             }
         })

@@ -22,7 +22,8 @@ import ConcreteGroupChooser from './groups/Chooser'
 import ConcreteFileUploader from './file-manager/Uploader/UploadFromComputer'
 import Board from './Board'
 import BoardSlot from './BoardSlot'
-import TaskProcessList from './TaskProcessList'
+import CompletedProcessList from './CompletedProcessList'
+import RunningProcessList from './RunningProcessList'
 
 // Export our component library
 export default {
@@ -50,5 +51,6 @@ export default {
     ConcreteFileDirectoryInput,
     Board,
     BoardSlot,
-    TaskProcessList
+    RunningProcessList,
+    CompletedProcessList
 }
