@@ -3,11 +3,14 @@
         <div :class="{'card': true, 'card-body': true, 'process-card': true}"
         v-for="process in processes" :key="process.id">
             <div class="row">
-                <div class="col-md-12 running-process-name">
+                <div class="col-md-9 running-process-name">
                     <b>{{process.name}}</b>
                     <span v-if="!configurationLoaded">
                         <i class="fas fa-circle-notch fa-spin"></i>
                     </span>
+                </div>
+                <div class="col-md-3 text-black-50 text-right">
+                    {{process.batch.totalJobs - process.batch.pendingJobs}} / {{process.batch.totalJobs}}
                 </div>
             </div>
             <div v-if="configurationLoaded" class="row process-progress-wrapper" v-show="process.batch !== null">
@@ -74,6 +77,7 @@ export default {
                                     process.progress = responseProcess.progress
                                     process.dateCompleted = responseProcess.dateCompleted
                                     process.dateCompletedString = responseProcess.dateCompletedString
+                                    process.batch = responseProcess.batch
 
                                     if (process.progress < 100) {
                                         pollAgain = true
@@ -128,6 +132,7 @@ export default {
             my.processes.forEach(function (thisProcess) {
                 if (thisProcess.batch && thisProcess.batch.id == data.batch.id) {
                     thisProcess.progress = percent
+                    thisProcess.batch = data.batch
                 }
             })
         })

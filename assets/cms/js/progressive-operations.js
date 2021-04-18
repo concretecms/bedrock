@@ -139,7 +139,7 @@ ConcreteProgressiveOperation.prototype.execute = function() {
             data: my.options.data,
             dataType: 'json',
             success: function(r) {
-                ConcreteEvent.publish('`TaskActivityWindowShow`', {'token': r.viewToken})
+                ConcreteEvent.publish('TaskActivityWindowShow', {'token': r.viewToken})
                 my.consumeIfNecessary(r)
             }
         })
