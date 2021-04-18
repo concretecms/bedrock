@@ -31,10 +31,10 @@ import _ from 'underscore'
 
         bindDrag: function ContainerBlockBindDrag() {
             var my = this
-            var peper = $('a[data-inline-command="move-block"]').parent()
+            var mover = my.getElem().find('a[data-inline-command=move-block]').parent()
 
-            $.pep.unbind(peper)
-            peper.pep(my.getPepSettings())
+            $.pep.unbind(mover)
+            mover.pep(my.getPepSettings())
         }
 
     })
