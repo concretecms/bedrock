@@ -9,7 +9,7 @@
                         <i class="fas fa-circle-notch fa-spin"></i>
                     </span>
                 </div>
-                <div class="col-md-3 text-black-50 text-right">
+                <div class="col-md-3 text-black-50 text-right" v-if="process.batch !== null">
                     {{process.batch.totalJobs - process.batch.pendingJobs}} / {{process.batch.totalJobs}}
                 </div>
             </div>
