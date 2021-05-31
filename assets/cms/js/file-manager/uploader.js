@@ -1274,7 +1274,7 @@
                                 .find('.ui-dialog-buttonset button')
                                 .eq(0)
                                 .attr('class', '')
-                                .addClass('btn btn-secondary float-left')
+                                .addClass('btn btn-secondary float-start')
 
                             $(this)
                                 .closest('.ui-dialog')
