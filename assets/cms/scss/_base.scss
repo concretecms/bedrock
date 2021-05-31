@@ -66,16 +66,17 @@
 @import './file-uploader';
 
 // Bootstrap Select
-@import '~bootstrap-select/sass/bootstrap-select';
-@import '~ajax-bootstrap-select/dist/css/ajax-bootstrap-select';
+//TODO: Check bootstrap-select replacement
+// @import '~bootstrap-select/sass/bootstrap-select';
+// @import '~ajax-bootstrap-select/dist/css/ajax-bootstrap-select';
 
 // Forms
 @import './forms';
 
 // Selectize
-@import '~selectize-bootstrap4-theme/scss/selectize.bootstrap4';
-
-@import './selectize';
+//TODO: Check Selectize replacement
+//@import '~selectize-bootstrap4-theme/scss/selectize.bootstrap4';
+//@import './selectize';
 
 // Miscellaneous components
 @import './vue';
