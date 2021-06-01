@@ -9,13 +9,11 @@
                             {{ directory.directoryName }}
                         </option>
                     </select>
-                    <div class="input-group-append">
-                        <button type="button"
-                                :class="{'btn': true, 'btn-outline-secondary': true, 'ccm-create-new-directory-button': true, 'disabled': disabled === true}"
-                                @click="toggleDirectoryInput" :disabled="disabled">
-                            Create New Folder
-                        </button>
-                    </div>
+                    <button type="button"
+                            :class="{'btn': true, 'btn-outline-secondary': true, 'ccm-create-new-directory-button': true, 'disabled': disabled === true}"
+                            @click="toggleDirectoryInput" :disabled="disabled">
+                        Create New Folder
+                    </button>
                 </div>
                 <select v-else :id="directorySelectInputId" :name="inputName" class="ccm-directory-selector form-control" v-model="selectedDirectoryID" ref="directoryInput" :disabled="disabled">
                     <option v-for="directory in directories" :class="`level-${directory.directoryLevel}`" :value="directory.directoryId" data-icon="fas fa-folder">
@@ -32,13 +30,11 @@
                            :id="directoryInputId"
                            placeholder="Please enter a name..." class="ccm-new-directory-name form-control"
                            v-model="newDirectoryName" @keyup.enter.stop.prevent="createDirectory" :disabled="disabled">
-                    <div class="input-group-append">
-                        <button type="button"
-                                :class="{'btn': true, 'btn-outline-secondary': true, 'disabled': disabled === true}"
-                                @click.stop.prevent="createDirectory" :disabled="disabled">
-                            Add
-                        </button>
-                    </div>
+                    <button type="button"
+                            :class="{'btn': true, 'btn-outline-secondary': true, 'disabled': disabled === true}"
+                            @click.stop.prevent="createDirectory" :disabled="disabled">
+                        Add
+                    </button>
                 </div>
             </div>
         </div>

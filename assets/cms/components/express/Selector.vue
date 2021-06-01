@@ -8,13 +8,11 @@
             <input type="text" class="form-control border-right-0" placeholder="Search" autocomplete="false"
                    v-model="keywords">
 
-            <div class="input-group-append">
-              <button type="submit" class="input-group-icon">
-                <svg width="16" height="16">
-                  <use xlink:href="#icon-search"/>
-                </svg>
-              </button>
-            </div>
+            <button type="submit" class="input-group-icon">
+              <svg width="16" height="16">
+                <use xlink:href="#icon-search"/>
+              </svg>
+            </button>
           </div>
         </form>
       </div>

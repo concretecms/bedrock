@@ -408,18 +408,14 @@
                             .attr('data-live-search', 'true')
                             .attr('id', selectDirectoryId)
 
-                        const $selectDirectoryInputGroupPrepend = $('<div/>')
-                            .addClass('input-group-prepend')
-
                         // noinspection JSUnresolvedVariable
                         const $a = $('<a/>')
                             .attr('href', 'javascript:void(0);')
                             .addClass('btn btn-outline-secondary ccm-file-uploader-create-new-directory-button')
                             .html(ccmi18n_fileuploader.createNewDirectoryButton)
 
-                        $selectDirectoryInputGroupPrepend.append($a)
                         $selectDirectoryInputGroup.append($select)
-                        $selectDirectoryInputGroup.append($selectDirectoryInputGroupPrepend)
+                        $selectDirectoryInputGroup.append($a)
                         $selectDirectoryFormGroup.append($selectDirectoryLabel)
                         $selectDirectoryFormGroup.append($selectDirectoryInputGroup)
 
