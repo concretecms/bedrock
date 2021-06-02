@@ -7,7 +7,7 @@
 
         <div class="form-inline">
             <div class="form-group ml-auto">
-                <label for="searchPresets" class="mr-2">Search Presets</label>
+                <label for="searchPresets" class="mr-2 form-label">Search Presets</label>
                 <select id="searchPresets" class="form-control search-presets-menu" v-model="activeSearchPreset">
                     <option value="" selected>Select a Preset</option>
                     <option v-for="searchPreset in searchPresets" :key="searchPreset.id" :value="searchPreset.id">

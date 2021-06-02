@@ -6,7 +6,7 @@
                 <div v-for="row in rows" class="row text-center" :key="row.index">
                     <div class="col-md-3" v-for="file in row" :key="(file.fID || file.treeNodeID) + 'grid'">
                         <div class="ccm-image-cell" @click="onItemClick(file)">
-                            <label :for="'file-' + (file.fID || file.treeNodeID)"><span v-html="file.resultsThumbnailImg"></span></label>
+                            <label class="form-label" :for="'file-' + (file.fID || file.treeNodeID)"><span v-html="file.resultsThumbnailImg"></span></label>
                             <div class="ccm-image-cell-title">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" v-if="multipleSelection && !file.isFolder" v-model="selectedFiles" :id="'file-' + file.fID" :value="file.fID">

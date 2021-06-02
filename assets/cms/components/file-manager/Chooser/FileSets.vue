@@ -4,7 +4,7 @@
 
         <div class="form-inline">
             <div class="form-group ml-auto">
-                <label for="fileSetSelector" class="mr-2">File Set</label>
+                <label for="fileSetSelector" class="mr-2 form-label">File Set</label>
                 <select id="fileSetSelector" class="form-control file-set-menu" v-model="activeSet">
                     <option value="" selected>Select a Set</option>
                     <option v-for="set in sets" :key="set.id" :value="set.id">

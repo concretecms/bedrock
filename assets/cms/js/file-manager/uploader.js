@@ -107,6 +107,7 @@
                                     .append($checkbox)
 
                                 let $label = $('<label/>')
+                                    .addClass('form-label')
                                     .attr('for', checkboxId)
                                     .html(file.thumbnail)
 
@@ -115,6 +116,7 @@
                                     .append($label)
 
                                 $label = $('<label/>')
+                                    .addClass('form-label')
                                     .attr('for', checkboxId)
                                     .html(file.basename)
 
@@ -217,7 +219,7 @@
                                 .addClass('nav-item')
 
                             const $a = $('<a/>')
-                                .attr('data-toggle', 'tab')
+                                .attr('data-bs-toggle', 'tab')
                                 .attr('href', '#' + tab.id)
                                 .attr('aria-controls', tab.id)
                                 .attr('aria-selected', false)
@@ -396,6 +398,7 @@
 
                         // noinspection JSUnresolvedVariable
                         const $selectDirectoryLabel = $('<label/>')
+                            .addClass('form-label')
                             .attr('for', selectDirectoryId)
                             .html(ccmi18n_fileuploader.uploadFilesTo)
 
@@ -432,6 +435,7 @@
                         const inputId = 'input-' + fileUploader.getUniqueId()
 
                         const $label = $('<label/>')
+                            .addClass('form-label')
                             .attr('for', inputId)
                             .html(ccmi18n_fileuploader.directoryName)
 

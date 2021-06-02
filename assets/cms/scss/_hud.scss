@@ -139,7 +139,7 @@ div#ccm-popup-alert-message {
   position: relative;
   text-transform: uppercase;
 
-  > div[data-toggle] {
+  > div[data-bs-toggle] {
     cursor: pointer;
   }
 }
