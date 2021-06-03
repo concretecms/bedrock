@@ -2,7 +2,7 @@
     <div>
         <div class="container-fluid h-100">
             <div class="row h-100">
-                <div class="col-4 border-right p-3">
+                <div class="col-4 border-end p-3">
                     <ul class="nav flex-column">
                         <li class="nav-item" v-for="item in choosers" :key="item.id">
                             <a :class="{'nav-link': true, 'active': activeNavItem.id === item.id}"

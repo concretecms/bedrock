@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="row mb-3">
-      <div class="col-md-4 ml-auto">
+      <div class="col-md-4 ms-auto">
         <form @submit.prevent="getExpressEntries">
           <div class="ccm-header-search-form-input input-group">
             <!--suppress HtmlFormInputWithoutLabel -->
-            <input type="text" class="form-control border-right-0" placeholder="Search" autocomplete="false"
+            <input type="text" class="form-control border-end-0" placeholder="Search" autocomplete="false"
                    v-model="keywords">
 
             <button type="submit" class="input-group-icon">

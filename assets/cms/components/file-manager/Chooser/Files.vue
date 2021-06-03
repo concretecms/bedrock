@@ -2,7 +2,7 @@
     <div>
         <svg v-if="isLoading" class="ccm-loader-dots"><use xlink:href="#icon-loader-circles" /></svg>
         <div v-if="!isLoading">
-            <div class="ccm-image-cell-grid container-fluid pl-0" v-if="resultsFormFactor === 'grid'">
+            <div class="ccm-image-cell-grid container-fluid ps-0" v-if="resultsFormFactor === 'grid'">
                 <div v-for="row in rows" class="row text-center" :key="row.index">
                     <div class="col-md-3" v-for="file in row" :key="(file.fID || file.treeNodeID) + 'grid'">
                         <div class="ccm-image-cell" @click="onItemClick(file)">

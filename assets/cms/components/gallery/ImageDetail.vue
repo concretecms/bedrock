@@ -24,7 +24,7 @@
                     <strong>{{key}}:</strong> {{value}}
                 </p>
 
-                <div class="mb-4 text-right">
+                <div class="mb-4 text-end">
                     <IconButton
                       icon="pencil-alt"
                       icon-type="fas"
