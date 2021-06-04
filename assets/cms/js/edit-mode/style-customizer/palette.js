@@ -20,7 +20,10 @@ function ConcreteStyleCustomizerPalette($element, options) {
     my.$widget = $(my._selectorTemplate)
     my.$container.append(my.$widget)
 
-    my.$widget.find('.launch-tooltip').tooltip()
+    const tooltipTriggerList = [].slice.call(my.$widget.find('.launch-tooltip'))
+    const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
     my.$widget.find('div.ccm-style-customizer-palette-actions button').on('click.style-customizer-palette', function(e) {
         my.save(e)
         return false

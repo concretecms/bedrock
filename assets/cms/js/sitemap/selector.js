@@ -48,13 +48,16 @@ ConcretePageSelector.prototype = {
             var page = r.pages[0]
             my.$element.html(my._pageLoadedTemplate({ inputName: my.options.inputName, page: page }))
             var tooltips = my.$element.find('.launch-tooltip')
-            if (tooltips.length && tooltips.tooltip) {
+            if (tooltips.length) {
                 var ttOptions = {}
                 var $ttHolder = $('#ccm-tooltip-holder')
                 if ($ttHolder.length) {
                     ttOptions.container = $ttHolder
                 }
-                tooltips.tooltip(ttOptions)
+                const tooltipTriggerList = [].slice.call(tooltips)
+                const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl, ttOptions)
+                })
             }
             my.$element.on('click', 'a[data-page-selector-action=clear]', function(e) {
                 e.preventDefault()

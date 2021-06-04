@@ -326,7 +326,10 @@
             $dialog.dialog('close')
         })
 
-        $dialog.find('.launch-tooltip').tooltip({ container: '#ccm-tooltip-holder' })
+        const tooltipTriggerList = [].slice.call($dialog.find('.launch-tooltip'))
+        const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl, { container: '#ccm-tooltip-holder' })
+        })
 
         // help handling
         if ($dialog.find('.dialog-help').length > 0) {
