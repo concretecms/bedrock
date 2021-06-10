@@ -67,11 +67,17 @@
 
 // Bootstrap Select
 //TODO: Check bootstrap-select replacement
-// @import '~bootstrap-select/sass/bootstrap-select';
-// @import '~ajax-bootstrap-select/dist/css/ajax-bootstrap-select';
+@import '~bootstrap-select/sass/bootstrap-select';
+@import '~ajax-bootstrap-select/dist/css/ajax-bootstrap-select';
 
 // Forms
 @import './forms';
+
+
+// Bs5 box-shadow mixin needs to be imported again
+// Otherwise we will get a SassError due a mixin names conflict
+// Previously wasn't throwing the error because Selectize includes the BS mixins
+@import '~bootstrap/scss/mixins';
 
 // Selectize
 //TODO: Check Selectize replacement

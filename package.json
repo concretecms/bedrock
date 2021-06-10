@@ -19,7 +19,7 @@
     "blueimp-file-upload": "^10.31.0",
     "bootbox": "^5.5.1",
     "bootstrap": "^5.0.1",
-    "bootstrap-select": "^1.13.18",
+    "bootstrap-select": "^1.14.0-beta2",
     "bootstrap-tourist": "^0.3.2",
     "ckeditor4": "^4.15.1",
     "dropzone": "^5.7.2",
