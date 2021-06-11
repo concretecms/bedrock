@@ -6,7 +6,7 @@
       <div class="col-md-8 ms-auto">
         <form @submit.prevent="search">
           <div class="ccm-header-search-form-input input-group">
-            <select v-show="extraData.supportFileTypes" class="form-control" v-model="selectedFileType">
+            <select v-show="extraData.supportFileTypes" class="form-select" v-model="selectedFileType">
               <option v-for="(item, key) in fileTypes" v-bind:value="key">
                 {{ item }}
               </option>

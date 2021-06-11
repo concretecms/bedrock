@@ -15,7 +15,7 @@
                         Create New Folder
                     </button>
                 </div>
-                <select v-else :id="directorySelectInputId" :name="inputName" class="ccm-directory-selector form-control" v-model="selectedDirectoryID" ref="directoryInput" :disabled="disabled">
+                <select v-else :id="directorySelectInputId" :name="inputName" class="ccm-directory-selector form-select" v-model="selectedDirectoryID" ref="directoryInput" :disabled="disabled">
                     <option v-for="directory in directories" :class="`level-${directory.directoryLevel}`" :value="directory.directoryId" data-icon="fas fa-folder">
                         {{ directory.directoryName }}
                     </option>

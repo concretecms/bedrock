@@ -51,7 +51,7 @@
                     <select v-if="choice.type === 'select'"
                         :name="index"
                         v-model="choice.value"
-                        class="form-control mb-3">
+                        class="form-select mb-3">
                         <option selected disabled value="0">{{ choice.title }}</option>
                         <option v-for="(option, index ) in choice.options"
                             :key="index"
