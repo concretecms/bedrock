@@ -23,7 +23,6 @@
                         </li>
                     </ul>
                 </div>
-                <hr>
                 <div class="col-8 p-3">
                     <transition name="concrete-nav-tab-content-switch">
                         <component :is="activeNavItem.componentKey"
