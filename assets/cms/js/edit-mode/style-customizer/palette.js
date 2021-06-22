@@ -1,4 +1,4 @@
-
+/* global bootstrap */
 function ConcreteStyleCustomizerPalette($element, options) {
     var my = this
     options = $.extend({
@@ -21,7 +21,7 @@ function ConcreteStyleCustomizerPalette($element, options) {
     my.$container.append(my.$widget)
 
     const tooltipTriggerList = [].slice.call(my.$widget.find('.launch-tooltip'))
-    const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
     my.$widget.find('div.ccm-style-customizer-palette-actions button').on('click.style-customizer-palette', function(e) {

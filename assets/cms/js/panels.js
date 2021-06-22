@@ -1,5 +1,5 @@
 /* eslint-disable no-new, no-unused-vars, camelcase, eqeqeq */
-/* global _, ccmi18n, Concrete, ConcreteEvent, CCM_CID */
+/* global _, ccmi18n, Concrete, ConcreteEvent, CCM_CID, bootstrap */
 
 var html = $('html')
 var baseClasses = $('div.ccm-page').attr('class')
@@ -301,7 +301,7 @@ function ConcretePanel(options) {
             $content.load(url, data, function () {
                 $.fn.dialog.hideLoader()
                 const tooltipTriggerList = [].slice.call($content.find('.launch-tooltip'))
-                const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                tooltipTriggerList.map(function (tooltipTriggerEl) {
                     return new bootstrap.Tooltip(tooltipTriggerEl, { container: '#ccm-tooltip-holder' })
                 })
                 obj.loadPanelDetailActions($content)
@@ -311,7 +311,7 @@ function ConcretePanel(options) {
         } else {
             $.fn.dialog.hideLoader()
             const tooltipTriggerList = [].slice.call($content.find('.launch-tooltip'))
-            const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
                 return new bootstrap.Tooltip(tooltipTriggerEl, { container: '#ccm-tooltip-holder' })
             })
             obj.loadPanelDetailActions($content)
@@ -355,7 +355,7 @@ function ConcretePanel(options) {
         var $panel = $('#' + this.getDOMID())
         var obj = this
         const tooltipTriggerList = [].slice.call($panel.find('.launch-tooltip'))
-        const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl, { container: '#ccm-tooltip-holder' })
         })
         $panel.find('[data-panel-menu=accordion]').each(function () {

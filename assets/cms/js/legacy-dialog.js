@@ -1,5 +1,5 @@
 /* eslint-disable no-new, no-unused-vars, camelcase, no-eval, eqeqeq */
-/* global NProgress, ccmi18n, ConcreteMenuManager, ConcreteAjaxRequest, ConcreteAlert */
+/* global NProgress, ccmi18n, ConcreteMenuManager, ConcreteAjaxRequest, ConcreteAlert, bootstrap */
 
 ;(function(global, $) {
     'use strict'
@@ -327,7 +327,7 @@
         })
 
         const tooltipTriggerList = [].slice.call($dialog.find('.launch-tooltip'))
-        const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl, { container: '#ccm-tooltip-holder' })
         })
 

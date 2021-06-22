@@ -186,9 +186,9 @@ pre,
 code,
 kbd,
 samp {
-  font-family: $font-family-code;
   @include font-size(1em); // Correct the odd `em` font sizing in all browsers.
-  direction: ltr #{"/* rtl:ignore */"};
+  direction: ltr #{'/* rtl:ignore */'};
+  font-family: $font-family-code;
   unicode-bidi: bidi-override;
 }
 
@@ -197,12 +197,12 @@ samp {
 // 3. Don't allow content to break outside
 
 pre {
-  display: block;
-  margin-top: 0; // 1
-  margin-bottom: 1rem; // 2
-  overflow: auto; // 3
   @include font-size($code-font-size);
   color: $pre-color;
+  display: block;
+  margin-bottom: 1rem; // 2
+  margin-top: 0; // 1
+  overflow: auto; // 3
 
   // Account for some code outputs that place code tags in pre tags
   code {
@@ -224,16 +224,16 @@ code {
 }
 
 kbd {
-  padding: $kbd-padding-y $kbd-padding-x;
   @include font-size($kbd-font-size);
-  color: $kbd-color;
-  background-color: $kbd-bg;
   @include border-radius($border-radius-sm);
+  background-color: $kbd-bg;
+  color: $kbd-color;
+  padding: $kbd-padding-y $kbd-padding-x;
 
   kbd {
-    padding: 0;
     @include font-size(1em);
     font-weight: $nested-kbd-font-weight;
+    padding: 0;
   }
 }
 
@@ -262,14 +262,14 @@ svg {
 // Prevent double borders
 
 table {
-  caption-side: bottom;
   border-collapse: collapse;
+  caption-side: bottom;
 }
 
 caption {
-  padding-top: $table-cell-padding-y;
-  padding-bottom: $table-cell-padding-y;
   color: $table-caption-color;
+  padding-bottom: $table-cell-padding-y;
+  padding-top: $table-cell-padding-y;
   text-align: left;
 }
 
@@ -352,9 +352,9 @@ select {
 // 3. Opinionated: add "hand" cursor to non-disabled button elements.
 
 button,
-[type="button"], // 1
-[type="reset"],
-[type="submit"] {
+[type='button'],
+[type='reset'],
+[type='submit'] {
   -webkit-appearance: button; // 2
 
   @if $enable-button-pointers {
@@ -367,8 +367,8 @@ button,
 // Remove inner border and padding from Firefox, but don't restore the outline like Normalize.
 
 ::-moz-focus-inner {
-  padding: 0;
   border-style: none;
+  padding: 0;
 }
 
 input[type='radio'],
@@ -404,10 +404,10 @@ textarea {
 // 2. Reset the default outline behavior of fieldsets so they don't affect page layout.
 
 fieldset {
+  border: 0; // 2
+  margin: 0; // 2
   min-width: 0; // 1
   padding: 0; // 2
-  margin: 0; // 2
-  border: 0; // 2
 }
 
 // 1. By using `float: left`, the legend will behave like a block element.
@@ -416,13 +416,13 @@ fieldset {
 //    See https://github.com/twbs/bootstrap/issues/29712
 
 legend {
-  float: left; // 1
-  width: 100%;
-  padding: 0;
-  margin-bottom: $legend-margin-bottom;
   @include font-size($legend-font-size);
+  float: left; // 1
   font-weight: $legend-font-weight;
   line-height: inherit;
+  margin-bottom: $legend-margin-bottom;
+  padding: 0;
+  width: 100%;
 
   + * {
     clear: left; // 2
@@ -443,9 +443,9 @@ progress {
 //    be added to `.form-control` as it's not specific enough. For details, see
 //    https://github.com/twbs/bootstrap/issues/11586.
 
-[type="search"] {
-  outline-offset: -2px; // 1
+[type='search'] {
   -webkit-appearance: textfield; // 2
+  outline-offset: -2px; // 1
 }
 
 // Remove the inner padding in Chrome and Safari on macOS.

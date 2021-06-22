@@ -1,5 +1,5 @@
 /* eslint-disable no-new, no-unused-vars, camelcase, no-irregular-whitespace, new-cap */
-
+/* global bootstrap */
 function ConcreteInlineStyleCustomizer($element, options) {
     var my = this
     options = $.extend({

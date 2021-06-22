@@ -1,5 +1,5 @@
 /* eslint-disable no-new, no-unused-vars, camelcase */
-/* global _, ccmi18n_sitemap, ConcretePageAjaxSearch, ConcretePageAjaxSearchMenu */
+/* global _, ccmi18n_sitemap, ConcretePageAjaxSearch, ConcretePageAjaxSearchMenu, bootstrap */
 
 function ConcretePageSelector($element, options) {
     var my = this
@@ -55,7 +55,7 @@ ConcretePageSelector.prototype = {
                     ttOptions.container = $ttHolder
                 }
                 const tooltipTriggerList = [].slice.call(tooltips)
-                const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                tooltipTriggerList.map(function (tooltipTriggerEl) {
                     return new bootstrap.Tooltip(tooltipTriggerEl, ttOptions)
                 })
             }

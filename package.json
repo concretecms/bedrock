@@ -21,6 +21,7 @@
     "bootstrap": "^5.0.1",
     "bootstrap-select": "^1.14.0-beta2",
     "bootstrap-tourist": "^0.3.2",
+    "caniuse-lite": "^1.0.30001239",
     "ckeditor4": "^4.15.1",
     "dropzone": "^5.7.2",
     "fullcalendar": "^3.10.2",
