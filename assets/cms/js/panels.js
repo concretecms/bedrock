@@ -375,7 +375,8 @@ function ConcretePanel(options) {
         $panel.find('[data-panel-menu=dropdown]').each(function () {
             var $dropdown = $(this)
             var $title = $dropdown.find('[data-panel-header=dropdown-menu]')
-            $(this).find('[data-panel-dropdown-tab]').unbind('.dropdown-tab').on('click.dropdown-tab', function () {
+            $(this).find('[data-panel-dropdown-tab]').unbind('.dropdown-tab').on('click.dropdown-tab', function (e) {
+                e.preventDefault()
                 var url = obj.getCurrentURL()
                 if (!url) {
                     url = obj.getURL()
