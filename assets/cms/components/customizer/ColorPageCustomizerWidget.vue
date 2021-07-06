@@ -1,23 +1,43 @@
 <template>
   <div class="d-flex">
-    <div>{{ styleObject.name }}</div>
-    <div class="ml-auto"><input type="color"></div>
+    <label class="control-label align-self-center">{{ styleValue.style.name }}</label>
+    <div class="ml-auto d-flex">
+      <input :id="'color-picker-' + styleValue.style.variable" />
+    </div>
   </div>
 </template>
 
 <script>
 
 export default {
-    components: {
-    },
     data() {
       return {
-
+        color: this.styleValue.value
       }
     },
-    computed: {},
+    mounted() {
+      var my = this
+      $("#color-picker-" + this.styleValue.style.variable).spectrum({
+        showAlpha: true,
+        preferredFormat: 'rgb',
+        allowEmpty: true,
+        color: this.color,
+        change: function(r) {
+          var color = r.toRgb()
+          my.$emit('update', {
+            variable: my.styleValue.style.variable,
+            value: {
+              r: color.r,
+              g: color.g,
+              b: color.b,
+              a: color.a
+            }
+          })
+        }
+      });
+    },
     props: {
-        styleObject: {
+        styleValue: {
             type: Object
         }
     }
