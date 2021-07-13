@@ -135,10 +135,10 @@ function ConcretePanel(options) {
         })
     }
 
-    this.goBack = function () {
+    this.goBack = function (reload) {
         var $panel = $('#' + this.getDOMID())
         this.closePanelDetailImmediately()
-
+        var my = this
         $panel
             .queue(function () {
                 var $prev = $panel.find('.ccm-panel-content-visible').prev()
@@ -150,6 +150,9 @@ function ConcretePanel(options) {
             .queue(function () {
                 $panel.find('.ccm-panel-slide-right').remove()
                 $panel.dequeue()
+                if (reload) {
+                    my.show()
+                }
             })
     }
 
