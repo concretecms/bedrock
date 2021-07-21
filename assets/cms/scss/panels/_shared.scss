@@ -14,7 +14,7 @@ html.ccm-panel-detail-open {
 div.ccm-panel {
   background-color: $panel-background-color;
   height: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */ /* This causes problems with floating palettes inside the panels. So let's only apply this during transitions */
   position: fixed;
   top: 0;
   user-select: none;
@@ -546,6 +546,14 @@ div.ccm-panel-content-appearing {
 
 div.ccm-panel-content.ccm-panel-content-visible {
   transform: translate(0, 0);
+}
+
+div.ccm-panel-transitioning {
+  overflow: hidden;
+
+  div.ccm-panel-content {
+    overflow: auto;
+  }
 }
 
 div.ccm-panel-content {

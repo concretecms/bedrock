@@ -1,11 +1,8 @@
 <template>
-    <div>
-        <label class="control-label">{{ styleValue.style.name }}</label>
-        <select @change="componentUpdated" class="form-select form-control" v-model="selectedFont"
-                :style="{'font-family': selectedFont}">
-            <option v-for="font in fonts" :value="font">{{ font }}</option>
-        </select>
-    </div>
+    <select @change="componentUpdated" class="selectpicker" v-model="selectedFont">
+        <option v-for="font in webFonts" :value="font" :data-content="'<span style=\'font-family: ' + font + '\'>' + font + '</span>'">{{ font }}</option>
+        <option v-for="font in standardFonts" :value="font" :data-content="'<span style=\'font-family: ' + font + '\'>' + font + '</span>'">{{ font }}</option>
+    </select>
 </template>
 
 <script>
@@ -16,6 +13,20 @@ export default {
         return {
             selectedFont: this.styleValue.value.fontFamily
         }
+    },
+    mounted() {
+        $('select.selectpicker').selectpicker()
+        var googleFontFamilies = []
+        this.styleValue.style.fonts.forEach(function(font) {
+            if (font.type === 'google') {
+                googleFontFamilies.push(font.name)
+            }
+        })
+        WebFont.load({
+            google: {
+                families: googleFontFamilies
+            }
+        });
     },
     methods: {
         componentUpdated: function () {
@@ -28,14 +39,33 @@ export default {
         }
     },
     computed: {
-        fonts: function () {
-            var fonts = [
-                this.styleValue.value.fontFamily,
-                'Helvetica',
-                'Verdana',
-                'Georgia'
-            ]
+        webFonts: function() {
+            var fonts = []
+            this.styleValue.style.fonts.forEach(function(font) {
+                fonts.push(font.name)
+            })
             return fonts
+        },
+        standardFonts: function () {
+            return [
+                'Helvetica',
+                'Arial',
+                'Arial Black',
+                'Verdana',
+                'Tahoma',
+                'Trebuchet MS',
+                'Impact',
+                'Times New Roman',
+                'Didot',
+                'Georgia',
+                'Garamond',
+                'American Typewriter',
+                'Andale Mono',
+                'Courier New',
+                'Lucida Console',
+                'Monaco',
+                'Brush Script MT',
+            ]
         }
     },
     props: {
