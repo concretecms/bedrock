@@ -1,5 +1,5 @@
-@import '~@pnotify/core/dist/PNotify.css';
-@import '~@pnotify/mobile/dist/PNotifyMobile.css';
+@import 'node_modules/@pnotify/core/dist/PNotify';
+@import 'node_modules/@pnotify/mobile/dist/PNotifyMobile';
 
 $notification-info-bg-color: darken($blue, 12.5%) !default;
 $notification-info-color: color-contrast($notification-info-bg-color) !default;

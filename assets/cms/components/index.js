@@ -22,6 +22,7 @@ import ConcreteGroupChooser from './groups/Chooser'
 import ConcreteFileUploader from './file-manager/Uploader/UploadFromComputer'
 import Board from './Board'
 import BoardSlot from './BoardSlot'
+import ThemeCustomizer from './customizer/ThemeCustomizer'
 
 // Export our component library
 export default {
@@ -48,5 +49,6 @@ export default {
     ConcreteEventOccurrenceInput,
     ConcreteFileDirectoryInput,
     Board,
-    BoardSlot
+    BoardSlot,
+    ThemeCustomizer
 }
