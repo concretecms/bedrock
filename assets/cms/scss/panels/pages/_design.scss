@@ -25,9 +25,7 @@
     margin: 22px 0;
 
     label {
-      clear: both;
       display: block;
-      margin-left: 15px;
 
       img {
         float: right !important;
@@ -48,6 +46,12 @@
       border: 1px solid $gray-200;
       height: auto;
       width: 225px;
+    }
+
+    &.ccm-page-design-theme-thumbnail-selected {
+      img {
+        border: 1px solid $primary;
+      }
     }
   }
 }

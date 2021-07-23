@@ -24,6 +24,7 @@ import Board from './Board'
 import BoardSlot from './BoardSlot'
 import CompletedProcessList from './CompletedProcessList'
 import RunningProcessList from './RunningProcessList'
+import ThemeCustomizer from './customizer/ThemeCustomizer'
 
 // Export our component library
 export default {
@@ -52,5 +53,6 @@ export default {
     Board,
     BoardSlot,
     RunningProcessList,
-    CompletedProcessList
+    CompletedProcessList,
+    ThemeCustomizer
 }

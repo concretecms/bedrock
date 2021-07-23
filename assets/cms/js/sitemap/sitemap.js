@@ -43,7 +43,7 @@
     ConcreteSitemap.prototype = {
 
         sitemapTemplate: '<div class="ccm-sitemap-wrapper"><div class="ccm-sitemap-tree-selector-wrapper"></div><div class="ccm-sitemap-tree"></div></div>',
-        localesWrapperTemplate: '<select class="form-control" data-select="site-trees"></select>',
+        localesWrapperTemplate: '<select class="form-select form-control" data-select="site-trees"></select>',
 
         getTree: function() {
             var my = this
@@ -612,7 +612,6 @@
                 CCM_DISPATCHER_FILENAME + '/ccm/system/dialogs/page/drag_request/submit',
                 params,
                 function(resp) {
-                    resp = JSON.parse(resp)
                     jQuery.fn.dialog.closeAll()
                     jQuery.fn.dialog.hideLoader()
                     ConcreteAlert.notify({ message: resp.message })
@@ -620,7 +619,7 @@
                     jQuery.fn.dialog.closeTop()
                     jQuery.fn.dialog.closeTop()
                 }
-            ).error(function(xhr, status, error) {
+            ).fail(function(xhr, status, error) {
                 jQuery.fn.dialog.hideLoader()
                 var msg = error; var json = xhr ? xhr.responseJSON : null
                 if (json && json.error) {

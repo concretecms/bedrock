@@ -23,15 +23,16 @@ import _ from 'underscore'
 
         bindDelete: function ContainerBlockDelete() {
             var my = this
-            var deleter = my.getElem().find('a[data-inline-command=delete-block]')
-            deleter.on('click.containerDelete', function() {
+            var deleter = my.getElem().find('>ul a[data-inline-command=delete-block]')
+            deleter.on('click.containerDelete', function(e) {
+                e.preventDefault()
                 my.delete()
             })
         },
 
         bindDrag: function ContainerBlockBindDrag() {
             var my = this
-            var mover = my.getElem().find('a[data-inline-command=move-block]').parent()
+            var mover = my.getElem().find('>ul a[data-inline-command=move-block]').parent()
 
             $.pep.unbind(mover)
             mover.pep(my.getPepSettings())
