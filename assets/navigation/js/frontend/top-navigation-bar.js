@@ -6,7 +6,7 @@
                 everyitem.addEventListener('mouseover', function(e) {
                     const linkElement = this.querySelector('a[data-concrete-toggle]')
                     if (linkElement != null) {
-                        const nextElement = linkElement.nextElementementSibling
+                        const nextElement = linkElement.nextElementSibling
                         linkElement.classList.add('show')
                         nextElement.classList.add('show')
                     }
@@ -14,7 +14,7 @@
                 everyitem.addEventListener('mouseleave', function(e) {
                     const linkElement = this.querySelector('a[data-concrete-toggle]')
                     if (linkElement != null) {
-                        const nextElement = linkElement.nextElementementSibling
+                        const nextElement = linkElement.nextElementSibling
                         linkElement.classList.remove('show')
                         nextElement.classList.remove('show')
                     }
