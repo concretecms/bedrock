@@ -1292,7 +1292,6 @@
                             fileUploader.initYourComputerTab()
                             fileUploader.initIncomingDirectoryTab()
                             fileUploader.initRemoteFilesTab()
-
                         }
                     })
                 },

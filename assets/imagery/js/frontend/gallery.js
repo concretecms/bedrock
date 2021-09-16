@@ -8,19 +8,16 @@ $('[data-gallery-lightbox=true]').magnificPopup({
             var $wrapper = $('<div />')
             var caption = item.el.attr('data-caption')
             $wrapper.append(caption)
-
-            var downloadLink = item.el.attr('data-download-link');
+            var downloadLink = item.el.attr('data-download-link')
             if (downloadLink.length) {
-                var $a = $("<a></a>");
-                $a.attr("href", downloadLink);
-                $a.attr("target", "_blank");
-                $a.attr("class", "ms-2");
-                $a.html("Download");
+                var $a = $('<a></a>')
+                $a.attr('href', downloadLink)
+                $a.attr('target', '_blank')
+                $a.attr('class', 'ms-2')
+                $a.html('Download')
                 $wrapper.append($a)
             }
-
             return $wrapper.html()
-
         }
     }
-});
+})

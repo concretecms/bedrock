@@ -20,12 +20,12 @@ export default {
         },
         inputName: {
             type: String,
-            required: true,
+            required: true
         },
         color: {
             type: String,
-            required: false,
-        },
+            required: false
+        }
     },
     watch: {
         selectedColor: {
