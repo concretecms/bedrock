@@ -777,12 +777,12 @@
 
                                 if ($selectBox.find('option[value=\'' + selectedDirectoryId + '\']').length) {
                                     // re-selected previous selected option
-                                    $selectBox.selectpicker('val', selectedDirectoryId)
+                                    $selectBox.selectpicker('val', "" + selectedDirectoryId)
                                 } else {
                                     // the option is not available, select first options instead
                                     const firstDirectoryId = $selectBox.find('option:first').val()
 
-                                    $selectBox.selectpicker('val', firstDirectoryId)
+                                    $selectBox.selectpicker('val', "" + firstDirectoryId)
                                 }
 
                                 $dialogEl.find('.ccm-file-uploader-new-directory-name').val('')
