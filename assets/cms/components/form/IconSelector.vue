@@ -1,0 +1,68 @@
+<template>
+    <select class="form-select" :name="name" :title="title" v-model="selectedOption" ref="iconSelector">
+        <option v-for="icon in icons" :value="icon.value" :data-icon="icon.value + ' fa-fw'">{{ icon.label }}</option>
+    </select>
+</template>
+
+<script>
+import {icons} from '../iconlist'
+
+// Export our component definition
+export default {
+    data() {
+        return {
+            selectedOption: this.selected
+        }
+    },
+    props: {
+        name: String,
+        selected: {
+            type: String,
+            required: false,
+            default: ''
+        },
+        title: {
+            type: String,
+            require: false,
+            default: 'Choose Icon'
+        },
+        emptyOptionLabel: {
+            type: String,
+            require: false,
+            default: '** None Selected'
+        }
+    },
+    computed: {
+        icons: function () {
+            let arr = [];
+
+            arr.push({
+                value: '',
+                label: this.emptyOptionLabel
+            })
+
+            for (const [key, value] of Object.entries(icons.fas)) {
+                arr.push({
+                    value: 'fas fa-' + value,
+                    label: value
+                })
+            }
+
+            for (const [key, value] of Object.entries(icons.fab)) {
+                arr.push({
+                    value: 'fab fa-' + value,
+                    label: value
+                })
+            }
+
+            return arr;
+        }
+    },
+    mounted() {
+        $(this.$refs.iconSelector).selectpicker({
+            liveSearch: true,
+            width: 'fit'
+        })
+    }
+}
+</script>
