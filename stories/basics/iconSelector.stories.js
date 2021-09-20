@@ -1,7 +1,7 @@
 import jQuery from 'jquery'
 import 'bootstrap'
 import 'bootstrap-select'
-import IconSelector from "../../assets/cms/components/form/IconSelector";
+import IconSelector from '../../assets/cms/components/form/IconSelector'
 import Vue from 'vue'
 
 // Add our component to the global vue instance

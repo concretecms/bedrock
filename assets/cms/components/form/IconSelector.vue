@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import {icons} from '../iconlist'
+import { icons } from '../iconlist'
 
 // Export our component definition
 export default {
@@ -35,7 +35,7 @@ export default {
     },
     computed: {
         icons: function () {
-            let arr = [];
+            const arr = []
 
             arr.push({
                 value: '',
@@ -56,7 +56,7 @@ export default {
                 })
             }
 
-            return arr;
+            return arr
         }
     },
     mounted() {
