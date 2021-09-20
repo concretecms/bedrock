@@ -14,6 +14,16 @@ export default {
 }
 
 // Simplest usage with default sizing from the core
-export const iconSelector = () => '<div class="ccm-ui"><icon-selector name="fa-icon" /></div>'
+export const iconSelector = () => `<div class="ccm-ui">
+    <div class="form-group">
+        <icon-selector name="fa-icon" />
+    </div>
+    <div class="form-group">
+        <icon-selector name="fa-icon-selected" selected="fas fa-address-book" />
+    </div>
+    <div class="form-group">
+        <icon-selector name="fa-icon-custom-title" title="Choose One" empty-option-label="Unselect" />
+    </div>
+</div>`
 
 window.$ = window.jQuery = jQuery

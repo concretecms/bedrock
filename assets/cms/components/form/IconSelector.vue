@@ -11,7 +11,8 @@ import {icons} from '../iconlist'
 export default {
     data() {
         return {
-            selectedOption: this.selected
+            selectedOption: this.selected,
+            emptyOptionLabel: this.emptyOptionLabel
         }
     },
     props: {
