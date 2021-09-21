@@ -68,7 +68,7 @@
         <div class="d-none">
             <div data-dialog="theme-customizer-custom-css">
 
-                <div id="theme-customizer-custom-css-editor"></div>
+                <div id="theme-customizer-custom-css-editor" class="h-100"></div>
 
             </div>
         </div>
@@ -148,8 +148,8 @@ export default {
             jQuery.fn.dialog.open({
                 element: 'div[data-dialog=theme-customizer-custom-css]',
                 modal: true,
-                width: '720',
-                height: 'auto',
+                width: '800px',
+                height: '70%',
                 title: 'Custom CSS',
                 onOpen: function() {
                     var editor = ace.edit('theme-customizer-custom-css-editor')
