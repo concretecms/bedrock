@@ -30,7 +30,7 @@ export default {
     },
     methods: {
         chooseUsers() {
-            window.ConcreteEvent.publish('UserSearchDialogSelectUser.core', {users: this.selectedUsers})
+            window.ConcreteEvent.publish('UserSearchDialogSelectUser.core', { users: this.selectedUsers })
         }
     }
 }
