@@ -149,7 +149,7 @@ var ConcretePageAjaxSearchMenu = {
     get: function () {
         return ['',
             '<div class="popover fade" data-search-page-menu="<%=item.cID%>" data-search-menu="<%=item.cID%>">',
-            '<div class="arrow"></div>',
+            '<div class="popover-arrow"></div>',
             '<div class="popover-inner">',
             '<div class="dropdown-menu">',
             '<% if (item.isTrash) { %>',

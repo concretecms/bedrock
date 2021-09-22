@@ -222,7 +222,8 @@
 
                 click: function(event, data) {
                     var node = data.node
-                    if (data.targetType == 'title' && node.data.cID) {
+                    if (data.targetType == 'title' && node.data.cID && data.originalEvent &&
+                        data.originalEvent.target && $(data.originalEvent.target).hasClass('fancytree-title')) {
                         // I have a select mode, so clicking on the title does nothing.
                         if (my.options.selectMode) {
                             return false
