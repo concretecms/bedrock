@@ -11,8 +11,7 @@ var DIALOGS = {
     }
 }
 
-ConcretePageAjaxSearch = {}
-
+var ConcretePageAjaxSearch = {}
 
 /**
  * Static Methods
