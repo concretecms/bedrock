@@ -244,10 +244,6 @@
             my.$element.find('input[name=' + my.options.namespace + '_pdEndDate_pub_' + my.getSetID() + ']').datepicker('setDate', endDateFormatted)
 
             var $bsSelect = my.$element.find('select[name=' + my.options.namespace + '_pdEndDateSelectTime_' + my.getSetID() + ']')
-            $bsSelect.selectpicker({
-                liveSearch: true,
-                liveSearchStyle: 'startsWith'
-            })
             $bsSelect.selectpicker('val', endTime)
         },
 
