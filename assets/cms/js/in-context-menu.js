@@ -251,13 +251,6 @@
             }
 
             $menu.css({ top: pageY, left: pageX })
-            // bootstrap 5 requires we tell the arrow where to go.
-            const $arrow = $menu.find('.popover-arrow')
-            const translatePosition = ($menu.width() / 2) - ($arrow.width() / 2)
-
-            $arrow.css('position', 'absolute')
-                .css('left', 0)
-                .css('transform', 'translate3d(' + translatePosition + 'px, 0px, 0px')
 
             _.defer(function () {
                 $menu.css('opacity', 1)
