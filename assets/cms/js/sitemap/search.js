@@ -11,93 +11,7 @@ var DIALOGS = {
     }
 }
 
-function ConcretePageAjaxSearch($element, options) {
-    var my = this
-    options = $.extend({
-        mode: 'menu',
-        searchMethod: 'get'
-    }, options)
-
-    my.options = options
-
-    my._templateSearchResultsMenu = _.template(ConcretePageAjaxSearchMenu.get())
-    ConcreteAjaxSearch.call(my, $element, options)
-
-    my.setupEvents()
-}
-
-ConcretePageAjaxSearch.prototype = Object.create(ConcreteAjaxSearch.prototype)
-
-ConcretePageAjaxSearch.prototype.setupEvents = function () {
-    var my = this
-    ConcreteEvent.subscribe('SitemapDeleteRequestComplete', function (e) {
-        my.refreshResults()
-    })
-
-    ConcreteEvent.fire('ConcreteSitemapPageSearch', my)
-}
-
-ConcretePageAjaxSearch.prototype.updateResults = function (result) {
-    var my = this; var $e = my.$element
-    ConcreteAjaxSearch.prototype.updateResults.call(my, result)
-    if (my.options.mode == 'choose') {
-        // hide the checkbox since they're pointless here.
-        $e.find('.ccm-search-results-checkbox').parent().remove()
-        // hide the bulk item selector.
-        $e.find('select[data-bulk-action]').parent().remove()
-
-        $e.unbind('.concretePageSearchHoverPage')
-        $e.on('mouseover.concretePageSearchHoverPage', 'tr[data-launch-search-menu]', function () {
-            $(this).addClass('ccm-search-select-hover')
-        })
-        $e.on('mouseout.concretePageSearchHoverPage', 'tr[data-launch-search-menu]', function () {
-            $(this).removeClass('ccm-search-select-hover')
-        })
-        $e.unbind('.concretePageSearchChoosePage').on('click.concretePageSearchChoosePage', 'tr[data-launch-search-menu]', function () {
-            ConcreteEvent.publish('SitemapSelectPage', {
-                instance: my,
-                cID: $(this).attr('data-page-id'),
-                title: $(this).attr('data-page-name')
-            })
-            return false
-        })
-    }
-}
-
-ConcretePageAjaxSearch.prototype.handleSelectedBulkAction = function (value, type, $option, $items) {
-    if (value == 'movecopy' || value == 'Move/Copy') {
-        var url; var itemIDs = []
-        $.each($items, function (i, checkbox) {
-            itemIDs.push($(checkbox).val())
-        })
-
-        ConcreteEvent.unsubscribe('SitemapSelectPage.search')
-
-        var subscription = function (e, data) {
-            Concrete.event.unsubscribe(e)
-            url = CCM_DISPATCHER_FILENAME + '/ccm/system/dialogs/page/drag_request?origCID=' + itemIDs.join(',') + '&destCID=' + data.cID
-            $.fn.dialog.open({
-                width: 520,
-                height: 'auto',
-                href: url,
-                title: ccmi18n_sitemap.moveCopyPage,
-                onDirectClose: function() {
-                    ConcreteEvent.subscribe('SitemapSelectPage.search', subscription)
-                }
-            })
-        }
-        ConcreteEvent.subscribe('SitemapSelectPage.search', subscription)
-    }
-    ConcreteAjaxSearch.prototype.handleSelectedBulkAction.call(this, value, type, $option, $items)
-}
-
-ConcreteAjaxSearch.prototype.createMenu = function ($selector) {
-    var my = this
-    $selector.concretePageMenu({
-        container: my,
-        menu: $('[data-search-menu=' + $selector.attr('data-launch-search-menu') + ']')
-    })
-}
+var ConcretePageAjaxSearch = {}
 
 /**
  * Static Methods
@@ -149,7 +63,7 @@ var ConcretePageAjaxSearchMenu = {
     get: function () {
         return ['',
             '<div class="popover fade" data-search-page-menu="<%=item.cID%>" data-search-menu="<%=item.cID%>">',
-            '<div class="arrow"></div>',
+            '<div class="popover-arrow"></div>',
             '<div class="popover-inner">',
             '<div class="dropdown-menu">',
             '<% if (item.isTrash) { %>',
@@ -219,13 +133,6 @@ var ConcretePageAjaxSearchMenu = {
             '</div>',
             ''].join('')
     }
-}
-
-// jQuery Plugin
-$.fn.concretePageAjaxSearch = function (options) {
-    return $.each($(this), function (i, obj) {
-        new ConcretePageAjaxSearch($(this), options)
-    })
 }
 
 global.ConcretePageAjaxSearch = ConcretePageAjaxSearch

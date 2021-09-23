@@ -214,34 +214,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-/* stylelint-disable selector-pseudo-element-no-unknown */
-@import '../../../../assets/cms/scss/bootstrap-overrides';
-
-.ccm-image-cell > label::v-deep i {
-  color: $gray-400;
-  font-size: 100px;
-  margin: 2px;
-  padding: 0.5rem;
-}
-
-.ccm-image-chooser-icon::v-deep i {
-  color: $gray-400;
-  font-size: 32px;
-}
-
-.search-icon {
-  display: inline-block;
-
-  .icon {
-    font-size: 7rem;
-  }
-}
-
-button {
-  .label {
-    margin: 0 10px;
-  }
-}
-</style>

@@ -20,17 +20,12 @@
     </div>
 </template>
 <style lang='scss' scoped>
-@import '../../../assets/cms/scss/bootstrap-overrides';
 
 .ccm-dashboard-breadcrumb {
   .breadcrumb {
     margin-bottom: 0;
     padding-bottom: 0;
     padding-top: 0;
-
-    a {
-      color: $blue;
-    }
   }
 }
 </style>

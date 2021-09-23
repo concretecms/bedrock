@@ -19,12 +19,10 @@
 </a>
 </template>
 <style lang='scss' scoped>
-@import '../../../../assets/cms/scss/bootstrap-overrides';
 
 .dropdown-item {
   .menu-icon {
     align-items: center;
-    color: $gray-500;
     justify-content: center;
     width: 2.188em;
   }
