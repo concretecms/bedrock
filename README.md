@@ -1,5 +1,5 @@
-# concrete5 Bedrock
-Bedrock is concrete5's front end library
+# Concrete CMS Bedrock
+Bedrock is Concrete's front end library
 
 
 ### Developing Components

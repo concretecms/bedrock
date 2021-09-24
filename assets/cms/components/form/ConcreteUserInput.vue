@@ -77,7 +77,7 @@ export default {
         openChooser: function() {
             var my = this
             window.ConcreteUserManager.launchDialog(function(r) {
-                my.loadUser(r.uID)
+                my.loadUser(r.id)
             })
         },
         loadUser(userId) {

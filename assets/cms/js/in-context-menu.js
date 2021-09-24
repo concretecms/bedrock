@@ -251,6 +251,7 @@
             }
 
             $menu.css({ top: pageY, left: pageX })
+
             _.defer(function () {
                 $menu.css('opacity', 1)
             })

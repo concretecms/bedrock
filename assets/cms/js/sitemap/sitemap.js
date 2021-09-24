@@ -43,7 +43,7 @@
     ConcreteSitemap.prototype = {
 
         sitemapTemplate: '<div class="ccm-sitemap-wrapper"><div class="ccm-sitemap-tree-selector-wrapper"></div><div class="ccm-sitemap-tree"></div></div>',
-        localesWrapperTemplate: '<select class="form-control" data-select="site-trees"></select>',
+        localesWrapperTemplate: '<select class="form-select form-control" data-select="site-trees"></select>',
 
         getTree: function() {
             var my = this
@@ -222,7 +222,8 @@
 
                 click: function(event, data) {
                     var node = data.node
-                    if (data.targetType == 'title' && node.data.cID) {
+                    if (data.targetType == 'title' && node.data.cID && data.originalEvent &&
+                        data.originalEvent.target && $(data.originalEvent.target).hasClass('fancytree-title')) {
                         // I have a select mode, so clicking on the title does nothing.
                         if (my.options.selectMode) {
                             return false
@@ -231,6 +232,8 @@
                         // I have a special on click handler, so we run that. It CAN return
                         // false to disable the on click, but it probably won't.
                         if (my.options.onClickNode) {
+                            event.preventDefault()
+                            event.stopPropagation()
                             return my.options.onClickNode.call(my, node)
                         }
 

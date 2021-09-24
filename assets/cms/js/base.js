@@ -13,6 +13,9 @@ import 'ajax-bootstrap-select'
 import './modifiable-ajax-bootstrap-select'
 import 'dropzone/dist/dropzone'
 
+// Server events
+import './server-events'
+
 // jQuery UI components
 import 'jquery-ui/ui/widgets/button'
 import 'jquery-ui/ui/widgets/dialog'
@@ -22,11 +25,11 @@ import 'jquery-ui/ui/widgets/droppable'
 import 'jquery-ui/ui/widgets/sortable'
 import 'jquery-ui/ui/widgets/slider'
 
-// Core concrete5 backend
+// Core backend
 import './events'
 import './asset-loader'
 import './page-indexer'
-import './concrete5'
+import './concrete'
 
 // CMS UI Components
 import './panels'
@@ -44,7 +47,9 @@ import './ajax-request/form'
 import './ajax-request/block'
 
 // Progressive operations
-import './progressive-operations'
+import './processes'
+import './queue-consumer'
+import './progressive-operations' // legacy handler
 
 // Search
 import './search/base'

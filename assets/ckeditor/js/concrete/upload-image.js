@@ -1,7 +1,7 @@
 /* eslint-disable eqeqeq */
 
 (function () {
-    CKEDITOR.plugins.add('concrete5uploadimage', {
+    CKEDITOR.plugins.add('concreteuploadimage', {
         requires: 'uploadimage',
         init: function (editor) {
             editor.on('fileUploadRequest', function (evt) {

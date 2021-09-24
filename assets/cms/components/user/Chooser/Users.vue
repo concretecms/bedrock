@@ -16,8 +16,8 @@
                 <tbody>
                     <tr v-for="user in sortedUserList" :key="user.id + 'list'">
                         <td>
-                            <input type="checkbox" v-if="multipleSelection" v-model="selectedUsers" :id="'user-' + user.id" :value="user.id">
-                            <input type="radio" v-if="!multipleSelection" v-model="selectedUsers" :id="'user-' + user.id" :value="user.id">
+                            <input type="checkbox" v-if="multipleSelection" v-model="selectedUsers" :id="'user-' + user.id" :value="user">
+                            <input type="radio" v-if="!multipleSelection" v-model="selectedUsers" :id="'user-' + user.id" :value="user">
                         </td>
                         <td>{{user.name}}</td>
                         <td>{{user.email}}</td>

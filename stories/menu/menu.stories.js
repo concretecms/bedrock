@@ -76,7 +76,7 @@ export const menuByItself = () => ({
 export const concreteAreaMenu = () => `
 <div id='ccm-popover-menu-container' class='ccm-ui'>
     <div class="popover bs-popover-top">
-        <div class="arrow"></div>
+        <div class="popover-arrow"></div>
         <div class="popover-inner">
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="#">Add Block</a>

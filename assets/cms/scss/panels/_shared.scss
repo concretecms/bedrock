@@ -14,7 +14,7 @@ html.ccm-panel-detail-open {
 div.ccm-panel {
   background-color: $panel-background-color;
   height: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */ /* This causes problems with floating palettes inside the panels. So let's only apply this during transitions */
   position: fixed;
   top: 0;
   user-select: none;
@@ -25,20 +25,6 @@ div.ccm-panel {
     right: 17px;
     text-decoration: none;
     top: 7px;
-
-    > a,
-    svg {
-      fill: $gray-500;
-      height: 24px;
-      transition: fill 0.1s ease-in-out;
-      width: 24px;
-    }
-
-    &:hover {
-      svg {
-        fill: $blue;
-      }
-    }
   }
 }
 
@@ -463,19 +449,19 @@ div.ccm-panel-detail-content {
     margin-bottom: 20px;
   }
 
-  iframe#ccm-page-preview-frame {
-    background: transparent;
-    border: 0;
-    box-sizing: border-box;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-  }
 }
 
+iframe.ccm-page-preview-frame {
+  background: transparent;
+  border: 0;
+  box-sizing: border-box;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
 /**
  * Panel Detail Fade
  */
@@ -548,15 +534,19 @@ div.ccm-panel-content.ccm-panel-content-visible {
   transform: translate(0, 0);
 }
 
+div.ccm-panel-transitioning {
+  overflow: hidden;
+
+  div.ccm-panel-content {
+    overflow: auto;
+  }
+}
+
 div.ccm-panel-content {
   header {
-    a.ccm-panel-back {
+    a {
       color: $gray-700;
-      display: block;
-      margin-bottom: 30px;
-      margin-top: -15px;
       text-decoration: none;
-
       transition: color 0.1s ease-in-out;
 
       &:hover {
@@ -566,6 +556,12 @@ div.ccm-panel-content {
           fill: $blue;
         }
       }
+    }
+
+    a.ccm-panel-back {
+      display: block;
+      margin-bottom: 30px;
+      margin-top: -15px;
 
       svg {
         height: 20px;
@@ -573,7 +569,6 @@ div.ccm-panel-content {
         width: 20px;
       }
     }
-
   }
 }
 
