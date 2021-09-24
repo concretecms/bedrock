@@ -17,7 +17,6 @@
 
 <script>
 /* global CCM_DISPATCHER_FILENAME, ConcreteAjaxRequest */
-/* eslint indent: [2, 2, {"SwitchCase": 1}] */
 /* eslint-disable no-new */
 import ChooserHeader from './Header'
 import Files from './Files'

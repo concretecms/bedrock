@@ -42,19 +42,18 @@ export default {
                 label: this.emptyOptionLabel
             })
 
-            for (const [key, value] of Object.entries(icons.fas)) {
+            Object.entries(icons.fas).forEach(function(value) {
                 arr.push({
                     value: 'fas fa-' + value,
                     label: value
                 })
-            }
-
-            for (const [key, value] of Object.entries(icons.fab)) {
+            })
+            Object.entries(icons.fab).forEach(function(value) {
                 arr.push({
                     value: 'fab fa-' + value,
                     label: value
                 })
-            }
+            })
 
             return arr
         }

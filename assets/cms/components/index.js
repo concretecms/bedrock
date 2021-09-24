@@ -55,7 +55,7 @@ export default {
     ConcreteFileDirectoryInput,
     Board,
     BoardSlot,
-    IconSelector
+    IconSelector,
     RunningProcessList,
     CompletedProcessList,
     ThemeCustomizer
