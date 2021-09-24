@@ -23,6 +23,7 @@ import ConcreteGroupChooser from './groups/Chooser'
 import ConcreteFileUploader from './file-manager/Uploader/UploadFromComputer'
 import Board from './Board'
 import BoardSlot from './BoardSlot'
+import IconSelector from './form/IconSelector'
 import CompletedProcessList from './CompletedProcessList'
 import RunningProcessList from './RunningProcessList'
 import ThemeCustomizer from './customizer/ThemeCustomizer'
@@ -54,6 +55,7 @@ export default {
     ConcreteFileDirectoryInput,
     Board,
     BoardSlot,
+    IconSelector
     RunningProcessList,
     CompletedProcessList,
     ThemeCustomizer
