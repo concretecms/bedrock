@@ -19,6 +19,8 @@ export default {
             preferredFormat: 'rgb',
             allowEmpty: true,
             color: this.color,
+            showInitial: true,
+            showInput: true,
             change: function (r) {
                 var color = r.toRgb()
                 my.$emit('update', {
