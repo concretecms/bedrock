@@ -27,6 +27,7 @@ import IconSelector from './form/IconSelector'
 import CompletedProcessList from './CompletedProcessList'
 import RunningProcessList from './RunningProcessList'
 import ThemeCustomizer from './customizer/ThemeCustomizer'
+import ThemeCustomizerPreview from './customizer/ThemeCustomizerPreview'
 
 // Export our component library
 export default {
@@ -58,5 +59,6 @@ export default {
     IconSelector,
     RunningProcessList,
     CompletedProcessList,
-    ThemeCustomizer
+    ThemeCustomizer,
+    ThemeCustomizerPreview
 }
