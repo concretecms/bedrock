@@ -192,6 +192,7 @@ export default {
             $token.appendTo($form)
             $form.appendTo($('body'))
             $form.submit()
+            ConcreteEvent.publish('ThemeCustomizerReloadPreview')
         },
         updateStyles(styleValue) {
             var my = this

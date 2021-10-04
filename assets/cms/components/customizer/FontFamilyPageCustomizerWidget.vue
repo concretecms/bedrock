@@ -1,5 +1,6 @@
 <template>
     <select @change="componentUpdated" class="selectpicker" v-model="selectedFont">
+        <option value="" :data-content="'<span>Default</span>'">Default</option>
         <option v-for="font in webFonts" :value="font" :data-content="'<span style=\'font-family: ' + font + '\'>' + font + '</span>'">{{ font }}</option>
         <option v-for="font in standardFonts" :value="font" :data-content="'<span style=\'font-family: ' + font + '\'>' + font + '</span>'">{{ font }}</option>
     </select>
