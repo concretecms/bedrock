@@ -33,7 +33,6 @@ export default {
         ConcreteEvent.on('ThemeCustomizerReloadPreview', function () {
             my.loadingPreview = true
         })
-
     },
     props: {
         previewAction: {
