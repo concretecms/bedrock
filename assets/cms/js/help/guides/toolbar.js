@@ -36,7 +36,7 @@ ConcreteHelpGuideManager.register('toolbar', function() {
 
     return new Tour({
         steps: steps,
-        framework: 'bootstrap4',
+        framework: 'bootstrap5',
         template: ccmi18n_tourist.template,
         localization: ccmi18n_tourist.localization,
         storage: false,
@@ -49,7 +49,7 @@ ConcreteHelpGuideManager.register('toolbar', function() {
         },
         onStart: function() {
             ConcreteHelpGuideManager.enterToolbarGuideMode()
-            $('#tourBackdrop').detach() // https://github.com/IGreatlyDislikeJavascript/bootstrap-tourist/issues/42
+            $('#tourBackdrop').detach() // https://github.com/bitterdev/bootstrap-tourist/issues/42
         },
         onShown: ConcreteHelpGuideManager.updateStepFooter,
         onEnd: function() {

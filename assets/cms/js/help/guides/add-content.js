@@ -9,7 +9,7 @@ ConcreteHelpGuideManager.register('add-content', function() {
     var tourRunning = false
     var tour = new Tour({
         steps: steps,
-        framework: 'bootstrap4',
+        framework: 'bootstrap5',
         template: ccmi18n_tourist.template,
         localization: ccmi18n_tourist.localization,
         storage: false,
@@ -23,7 +23,7 @@ ConcreteHelpGuideManager.register('add-content', function() {
         onStart: function() {
             ConcreteHelpGuideManager.enterToolbarGuideMode()
             ConcreteHelpGuideManager.launchGuideOnRefresh('add-content-edit-mode')
-            $('#tourBackdrop').detach() // https://github.com/IGreatlyDislikeJavascript/bootstrap-tourist/issues/42
+            $('#tourBackdrop').detach() // https://github.com/bitterdev/bootstrap-tourist/issues/42
             tourRunning = true
         },
         onShown: ConcreteHelpGuideManager.updateStepFooter,
