@@ -42,7 +42,7 @@ ConcreteHelpGuideManager.register('dashboard', function() {
 
     return new Tour({
         steps: steps,
-        framework: 'bootstrap4',
+        framework: 'bootstrap5',
         template: ccmi18n_tourist.template,
         localization: ccmi18n_tourist.localization,
         storage: false,
