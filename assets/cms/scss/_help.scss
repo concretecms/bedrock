@@ -27,7 +27,8 @@ div#ccm-toolbar {
 
   &[data-popper-placement^=top] {
     .popover-arrow {
-      &::before, &::after {
+      &::before,
+      &::after {
         border-top-color: $help-tour-background-color;
       }
     }
@@ -35,7 +36,8 @@ div#ccm-toolbar {
 
   &[data-popper-placement^=bottom] {
     .popover-arrow {
-      &::before, &::after {
+      &::before,
+      &::after {
         border-bottom-color: $help-tour-background-color;
       }
     }
@@ -43,7 +45,8 @@ div#ccm-toolbar {
 
   &[data-popper-placement^=left] {
     .popover-arrow {
-      &::before, &::after {
+      &::before,
+      &::after {
         border-left-color: $help-tour-background-color;
       }
     }
@@ -51,7 +54,8 @@ div#ccm-toolbar {
 
   &[data-popper-placement^=right] {
     .popover-arrow {
-      &::before, &::after {
+      &::before,
+      &::after {
         border-right-color: $help-tour-background-color;
       }
     }
@@ -102,25 +106,25 @@ div#ccm-toolbar {
 
   .ccm-help-tour-position {
     color: $help-tour-position-color;
+    float: left;
     font-size: 80%;
     margin-top: 0.3rem;
-    float: left;
   }
 
   .popover-navigation {
-    margin: 0;
-    padding: 0 !important;
+    color: $help-tour-position-color;
     float: right;
     font-size: 80%;
-    color: $help-tour-position-color;
+    margin: 0;
+    padding: 0 !important;
 
     .disabled {
       visibility: hidden;
     }
 
     a {
-      margin-left: 1rem;
       color: $help-tour-position-color !important;
+      margin-left: 1rem;
 
       &,
       &:hover {
