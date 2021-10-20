@@ -54,6 +54,20 @@
         </div>
 
         <div class="d-none">
+            <div data-dialog="save-theme-customizer-global-styles">
+
+                <div class="form-group">
+                    <p>This will apply this style to the entire site. Proceed?</p>
+                </div>
+
+                <div class="dialog-buttons">
+                    <button class="btn btn-primary float-end" @click="saveGlobalStyles" type="button">Confirm</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="d-none">
             <div data-dialog="delete-theme-customizer-skin">
 
                 <p>Are you sure you want to delete this custom skin? This cannot be undone.</p>
@@ -121,6 +135,20 @@ export default {
                 }
             })
         },
+        saveGlobalStyles() {
+            var my = this
+            new ConcreteAjaxRequest({
+                url: my.saveGlobalStylesAction,
+                data: {
+                    styles: my.customizerStyles,
+                    customCss: my.customizerCustomCss,
+                    ccm_token: CCM_SECURITY_TOKEN
+                },
+                success: function (r) {
+                    my.goBack()
+                }
+            })
+        },
         createNewSkin() {
             var my = this
             if (!my.newSkinName) {
@@ -130,7 +158,7 @@ export default {
             }
             if (!my.invalidSkinName) {
                 new ConcreteAjaxRequest({
-                    url: my.createNewAction,
+                    url: my.createNewSkinAction,
                     data: {
                         skinName: my.newSkinName,
                         styles: my.customizerStyles,
@@ -229,9 +257,10 @@ export default {
         ConcreteEvent.unsubscribe('ThemeCustomizerSaveSkin')
         ConcreteEvent.unsubscribe('ThemeCustomizerDeleteSkin')
         ConcreteEvent.unsubscribe('ThemeCustomizerCreateSkin')
+        ConcreteEvent.unsubscribe('ThemeCustomizerSaveGlobalStyles')
         ConcreteEvent.on('ThemeCustomizerSaveSkin', function () {
             new ConcreteAjaxRequest({
-                url: my.saveAction,
+                url: my.saveSkinAction,
                 data: {
                     styles: my.customizerStyles,
                     customCss: my.customizerCustomCss,
@@ -262,6 +291,17 @@ export default {
                 height: 'auto'
             })
         })
+
+        ConcreteEvent.on('ThemeCustomizerSaveGlobalStyles', function () {
+            jQuery.fn.dialog.open({
+                element: 'div[data-dialog=save-theme-customizer-global-styles]',
+                modal: true,
+                width: '400',
+                title: 'Save',
+                height: 'auto'
+            })
+        })
+
     },
     props: {
         previewAction: {
@@ -270,10 +310,13 @@ export default {
         deleteAction: {
             type: String
         },
-        saveAction: {
+        saveSkinAction: {
             type: String
         },
-        createNewAction: {
+        saveGlobalStylesAction: {
+            type: String
+        },
+        createNewSkinAction: {
             type: String
         },
         customCss: {
