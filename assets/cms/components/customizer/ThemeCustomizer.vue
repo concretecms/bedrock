@@ -319,7 +319,6 @@ export default {
                 height: 'auto'
             })
         })
-
     },
     props: {
         previewAction: {
