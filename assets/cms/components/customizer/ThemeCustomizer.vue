@@ -54,6 +54,30 @@
         </div>
 
         <div class="d-none">
+            <div data-dialog="save-theme-customizer-styles">
+
+                <div class="form-group">
+                    <p>Apply customizations to:</p>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="applyToThisPage" v-model="applyTo" value="page">
+                        <label class="form-check-label" for="applyToThisPage">This Page</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="applyToEntireSite" v-model="applyTo" value="site">
+                        <label class="form-check-label" for="applyToEntireSite">Entire Site</label>
+                    </div>
+
+                </div>
+
+                <div class="dialog-buttons">
+                    <button class="btn btn-primary float-end" @click="saveStyles" type="button">Confirm</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="d-none">
             <div data-dialog="delete-theme-customizer-skin">
 
                 <p>Are you sure you want to delete this custom skin? This cannot be undone.</p>
@@ -121,6 +145,27 @@ export default {
                 }
             })
         },
+        saveStyles() {
+            var my = this
+            new ConcreteAjaxRequest({
+                url: my.saveStylesAction,
+                data: {
+                    styles: my.customizerStyles,
+                    customCss: my.customizerCustomCss,
+                    applyTo: my.applyTo,
+                    ccm_token: CCM_SECURITY_TOKEN
+                },
+                success: function (r) {
+                    ConcreteAlert.notify({
+                        message: r.message,
+                        title: r.title
+                    })
+                    setTimeout(function() {
+                        window.location.reload()
+                    }, 1000)
+                }
+            })
+        },
         createNewSkin() {
             var my = this
             if (!my.newSkinName) {
@@ -130,7 +175,7 @@ export default {
             }
             if (!my.invalidSkinName) {
                 new ConcreteAjaxRequest({
-                    url: my.createNewAction,
+                    url: my.createNewSkinAction,
                     data: {
                         skinName: my.newSkinName,
                         styles: my.customizerStyles,
@@ -213,7 +258,8 @@ export default {
             newSkinName: '',
             addCustomCss: false,
             customizerStyles: [],
-            customizerCustomCss: ''
+            customizerCustomCss: '',
+            applyTo: 'site'
         }
     },
     mounted() {
@@ -229,9 +275,10 @@ export default {
         ConcreteEvent.unsubscribe('ThemeCustomizerSaveSkin')
         ConcreteEvent.unsubscribe('ThemeCustomizerDeleteSkin')
         ConcreteEvent.unsubscribe('ThemeCustomizerCreateSkin')
+        ConcreteEvent.unsubscribe('ThemeCustomizerSaveStyles')
         ConcreteEvent.on('ThemeCustomizerSaveSkin', function () {
             new ConcreteAjaxRequest({
-                url: my.saveAction,
+                url: my.saveSkinAction,
                 data: {
                     styles: my.customizerStyles,
                     customCss: my.customizerCustomCss,
@@ -262,6 +309,16 @@ export default {
                 height: 'auto'
             })
         })
+
+        ConcreteEvent.on('ThemeCustomizerSaveStyles', function () {
+            jQuery.fn.dialog.open({
+                element: 'div[data-dialog=save-theme-customizer-styles]',
+                modal: true,
+                width: '400',
+                title: 'Save',
+                height: 'auto'
+            })
+        })
     },
     props: {
         previewAction: {
@@ -270,10 +327,13 @@ export default {
         deleteAction: {
             type: String
         },
-        saveAction: {
+        saveSkinAction: {
             type: String
         },
-        createNewAction: {
+        saveStylesAction: {
+            type: String
+        },
+        createNewSkinAction: {
             type: String
         },
         customCss: {

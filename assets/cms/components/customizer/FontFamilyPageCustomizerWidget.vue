@@ -23,11 +23,13 @@ export default {
                 googleFontFamilies.push(font.name)
             }
         })
-        WebFont.load({
-            google: {
-                families: googleFontFamilies
-            }
-        })
+        if (WebFont && googleFontFamilies.length) {
+            WebFont.load({
+                google: {
+                    families: googleFontFamilies
+                }
+            })
+        }
     },
     methods: {
         componentUpdated: function () {
