@@ -54,14 +54,24 @@
         </div>
 
         <div class="d-none">
-            <div data-dialog="save-theme-customizer-global-styles">
+            <div data-dialog="save-theme-customizer-styles">
 
                 <div class="form-group">
-                    <p>This will apply this style to the entire site. Proceed?</p>
+                    <p>Apply customizations to:</p>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="applyToThisPage" v-model="applyTo" value="page">
+                        <label class="form-check-label" for="applyToThisPage">This Page</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="applyToEntireSite" v-model="applyTo" value="site">
+                        <label class="form-check-label" for="applyToEntireSite">Entire Site</label>
+                    </div>
+
                 </div>
 
                 <div class="dialog-buttons">
-                    <button class="btn btn-primary float-end" @click="saveGlobalStyles" type="button">Confirm</button>
+                    <button class="btn btn-primary float-end" @click="saveStyles" type="button">Confirm</button>
                 </div>
 
             </div>
@@ -135,17 +145,24 @@ export default {
                 }
             })
         },
-        saveGlobalStyles() {
+        saveStyles() {
             var my = this
             new ConcreteAjaxRequest({
-                url: my.saveGlobalStylesAction,
+                url: my.saveStylesAction,
                 data: {
                     styles: my.customizerStyles,
                     customCss: my.customizerCustomCss,
+                    applyTo: my.applyTo,
                     ccm_token: CCM_SECURITY_TOKEN
                 },
                 success: function (r) {
-                    my.goBack()
+                    ConcreteAlert.notify({
+                        message: r.message,
+                        title: r.title
+                    })
+                    setTimeout(function() {
+                        window.location.reload()
+                    }, 1000)
                 }
             })
         },
@@ -241,7 +258,8 @@ export default {
             newSkinName: '',
             addCustomCss: false,
             customizerStyles: [],
-            customizerCustomCss: ''
+            customizerCustomCss: '',
+            applyTo: 'site'
         }
     },
     mounted() {
@@ -257,7 +275,7 @@ export default {
         ConcreteEvent.unsubscribe('ThemeCustomizerSaveSkin')
         ConcreteEvent.unsubscribe('ThemeCustomizerDeleteSkin')
         ConcreteEvent.unsubscribe('ThemeCustomizerCreateSkin')
-        ConcreteEvent.unsubscribe('ThemeCustomizerSaveGlobalStyles')
+        ConcreteEvent.unsubscribe('ThemeCustomizerSaveStyles')
         ConcreteEvent.on('ThemeCustomizerSaveSkin', function () {
             new ConcreteAjaxRequest({
                 url: my.saveSkinAction,
@@ -292,9 +310,9 @@ export default {
             })
         })
 
-        ConcreteEvent.on('ThemeCustomizerSaveGlobalStyles', function () {
+        ConcreteEvent.on('ThemeCustomizerSaveStyles', function () {
             jQuery.fn.dialog.open({
-                element: 'div[data-dialog=save-theme-customizer-global-styles]',
+                element: 'div[data-dialog=save-theme-customizer-styles]',
                 modal: true,
                 width: '400',
                 title: 'Save',
@@ -313,7 +331,7 @@ export default {
         saveSkinAction: {
             type: String
         },
-        saveGlobalStylesAction: {
+        saveStylesAction: {
             type: String
         },
         createNewSkinAction: {
