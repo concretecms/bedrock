@@ -52,6 +52,7 @@ ConcreteHelpGuideManager.register('personalize', function() {
         localization: ccmi18n_tourist.localization,
         storage: false,
         showProgressBar: false,
+        container: '#ccm-tooltip-holder',
         sanitizeWhitelist: {
             a: [/^data-/, 'href']
         },

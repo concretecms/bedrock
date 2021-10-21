@@ -55,6 +55,7 @@ ConcreteHelpGuideManager.register('change-content-edit-mode', function() {
         template: ccmi18n_tourist.template,
         localization: ccmi18n_tourist.localization,
         storage: false,
+        container: '#ccm-tooltip-holder',
         showProgressBar: false,
         sanitizeWhitelist: {
             a: [/^data-/, 'href']
