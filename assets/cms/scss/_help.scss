@@ -25,6 +25,42 @@ div#ccm-toolbar {
     margin-bottom: 0.3rem;
   }
 
+  &[data-popper-placement^=top] {
+    .popover-arrow {
+      &::before,
+      &::after {
+        border-top-color: $help-tour-background-color;
+      }
+    }
+  }
+
+  &[data-popper-placement^=bottom] {
+    .popover-arrow {
+      &::before,
+      &::after {
+        border-bottom-color: $help-tour-background-color;
+      }
+    }
+  }
+
+  &[data-popper-placement^=left] {
+    .popover-arrow {
+      &::before,
+      &::after {
+        border-left-color: $help-tour-background-color;
+      }
+    }
+  }
+
+  &[data-popper-placement^=right] {
+    .popover-arrow {
+      &::before,
+      &::after {
+        border-right-color: $help-tour-background-color;
+      }
+    }
+  }
+
   &.bs-popover-top > .arrow::after,
   .bs-popover-auto[x-placement^=top] > .arrow::after {
     border-top-color: $help-tour-background-color;
@@ -70,11 +106,15 @@ div#ccm-toolbar {
 
   .ccm-help-tour-position {
     color: $help-tour-position-color;
+    float: left;
     font-size: 80%;
     margin-top: 0.3rem;
   }
 
   .popover-navigation {
+    color: $help-tour-position-color;
+    float: right;
+    font-size: 80%;
     margin: 0;
     padding: 0 !important;
 
@@ -83,6 +123,7 @@ div#ccm-toolbar {
     }
 
     a {
+      color: $help-tour-position-color !important;
       margin-left: 1rem;
 
       &,
