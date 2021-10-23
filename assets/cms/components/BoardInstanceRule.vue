@@ -23,7 +23,7 @@
             </a>
             <div style="display: none;">
                 <div :id="'preview-container-' + rule.id">
-                    <iframe v-if="previewLoaded" class="instance-rule-preview-frame"></iframe>
+                    <iframe v-if="previewLoaded" class="instance-rule-preview-frame" :src="previewUrl"></iframe>
                 </div>
             </div>
         </td>

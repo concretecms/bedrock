@@ -178,6 +178,10 @@ export default {
         },
 
         keywords() {
+            // Reset pagination until it comes back from the server again
+            this.ccm.pagination_mode = 'paging'
+            this.ccm.pagination_show = false
+            this.currentPage = -1
             this.fetchPages()
         },
 
