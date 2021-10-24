@@ -44,9 +44,13 @@ export default {
     computed: {
         webFonts: function() {
             var fonts = []
+            var my = this
             this.styleValue.style.fonts.forEach(function(font) {
                 fonts.push(font.name)
             })
+            if (fonts.indexOf(my.selectedFont) === -1) {
+                fonts.push(my.selectedFont)
+            }
             return fonts
         },
         standardFonts: function () {
