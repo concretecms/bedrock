@@ -51,12 +51,12 @@
     ConcreteDraftList.prototype = {
         showLoader: function() {
             var my = this
-            my.$element.find('.ccm-block-desktop-draft-list-for-me-loader').removeClass('hidden')
+            my.$element.find('.ccm-block-desktop-draft-list-for-me-loader').removeClass('invisible')
         },
 
         hideLoader: function() {
             var my = this
-            my.$element.find('.ccm-block-desktop-draft-list-for-me-loader').addClass('hidden')
+            my.$element.find('.ccm-block-desktop-draft-list-for-me-loader').addClass('invisible')
         }
 
     }
