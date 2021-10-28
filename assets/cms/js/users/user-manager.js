@@ -2,7 +2,7 @@
 class ConcreteUserManager {
     static launchDialog(callback, opts) {
         const options = {
-            multipleSelection: false
+            multipleSelection: ''
         }
 
         $.extend(options, opts)
@@ -17,11 +17,11 @@ class ConcreteUserManager {
             onOpen: function() {
                 ConcreteEvent.unsubscribe('UserSearchDialogSelectUser.core')
                 ConcreteEvent.subscribe('UserSearchDialogSelectUser.core', function (e, r) {
-                    const response = {}
+                    var response
                     if (!options.multipleSelection) {
-                        response.uID = r.uID[0]
+                        response = r.users[0]
                     } else {
-                        response.uID = r.uID
+                        response = r.users
                     }
 
                     $.fn.dialog.closeTop()

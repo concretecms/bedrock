@@ -1,20 +1,18 @@
 <template>
   <div>
     <div class="row mb-3">
-      <div class="col-md-4 ml-auto">
+      <div class="col-md-4 ms-auto">
         <form @submit.prevent="getExpressEntries">
           <div class="ccm-header-search-form-input input-group">
             <!--suppress HtmlFormInputWithoutLabel -->
-            <input type="text" class="form-control border-right-0" placeholder="Search" autocomplete="false"
+            <input type="text" class="form-control border-end-0" placeholder="Search" autocomplete="false"
                    v-model="keywords">
 
-            <div class="input-group-append">
-              <button type="submit" class="input-group-icon">
-                <svg width="16" height="16">
-                  <use xlink:href="#icon-search"/>
-                </svg>
-              </button>
-            </div>
+            <button type="submit" class="input-group-icon">
+              <svg width="16" height="16">
+                <use xlink:href="#icon-search"/>
+              </svg>
+            </button>
           </div>
         </form>
       </div>
@@ -216,34 +214,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-/* stylelint-disable selector-pseudo-element-no-unknown */
-@import '../../../../assets/cms/scss/bootstrap-overrides';
-
-.ccm-image-cell > label::v-deep i {
-  color: $gray-400;
-  font-size: 100px;
-  margin: 2px;
-  padding: 0.5rem;
-}
-
-.ccm-image-chooser-icon::v-deep i {
-  color: $gray-400;
-  font-size: 32px;
-}
-
-.search-icon {
-  display: inline-block;
-
-  .icon {
-    font-size: 7rem;
-  }
-}
-
-button {
-  .label {
-    margin: 0 10px;
-  }
-}
-</style>

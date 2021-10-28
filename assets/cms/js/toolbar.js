@@ -1,7 +1,7 @@
 /* eslint-disable no-new, no-unused-vars, camelcase, eqeqeq */
-/* global CCM_DISPATCHER_FILENAME, ConcreteEvent, ConcreteHelpGuideManager, ConcretePanelManager */
+/* global CCM_DISPATCHER_FILENAME, ConcreteEvent, ConcreteHelpGuideManager, ConcretePanelManager, bootstrap */
 
-/* Basic concrete5 toolbar class */
+/* Basic toolbar class */
 ;(function(global, $) {
     'use strict'
 
@@ -59,7 +59,17 @@
         if ($('#ccm-tooltip-holder').length == 0) {
             $('<div />').attr('id', 'ccm-tooltip-holder').attr('class', 'ccm-ui').prependTo(document.body)
         }
-        $('.launch-tooltip').tooltip({ container: '#ccm-tooltip-holder' })
+
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('.launch-tooltip'))
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl, {
+                container: '#ccm-tooltip-holder',
+                delay: {
+                    show: 500,
+                    hide: 0
+                }
+            })
+        })
     }
 
     function setupPanels() {

@@ -11,13 +11,13 @@
 @import './transitions';
 
 // jQuery UI
-@import '~jquery-ui/themes/base/core.css';
-@import '~jquery-ui/themes/base/resizable.css';
-@import '~jquery-ui/themes/base/dialog.css';
-@import '~jquery-ui/themes/base/datepicker.css';
-@import '~jquery-ui/themes/base/draggable.css';
-@import '~jquery-ui/themes/base/sortable.css';
-@import '~jquery-ui/themes/base/slider.css';
+@import 'jquery-ui/themes/base/core';
+@import 'jquery-ui/themes/base/resizable';
+@import 'jquery-ui/themes/base/dialog';
+@import 'jquery-ui/themes/base/datepicker';
+@import 'jquery-ui/themes/base/draggable';
+@import 'jquery-ui/themes/base/sortable';
+@import 'jquery-ui/themes/base/slider';
 @import './jquery-ui/theme';
 @import './jquery-ui/overrides';
 
@@ -54,10 +54,10 @@
 @import './sitemap';
 
 // Fancytree
-@import '~jquery.fancytree/dist/skin-bootstrap/ui.fancytree.css';
+@import 'jquery.fancytree/dist/skin-bootstrap/ui.fancytree';
 
 // Help System
-@import '~bootstrap-tourist/bootstrap-tourist.css';
+@import 'bootstrap-tourist/bootstrap-tourist';
 
 // File Manager
 @import './file-manager';
@@ -66,20 +66,26 @@
 @import './file-uploader';
 
 // Bootstrap Select
-@import '~bootstrap-select/sass/bootstrap-select';
-@import '~ajax-bootstrap-select/dist/css/ajax-bootstrap-select';
+@import 'bootstrap-select/sass/bootstrap-select';
+@import 'ajax-bootstrap-select/dist/css/ajax-bootstrap-select';
 
 // Forms
 @import './forms';
 
-// Selectize
-@import '~selectize-bootstrap4-theme/scss/selectize.bootstrap4';
 
-@import './selectize';
+// Bs5 box-shadow mixin needs to be imported again
+// Otherwise we will get a SassError due a mixin names conflict
+// Previously wasn't throwing the error because Selectize includes the BS mixins
+@import '~bootstrap/scss/mixins';
+
+//TODO: Check Selectize replacement
+//@import '~selectize-bootstrap4-theme/scss/selectize.bootstrap4';
+//@import './selectize';
 
 // Miscellaneous components
 @import './vue';
 @import './boards';
+@import './tasks';
 @import './pagination';
 @import './forms';
 @import './tabs';
@@ -87,7 +93,7 @@
 @import './item-select-list';
 @import './permission-grid';
 @import './tooltips';
-@import '~spectrum-colorpicker/spectrum.css';
+@import 'spectrum-colorpicker/spectrum';
 @import './icons';
 @import './date-time';
 @import './dropdown';

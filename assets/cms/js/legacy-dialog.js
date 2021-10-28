@@ -1,10 +1,10 @@
 /* eslint-disable no-new, no-unused-vars, camelcase, no-eval, eqeqeq */
-/* global NProgress, ccmi18n, ConcreteMenuManager, ConcreteAjaxRequest, ConcreteAlert */
+/* global NProgress, ccmi18n, ConcreteMenuManager, ConcreteAjaxRequest, ConcreteAlert, bootstrap */
 
 ;(function(global, $) {
     'use strict'
 
-    /* concrete5 wrapper for jQuery UI */
+    /* Concrete wrapper for jQuery UI */
     $.widget('concrete.dialog', $.ui.dialog, {
         _allowInteraction: function(event) {
             return !!$(event.target).closest('.ccm-interaction-dialog').length ||
@@ -37,7 +37,7 @@
         }
 
         var $close = $dialog.parent().find('.ui-dialog-titlebar-close')
-        $close.html('<svg><use xlink:href="#icon-dialog-close" /></svg>')
+        $close.addClass('btn-close btn-close-white')
         $.fn.dialog.activateDialogContents($dialog)
 
         // on some brother (eg: Chrome) the resizable get hidden because the button pane
@@ -65,7 +65,7 @@
         /*
          * This keeps our buttons left and right, but we're not sure we want that, so let's not do that yet.
          */
-        // $ccmButtons.find('[data-dialog-action=cancel]').addClass('mr-auto')
+        // $ccmButtons.find('[data-dialog-action=cancel]').addClass('me-auto')
         $ccmButtons
             .children()
             .appendTo($dialogParent.find('.ui-dialog-buttonpane').empty())
@@ -326,7 +326,10 @@
             $dialog.dialog('close')
         })
 
-        $dialog.find('.launch-tooltip').tooltip({ container: '#ccm-tooltip-holder' })
+        const tooltipTriggerList = [].slice.call($dialog.find('.launch-tooltip'))
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl, { container: '#ccm-tooltip-holder' })
+        })
 
         // help handling
         if ($dialog.find('.dialog-help').length > 0) {
@@ -338,7 +341,7 @@
             } else {
                 helpText = 'Help'
             }
-            var button = $('<button class="ui-dialog-titlebar-help ccm-menu-help-trigger"><svg><use xlink:href="#icon-dialog-help" /></svg></button>')
+            var button = $('<button class="btn-help"><svg><use xlink:href="#icon-dialog-help" /></svg></button>')
             var container = $('#ccm-tooltip-holder')
             button.insertBefore($dialog.parent().find('.ui-dialog-titlebar-close'))
 

@@ -14,6 +14,7 @@ import ConcreteExpressEntryInput from './form/ConcreteExpressEntryInput'
 import ConcretePageChooserSearch from './page/Chooser/ChooserSearch'
 import ConcretePageInput from './form/ConcretePageInput'
 import ConcreteUserInput from './form/ConcreteUserInput'
+import ConcreteThemeColorInput from './form/ConcreteThemeColorInput'
 import ConcreteEventOccurrenceInput from './form/ConcreteEventOccurrenceInput'
 import ConcreteFileChooser from './file-manager/Chooser'
 import ConcreteExpressEntrySelector from './express/Selector'
@@ -22,6 +23,13 @@ import ConcreteGroupChooser from './groups/Chooser'
 import ConcreteFileUploader from './file-manager/Uploader/UploadFromComputer'
 import Board from './Board'
 import BoardSlot from './BoardSlot'
+import BoardInstanceRule from './BoardInstanceRule'
+import BoardInstanceRuleList from './BoardInstanceRuleList'
+import IconSelector from './form/IconSelector'
+import CompletedProcessList from './CompletedProcessList'
+import RunningProcessList from './RunningProcessList'
+import ThemeCustomizer from './customizer/ThemeCustomizer'
+import ThemeCustomizerPreview from './customizer/ThemeCustomizerPreview'
 
 // Export our component library
 export default {
@@ -38,6 +46,7 @@ export default {
     ConcreteUserChooser,
     ConcreteFileChooser,
     ConcreteFileInput,
+    ConcreteThemeColorInput,
     ConcreteExpressEntryInput,
     ConcreteExpressEntrySelector,
     ConcreteFileUploader,
@@ -48,5 +57,12 @@ export default {
     ConcreteEventOccurrenceInput,
     ConcreteFileDirectoryInput,
     Board,
-    BoardSlot
+    BoardSlot,
+    BoardInstanceRule,
+    BoardInstanceRuleList,
+    IconSelector,
+    RunningProcessList,
+    CompletedProcessList,
+    ThemeCustomizer,
+    ThemeCustomizerPreview
 }

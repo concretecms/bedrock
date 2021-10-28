@@ -24,17 +24,17 @@ export const allButtonTypes = () => ({
     <div class='ccm-ui'>
         <p>Clicks: {{ clicks }}</p>
         <div class='d-flex relative'>
-            <div class='ml-2 d-flex flex-column' v-for='(type, idx) in types'>
+            <div class='ms-2 d-flex flex-column' v-for='(type, idx) in types'>
                 <div class='d-flex align-items-baseline justify-content-end'>
-                    <strong class='mr-2'v-if='idx === 0'>Regular</strong>
+                    <strong class='me-2'v-if='idx === 0'>Regular</strong>
                     <IconButton button-class='mb-2' @click='() => clicks++' v-bind='{type}' icon='trash' icon-type='fas'>{{ type | capitalize }}</IconButton>
                 </div>
                 <div class='d-flex align-items-baseline justify-content-end'>
-                    <strong class='mr-2' v-if='idx === 0'>Active</strong>
+                    <strong class='me-2' v-if='idx === 0'>Active</strong>
                     <IconButton button-class='mb-2 active' @click='() => clicks++' v-bind='{type}' icon='trash' icon-type='fas'>{{ type | capitalize }}</IconButton>
                 </div>
                 <div class='d-flex align-items-baseline justify-content-end'>
-                    <strong class='mr-2' v-if='idx === 0'>Disabled</strong>
+                    <strong class='me-2' v-if='idx === 0'>Disabled</strong>
                     <IconButton button-class='mb-2 disabled' disabled @click='() => clicks++' v-bind='{type}' icon='trash' icon-type='fas'>{{ type | capitalize }}</IconButton>
                 </div>
             </div>
