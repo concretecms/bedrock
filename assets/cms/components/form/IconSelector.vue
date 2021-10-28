@@ -44,14 +44,14 @@ export default {
 
             Object.entries(icons.fas).forEach(function(value) {
                 arr.push({
-                    value: 'fas fa-' + value,
-                    label: value
+                    value: 'fas fa-' + value[1],
+                    label: value[0]
                 })
             })
             Object.entries(icons.fab).forEach(function(value) {
                 arr.push({
-                    value: 'fab fa-' + value,
-                    label: value
+                    value: 'fab fa-' + value[1],
+                    label: value[0]
                 })
             })
 
