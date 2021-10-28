@@ -1,5 +1,5 @@
 <template>
-    <select class="form-select" :name="name" :title="title" v-model="selectedOption" ref="iconSelector">
+    <select class="form-control" :name="name" :title="title" v-model="selectedOption" ref="iconSelector">
         <option v-for="icon in icons" :value="icon.value" :data-icon="icon.value + ' fa-fw'">{{ icon.label }}</option>
     </select>
 </template>

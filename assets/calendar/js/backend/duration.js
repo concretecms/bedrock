@@ -321,6 +321,10 @@
             var startDate = my.getSelectedStartDate()
             var endDate = my.getSelectedEndDate()
 
+            if (!endDate) {
+                return;
+            }
+
             var difference = ((endDate.getTime() / 1000) - (startDate.getTime() / 1000))
             var $wrapper = my.$element.find('div[data-wrapper=duration-repeat-weekly-dow]')
 
