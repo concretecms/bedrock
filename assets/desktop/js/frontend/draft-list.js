@@ -1,5 +1,4 @@
 /* eslint-disable no-new, no-unused-vars, camelcase */
-/* global ConcreteEvent */
 
 ;(function(global, $) {
     'use strict'
@@ -10,22 +9,6 @@
 
         my.$element = $element
         my.options = options
-
-        ConcreteEvent.unsubscribe('SitemapDeleteRequestComplete')
-        ConcreteEvent.subscribe('SitemapDeleteRequestComplete', function (e) {
-            my.hideLoader()
-            $.concreteAjax({
-                dataType: 'html',
-                url: my.options.reloadUrl,
-                method: 'get',
-                success: function (r) {
-                    my.$element.replaceWith(r)
-                },
-                complete: function() {
-                    my.hideLoader()
-                }
-            })
-        })
 
         my.$element.on('click', 'div.ccm-pagination-wrapper a', function(e) {
             e.preventDefault()

@@ -322,7 +322,7 @@
             var endDate = my.getSelectedEndDate()
 
             if (!endDate) {
-                return;
+                return
             }
 
             var difference = ((endDate.getTime() / 1000) - (startDate.getTime() / 1000))
