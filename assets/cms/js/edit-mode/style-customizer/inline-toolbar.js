@@ -1,9 +1,9 @@
 /* eslint-disable no-new, no-unused-vars, camelcase, no-irregular-whitespace, new-cap */
+
 /* global bootstrap */
 function ConcreteInlineStyleCustomizer($element, options) {
     var my = this
-    options = $.extend({
-    }, options)
+    options = $.extend({}, options)
 
     my.options = options
     my.$element = $element
@@ -19,7 +19,7 @@ function ConcreteInlineStyleCustomizer($element, options) {
 
 ConcreteInlineStyleCustomizer.prototype = {
 
-    refreshStyles: function(resp) {
+    refreshStyles: function (resp) {
         if (resp.oldIssID) {
             $('head').find('style[data-style-set=' + resp.oldIssID + ']').remove()
         }
@@ -28,41 +28,41 @@ ConcreteInlineStyleCustomizer.prototype = {
         }
     },
 
-    setupForm: function() {
+    setupForm: function () {
         var my = this
         const tooltipTriggerList = [].slice.call(my.$element.find('.launch-tooltip'))
         const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
         my.$element.concreteAjaxForm({
-            success: function(resp) {
+            success: function (resp) {
                 my.handleResponse(resp)
             },
-            error: function(r) {
+            error: function (r) {
                 my.$toolbar.prependTo('#ccm-inline-toolbar-container').show()
             }
         })
     },
 
-    setupButtons: function() {
+    setupButtons: function () {
         var my = this
-        my.$toolbar.on('click.inlineStyleCustomizer', 'input[data-action=cancel-design]', function() {
+        my.$toolbar.on('click.inlineStyleCustomizer', 'input[data-action=cancel-design]', function () {
             my.$element.hide()
             ConcreteEvent.fire('EditModeExitInline')
             return false
         })
 
-        my.$toolbar.on('click.inlineStyleCustomizer', 'input[data-action=reset-design]', function() {
+        my.$toolbar.on('click.inlineStyleCustomizer', 'input[data-action=reset-design]', function () {
             $.concreteAjax({
                 url: $(this).attr('data-reset-action'),
-                success: function(resp) {
+                success: function (resp) {
                     my.handleResponse(resp)
                 }
             })
             return false
         })
 
-        my.$toolbar.on('click.inlineStyleCustomizer', 'input[data-action=save-design]', function() {
+        my.$toolbar.on('click.inlineStyleCustomizer', 'input[data-action=save-design]', function () {
             // move the toolbar back into the form so it submits. so great.
             my.$toolbar.hide().prependTo(my.$element)
             my.$element.submit()
@@ -71,7 +71,7 @@ ConcreteInlineStyleCustomizer.prototype = {
         })
     },
 
-    setupDropdowns: function() {
+    setupDropdowns: function () {
         var my = this
         my.$toolbar.find('.ccm-inline-toolbar-icon-cell > a').on('click', function () {
             const $dropdown = $(this).parent().find('.ccm-dropdown-menu')
@@ -87,7 +87,7 @@ ConcreteInlineStyleCustomizer.prototype = {
         })
     },
 
-    setupDeviceVisibilityComponent: function() {
+    setupDeviceVisibilityComponent: function () {
         var my = this
         my.$toolbar.find('button[data-hide-on-device]').on('click', function (e) {
             e.stopPropagation()
@@ -104,7 +104,7 @@ ConcreteInlineStyleCustomizer.prototype = {
         })
     },
 
-    setupSelectBoxes: function() {
+    setupSelectBoxes: function () {
         var my = this
 
         my.$toolbar.find('.selectpicker').selectpicker()
@@ -117,9 +117,9 @@ ConcreteInlineStyleCustomizer.prototype = {
         })
     },
 
-    setupSliders: function() {
+    setupSliders: function () {
         var my = this
-        my.$toolbar.find('.ccm-inline-style-sliders').each(function() {
+        my.$toolbar.find('.ccm-inline-style-sliders').each(function () {
             var targetInput = $(this).next().children('.ccm-inline-style-slider-value')
             var targetInputFormat = targetInput.attr('data-value-format')
             var sliderElement = $(this)
@@ -139,7 +139,7 @@ ConcreteInlineStyleCustomizer.prototype = {
                 min: min,
                 max: max,
                 value: currentValue(),
-                slide: function(event, ui) {
+                slide: function (event, ui) {
                     targetInput.prop('disabled', false)
                     targetInput.val(ui.value + targetInputFormat)
                     disableCheck()
@@ -181,7 +181,7 @@ function ConcreteBlockInlineStyleCustomizer($element, options) {
 
 ConcreteBlockInlineStyleCustomizer.prototype = Object.create(ConcreteInlineStyleCustomizer.prototype)
 
-ConcreteBlockInlineStyleCustomizer.prototype.handleResponse = function(resp) {
+ConcreteBlockInlineStyleCustomizer.prototype.handleResponse = function (resp) {
     var my = this
     var editor = new Concrete.getEditMode()
     var area = editor.getAreaByID(resp.aID)
@@ -222,7 +222,7 @@ function ConcreteAreaInlineStyleCustomizer($element, options) {
 
 ConcreteAreaInlineStyleCustomizer.prototype = Object.create(ConcreteInlineStyleCustomizer.prototype)
 
-ConcreteAreaInlineStyleCustomizer.prototype.handleResponse = function(resp) {
+ConcreteAreaInlineStyleCustomizer.prototype.handleResponse = function (resp) {
     var my = this
     var editor = new Concrete.getEditMode()
     var area = editor.getAreaByID(resp.aID)
@@ -257,21 +257,21 @@ $.fn.concreteInlineStyleCustomizer = function (options) {
     })
 }
 
-$.fn.removeClassExcept = function (val) {
-    return this.each(function (index, el) {
-        var keep = val.split(' ')  // list we'd like to keep
-        var reAdd = [] // ones that should be re-added if found
-        var $el = $(el) // element we're working on
+$.fn.removeClassExcept = function (val) {
+    return this.each(function (index, el) {
+        var keep = val.split(' ')
+        var reAdd = [] // ones that should be re-added if found
+        var $el = $(el) // element we're working on
 
         // look for which we re-add (based on them already existing)
-        for (var i = 0; i < keep.length; i++) {
-            if ($el.hasClass(keep[i])) reAdd.push(keep[i])
+        for (var i = 0; i < keep.length; i++) {
+            if ($el.hasClass(keep[i])) reAdd.push(keep[i])
         }
 
         // drop all, and only add those confirmed as existing
         $el
             .removeClass() // remove existing classes
-            .addClass(reAdd.join(' '))  // re-add the confirmed ones
+            .addClass(reAdd.join(' '))
     })
 }
 
