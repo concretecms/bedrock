@@ -11,7 +11,15 @@ export default {
         width: Number,
         height: Number,
         uploadurl: String,
-        src: String
+        src: String,
+        cancelConfirmText: {
+            type: String,
+            default: 'Are you sure you want to quit?'
+        },
+        canceledText: {
+            type: String,
+            default: 'Upload canceled.'
+        }
     },
 
     // Our internal state
@@ -177,8 +185,8 @@ export default {
          * Handle x mark click
          */
         handleCancel() {
-            if (window.confirm('Are you sure you want to quit?')) {
-                this.done.call(this.dropzone, 'Cancelled upload.')
+            if (window.confirm(this.cancelConfirmText)) {
+                this.done.call(this.dropzone, this.canceledText)
                 this.img = null
                 this.saving = false
                 this.dropzone.destroy()
