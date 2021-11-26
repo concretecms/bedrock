@@ -1,7 +1,7 @@
 <template>
     <select @change="componentUpdated" class="form-select form-select-sm" v-model="textTransform"
             :style="{'text-transform': textTransform}">
-        <option v-for="transformValue in transformValues" :value="transformValue">{{ transformValue }}</option>
+        <option v-for="transformValue in transformValues" :value="transformValue">{{ getTransformValueDisplayName(transformValue) }}</option>
     </select>
 </template>
 
@@ -22,6 +22,12 @@ export default {
                     textTransform: this.textTransform
                 }
             })
+        },
+        getTransformValueDisplayName: function (id) {
+            if (window.ccmi18n_styleCustomizer && window.ccmi18n_styleCustomizer.textTransform && window.ccmi18n_styleCustomizer.textTransform[id]) {
+                return window.ccmi18n_styleCustomizer.textTransform[id];
+            }
+            return id;
         }
     },
     computed: {
