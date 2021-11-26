@@ -100,7 +100,7 @@ export default {
                     })
 
                     this.on('error', function (event, data) {
-                        component.setError(data.message)
+                        component.setError(typeof data === 'string' ? data : data.message)
                         component.currentimage = component.src
                     })
 
