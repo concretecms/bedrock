@@ -24,14 +24,14 @@
                     <tr>
                         <th></th>
                         <th></th>
-                        <th>ID</th>
+                        <th>{{ i18n.id }}</th>
                         <th :class="getSortColumnClassName('fv.fvTitle')">
-                            <a v-if="enableSort" href="#" @click.prevent="sortBy('fv.fvTitle')">Name</a>
-                            <span v-else>Name</span>
+                            <a v-if="enableSort" href="#" @click.prevent="sortBy('fv.fvTitle')">{{ i18n.name }}</a>
+                            <span v-else>{{ i18n.name }}</span>
                         </th>
                         <th :class="getSortColumnClassName(dateSortColumn)">
-                            <a v-if="enableSort" href="#" @click.prevent="sortBy(dateSortColumn)">Uploaded</a>
-                            <span v-else>Uploaded</span>
+                            <a v-if="enableSort" href="#" @click.prevent="sortBy(dateSortColumn)">{{ i18n.uploaded }}</a>
+                            <span v-else>{{ i18n.uploaded }}</span>
                         </th>
                     </tr>
                     </thead>
@@ -80,6 +80,11 @@ export default {
         Pagination
     },
     data: () => ({
+        i18n: {
+            id: 'ID',
+            name: 'Name',
+            uploaded: 'Uploaded'
+        },
         currentPage: 1,
         rows: false,
         fileList: [],
@@ -232,6 +237,15 @@ export default {
         onItemClick(file) {
             if (file.isFolder) {
                 this.$emit('folderClick', file.treeNodeID)
+            }
+        }
+    },
+    mounted: function() {
+        if (window.ccmi18n_filemanager) {
+            for (let key in this.i18n) {
+                if (window.ccmi18n_filemanager[key]) {
+                    this.i18n[key] = window.ccmi18n_filemanager[key];
+                }
             }
         }
     },
