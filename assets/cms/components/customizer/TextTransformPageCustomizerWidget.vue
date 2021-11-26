@@ -24,8 +24,8 @@ export default {
             })
         },
         getTransformValueDisplayName: function (id) {
-            if (window.ccmi18n_styleCustomizer && window.ccmi18n_styleCustomizer.textTransform && window.ccmi18n_styleCustomizer.textTransform[id]) {
-                return window.ccmi18n_styleCustomizer.textTransform[id];
+            if (window.ccmi18n_styleCustomizer && window.ccmi18n_styleCustomizer.textTransforms && window.ccmi18n_styleCustomizer.textTransforms[id]) {
+                return window.ccmi18n_styleCustomizer.textTransforms[id];
             }
             return id;
         }
