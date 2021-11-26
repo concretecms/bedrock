@@ -12,7 +12,7 @@
               </option>
             </select>
 
-            <input type="text" class="form-control border-end-0" placeholder="Search" autocomplete="false"
+            <input type="text" class="form-control border-end-0" :placeholder="i18n.search" autocomplete="false"
                    v-model="searchText">
             <button type="submit" class="input-group-icon">
               <svg width="16" height="16">
@@ -27,7 +27,7 @@
             <span class="search-icon my-4">
                 <Icon icon="search" type="fas" color="#f4f4f4"/>
             </span>
-      <p><b>Let's get some info on what you're looking for.</b></p>
+      <p><b>{{ i18n.initialExternalFileProviderChooserTip }}</b></p>
     </div>
     <div>
       <files v-if="keywords"
@@ -66,6 +66,10 @@ export default {
     ConcreteFileDirectoryInput
   },
   data: () => ({
+    i18n: {
+      search: 'Search',
+      initialExternalFileProviderChooserTip: "Let's get some info on what you're looking for."
+    },
     uploadDirectoryId: 0,
     fileTypes: [],
     searchText: '',
@@ -121,6 +125,13 @@ export default {
     }
   },
   mounted() {
+    if (window.ccmi18n_filemanager) {
+      for (let key in this.i18n) {
+        if (window.ccmi18n_filemanager[key]) {
+          this.i18n[key] = window.ccmi18n_filemanager[key];
+        }
+      }
+    }
     this.formFactor = this.resultsFormFactor
     this.getFileTypes()
     this.$refs.folderSelector.selectedDirectoryID = this.extraData.uploadDirectoryId
