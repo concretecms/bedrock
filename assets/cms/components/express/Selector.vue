@@ -5,7 +5,7 @@
         <form @submit.prevent="getExpressEntries">
           <div class="ccm-header-search-form-input input-group">
             <!--suppress HtmlFormInputWithoutLabel -->
-            <input type="text" class="form-control border-end-0" placeholder="Search" autocomplete="false"
+            <input type="text" class="form-control border-end-0" :placeholder="i18n.search" autocomplete="false"
                    v-model="keywords">
 
             <button type="submit" class="input-group-icon">
@@ -30,16 +30,16 @@
               <th></th>
               <th :class="getSortColumnClassName('e.exEntryDateCreated')">
                 <a href="#" @click.prevent="sortBy('exEntryDateCreated')">
-                  Date Added
+                  {{ i18n.dateAdded }}
                 </a>
               </th>
               <th :class="getSortColumnClassName('e.exEntryDateModified')">
                 <a href="#" @click.prevent="sortBy('e.exEntryDateModified')">
-                  Date Modified
+                  {{ i18n.dateModified }}
                 </a>
               </th>
               <th>
-                <span>Name</span>
+                <span>{{ i18n.name }}</span>
               </th>
             </tr>
             </thead>
@@ -67,11 +67,11 @@
 
     <div class="dialog-buttons">
       <button class="btn btn-secondary" data-dialog-action="cancel">
-        Cancel
+        {{ i18n.cancel }}
       </button>
 
       <button type="button" @click="selectEntry" :disabled="selectedEntry === null" class="btn btn-primary">
-        Select
+        {{ i18n.select }}
       </button>
     </div>
   </div>
@@ -95,6 +95,14 @@ export default {
     }
   },
   data: () => ({
+    i18n: {
+      search: 'Search',
+      dateAdded: 'Date Added',
+      dateModified: 'Date Modified',
+      name: 'Name',
+      cancel: 'Cancel',
+      select: 'Select',
+    },
     keywords: '',
     selectedEntry: null,
     currentPage: 1,
@@ -210,6 +218,13 @@ export default {
     }
   },
   mounted() {
+    if (window.ccmi18n_express) {
+      for (let key in this.i18n) {
+        if (window.ccmi18n_express[key]) {
+          this.i18n[key] = window.ccmi18n_express[key];
+        }
+      }
+    }
     this.getExpressEntries()
   }
 }
