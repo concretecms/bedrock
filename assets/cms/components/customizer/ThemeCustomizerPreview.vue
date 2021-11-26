@@ -7,7 +7,7 @@
         <div v-if="loadingPreview">
             <div class="text-center mt-5 display-4 text-secondary">
                 <i class="fa fa-cog fa-spin"></i>
-                Loading...
+                {{ i18n.loading }}
             </div>
         </div>
     </div>
@@ -22,11 +22,21 @@ export default {
     },
     data: function () {
         return {
+            i18n: {
+                loading: 'Loading...'
+            },
             loadingPreview: true
         }
     },
     mounted() {
         var my = this
+        if (window.ccmi18n_styleCustomizer) {
+            for (let key in my.i18n) {
+                if (window.ccmi18n_styleCustomizer[key]) {
+                    my.i18n[key] = window.ccmi18n_styleCustomizer[key];
+                }
+            }
+        }
         $('iframe[name=ccm-theme-preview-frame]').on('load', function() {
             my.loadingPreview = false
         })
