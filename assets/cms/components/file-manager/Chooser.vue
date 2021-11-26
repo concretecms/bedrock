@@ -41,11 +41,11 @@
             </div>
         </div>
         <div class="dialog-buttons">
-            <button class="btn btn-secondary" data-dialog-action="cancel">Cancel</button>
+            <button class="btn btn-secondary" data-dialog-action="cancel">{{ i18n.cancel }}</button>
 
-            <button type="button" v-show="isImportExternalFilesMode()" @click="importExternalFiles" :disabled="selectedFiles.length === 0" class="btn btn-primary">Import</button>
-            <button type="button" v-show="isChooseFilesMode()" @click="chooseFiles" :disabled="selectedFiles.length === 0" class="btn btn-primary">Choose</button>
-            <button type="button" v-show="isAddNewFilesMode()" @click="uploadFiles" :disabled="uploadReady === false" class="btn btn-primary">Upload</button>
+            <button type="button" v-show="isImportExternalFilesMode()" @click="importExternalFiles" :disabled="selectedFiles.length === 0" class="btn btn-primary">{{ i18n.import }}</button>
+            <button type="button" v-show="isChooseFilesMode()" @click="chooseFiles" :disabled="selectedFiles.length === 0" class="btn btn-primary">{{ i18n.choose }}</button>
+            <button type="button" v-show="isAddNewFilesMode()" @click="uploadFiles" :disabled="uploadReady === false" class="btn btn-primary">{{ i18n.upload }}</button>
         </div>
     </div>
 </template>
@@ -74,6 +74,16 @@ export default {
     },
     data() {
         return {
+            i18n: {
+                cancel: 'Cancel',
+                import: 'Import',
+                choose: 'Choose',
+                upload: 'Upload',
+                recentlyUploaded: 'Recently Uploaded',
+                fileManager: 'File Manager',
+                search: 'Search',
+                uploadFiles: 'Upload Files'
+            },
             filesReadyToUpload: 0,
             activeNavItem: null,
             resultsFormFactor: 'grid',
@@ -91,15 +101,15 @@ export default {
             default: [
                 {
                     key: 'recent-uploads',
-                    title: 'Recently Uploaded'
+                    title: null, // use the detault one if null
                 },
                 {
                     key: 'file-manager',
-                    title: 'File Manager'
+                    title: null, // use the detault one if null
                 },
                 {
                     key: 'search',
-                    title: 'Search'
+                    title: null, // use the detault one if null
                 }
             ]
         },
@@ -108,7 +118,7 @@ export default {
             default: [
                 {
                     key: 'file-upload',
-                    title: 'Upload Files'
+                    title: null, // use the detault one if null
                 }
             ]
         },
@@ -122,11 +132,57 @@ export default {
     },
     mounted() {
         var my = this
+        if (window.ccmi18n_filemanager) {
+            for (let key in my.i18n) {
+                if (window.ccmi18n_filemanager[key]) {
+                    my.i18n[key] = window.ccmi18n_filemanager[key];
+                }
+            }
+        }
+        this.applyLocalization();
         ConcreteEvent.subscribe('FileUploaderFilesReadyToUpload', function(e, filesReadyToUpload) {
             my.filesReadyToUpload = filesReadyToUpload
         })
     },
+    watch: {
+        choosers() {
+            this.applyLocalization();
+        },
+        uploaders() {
+            this.applyLocalization();
+        },
+    },
     methods: {
+        applyLocalization() {
+            if (this.choosers) {
+                for (let chooser of this.choosers) {
+                    if (typeof chooser.title !== 'string') {
+                        switch (chooser.key) {
+                            case 'recent-uploads':
+                                chooser.title = this.i18n.recentlyUploaded;
+                                break;
+                            case 'file-manager':
+                                chooser.title = this.i18n.fileManager;
+                                break;
+                            case 'search':
+                                chooser.title = this.i18n.search;
+                                break;
+                        }
+                    }
+                }
+            }
+            if (this.uploaders) {
+                for (let uploader of this.uploaders) {
+                    if (typeof uploader.title !== 'string') {
+                        switch (uploader.key) {
+                            case 'file-upload':
+                                uploader.title = this.i18n.uploadFiles;
+                                break;
+                        }
+                    }
+                }
+            }
+        },
         isImportExternalFilesMode() {
             return this.activeNavItem.componentKey === 'external-file-provider'
         },
