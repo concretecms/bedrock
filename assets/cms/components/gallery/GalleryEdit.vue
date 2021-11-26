@@ -6,14 +6,14 @@
                 <a class="nav-link"
                     :class="activeTab === 'image' ? 'active' : ''"
                     @click="openTab('image')">
-                    Images
+                    {{ i18n.images }}
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link"
                     @click="openTab('settings')"
                     :class="activeTab === 'settings' ? 'active' : ''">
-                    Settings
+                    {{ i18n.settings }}
                 </a>
             </li>
         </ul>
@@ -22,7 +22,7 @@
             <div v-show="activeTab === 'image'"  id="galleryImages">
                 <div class="text-end mt-4">
                     <icon-button icon="plus" icon-type="fas" type="outline" class="btn btn-secondary" @click="addImage()">
-                        Add Images
+                        {{ i18n.addImages }}
                     </icon-button>
                 </div>
                 <div class="image-container mt-4"
@@ -51,13 +51,13 @@
             </div>
             <div v-show="activeTab === 'settings'" id="gallerySettings">
                 <h3>
-                  Settings
+                  {{ i18n.settings }}
                 </h3>
 
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" id="includeDownloadLink" :value="1" :checked="$root.includeDownloadLink" name="includeDownloadLink">
                   <label class="form-check-label" for="includeDownloadLink">
-                      Include link to download original
+                      {{ i18n.includeOriginalDownloadLink }}
                   </label>
                 </div>
             </div>
@@ -143,6 +143,12 @@ export default {
         ...ImageDetail.components
     },
     data: () => ({
+        i18n: {
+            images: 'Images',
+            settings: 'Settings',
+            addImages: 'Add Images',
+            includeOriginalDownloadLink: 'Include link to download original',
+        },
         activeTab: 'image',
         activeImage: null
     }),
@@ -198,6 +204,15 @@ export default {
             }, {
                 multipleSelection: true
             })
+        }
+    },
+    mounted() {
+        if (window.ccmi18n_gallery) {
+            for (let key in this.i18n) {
+                if (window.ccmi18n_gallery[key]) {
+                    this.i18n[key] = window.ccmi18n_gallery[key];
+                }
+            }
         }
     },
     props: {
