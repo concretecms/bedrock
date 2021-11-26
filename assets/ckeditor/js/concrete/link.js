@@ -39,8 +39,8 @@
                         infoTab.add({
                             type: 'button',
                             id: 'sitemapBrowse',
-                            label: 'Sitemap',
-                            title: 'Sitemap',
+                            label: ccmi18n_editor.sitemap,
+                            title: ccmi18n_editor.sitemap,
                             onClick: function() {
                                 jQuery.fn.dialog.open({
                                     width: '90%',
@@ -82,13 +82,13 @@
                                 id: 'lightboxFeatures',
                                 children: [{
                                     type: 'fieldset',
-                                    label: 'Lightbox Features',
+                                    label: ccmi18n_editor.lightboxFeatures,
                                     children: [{
                                         type: 'hbox',
                                         children: [{
                                             type: 'checkbox',
                                             id: 'imageLightbox',
-                                            label: 'Linking to an image',
+                                            label: ccmi18n_editor.imageLink,
                                             setup: function(data) {
                                                 var link = getSelectedLink()
                                                 if (link !== null && typeof data.target !== 'undefined') {
