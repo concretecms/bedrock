@@ -102,7 +102,7 @@
             var buttons = {
                 name: 'snippets',
                 icon: 'snippet.png',
-                title: 'Snippets',
+                title: ccmi18n_editor.snippets,
                 items: []
             }
             if (editor.config.snippets) {
