@@ -3,14 +3,14 @@
         <nav :aria-label="ariaLabel">
             <ul class="pagination">
                 <li :class="{'page-item': true, 'disabled': prevDisabled}">
-                    <a class="page-link" href="#" :aria-label="labelPrevPage" @click.prevent="onClick('prev', $event)">
-                        <span aria-hidden="true">{{prevText}}</span>
+                    <a class="page-link" href="#" :aria-label="finalLabelPrevPage" @click.prevent="onClick('prev', $event)">
+                        <span aria-hidden="true">{{finalPrevText}}</span>
                     </a>
                 </li>
                 <li v-for="page in pageList" :key="page.number" :class="{'page-item': true, 'active': page.number === currentPage}"><a class="page-link" href="#" @click.prevent="onClick(page.number)">{{page.text || page.number}}</a></li>
                 <li :class="{'page-item': true, 'disabled': nextDisabled}">
-                    <a class="page-link" href="#" :aria-label="labelNextPage" @click.prevent="onClick('next', $event)">
-                        <span aria-hidden="true">{{nextText}}</span>
+                    <a class="page-link" href="#" :aria-label="finalLabelNextPage" @click.prevent="onClick('next', $event)">
+                        <span aria-hidden="true">{{finalNextText}}</span>
                     </a>
                 </li>
             </ul>
@@ -55,11 +55,11 @@ export default {
         },
         nextText: {
             type: String,
-            default: 'Next →'
+            required: false,
         },
         labelNextPage: {
             type: String,
-            default: 'Next'
+            required: false,
         },
         prevCursor: {
             type: [Number, String, null],
@@ -70,11 +70,11 @@ export default {
         },
         labelPrevPage: {
             type: String,
-            default: 'Previous'
+            required: false,
         },
         prevText: {
             type: String,
-            default: '← Previous'
+            required: false,
         },
         perPage: {
             type: [Number, String],
@@ -102,6 +102,10 @@ export default {
         }
 
         return {
+            i18n: {
+                next: 'Next',
+                previous: 'Previous',
+            },
             targetNumberOfLinks: 7,
             currentPage,
             localNumberOfPages: 1
@@ -181,7 +185,31 @@ export default {
             }
 
             return pages
-        }
+        },
+        finalNextText () {
+            if (typeof this.nextText === 'string') {
+                return this.nextText;
+            }
+            return `${this.i18n.next}  →`;
+        },
+        finalLabelNextPage () {
+            if (typeof this.labelNextPage === 'string') {
+                return this.labelNextPage;
+            }
+            return this.i18n.next;
+        },
+        finalPrevText () {
+            if (typeof this.prevText === 'string') {
+                return this.prevText;
+            }
+            return `← ${this.i18n.previous}`;
+        },
+        finalLabelPrevPage () {
+            if (typeof this.labelPrevPage === 'string') {
+                return this.labelPrevPage;
+            }
+            return this.i18n.previous;
+        },
     },
     watch: {
         value (newValue, oldValue) {
@@ -228,6 +256,15 @@ export default {
             // Emit event triggered by user interaction
             this.$emit('change', this.currentPage)
         }
-    }
+    },
+    mounted() {
+        if (window.ccmi18n) {
+            for (let key in this.i18n) {
+                if (window.ccmi18n[key]) {
+                    this.i18n[key] = window.ccmi18n[key];
+                }
+            }
+        }
+    },
 }
 </script>
