@@ -3,9 +3,9 @@
         <table class="table">
             <thead>
             <tr>
-                <th style="width: 30%;">Date & Time</th>
-                <th style="width: 10%;">Slot</th>
-                <th style="width: 60%;">Name</th>
+                <th style="width: 30%;">{{ i18n.dateAndTime }}</th>
+                <th style="width: 10%;">{{ i18n.slot }}</th>
+                <th style="width: 60%;">{{ i18n.name }}</th>
                 <th></th>
             </tr>
             </thead>
@@ -17,14 +17,14 @@
         </table>
 
         <div v-if="draftRules.length" class="mt-4">
-            <h5>Unpublished Rules</h5>
+            <h5>{{ i18n.unpublishedRules }}</h5>
 
             <table class="table">
                 <thead>
                 <tr>
-                    <th style="width: 30%;">Date & Time</th>
-                    <th style="width: 10%;">Slot</th>
-                    <th style="width: 60%;">Name</th>
+                    <th style="width: 30%;">{{ i18n.dateAndTime }}</th>
+                    <th style="width: 10%;">{{ i18n.slot }}</th>
+                    <th style="width: 60%;">{{ i18n.name }}</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -49,6 +49,14 @@ export default {
     props: {
         rules: Array
     },
+    data: () => ({
+    	i18n: {
+			dateAndTime: 'Date & Time',
+			slot: 'Slot',
+			name: 'Name',
+			unpublishedRules: 'Unpublished Rules',
+    	},
+    }),
     computed: {
         publishedRules: function() {
             var publishedRules = []
@@ -89,6 +97,15 @@ export default {
                         })
                     }
                 })
+            }
+        }
+    },
+    mounted() {
+        if (window.ccmi18n_boards) {
+            for (let key in this.i18n) {
+                if (window.ccmi18n_boards[key]) {
+                    this.i18n[key] = window.ccmi18n_boards[key];
+                }
             }
         }
     }
