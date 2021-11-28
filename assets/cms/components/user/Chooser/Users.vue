@@ -6,11 +6,11 @@
                 <thead>
                     <tr>
                         <th></th>
-                        <th @click="sortBy('name')" :class="getSortColumnClassName('name')"><a href="javascript:void(0)">Username</a></th>
-                        <th @click="sortBy('email')" :class="getSortColumnClassName('email')"><a href="javascript:void(0)">Email</a></th>
-                        <th @click="sortBy('dateAdded')" :class="getSortColumnClassName('dateAdded')"><a href="javascript:void(0)">Date</a></th>
-                        <th>Status</th>
-                        <th @click="sortBy('totalLogins')" :class="getSortColumnClassName('totalLogins')"><a href="javascript:void(0)"># Logins</a></th>
+                        <th @click="sortBy('name')" :class="getSortColumnClassName('name')"><a href="javascript:void(0)">{{ i18n.username }}</a></th>
+                        <th @click="sortBy('email')" :class="getSortColumnClassName('email')"><a href="javascript:void(0)">{{ i18n.email }}</a></th>
+                        <th @click="sortBy('dateAdded')" :class="getSortColumnClassName('dateAdded')"><a href="javascript:void(0)">{{ i18n.date }}</a></th>
+                        <th>{{ i18n.status }}</th>
+                        <th @click="sortBy('totalLogins')" :class="getSortColumnClassName('totalLogins')"><a href="javascript:void(0)">{{ i18n.numLogins }}</a></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,6 +36,13 @@
 export default {
     data() {
         return {
+        	i18n: {
+        		username: 'Username',
+        		email: 'Email',
+        		date: 'Date',
+        		status: 'Status',
+        		numLogins: '# Logins',
+        	},
             isLoading: true,
             userList: [],
             selectedUsers: [],
@@ -111,6 +118,13 @@ export default {
         }
     },
     mounted() {
+        if (window.ccmi18n_users) {
+            for (let key in this.i18n) {
+                if (window.ccmi18n_users[key]) {
+                    this.i18n[key] = window.ccmi18n_users[key];
+                }
+            }
+        }
         this.getUsers()
     }
 }
