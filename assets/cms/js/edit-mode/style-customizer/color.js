@@ -3,12 +3,16 @@
 function ConcreteStyleCustomizerColorPicker($element, options) {
     var my = this
     my.$element = $element
+    let defaulti18n = window.ccmi18n_styleCustomizer || null;
     my.options = $.extend(true, {
         initialColor: '',
         i18n: {
-            cancel: 'Cancel',
-            choose: 'Choose',
-            clear: 'Clean'
+            cancel: defaulti18n && defaulti18n.cancel || 'Cancel',
+            choose: defaulti18n && defaulti18n.choose || 'Choose',
+            clear: defaulti18n && defaulti18n.clearColorSelection || 'Clear Color Selection',
+            noColorSelected: defaulti18n && defaulti18n.clearColorSelection || 'No Color Selected',
+            togglePaletteMore: defaulti18n && defaulti18n.togglePaletteMore || 'More',
+            togglePaletteLess: defaulti18n && defaulti18n.togglePaletteLess || 'Less',
         }
     }, options || {})
     $element.spectrum({
@@ -22,6 +26,9 @@ function ConcreteStyleCustomizerColorPicker($element, options) {
         cancelText: my.options.i18n.cancel,
         chooseText: my.options.i18n.choose,
         clearText: my.options.i18n.clear,
+        noColorSelectedText: my.options.i18n.noColorSelected,
+        togglePaletteMoreText: my.options.i18n.togglePaletteMore,
+        togglePaletteLessText: my.options.i18n.togglePaletteLess,
         change: function() {
             ConcreteEvent.publish('StyleCustomizerControlUpdate')
         }
