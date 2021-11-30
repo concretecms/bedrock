@@ -1,6 +1,15 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
+# IMPORTANT: We're using `npm i` below even though `npm ci` is faster. 
+# We have to do this because npm is stupid about how it installs its dependencies
+# in certain contexts. Basically any time I (andrew) would run npm i locally
+# the bootstrap-tourist entry in package-lock.json is overwritten with my local "fetch it
+# from SSH!" functionality, because I have ssh configured. Then when we push it here
+# the pipeline breaks. By changing this to run with npm i this no longer breaks.
+# For a long discussion of this, along with npm's broken default behavior, see here:
+# https://github.com/npm/cli/issues/2610
+
 name: SCSS and JS style requirements
 
 on:
