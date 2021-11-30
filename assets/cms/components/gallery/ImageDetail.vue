@@ -128,14 +128,14 @@ export default {
             removeFromGallery: 'Remove from Gallery',
             customAttributes: 'Custom Attributes',
             editAttributes: 'Edit Attributes',
-            displayOptions: 'Display Options',
-        },
+            displayOptions: 'Display Options'
+        }
     }),
     mounted() {
         if (window.ccmi18n_gallery) {
-            for (let key in this.i18n) {
+            for (const key in this.i18n) {
                 if (window.ccmi18n_gallery[key]) {
-                    this.i18n[key] = window.ccmi18n_gallery[key];
+                    this.i18n[key] = window.ccmi18n_gallery[key]
                 }
             }
         }

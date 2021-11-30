@@ -25,9 +25,9 @@ export default {
         },
         getTransformValueDisplayName: function (id) {
             if (window.ccmi18n_styleCustomizer && window.ccmi18n_styleCustomizer.textTransforms && window.ccmi18n_styleCustomizer.textTransforms[id]) {
-                return window.ccmi18n_styleCustomizer.textTransforms[id];
+                return window.ccmi18n_styleCustomizer.textTransforms[id]
             }
-            return id;
+            return id
         }
     },
     computed: {

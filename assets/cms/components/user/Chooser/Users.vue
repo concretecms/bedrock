@@ -36,13 +36,13 @@
 export default {
     data() {
         return {
-        	i18n: {
-        		username: 'Username',
-        		email: 'Email',
-        		date: 'Date',
-        		status: 'Status',
-        		numLogins: '# Logins',
-        	},
+            i18n: {
+                username: 'Username',
+                email: 'Email',
+                date: 'Date',
+                status: 'Status',
+                numLogins: '# Logins'
+            },
             isLoading: true,
             userList: [],
             selectedUsers: [],
@@ -119,9 +119,9 @@ export default {
     },
     mounted() {
         if (window.ccmi18n_users) {
-            for (let key in this.i18n) {
+            for (const key in this.i18n) {
                 if (window.ccmi18n_users[key]) {
-                    this.i18n[key] = window.ccmi18n_users[key];
+                    this.i18n[key] = window.ccmi18n_users[key]
                 }
             }
         }

@@ -61,7 +61,7 @@ export default {
         i18n: {
             name: 'Name',
             date: 'Date',
-            lastModified: 'Last Modified',
+            lastModified: 'Last Modified'
         },
         currentPage: -1,
         latestSearchID: null,
@@ -196,9 +196,9 @@ export default {
     },
     mounted () {
         if (window.ccmi18n_sitemap) {
-            for (let key in this.i18n) {
+            for (const key in this.i18n) {
                 if (window.ccmi18n_sitemap[key]) {
-                    this.i18n[key] = window.ccmi18n_sitemap[key];
+                    this.i18n[key] = window.ccmi18n_sitemap[key]
                 }
             }
         }

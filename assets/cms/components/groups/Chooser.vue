@@ -69,7 +69,7 @@ export default {
                 search: 'Search',
                 id: 'ID',
                 name: 'Name',
-                noResults: 'No results found.',
+                noResults: 'No results found.'
             },
             searchKeywords: '',
             searchResults: [],
@@ -98,9 +98,9 @@ export default {
     },
     mounted() {
         if (window.ccmi18n_groups) {
-            for (let key in this.i18n) {
+            for (const key in this.i18n) {
                 if (window.ccmi18n_groups[key]) {
-                    this.i18n[key] = window.ccmi18n_groups[key];
+                    this.i18n[key] = window.ccmi18n_groups[key]
                 }
             }
         }

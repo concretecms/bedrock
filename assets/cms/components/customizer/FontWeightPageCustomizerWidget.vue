@@ -25,9 +25,9 @@ export default {
         },
         getWeightValueDisplayName: function (id) {
             if (window.ccmi18n_styleCustomizer && window.ccmi18n_styleCustomizer.fontWeights && window.ccmi18n_styleCustomizer.fontWeights[id]) {
-                return window.ccmi18n_styleCustomizer.fontWeights[id];
+                return window.ccmi18n_styleCustomizer.fontWeights[id]
             }
-            return id;
+            return id
         }
     },
     computed: {

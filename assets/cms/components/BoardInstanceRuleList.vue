@@ -50,12 +50,12 @@ export default {
         rules: Array
     },
     data: () => ({
-    	i18n: {
-			dateAndTime: 'Date & Time',
-			slot: 'Slot',
-			name: 'Name',
-			unpublishedRules: 'Unpublished Rules',
-    	},
+        i18n: {
+            dateAndTime: 'Date & Time',
+            slot: 'Slot',
+            name: 'Name',
+            unpublishedRules: 'Unpublished Rules'
+        }
     }),
     computed: {
         publishedRules: function() {
@@ -102,9 +102,9 @@ export default {
     },
     mounted() {
         if (window.ccmi18n_boards) {
-            for (let key in this.i18n) {
+            for (const key in this.i18n) {
                 if (window.ccmi18n_boards[key]) {
-                    this.i18n[key] = window.ccmi18n_boards[key];
+                    this.i18n[key] = window.ccmi18n_boards[key]
                 }
             }
         }

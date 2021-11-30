@@ -3,16 +3,16 @@
 function ConcreteStyleCustomizerColorPicker($element, options) {
     var my = this
     my.$element = $element
-    let defaulti18n = window.ccmi18n_styleCustomizer || null;
+    const defaulti18n = window.ccmi18n_styleCustomizer || null
     my.options = $.extend(true, {
         initialColor: '',
         i18n: {
-            cancel: defaulti18n && defaulti18n.cancel || 'Cancel',
-            choose: defaulti18n && defaulti18n.choose || 'Choose',
-            clear: defaulti18n && defaulti18n.clearColorSelection || 'Clear Color Selection',
-            noColorSelected: defaulti18n && defaulti18n.clearColorSelection || 'No Color Selected',
-            togglePaletteMore: defaulti18n && defaulti18n.togglePaletteMore || 'More',
-            togglePaletteLess: defaulti18n && defaulti18n.togglePaletteLess || 'Less',
+            cancel: defaulti18n && defaulti18n.cancel ? defaulti18n.cancel : 'Cancel',
+            choose: defaulti18n && defaulti18n.choose ? defaulti18n.choose : 'Choose',
+            clear: defaulti18n && defaulti18n.clearColorSelection ? defaulti18n.clearColorSelection : 'Clear Color Selection',
+            noColorSelected: defaulti18n && defaulti18n.noColorSelected ? defaulti18n.noColorSelected : 'No Color Selected',
+            togglePaletteMore: defaulti18n && defaulti18n.togglePaletteMore ? defaulti18n.togglePaletteMore : 'More',
+            togglePaletteLess: defaulti18n && defaulti18n.togglePaletteLess ? defaulti18n.togglePaletteLess : 'Less'
         }
     }, options || {})
     $element.spectrum({

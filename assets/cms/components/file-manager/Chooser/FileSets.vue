@@ -91,9 +91,9 @@ export default {
     },
     mounted() {
         if (window.ccmi18n_filemanager) {
-            for (let key in this.i18n) {
+            for (const key in this.i18n) {
                 if (window.ccmi18n_filemanager[key]) {
-                    this.i18n[key] = window.ccmi18n_filemanager[key];
+                    this.i18n[key] = window.ccmi18n_filemanager[key]
                 }
             }
         }

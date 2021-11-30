@@ -48,10 +48,10 @@ export default {
         }
     },
     data: () => ({
-    	i18n: {
-    		noStartDate: 'No Start Date',
-    		preview: 'Preview',
-    	},
+        i18n: {
+            noStartDate: 'No Start Date',
+            preview: 'Preview'
+        },
         previewLoaded: false
     }),
     methods: {
@@ -95,9 +95,9 @@ export default {
     },
     mounted() {
         if (window.ccmi18n_boards) {
-            for (let key in this.i18n) {
+            for (const key in this.i18n) {
                 if (window.ccmi18n_boards[key]) {
-                    this.i18n[key] = window.ccmi18n_boards[key];
+                    this.i18n[key] = window.ccmi18n_boards[key]
                 }
             }
         }

@@ -55,11 +55,11 @@ export default {
         },
         nextText: {
             type: String,
-            required: false,
+            required: false
         },
         labelNextPage: {
             type: String,
-            required: false,
+            required: false
         },
         prevCursor: {
             type: [Number, String, null],
@@ -70,11 +70,11 @@ export default {
         },
         labelPrevPage: {
             type: String,
-            required: false,
+            required: false
         },
         prevText: {
             type: String,
-            required: false,
+            required: false
         },
         perPage: {
             type: [Number, String],
@@ -104,7 +104,7 @@ export default {
         return {
             i18n: {
                 next: 'Next',
-                previous: 'Previous',
+                previous: 'Previous'
             },
             targetNumberOfLinks: 7,
             currentPage,
@@ -188,28 +188,28 @@ export default {
         },
         finalNextText () {
             if (typeof this.nextText === 'string') {
-                return this.nextText;
+                return this.nextText
             }
-            return `${this.i18n.next}  →`;
+            return `${this.i18n.next} →`
         },
         finalLabelNextPage () {
             if (typeof this.labelNextPage === 'string') {
-                return this.labelNextPage;
+                return this.labelNextPage
             }
-            return this.i18n.next;
+            return this.i18n.next
         },
         finalPrevText () {
             if (typeof this.prevText === 'string') {
-                return this.prevText;
+                return this.prevText
             }
-            return `← ${this.i18n.previous}`;
+            return `← ${this.i18n.previous}`
         },
         finalLabelPrevPage () {
             if (typeof this.labelPrevPage === 'string') {
-                return this.labelPrevPage;
+                return this.labelPrevPage
             }
-            return this.i18n.previous;
-        },
+            return this.i18n.previous
+        }
     },
     watch: {
         value (newValue, oldValue) {
@@ -259,12 +259,12 @@ export default {
     },
     mounted() {
         if (window.ccmi18n) {
-            for (let key in this.i18n) {
+            for (const key in this.i18n) {
                 if (window.ccmi18n[key]) {
-                    this.i18n[key] = window.ccmi18n[key];
+                    this.i18n[key] = window.ccmi18n[key]
                 }
             }
         }
-    },
+    }
 }
 </script>

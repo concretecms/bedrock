@@ -1,5 +1,5 @@
 /* eslint-disable no-new, no-unused-vars, camelcase, new-cap, eqeqeq */
-
+/* global ccmi18n_editor */
 (function() {
     CKEDITOR.plugins.add('concretestyles', {
 

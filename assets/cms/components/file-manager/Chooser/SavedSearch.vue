@@ -50,7 +50,7 @@ export default {
     data: () => ({
         i18n: {
             searchPresets: 'Search Presets',
-            selectPreset: 'Select a Preset',
+            selectPreset: 'Select a Preset'
         },
         activeFolder: '',
         searchPresets: [],
@@ -96,9 +96,9 @@ export default {
     },
     mounted() {
         if (window.ccmi18n_filemanager) {
-            for (let key in this.i18n) {
+            for (const key in this.i18n) {
                 if (window.ccmi18n_filemanager[key]) {
-                    this.i18n[key] = window.ccmi18n_filemanager[key];
+                    this.i18n[key] = window.ccmi18n_filemanager[key]
                 }
             }
         }

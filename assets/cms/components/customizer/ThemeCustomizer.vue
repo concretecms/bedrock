@@ -278,9 +278,9 @@ export default {
     },
     mounted() {
         if (window.ccmi18n_styleCustomizer) {
-            for (let key in this.i18n) {
+            for (const key in this.i18n) {
                 if (window.ccmi18n_styleCustomizer[key]) {
-                    this.i18n[key] = window.ccmi18n_styleCustomizer[key];
+                    this.i18n[key] = window.ccmi18n_styleCustomizer[key]
                 }
             }
         }

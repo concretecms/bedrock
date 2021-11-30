@@ -46,19 +46,19 @@ function ConcreteTypographySelector($element, options) {
     })
 
     my.$colorpicker = my.$widget.find('input[data-style-customizer-field=color]')
-    let i18n = window.ccmi18n_styleCustomizer || null;
+    const i18n = window.ccmi18n_styleCustomizer || null
     my.$colorpicker.spectrum({
         preferredFormat: 'rgb',
         showAlpha: true,
         className: 'ccm-widget-colorpicker',
         showInitial: true,
         showInput: true,
-        cancelText: i18n && i18n.cancel || 'Cancel',
-        chooseText: i18n && i18n.choose || 'Choose',
-        clearText: i18n && i18n.clearColorSelection || 'Clear Color Selection',
-        noColorSelectedText: i18n && i18n.clearColorSelection || 'No Color Selected',
-        togglePaletteMoreText: i18n && i18n.togglePaletteMore || 'More',
-        togglePaletteLessText: i18n && i18n.togglePaletteLess || 'Less',
+        cancelText: i18n && i18n.cancel ? i18n.cancel : 'Cancel',
+        chooseText: i18n && i18n.choose ? i18n.choose : 'Choose',
+        clearText: i18n && i18n.clearColorSelection ? i18n.clearColorSelection : 'Clear Color Selection',
+        noColorSelectedText: i18n && i18n.noColorSelected ? i18n.noColorSelected : 'No Color Selected',
+        togglePaletteMoreText: i18n && i18n.togglePaletteMore ? i18n.togglePaletteMore : 'More',
+        togglePaletteLessText: i18n && i18n.togglePaletteLess ? i18n.togglePaletteLess : 'Less'
     })
 
     my.$fontMenu.on('change', function() {

@@ -101,15 +101,15 @@ export default {
             default: [
                 {
                     key: 'recent-uploads',
-                    title: null, // use the detault one if null
+                    title: null // use the detault one if null
                 },
                 {
                     key: 'file-manager',
-                    title: null, // use the detault one if null
+                    title: null // use the detault one if null
                 },
                 {
                     key: 'search',
-                    title: null, // use the detault one if null
+                    title: null // use the detault one if null
                 }
             ]
         },
@@ -118,7 +118,7 @@ export default {
             default: [
                 {
                     key: 'file-upload',
-                    title: null, // use the detault one if null
+                    title: null // use the detault one if null
                 }
             ]
         },
@@ -133,51 +133,51 @@ export default {
     mounted() {
         var my = this
         if (window.ccmi18n_filemanager) {
-            for (let key in my.i18n) {
+            for (const key in my.i18n) {
                 if (window.ccmi18n_filemanager[key]) {
-                    my.i18n[key] = window.ccmi18n_filemanager[key];
+                    my.i18n[key] = window.ccmi18n_filemanager[key]
                 }
             }
         }
-        this.applyLocalization();
+        this.applyLocalization()
         ConcreteEvent.subscribe('FileUploaderFilesReadyToUpload', function(e, filesReadyToUpload) {
             my.filesReadyToUpload = filesReadyToUpload
         })
     },
     watch: {
         choosers() {
-            this.applyLocalization();
+            this.applyLocalization()
         },
         uploaders() {
-            this.applyLocalization();
-        },
+            this.applyLocalization()
+        }
     },
     methods: {
         applyLocalization() {
             if (this.choosers) {
-                for (let chooser of this.choosers) {
+                for (const chooser of this.choosers) {
                     if (typeof chooser.title !== 'string') {
                         switch (chooser.key) {
-                            case 'recent-uploads':
-                                chooser.title = this.i18n.recentlyUploaded;
-                                break;
-                            case 'file-manager':
-                                chooser.title = this.i18n.fileManager;
-                                break;
-                            case 'search':
-                                chooser.title = this.i18n.search;
-                                break;
+                        case 'recent-uploads':
+                            chooser.title = this.i18n.recentlyUploaded
+                            break
+                        case 'file-manager':
+                            chooser.title = this.i18n.fileManager
+                            break
+                        case 'search':
+                            chooser.title = this.i18n.search
+                            break
                         }
                     }
                 }
             }
             if (this.uploaders) {
-                for (let uploader of this.uploaders) {
+                for (const uploader of this.uploaders) {
                     if (typeof uploader.title !== 'string') {
                         switch (uploader.key) {
-                            case 'file-upload':
-                                uploader.title = this.i18n.uploadFiles;
-                                break;
+                        case 'file-upload':
+                            uploader.title = this.i18n.uploadFiles
+                            break
                         }
                     }
                 }

@@ -102,16 +102,16 @@ export default {
         }
     },
     data: () => ({
-    	i18n: {
-			name: 'Name',
-			dateStarted: 'Date Started',
-			dateCompleted: 'Date Completed',
-			loading: 'Loading...',
-			deleteProcess: 'Delete Process',
-			confirmDeletion: 'Delete this process log entry? The record of the process along with any logs will be removed.',
-			close: 'Close',
-			delete: 'Delete',
-    	},
+        i18n: {
+            name: 'Name',
+            dateStarted: 'Date Started',
+            dateCompleted: 'Date Completed',
+            loading: 'Loading...',
+            deleteProcess: 'Delete Process',
+            confirmDeletion: 'Delete this process log entry? The record of the process along with any logs will be removed.',
+            close: 'Close',
+            delete: 'Delete'
+        },
         openProcesses: []
     }),
     methods: {
@@ -163,9 +163,9 @@ export default {
     },
     mounted() {
         if (window.ccmi18n_processes) {
-            for (let key in this.i18n) {
+            for (const key in this.i18n) {
                 if (window.ccmi18n_processes[key]) {
-                    this.i18n[key] = window.ccmi18n_processes[key];
+                    this.i18n[key] = window.ccmi18n_processes[key]
                 }
             }
         }

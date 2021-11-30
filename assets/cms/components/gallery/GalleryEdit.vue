@@ -147,7 +147,7 @@ export default {
             images: 'Images',
             settings: 'Settings',
             addImages: 'Add Images',
-            includeOriginalDownloadLink: 'Include link to download original',
+            includeOriginalDownloadLink: 'Include link to download original'
         },
         activeTab: 'image',
         activeImage: null
@@ -208,9 +208,9 @@ export default {
     },
     mounted() {
         if (window.ccmi18n_gallery) {
-            for (let key in this.i18n) {
+            for (const key in this.i18n) {
                 if (window.ccmi18n_gallery[key]) {
-                    this.i18n[key] = window.ccmi18n_gallery[key];
+                    this.i18n[key] = window.ccmi18n_gallery[key]
                 }
             }
         }

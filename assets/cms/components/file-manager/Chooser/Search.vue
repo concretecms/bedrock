@@ -48,8 +48,8 @@ export default {
     },
     data: () => ({
         i18n: {
-          search: 'Search',
-          initialSearchChooserTip: "Let's get some info on what you're looking for."
+            search: 'Search',
+            initialSearchChooserTip: "Let's get some info on what you're looking for."
         },
         searchText: '',
         keywords: '',
@@ -88,11 +88,11 @@ export default {
     },
     mounted() {
         if (window.ccmi18n_filemanager) {
-          for (let key in this.i18n) {
-            if (window.ccmi18n_filemanager[key]) {
-              this.i18n[key] = window.ccmi18n_filemanager[key];
+            for (const key in this.i18n) {
+                if (window.ccmi18n_filemanager[key]) {
+                    this.i18n[key] = window.ccmi18n_filemanager[key]
+                }
             }
-          }
         }
         this.formFactor = this.resultsFormFactor
     }

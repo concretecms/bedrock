@@ -23,10 +23,10 @@ export { icons, types }
 // Export our component definition
 export default {
     data: () => ({
-		i18n: {
-			invalidIconType: 'Invalid icon type.',
-		}
-	}),
+        i18n: {
+            invalidIconType: 'Invalid icon type.'
+        }
+    }),
     props: {
         spritePath: {
             type: String,
@@ -61,13 +61,13 @@ export default {
     },
     mounted() {
         if (window.ccmi18n) {
-            for (let key in this.i18n) {
+            for (const key in this.i18n) {
                 if (window.ccmi18n[key]) {
-                    this.i18n[key] = window.ccmi18n[key];
+                    this.i18n[key] = window.ccmi18n[key]
                 }
             }
         }
     }
-    
+
 }
 </script>

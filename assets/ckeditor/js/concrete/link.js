@@ -1,4 +1,5 @@
 /* eslint-disable no-new, no-unused-vars, camelcase, no-useless-call, eqeqeq */
+/* global ccmi18n_editor */
 (function() {
     CKEDITOR.plugins.add('concretelink', {
         requires: 'link',

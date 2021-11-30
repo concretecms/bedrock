@@ -85,9 +85,9 @@ export default {
     mounted() {
         var my = this
         if (window.ccmi18n_styleCustomizer) {
-            for (let key in my.i18n) {
+            for (const key in my.i18n) {
                 if (window.ccmi18n_styleCustomizer[key]) {
-                    my.i18n[key] = window.ccmi18n_styleCustomizer[key];
+                    my.i18n[key] = window.ccmi18n_styleCustomizer[key]
                 }
             }
         }
