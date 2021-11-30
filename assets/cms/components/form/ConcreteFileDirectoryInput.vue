@@ -12,7 +12,7 @@
                     <button type="button"
                             :class="{'btn': true, 'btn-outline-secondary': true, 'ccm-create-new-directory-button': true, 'disabled': disabled === true}"
                             @click="toggleDirectoryInput" :disabled="disabled">
-                        Create New Folder
+                        {{ i18n.createNewFolder }}
                     </button>
                 </div>
                 <select v-else :id="directorySelectInputId" :name="inputName" class="ccm-directory-selector form-select" v-model="selectedDirectoryID" ref="directoryInput" :disabled="disabled">
@@ -24,16 +24,16 @@
         </div>
         <div v-if="showAddDirectoryButton" v-show="showAddDirectoryInput" class="ccm-new-directory-name-container">
             <div class="form-group">
-                <label class="form-label" :for="directoryInputId">Name</label>
+                <label class="form-label" :for="directoryInputId">{{ i18n.name }}</label>
                 <div class="input-group">
                     <input type="text"
                            :id="directoryInputId"
-                           placeholder="Please enter a name..." class="ccm-new-directory-name form-control"
+                           :placeholder="i18n.specifyName" class="ccm-new-directory-name form-control"
                            v-model="newDirectoryName" @keyup.enter.stop.prevent="createDirectory" :disabled="disabled">
                     <button type="button"
                             :class="{'btn': true, 'btn-outline-secondary': true, 'disabled': disabled === true}"
                             @click.stop.prevent="createDirectory" :disabled="disabled">
-                        Add
+                        {{ i18n.add }}
                     </button>
                 </div>
             </div>
@@ -46,6 +46,12 @@
 /* global CCM_DISPATCHER_FILENAME, CCM_SECURITY_TOKEN, ConcreteAjaxRequest, _ */
 export default {
     data: () => ({
+        i18n: {
+            createNewFolder: 'Create New Folder',
+            name: 'Name',
+            specifyName: 'Please enter a name...',
+            add: 'Add'
+        },
         showAddDirectoryInput: false,
         selectedDirectoryID: 0,
         directorySelectInputId: _.uniqueId('input-'),
@@ -109,6 +115,13 @@ export default {
         this.fetchDirectories()
     },
     mounted() {
+        if (window.ccmi18n_filemanager) {
+            for (const key in this.i18n) {
+                if (window.ccmi18n_filemanager[key]) {
+                    this.i18n[key] = window.ccmi18n_filemanager[key]
+                }
+            }
+        }
         $(this.$refs.directoryInput).selectpicker()
 
         if (this.directoryId) {

@@ -3,7 +3,7 @@
         <div class="mb-3 ccm-header-search-form">
             <form method="get" @submit="performSearch">
                 <div class="input-group">
-                    <input type="search" v-model="searchKeywords" placeholder="Search" class="form-control border-end-0" autocomplete="off">
+                    <input type="search" v-model="searchKeywords" :placeholder="i18n.search" class="form-control border-end-0" autocomplete="off">
                     <button type="submit" class="input-group-icon">
                         <svg width="16" height="16">
                             <use xlink:href="#icon-search"/>
@@ -18,8 +18,8 @@
                     <table class="border-top ccm-search-results-table">
                         <thead>
                         <tr>
-                            <th>ID</th>
-                            <th class="w-100">Name</th>
+                            <th>{{ i18n.id }}</th>
+                            <th class="w-100">{{ i18n.name }}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -31,7 +31,7 @@
                     </table>
                 </div>
                 <div v-else>
-                    No results found.
+                    {{ i18n.noResults }}
                 </div>
             </div>
             <div v-show="searchSubmitted === 'searching'">
@@ -65,6 +65,12 @@ export default {
     },
     data() {
         return {
+            i18n: {
+                search: 'Search',
+                id: 'ID',
+                name: 'Name',
+                noResults: 'No results found.'
+            },
             searchKeywords: '',
             searchResults: [],
             searchSubmitted: false,
@@ -91,6 +97,13 @@ export default {
         }
     },
     mounted() {
+        if (window.ccmi18n_groups) {
+            for (const key in this.i18n) {
+                if (window.ccmi18n_groups[key]) {
+                    this.i18n[key] = window.ccmi18n_groups[key]
+                }
+            }
+        }
         var my = this
         new ConcreteAjaxRequest({
             method: 'POST',

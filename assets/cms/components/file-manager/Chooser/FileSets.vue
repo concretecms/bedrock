@@ -4,11 +4,11 @@
 
         <div class="form-group row row-cols-auto g-0 align-items-center justify-content-end">
             <div class="col-auto">
-                <label for="fileSetSelector" class="me-2">File Set</label>
+                <label for="fileSetSelector" class="me-2">{{ i18n.fileSet }}</label>
             </div>
             <div class="col-auto">
                 <select id="fileSetSelector" class="form-select file-set-menu" v-model="activeSet">
-                    <option value="" selected>Select a Set</option>
+                    <option value="" selected>{{ i18n.selectFileSet }}</option>
                     <option v-for="set in sets" :key="set.id" :value="set.id">
                         {{set.name}}
                     </option>
@@ -45,6 +45,10 @@ export default {
         Files
     },
     data: () => ({
+        i18n: {
+            fileSet: 'File Set',
+            selectFileSet: 'Select a Set'
+        },
         sets: [],
         activeSet: '',
         selectedFiles: [],
@@ -86,6 +90,13 @@ export default {
         }
     },
     mounted() {
+        if (window.ccmi18n_filemanager) {
+            for (const key in this.i18n) {
+                if (window.ccmi18n_filemanager[key]) {
+                    this.i18n[key] = window.ccmi18n_filemanager[key]
+                }
+            }
+        }
         this.formFactor = this.resultsFormFactor
 
         this.getSets()

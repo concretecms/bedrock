@@ -10,13 +10,13 @@
               @click="$emit('delete')"
               type="outline"
             >
-              Remove from Gallery
+              {{ i18n.removeFromGallery }}
             </IconButton>
-            <!-- <button type="button" class="btn btn-secondary" @click="$emit('delete')">Remove from Gallery</button> -->
+            <!-- <button type="button" class="btn btn-secondary" @click="$emit('delete')">{{ i18n.removeFromGallery }}</button> -->
         </div>
         <div class="image-details">
             <section>
-                <strong>Custom Attributes</strong>
+                <strong>{{ i18n.customAttributes }}</strong>
 
                 <p class="image-title">{{this.$props.image.title}}</p>
                 <p class="image-description">{{this.$props.image.description}}</p>
@@ -32,14 +32,14 @@
                       type="outline"
                       v-if="$props.image.detailUrl"
                     >
-                      Edit Attributes
+                      {{ i18n.editAttributes }}
                     </IconButton>
                 </div>
             </section>
 
             <section v-if="!this.$props.image.displayChoices.length">
                 <div class="mb-2">
-                    <strong>Display Options</strong>
+                    <strong>{{ i18n.displayOptions }}</strong>
                 </div>
                 <div v-for="(choice, index) in this.$props.image.displayChoices" :key="index">
                     <input v-if="choice.type === 'text'"
@@ -122,6 +122,23 @@ export default {
     components: {
         IconButton,
         ...IconButton.components
+    },
+    data: () => ({
+        i18n: {
+            removeFromGallery: 'Remove from Gallery',
+            customAttributes: 'Custom Attributes',
+            editAttributes: 'Edit Attributes',
+            displayOptions: 'Display Options'
+        }
+    }),
+    mounted() {
+        if (window.ccmi18n_gallery) {
+            for (const key in this.i18n) {
+                if (window.ccmi18n_gallery[key]) {
+                    this.i18n[key] = window.ccmi18n_gallery[key]
+                }
+            }
+        }
     },
     props: {
         image: {

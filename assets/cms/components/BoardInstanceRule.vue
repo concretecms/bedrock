@@ -5,7 +5,7 @@
                 {{startDate}}
             </span>
             <span v-else class="text-muted">
-                No Start Date
+                {{ i18n.noStartDate }}
             </span>
             <span v-if="hasStartDate && hasEndDate">
                 –
@@ -14,7 +14,7 @@
         </td>
         <td>{{rule.slot}}</td>
         <td>
-            <div>{{rule.name}} (<a data-dialog="preview" href="javascript:void(0)" @click="showPreview">preview</a>)</div>
+            <div>{{rule.name}} (<a data-dialog="preview" href="javascript:void(0)" @click="showPreview">{{ i18n.preview }}</a>)</div>
             <div class="fw-light font-italic">{{rule.actionDescription}}</div>
         </td>
         <td class="align-middle">
@@ -48,6 +48,10 @@ export default {
         }
     },
     data: () => ({
+        i18n: {
+            noStartDate: 'No Start Date',
+            preview: 'Preview'
+        },
         previewLoaded: false
     }),
     methods: {
@@ -61,7 +65,7 @@ export default {
             $.fn.dialog.open({
                 width: '90%',
                 height: '70%',
-                title: 'Preview',
+                title: this.i18n.preview,
                 element: '#preview-container-' + my.rule.id
             })
         }
@@ -86,6 +90,15 @@ export default {
             if (this.rule.endDate > 0) {
                 const momentDate = moment.unix(this.rule.endDate).tz(this.rule.timezone)
                 return momentDate.format('MMMM D, YYYY h:mm a')
+            }
+        }
+    },
+    mounted() {
+        if (window.ccmi18n_boards) {
+            for (const key in this.i18n) {
+                if (window.ccmi18n_boards[key]) {
+                    this.i18n[key] = window.ccmi18n_boards[key]
+                }
             }
         }
     }

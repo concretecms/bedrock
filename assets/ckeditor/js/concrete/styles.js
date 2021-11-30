@@ -1,5 +1,5 @@
 /* eslint-disable no-new, no-unused-vars, camelcase, new-cap, eqeqeq */
-
+/* global ccmi18n_editor */
 (function() {
     CKEDITOR.plugins.add('concretestyles', {
 
@@ -102,7 +102,7 @@
             var buttons = {
                 name: 'snippets',
                 icon: 'snippet.png',
-                title: 'Snippets',
+                title: ccmi18n_editor.snippets,
                 items: []
             }
             if (editor.config.snippets) {

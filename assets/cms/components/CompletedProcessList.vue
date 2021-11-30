@@ -3,13 +3,13 @@
         <div class="p-2">
             <div class="row">
                 <div class="col-md-4">
-                    <h5>Name</h5>
+                    <h5>{{ i18n.name }}</h5>
                 </div>
                 <div class="col-md-3">
-                    <h5>Date Started</h5>
+                    <h5>{{ i18n.dateStarted }}</h5>
                 </div>
                 <div class="col-md-5">
-                    <h5>Date Completed</h5>
+                    <h5>{{ i18n.dateCompleted }}</h5>
                 </div>
             </div>
         </div>
@@ -48,7 +48,7 @@
                                 {{detail}}
                             </div>
                         </div>
-                        <span v-else class="text-muted">Loading...</span>
+                        <span v-else class="text-muted">{{ i18n.loading }}</span>
                     </div>
                 </div>
             </div>
@@ -59,15 +59,15 @@
                     <div class="modal-content">
                         <form method="post" @submit.prevent="deleteProcessSubmit(process.id)">
                             <div class="modal-header">
-                                <h5 class="modal-title">Delete Process</h5>
-                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <h5 class="modal-title">{{ i18n.deleteProcess }}</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" :aria-label="i18n.close"></button>
                             </div>
                             <div class="modal-body">
-                                Delete this process log entry? The record of the process along with any logs will be removed.
+                                {{ i18n.confirmDeletion }}
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ i18n.close }}</button>
+                                <button type="submit" class="btn btn-danger">{{ i18n.delete }}</button>
                             </div>
                         </form>
                     </div>
@@ -102,6 +102,16 @@ export default {
         }
     },
     data: () => ({
+        i18n: {
+            name: 'Name',
+            dateStarted: 'Date Started',
+            dateCompleted: 'Date Completed',
+            loading: 'Loading...',
+            deleteProcess: 'Delete Process',
+            confirmDeletion: 'Delete this process log entry? The record of the process along with any logs will be removed.',
+            close: 'Close',
+            delete: 'Delete'
+        },
         openProcesses: []
     }),
     methods: {
@@ -149,6 +159,15 @@ export default {
                     })
                 }
             })
+        }
+    },
+    mounted() {
+        if (window.ccmi18n_processes) {
+            for (const key in this.i18n) {
+                if (window.ccmi18n_processes[key]) {
+                    this.i18n[key] = window.ccmi18n_processes[key]
+                }
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 <template>
     <select @change="componentUpdated" class="form-select form-select-sm" v-model="fontWeight"
             :style="{'font-weight': fontWeight}">
-        <option v-for="fontWeightValue in fontWeightValues" :value="fontWeightValue">{{ fontWeightValue }}</option>
+        <option v-for="fontWeightValue in fontWeightValues" :value="fontWeightValue">{{ getWeightValueDisplayName(fontWeightValue) }}</option>
     </select>
 </template>
 
@@ -22,6 +22,12 @@ export default {
                     fontWeight: this.fontWeight
                 }
             })
+        },
+        getWeightValueDisplayName: function (id) {
+            if (window.ccmi18n_styleCustomizer && window.ccmi18n_styleCustomizer.fontWeights && window.ccmi18n_styleCustomizer.fontWeights[id]) {
+                return window.ccmi18n_styleCustomizer.fontWeights[id]
+            }
+            return id
         }
     },
     computed: {
