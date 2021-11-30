@@ -10,7 +10,7 @@
     <svg v-else-if='$options.methods.isSvg(props.type)' viewport='0 0 20 20' width='20px' height='20px'>
         <use :xlink:href='`${props.spritePath}#icon-${props.icon}`' :style='`fill: ${props.color}`'></use>
     </svg>
-    <span v-else>Invalid icon type.</span>
+    <span v-else>{{ i18n.invalidIconType }}</span>
 </template>
 
 <script>
@@ -22,6 +22,11 @@ export { icons, types }
 
 // Export our component definition
 export default {
+    data: () => ({
+        i18n: {
+            invalidIconType: 'Invalid icon type.'
+        }
+    }),
     props: {
         spritePath: {
             type: String,
@@ -53,6 +58,16 @@ export default {
          */
         isFontAwesome: type => [types.fas, types.far, types.fab].indexOf(type) >= 0,
         isSvg: type => type === types.svg
+    },
+    mounted() {
+        if (window.ccmi18n) {
+            for (const key in this.i18n) {
+                if (window.ccmi18n[key]) {
+                    this.i18n[key] = window.ccmi18n[key]
+                }
+            }
+        }
     }
+
 }
 </script>

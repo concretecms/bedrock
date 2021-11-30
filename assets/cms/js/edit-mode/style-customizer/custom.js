@@ -16,7 +16,7 @@ function ConcreteStyleCustomizerCustomCss($element, options) {
             url: ''
         },
         i18n: {
-            editTitle: 'Custom CSS'
+            editTitle: window.ccmi18n_styleCustomizer && window.ccmi18n_styleCustomizer.customCSS ? window.ccmi18n_styleCustomizer.customCSS : 'Custom CSS'
         }
     }, options || {})
     $element

@@ -4,7 +4,7 @@
             <div class="col-md-4 ms-auto">
                 <form @submit.prevent="search">
                     <div class="ccm-header-search-form-input input-group">
-                        <input type="text" class="form-control border-end-0" placeholder="Search" autocomplete="false" v-model="searchText">
+                        <input type="text" class="form-control border-end-0" :placeholder="i18n.search" autocomplete="false" v-model="searchText">
                         <button type="submit" class="input-group-icon">
                             <svg width="16" height="16">
                                 <use xlink:href="#icon-search"/>
@@ -18,7 +18,7 @@
             <span class="search-icon my-4">
                 <Icon icon="search" type="fas" color="#f4f4f4"/>
             </span>
-            <p><b>Let's get some info on what you're looking for.</b></p>
+            <p><b>{{ i18n.initialPageSearchChooserTip }}</b></p>
         </div>
         <div v-if="keywords">
             <PageList
@@ -37,6 +37,10 @@ import PageList from './../PageList'
 export default {
     components: { Icon, PageList },
     data: () => ({
+        i18n: {
+            search: 'Search',
+            initialPageSearchChooserTip: "Let's get some info on what you're looking for."
+        },
         searchText: '',
         keywords: '',
         routePath: '/ccm/system/page/chooser/search/'
@@ -51,6 +55,15 @@ export default {
                 cID: page.cID,
                 title: page.name
             })
+        }
+    },
+    mounted() {
+        if (window.ccmi18n_sitemap) {
+            for (const key in this.i18n) {
+                if (window.ccmi18n_sitemap[key]) {
+                    this.i18n[key] = window.ccmi18n_sitemap[key]
+                }
+            }
         }
     }
 }

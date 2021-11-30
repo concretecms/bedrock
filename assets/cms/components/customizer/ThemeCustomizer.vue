@@ -21,16 +21,16 @@
         </div>
 
         <div>
-            <h5>Custom CSS</h5>
+            <h5>{{ i18n.customCSS }}</h5>
             <div class="card mb-4">
                 <div class="list-group list-group-flush">
                     <div class="list-group-item">
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="addCustomCSS" v-model="addCustomCss">
-                            <label class="form-check-label" for="addCustomCSS">Add Custom CSS</label>
+                            <label class="form-check-label" for="addCustomCSS">{{ i18n.addCustomCSS }}</label>
                         </div>
                         <div v-if="addCustomCss" class="d-grid mt-2">
-                            <button class="btn btn-secondary btn-sm" @click="showCustomCssDialog">Edit CSS</button>
+                            <button class="btn btn-secondary btn-sm" @click="showCustomCssDialog">{{ i18n.editCSS }}</button>
                         </div>
                     </div>
                 </div>
@@ -41,13 +41,13 @@
             <div data-dialog="save-theme-customizer-changes">
 
                 <div class="form-group">
-                    <label class="form-label" for="newSkinName">Skin Name</label>
+                    <label class="form-label" for="newSkinName">{{ i18n.skinName }}</label>
                     <input type="text" :class='{"form-control": true, "is-invalid": invalidSkinName}' name="newSkinName"
                            id="newSkinName" v-model="newSkinName">
                 </div>
 
                 <div class="dialog-buttons">
-                    <button class="btn btn-primary float-end" @click="createNewSkin" type="button">Create</button>
+                    <button class="btn btn-primary float-end" @click="createNewSkin" type="button">{{ i18n.create }}</button>
                 </div>
 
             </div>
@@ -57,21 +57,21 @@
             <div data-dialog="save-theme-customizer-styles">
 
                 <div class="form-group">
-                    <p>Apply customizations to:</p>
+                    <p>{{ i18n.applyCustomizations }}</p>
 
                     <div class="form-check">
                         <input class="form-check-input" type="radio" id="applyToThisPage" v-model="applyTo" value="page">
-                        <label class="form-check-label" for="applyToThisPage">This Page</label>
+                        <label class="form-check-label" for="applyToThisPage">{{ i18n.thisPage }}</label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" id="applyToEntireSite" v-model="applyTo" value="site">
-                        <label class="form-check-label" for="applyToEntireSite">Entire Site</label>
+                        <label class="form-check-label" for="applyToEntireSite">{{ i18n.entireSite }}</label>
                     </div>
 
                 </div>
 
                 <div class="dialog-buttons">
-                    <button class="btn btn-primary float-end" @click="saveStyles" type="button">Confirm</button>
+                    <button class="btn btn-primary float-end" @click="saveStyles" type="button">{{ i18n.confirm }}</button>
                 </div>
 
             </div>
@@ -80,10 +80,10 @@
         <div class="d-none">
             <div data-dialog="delete-theme-customizer-skin">
 
-                <p>Are you sure you want to delete this custom skin? This cannot be undone.</p>
+                <p>{{ i18n.confirmSkinDeletion }}</p>
 
                 <div class="dialog-buttons">
-                    <button class="btn btn-primary float-end" @click="deleteSkin" type="button">Delete</button>
+                    <button class="btn btn-primary float-end" @click="deleteSkin" type="button">{{ i18n.delete }}</button>
                 </div>
 
             </div>
@@ -195,7 +195,7 @@ export default {
                 modal: true,
                 width: '800px',
                 height: '70%',
-                title: 'Custom CSS',
+                title: my.i18n.customCSS,
                 onOpen: function() {
                     var editor = ace.edit('theme-customizer-custom-css-editor')
                     editor.setTheme('ace/theme/eclipse')
@@ -254,6 +254,20 @@ export default {
     },
     data: function () {
         return {
+            i18n: {
+                addCustomCSS: 'Add Custom CSS',
+                editCSS: 'Edit CSS',
+                skinName: 'Skin Name',
+                create: 'Create',
+                applyCustomizations: 'Apply customizations to:',
+                thisPage: 'This Page',
+                entireSite: 'Entire Site',
+                confirm: 'Confirm',
+                confirmSkinDeletion: 'Are you sure you want to delete this custom skin? This cannot be undone.',
+                delete: 'Delete',
+                customCSS: 'Custom CSS',
+                save: 'Save'
+            },
             invalidSkinName: false,
             newSkinName: '',
             addCustomCss: false,
@@ -263,6 +277,13 @@ export default {
         }
     },
     mounted() {
+        if (window.ccmi18n_styleCustomizer) {
+            for (const key in this.i18n) {
+                if (window.ccmi18n_styleCustomizer[key]) {
+                    this.i18n[key] = window.ccmi18n_styleCustomizer[key]
+                }
+            }
+        }
         if (this.customCss) {
             this.addCustomCss = true
             this.customizerCustomCss = this.customCss
@@ -295,7 +316,7 @@ export default {
                 element: 'div[data-dialog=delete-theme-customizer-skin]',
                 modal: true,
                 width: '400',
-                title: 'Save',
+                title: my.i18n.save,
                 height: 'auto'
             })
         })
@@ -305,7 +326,7 @@ export default {
                 element: 'div[data-dialog=save-theme-customizer-changes]',
                 modal: true,
                 width: '400',
-                title: 'Save',
+                title: my.i18n.save,
                 height: 'auto'
             })
         })
@@ -315,7 +336,7 @@ export default {
                 element: 'div[data-dialog=save-theme-customizer-styles]',
                 modal: true,
                 width: '400',
-                title: 'Save',
+                title: my.i18n.save,
                 height: 'auto'
             })
         })

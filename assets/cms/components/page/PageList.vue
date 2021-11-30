@@ -8,9 +8,9 @@
                 <thead>
                 <tr>
                     <th><span>Type</span></th>
-                    <th :class="orderBy === 'cv.cvName' ? 'ccm-results-list-active-sort-' + orderByDirection : ''"><a href="#" @click="sortResults('cv.cvName', 'asc', $event)">Name</a></th>
-                    <th :class="orderBy === 'cv.cvDatePublic' ? 'ccm-results-list-active-sort-' + orderByDirection : ''"><a href="#" @click="sortResults('cv.cvDatePublic', 'asc', $event)">Date</a></th>
-                    <th :class="orderBy === 'c.cDateModified' ? 'ccm-results-list-active-sort-' + orderByDirection : ''"><a href="#" @click="sortResults('c.cDateModified', 'desc', $event)">Last Modified</a></th>
+                    <th :class="orderBy === 'cv.cvName' ? 'ccm-results-list-active-sort-' + orderByDirection : ''"><a href="#" @click="sortResults('cv.cvName', 'asc', $event)">{{ i118n.name }}</a></th>
+                    <th :class="orderBy === 'cv.cvDatePublic' ? 'ccm-results-list-active-sort-' + orderByDirection : ''"><a href="#" @click="sortResults('cv.cvDatePublic', 'asc', $event)">{{ i18n.date }}</a></th>
+                    <th :class="orderBy === 'c.cDateModified' ? 'ccm-results-list-active-sort-' + orderByDirection : ''"><a href="#" @click="sortResults('c.cDateModified', 'desc', $event)">{{ i18n.lastModified }}</a></th>
                     <th><span>Author</span></th>
                 </tr>
                 </thead>
@@ -58,6 +58,11 @@ import Pagination from '../Pagination'
 export default {
     components: { Pagination },
     data: () => ({
+        i18n: {
+            name: 'Name',
+            date: 'Date',
+            lastModified: 'Last Modified'
+        },
         currentPage: -1,
         latestSearchID: null,
         mouseOver: 0,
@@ -190,6 +195,13 @@ export default {
         }
     },
     mounted () {
+        if (window.ccmi18n_sitemap) {
+            for (const key in this.i18n) {
+                if (window.ccmi18n_sitemap[key]) {
+                    this.i18n[key] = window.ccmi18n_sitemap[key]
+                }
+            }
+        }
         this.fetchPages()
     }
 }

@@ -7,11 +7,11 @@
 
         <div class="form-group row row-cols-auto g-0 align-items-center justify-content-end">
             <div class="col-auto">
-                <label for="searchPresets" class="me-2">Search Presets</label>
+                <label for="searchPresets" class="me-2">{{ i18n.searchPresets }}</label>
             </div>
             <div class="col-auto">
                 <select id="searchPresets" class="form-select search-presets-menu" v-model="activeSearchPreset">
-                    <option value="" selected>Select a Preset</option>
+                    <option value="" selected>{{ i18n.selectPreset }}</option>
                     <option v-for="searchPreset in searchPresets" :key="searchPreset.id" :value="searchPreset.id">
                         {{searchPreset.presetName}}
                     </option>
@@ -48,6 +48,10 @@ export default {
         Files
     },
     data: () => ({
+        i18n: {
+            searchPresets: 'Search Presets',
+            selectPreset: 'Select a Preset'
+        },
         activeFolder: '',
         searchPresets: [],
         activeSearchPreset: '',
@@ -91,6 +95,13 @@ export default {
         }
     },
     mounted() {
+        if (window.ccmi18n_filemanager) {
+            for (const key in this.i18n) {
+                if (window.ccmi18n_filemanager[key]) {
+                    this.i18n[key] = window.ccmi18n_filemanager[key]
+                }
+            }
+        }
         this.formFactor = this.resultsFormFactor
 
         this.fetchSearchPresets()
