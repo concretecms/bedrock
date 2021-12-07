@@ -200,12 +200,12 @@ export default {
         activateTabByKey(key) {
             var my = this
             this.choosers.forEach(function(chooser) {
-                if (chooser.id == key) {
+                if (chooser.id === key) {
                     my.activateTab(chooser)
                 }
             })
             this.uploaders.forEach(function(uploader) {
-                if (uploader.id == key) {
+                if (uploader.id === key) {
                     my.activateTab(uploader)
                 }
             })

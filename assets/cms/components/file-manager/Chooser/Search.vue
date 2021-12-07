@@ -106,10 +106,10 @@ export default {
 
 <style lang="scss" scoped>
 .search-icon {
-    display: inline-block;
+  display: inline-block;
 
-    .icon {
-        font-size: 7rem;
-    }
+  .icon {
+    font-size: 7rem;
+  }
 }
 </style>

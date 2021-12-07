@@ -175,7 +175,7 @@ export default {
     },
     methods: {
         canChooseFile(file) {
-            var canChooseFile = -1;
+            var canChooseFile = -1
             if (this.filters) {
                 var fileExtension = file.extension
                 var fileType = file.genericType
@@ -189,7 +189,7 @@ export default {
                     }
                     if (canChooseFile !== false) {
                         if (filter.filter === 'type') {
-                            if (filter.type == fileType) {
+                            if (filter.type === fileType) {
                                 canChooseFile = true
                             } else {
                                 canChooseFile = false

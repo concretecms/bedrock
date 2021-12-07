@@ -89,7 +89,7 @@ export default {
             var my = this
             var options = {}
             if (my.filters) {
-                options['filters'] = my.filters
+                options.filters = my.filters
             }
             ConcreteFileManager.launchDialog(function(r) {
                 my.loadFile(r.fID)

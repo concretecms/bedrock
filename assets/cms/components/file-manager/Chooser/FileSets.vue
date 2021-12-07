@@ -30,7 +30,7 @@
 
 <style lang="scss" scoped>
 .file-set-menu {
-    width: 300px !important;
+  width: 300px !important;
 }
 </style>
 
