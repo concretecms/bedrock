@@ -2,6 +2,7 @@
     <div>
         <upload-from-computer
             :upload-directory-id="uploadDirectoryId"
+            @upload-complete="$emit('upload-complete')"
             @uploadProgressStateChange="isUploadInProgress = $event"/>
 
         <concrete-file-directory-input

@@ -35,6 +35,7 @@
                                    :resultsFormFactor.sync="resultsFormFactor"
                                    :filesReadyToUpload.sync="filesReadyToUpload"
                                    ref="c"
+                                   @upload-complete="activateTabByKey('recent-uploads')"
                         />
                     </transition>
                 </div>
@@ -191,6 +192,19 @@ export default {
         },
         isChooseFilesMode() {
             return this.activeNavItem.componentKey !== 'file-upload' && this.activeNavItem.componentKey !== 'external-file-provider'
+        },
+        activateTabByKey(key) {
+            var my = this
+            this.choosers.forEach(function(chooser) {
+                if (chooser.id == key) {
+                    my.activateTab(chooser)
+                }
+            })
+            this.uploaders.forEach(function(uploader) {
+                if (uploader.id == key) {
+                    my.activateTab(uploader)
+                }
+            })
         },
         activateTab(item) {
             this.activeNavItem = item
