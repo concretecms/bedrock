@@ -10,26 +10,27 @@
                 <select id="fileSetSelector" class="form-select file-set-menu" v-model="activeSet">
                     <option value="" selected>{{ i18n.selectFileSet }}</option>
                     <option v-for="set in sets" :key="set.id" :value="set.id">
-                        {{set.name}}
+                        {{ set.name }}
                     </option>
                 </select>
             </div>
         </div>
         <div class="mt-3" v-show="activeSet">
             <files v-if="activeSet"
-                :selectedFiles.sync="selectedFiles"
-                :resultsFormFactor="formFactor"
-                :routePath="routePath + activeSet"
-                :enable-pagination="true"
-                :enable-sort="true"
-                :multipleSelection="multipleSelection"/>
+                   :selectedFiles.sync="selectedFiles"
+                   :resultsFormFactor="formFactor"
+                   :routePath="routePath + activeSet"
+                   :enable-pagination="true"
+                   :enable-sort="true"
+                   :filters="filters"
+                   :multipleSelection="multipleSelection"/>
         </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
 .file-set-menu {
-  width: 300px !important;
+    width: 300px !important;
 }
 </style>
 
@@ -69,6 +70,9 @@ export default {
         multipleSelection: {
             type: Boolean,
             default: true
+        },
+        filters: {
+            type: Array
         }
     },
     methods: {

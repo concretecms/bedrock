@@ -34,8 +34,9 @@
                                    :selectedFiles.sync="selectedFiles"
                                    :resultsFormFactor.sync="resultsFormFactor"
                                    :filesReadyToUpload.sync="filesReadyToUpload"
-                                   ref="c"
+                                   :filters="filters"
                                    @upload-complete="activateTabByKey('recent-uploads')"
+                                   ref="c"
                         />
                     </transition>
                 </div>
@@ -126,6 +127,9 @@ export default {
         multipleSelection: {
             type: Boolean,
             default: true
+        },
+        filters: {
+            type: Array
         }
     },
     created() {

@@ -13,26 +13,27 @@
                 <select id="searchPresets" class="form-select search-presets-menu" v-model="activeSearchPreset">
                     <option value="" selected>{{ i18n.selectPreset }}</option>
                     <option v-for="searchPreset in searchPresets" :key="searchPreset.id" :value="searchPreset.id">
-                        {{searchPreset.presetName}}
+                        {{ searchPreset.presetName }}
                     </option>
                 </select>
             </div>
         </div>
         <div class="mt-3" v-show="activeSearchPreset">
             <files v-if="activeSearchPreset"
-                :selectedFiles.sync="selectedFiles"
-                :resultsFormFactor="formFactor"
-                :routePath="routePath + activeSearchPreset"
-                :enable-pagination="true"
-                :multipleSelection="multipleSelection"
-                @folderClick="activeFolder = $event"/>
+                   :selectedFiles.sync="selectedFiles"
+                   :resultsFormFactor="formFactor"
+                   :filters="filters"
+                   :routePath="routePath + activeSearchPreset"
+                   :enable-pagination="true"
+                   :multipleSelection="multipleSelection"
+                   @folderClick="activeFolder = $event"/>
         </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
 .search-presets-menu {
-  width: 300px !important;
+    width: 300px !important;
 }
 </style>
 
@@ -74,6 +75,9 @@ export default {
         multipleSelection: {
             type: Boolean,
             default: true
+        },
+        filters: {
+            type: Array
         }
     },
     methods: {

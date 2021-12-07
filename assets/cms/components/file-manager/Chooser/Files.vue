@@ -9,8 +9,8 @@
                             <label class="form-label" :for="'file-' + (file.fID || file.treeNodeID)"><span v-html="file.resultsThumbnailImg"></span></label>
                             <div class="ccm-image-cell-title pt-1">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" v-if="multipleSelection && !file.isFolder" v-model="selectedFiles" :id="'file-' + file.fID" :value="file.fID">
-                                    <input class="form-check-input" type="radio" v-if="!multipleSelection && !file.isFolder" v-model="selectedFiles" :id="'file-' + file.fID" :value="file.fID">
+                                    <input :disabled="!canChooseFile(file)" class="form-check-input" type="checkbox" v-if="multipleSelection && !file.isFolder" v-model="selectedFiles" :id="'file-' + file.fID" :value="file.fID">
+                                    <input :disabled="!canChooseFile(file)" class="form-check-input" type="radio" v-if="!multipleSelection && !file.isFolder" v-model="selectedFiles" :id="'file-' + file.fID" :value="file.fID">
                                     <label class="form-check-label" :for="'file-' + (file.fID || file.treeNodeID)">{{file.title}}</label>
                                 </div>
                             </div>
@@ -38,8 +38,8 @@
                     <tbody>
                         <tr v-for="file in fileList" :key="(file.fID || file.treeNodeID) + 'list'" @click="onItemClick(file)">
                             <td>
-                                <input type="checkbox" v-if="multipleSelection && !file.isFolder" v-model="selectedFiles" :id="'file-' + file.fID" :value="file.fID">
-                                <input type="radio" v-if="!multipleSelection && !file.isFolder" v-model="selectedFiles" :id="'file-' + file.fID" :value="file.fID">
+                                <input type="checkbox" :disabled="!canChooseFile(file)" v-if="multipleSelection && !file.isFolder" v-model="selectedFiles" :id="'file-' + file.fID" :value="file.fID">
+                                <input type="radio" :disabled="!canChooseFile(file)" v-if="!multipleSelection && !file.isFolder" v-model="selectedFiles" :id="'file-' + file.fID" :value="file.fID">
                             </td>
                             <td class="ccm-image-chooser-icon"><span v-html="file.resultsThumbnailImg" width="32" height="32"></span></td>
                             <td>{{file.fID}}</td>
@@ -100,6 +100,9 @@ export default {
         viewIsLoading: false
     }),
     props: {
+        filters: {
+            type: Array
+        },
         enableSort: {
             type: Boolean,
             required: false,
@@ -171,6 +174,37 @@ export default {
         }
     },
     methods: {
+        canChooseFile(file) {
+            var canChooseFile = -1;
+            if (this.filters) {
+                var fileExtension = file.extension
+                var fileType = file.genericType
+                this.filters.forEach(function(filter) {
+                    if (filter.filter === 'extension') {
+                        if (filter.extensions.includes(fileExtension)) {
+                            canChooseFile = true
+                        } else {
+                            canChooseFile = false
+                        }
+                    }
+                    if (canChooseFile !== false) {
+                        if (filter.filter === 'type') {
+                            if (filter.type == fileType) {
+                                canChooseFile = true
+                            } else {
+                                canChooseFile = false
+                            }
+                        }
+                    }
+                })
+            }
+
+            if (canChooseFile === -1) {
+                return true
+            } else {
+                return canChooseFile
+            }
+        },
         getFiles() {
             const my = this
             my.rows = false

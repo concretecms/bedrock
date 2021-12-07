@@ -4,6 +4,7 @@
 
         <files :selectedFiles.sync="selectedFiles"
                :resultsFormFactor="formFactor"
+               :filters="filters"
                routePath="/ccm/system/file/chooser/recent"
                :multipleSelection="multipleSelection"/>
     </div>
@@ -37,6 +38,9 @@ export default {
         multipleSelection: {
             type: Boolean,
             default: true
+        },
+        filters: {
+            type: Array
         }
     },
     watch: {

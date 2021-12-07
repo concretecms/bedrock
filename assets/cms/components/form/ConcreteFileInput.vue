@@ -52,6 +52,9 @@ export default {
         },
         chooseText: {
             type: String
+        },
+        filters: {
+            type: Array
         }
     },
     watch: {
@@ -84,9 +87,13 @@ export default {
         },
         openChooser: function() {
             var my = this
+            var options = {}
+            if (my.filters) {
+                options['filters'] = my.filters
+            }
             ConcreteFileManager.launchDialog(function(r) {
                 my.loadFile(r.fID)
-            })
+            }, options)
         },
         loadFile(fileId) {
             var my = this
