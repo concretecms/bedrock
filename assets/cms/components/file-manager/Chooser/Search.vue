@@ -6,7 +6,8 @@
             <div class="col-md-4 ms-auto">
                 <form @submit.prevent="search">
                     <div class="ccm-header-search-form-input input-group">
-                        <input type="text" class="form-control border-end-0" :placeholder="i18n.search" autocomplete="false" v-model="searchText">
+                        <input type="text" class="form-control border-end-0" :placeholder="i18n.search"
+                               autocomplete="false" v-model="searchText">
                         <button type="submit" class="input-group-icon">
                             <svg width="16" height="16">
                                 <use xlink:href="#icon-search"/>
@@ -24,12 +25,13 @@
         </div>
         <div>
             <files v-if="keywords"
-                :selectedFiles.sync="selectedFiles"
-                :resultsFormFactor="formFactor"
-                :routePath="routePath + keywords"
-                :enable-pagination="true"
-                :enable-sort="true"
-                :multipleSelection="multipleSelection"/>
+                   :selectedFiles.sync="selectedFiles"
+                   :resultsFormFactor="formFactor"
+                   :routePath="routePath + keywords"
+                   :enable-pagination="true"
+                   :enable-sort="true"
+                   :filters="filters"
+                   :multipleSelection="multipleSelection"/>
         </div>
     </div>
 </template>
@@ -71,10 +73,13 @@ export default {
         multipleSelection: {
             type: Boolean,
             default: true
+        },
+        filters: {
+            type: Array
         }
     },
     methods: {
-        search () {
+        search() {
             this.keywords = this.searchText
         }
     },

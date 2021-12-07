@@ -17,14 +17,7 @@ class ConcreteFileManager {
         }
 
         if (options.filters.length > 0) {
-            data['field[]'] = []
-
-            for (i = 0; i < options.filters.length; i++) {
-                var filter = $.extend(true, {}, options.filters[i]) // clone
-                data['field[]'].push(filter.field)
-                delete (filter.field)
-                $.extend(data, filter) // add all remaining fields to the data
-            }
+            data.filters = options.filters
         }
 
         $.fn.dialog.open({

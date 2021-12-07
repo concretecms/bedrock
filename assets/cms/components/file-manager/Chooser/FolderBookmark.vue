@@ -10,6 +10,7 @@
                :routePath="routePath + activeFolder"
                :enable-pagination="true"
                :enable-sort="true"
+               :filters="filters"
                :multipleSelection="multipleSelection"
                @folderClick="activeFolder = $event"/>
     </div>
@@ -51,6 +52,9 @@ export default {
         multipleSelection: {
             type: Boolean,
             default: true
+        },
+        filters: {
+            type: Array
         }
     },
     created() {

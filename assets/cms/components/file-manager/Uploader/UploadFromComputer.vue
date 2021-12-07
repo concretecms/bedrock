@@ -131,7 +131,8 @@ export default {
                             me.uploadedFiles.forEach(function(file) {
                                 fileIds.push(file.fID)
                             })
-                            ConcreteEvent.publish('FileManagerSelectFile', { fID: fileIds })
+                            // Instead of firing this event let's use uploadComplete() below to re-select the Recent Uploads tab.
+                            // ConcreteEvent.publish('FileManagerSelectFile', { fID: fileIds })
                             me.uploadedFiles = []
                         }
                         me.uploadComplete()
@@ -222,7 +223,7 @@ export default {
             this.dropzone.removeAllFiles(true)
         },
         uploadComplete() {
-            this.$emit('update:uploadCompleted')
+            this.$emit('upload-complete')
 
             ConcreteAlert.notify({
                 title: 'Complete',

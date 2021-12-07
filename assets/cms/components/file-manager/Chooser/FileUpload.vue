@@ -2,7 +2,9 @@
     <div>
         <chooser-header :show-form-factor-selector="false" :title="title"/>
 
-        <uploader/>
+        <uploader
+            @upload-complete="$emit('upload-complete')"
+        />
     </div>
 </template>
 
