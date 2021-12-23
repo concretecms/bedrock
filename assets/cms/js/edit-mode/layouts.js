@@ -173,8 +173,8 @@ ConcreteLayout.prototype._setupFormEvents = function () {
 ConcreteLayout.prototype.buildThemeGridGrid = function () {
     this.$element.html('')
 
-    var row = this.options.rowstart
-    row += '<div id="ccm-theme-grid-edit-mode-row-wrapper">'
+    var row = '<div id="ccm-theme-grid-edit-mode-row-wrapper">'
+    row += this.options.rowstart
 
     var columnSpans = this._getThemeGridColumnSpan(this.columns)
     $.each(columnSpans, function (i, spanInfo) {
@@ -213,8 +213,8 @@ ConcreteLayout.prototype._updateThemeGridView = function (presetLoad) {
 
 ConcreteLayout.prototype._buildThemeGridGridFromPresetColumns = function (arLayoutColumns) {
     this.$element.html('')
-    var row = this.options.rowstart
-    row += '<div id="ccm-theme-grid-edit-mode-row-wrapper">'
+    var row = '<div id="ccm-theme-grid-edit-mode-row-wrapper">'
+    row += this.options.rowstart
     $.each(arLayoutColumns, function (i, column) {
         var columnHTML = '<div id="ccm-edit-layout-column-' + i + '" class="ccm-theme-grid-column" ' +
             'data-offset="' + column.arLayoutColumnOffset + '" data-span="' + column.arLayoutColumnSpan + '"><div class="ccm-layout-column-highlight">' +
