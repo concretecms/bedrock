@@ -1,5 +1,5 @@
 <template>
-    <div class="mb-3">
+    <div class="mb-3 ccm-context-theme">
         <select :name="inputName" data-select="theme-colors" data-width="100%">
             <option v-for="color in colorCollection.colors" :selected="selectedColor == color.variable" :data-content="dataContentAttribute(color)" :value="color.variable">{{ color.name }}</option>
         </select>
