@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div v-if="resultsFormFactor === 'list'">
-                <table class="table ccm-image-chooser-list-view ccm-search-results-table">
+                <table class="table align-middle ccm-image-chooser-list-view ccm-search-results-table">
                     <thead>
                     <tr>
                         <th></th>
@@ -33,6 +33,7 @@
                             <a v-if="enableSort" href="#" @click.prevent="sortBy(dateSortColumn)">{{ i18n.uploaded }}</a>
                             <span v-else>{{ i18n.uploaded }}</span>
                         </th>
+                        <th>{{ i18n.size }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -45,6 +46,7 @@
                             <td>{{file.fID}}</td>
                             <td>{{file.title}}</td>
                             <td>{{file.fvDateAdded}}</td>
+                            <td>{{file.size}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -83,7 +85,8 @@ export default {
         i18n: {
             id: 'ID',
             name: 'Name',
-            uploaded: 'Uploaded'
+            uploaded: 'Uploaded',
+            size: 'Size'
         },
         currentPage: 1,
         rows: false,
