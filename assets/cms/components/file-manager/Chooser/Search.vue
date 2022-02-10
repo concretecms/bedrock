@@ -1,22 +1,10 @@
 <template>
     <div>
-        <chooser-header :resultsFormFactor.sync="formFactor" :title="title"/>
+        <chooser-header :resultsFormFactor.sync="formFactor"
+                        :resultsSearchQuery.sync="searchQuery"
+                        :enable-search="true"
+                        :title="title"/>
 
-        <div class="row mb-3">
-            <div class="col-md-4 ms-auto">
-                <form @submit.prevent="search">
-                    <div class="ccm-header-search-form-input input-group">
-                        <input type="text" class="form-control border-end-0" :placeholder="i18n.search"
-                               autocomplete="false" v-model="searchText">
-                        <button type="submit" class="input-group-icon">
-                            <svg width="16" height="16">
-                                <use xlink:href="#icon-search"/>
-                            </svg>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
         <div v-show="!keywords" class="text-center mt-5">
             <span class="search-icon my-4">
                 <Icon icon="search" type="fas" color="#f4f4f4"/>
@@ -50,14 +38,13 @@ export default {
     },
     data: () => ({
         i18n: {
-            search: 'Search',
             initialSearchChooserTip: "Let's get some info on what you're looking for."
         },
-        searchText: '',
         keywords: '',
         selectedFiles: [],
         routePath: '/ccm/system/file/chooser/search/',
-        formFactor: 'grid'
+        formFactor: 'grid',
+        searchQuery: ''
     }),
     props: {
         resultsFormFactor: {
@@ -65,6 +52,9 @@ export default {
             required: false,
             default: 'grid', // grid | list
             validator: value => ['grid', 'list'].indexOf(value) !== -1
+        },
+        resultsSearchQuery: {
+            type: String,
         },
         title: {
             type: String,
@@ -89,7 +79,10 @@ export default {
         },
         formFactor(value) {
             this.$emit('update:resultsFormFactor', value)
-        }
+        },
+        searchQuery(value) {
+            this.keywords = value
+        },
     },
     mounted() {
         if (window.ccmi18n_filemanager) {
@@ -100,6 +93,7 @@ export default {
             }
         }
         this.formFactor = this.resultsFormFactor
+        this.searchQuery = this.resultsSearchQuery
     }
 }
 </script>

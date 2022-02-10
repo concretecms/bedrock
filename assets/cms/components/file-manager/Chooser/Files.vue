@@ -6,7 +6,7 @@
                 <div v-for="row in rows" class="row text-center" :key="row.index">
                     <div class="col-md-3" v-for="file in row" :key="(file.fID || file.treeNodeID) + 'grid'">
                         <div class="ccm-image-cell" @click="onItemClick(file)">
-                            <label class="form-label" :for="'file-' + (file.fID || file.treeNodeID)"><span v-html="file.resultsThumbnailImg"></span></label>
+                            <label class="form-label" :data-bs-content="getGridHoverContent(file)" :for="'file-' + (file.fID || file.treeNodeID)"><span v-html="file.resultsThumbnailImg"></span></label>
                             <div class="ccm-image-cell-title pt-1">
                                 <div class="form-check form-check-inline">
                                     <input :disabled="!canChooseFile(file)" class="form-check-input" type="checkbox" v-if="multipleSelection && !file.isFolder" v-model="selectedFiles" :id="'file-' + file.fID" :value="file.fID">
@@ -34,6 +34,8 @@
                             <span v-else>{{ i18n.uploaded }}</span>
                         </th>
                         <th>{{ i18n.size }}</th>
+                        <th>{{ i18n.width }}</th>
+                        <th>{{ i18n.height }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -42,11 +44,13 @@
                                 <input type="checkbox" :disabled="!canChooseFile(file)" v-if="multipleSelection && !file.isFolder" v-model="selectedFiles" :id="'file-' + file.fID" :value="file.fID">
                                 <input type="radio" :disabled="!canChooseFile(file)" v-if="!multipleSelection && !file.isFolder" v-model="selectedFiles" :id="'file-' + file.fID" :value="file.fID">
                             </td>
-                            <td class="ccm-image-chooser-icon"><span v-html="file.resultsThumbnailImg" width="32" height="32"></span></td>
+                            <td class="ccm-image-chooser-icon"><div :data-bs-content="getListHoverContent(file)"><span v-html="file.resultsThumbnailImg" width="32" height="32"></span></div></td>
                             <td>{{file.fID}}</td>
                             <td>{{file.title}}</td>
                             <td>{{file.fvDateAdded}}</td>
                             <td>{{file.size}}</td>
+                            <td>{{file.attributes ? file.attributes.width : ''}}</td>
+                            <td>{{file.attributes ? file.attributes.height : ''}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -86,7 +90,9 @@ export default {
             id: 'ID',
             name: 'Name',
             uploaded: 'Uploaded',
-            size: 'Size'
+            size: 'Size',
+            width: 'Width',
+            height: 'Height'
         },
         currentPage: 1,
         rows: false,
@@ -177,6 +183,40 @@ export default {
         }
     },
     methods: {
+        getGridHoverContent(file) {
+            if (!file.isFolder) {
+                var title = ''
+                if (file.resultsThumbnailDetailImg) {
+                    title += '<div>' + file.resultsThumbnailDetailImg + '</div>'
+                }
+                title += '<div class="text-center"><b>' + file.size + '</b></div>'
+                if (file.attributes && file.attributes.width && file.attributes.height) {
+                    title += '<div class="text-center text-muted"><small>' + file.attributes.width + 'x' + file.attributes.height + '</small></div>'
+                }
+                return title
+            }
+        },
+        getListHoverContent(file) {
+            if (!file.isFolder) {
+                if (file.resultsThumbnailDetailImg) {
+                    return '<div>' + file.resultsThumbnailDetailImg + '</div>'
+                }
+            }
+        },
+        setupHoverPreview() {
+            var $cells = $(this.$el).find('[data-bs-content]')
+            $cells.each(function(i) {
+                return new bootstrap.Popover($cells.get(i), {
+                    container: '#ccm-tooltip-holder',
+                    customClass: 'ccm-image-chooser-popover',
+                    placement: 'bottom',
+                    delay: 500,
+                    trigger: 'hover',
+                    fallbackPlacements: ['top'],
+                    html: true
+                })
+            })
+        },
         canChooseFile(file) {
             var canChooseFile = -1
             if (this.filters) {
@@ -285,8 +325,21 @@ export default {
                 }
             }
         }
+
+
     },
     watch: {
+        resultsFormFactor(value) {
+            var my = this
+            setTimeout(function() {
+                my.setupHoverPreview()
+            }, 5)
+        },
+        viewIsLoading(value) {
+            if (value == false) {
+                this.setupHoverPreview()
+            }
+        },
         selectedFiles(value) {
             this.$emit('update:selectedFiles', Array.isArray(value) ? value : [value])
         },

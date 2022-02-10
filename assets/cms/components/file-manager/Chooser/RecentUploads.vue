@@ -1,6 +1,8 @@
 <template>
     <div>
-        <chooser-header :resultsFormFactor.sync="formFactor" :title="title"/>
+        <chooser-header :resultsFormFactor.sync="formFactor"
+                        :resultsSearchQuery.sync="searchQuery"
+                        :title="title"/>
 
         <files :selectedFiles.sync="selectedFiles"
                :resultsFormFactor="formFactor"
@@ -22,7 +24,8 @@ export default {
     },
     data: () => ({
         selectedFiles: [],
-        formFactor: 'grid'
+        formFactor: 'grid',
+        searchQuery: ''
     }),
     props: {
         resultsFormFactor: {
@@ -49,10 +52,14 @@ export default {
         },
         formFactor(value) {
             this.$emit('update:resultsFormFactor', value)
-        }
+        },
+        searchQuery(value) {
+            this.$emit('update:resultsSearchQuery', value)
+        },
     },
     mounted() {
         this.formFactor = this.resultsFormFactor
+        this.searchQuery = this.resultsSearchQuery
     }
 }
 </script>
