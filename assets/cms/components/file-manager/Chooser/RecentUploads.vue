@@ -55,7 +55,7 @@ export default {
         },
         searchQuery(value) {
             this.$emit('update:resultsSearchQuery', value)
-        },
+        }
     },
     mounted() {
         this.formFactor = this.resultsFormFactor

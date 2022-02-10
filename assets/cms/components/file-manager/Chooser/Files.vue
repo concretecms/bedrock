@@ -77,7 +77,7 @@
 }
 </style>
 <script>
-/* global CCM_DISPATCHER_FILENAME, ConcreteAjaxRequest */
+/* global CCM_DISPATCHER_FILENAME, bootstrap, ConcreteAjaxRequest */
 /* eslint-disable no-new */
 import Pagination from '../../Pagination'
 
@@ -325,8 +325,6 @@ export default {
                 }
             }
         }
-
-
     },
     watch: {
         resultsFormFactor(value) {
@@ -336,7 +334,7 @@ export default {
             }, 5)
         },
         viewIsLoading(value) {
-            if (value == false) {
+            if (!value) {
                 this.setupHoverPreview()
             }
         },

@@ -50,7 +50,7 @@ export default {
             default: false
         },
         resultsSearchQuery: {
-            type: String,
+            type: String
         },
         resultsFormFactor: {
             type: String,

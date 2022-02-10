@@ -54,7 +54,7 @@ export default {
             validator: value => ['grid', 'list'].indexOf(value) !== -1
         },
         resultsSearchQuery: {
-            type: String,
+            type: String
         },
         title: {
             type: String,
@@ -82,7 +82,7 @@ export default {
         },
         searchQuery(value) {
             this.keywords = value
-        },
+        }
     },
     mounted() {
         if (window.ccmi18n_filemanager) {

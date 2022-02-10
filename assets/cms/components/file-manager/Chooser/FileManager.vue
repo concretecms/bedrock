@@ -67,7 +67,7 @@ export default {
     },
     created() {
         this.activeFolder = this.$props.startFolder
-        //this.fetchBreadcrumb(this.activeFolder) // Not sure why this is here, it leads to duplicate requests and I don't think it needs to be
+        // this.fetchBreadcrumb(this.activeFolder) // Not sure why this is here, it leads to duplicate requests and I don't think it needs to be
     },
     methods: {
         fetchBreadcrumb(folderId = '') {
@@ -94,14 +94,14 @@ export default {
         },
         startFolder(value) {
             this.activeFolder = value
-            //this.fetchBreadcrumb(value) // Not sure why this is here, it leads to duplicate requests and I don't think it needs to be
+            // this.fetchBreadcrumb(value) // Not sure why this is here, it leads to duplicate requests and I don't think it needs to be
         }
     },
     mounted() {
         this.formFactor = this.resultsFormFactor
         this.searchQuery = this.resultsSearchQuery
         this.activeFolder = this.$props.startFolder
-        //this.fetchBreadcrumb(this.activeFolder) // Not sure why this is here, it leads to duplicate requests and I don't think it needs to be
+        // this.fetchBreadcrumb(this.activeFolder) // Not sure why this is here, it leads to duplicate requests and I don't think it needs to be
     }
 }
 </script>

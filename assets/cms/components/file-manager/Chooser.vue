@@ -169,7 +169,7 @@ export default {
         searchChooserIsEnabled() {
             var enabled = false
             this.choosers.forEach(function(chooser) {
-                if (chooser.id == 'search') {
+                if (chooser.id === 'search') {
                     enabled = true
                 }
             })
