@@ -72,6 +72,12 @@ export default {
                         this.$emit('change', null)
                     }
                 }
+                if (!this.isFirstRun) {
+                    // Fire the jQuery change event.
+                    // @deprecated - do not use this unless you have to. Use this component directly instead and listen
+                    // to its change event. This will be removed when the jQuery dependency is removed.
+                    $('input[name=' + this.inputName + ']').trigger('change')
+                }
                 this.isFirstRun = false
             }
         }
