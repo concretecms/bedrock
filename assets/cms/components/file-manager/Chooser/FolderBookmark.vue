@@ -5,7 +5,8 @@
                         @breadcrumbItemClick="activeFolder = $event.folderId"
                         :title="title"/>
 
-        <files :selectedFiles.sync="selectedFiles"
+        <files :key-prefix="'folder-bookmark' + activeFolder"
+               :selectedFiles.sync="selectedFiles"
                :resultsFormFactor="formFactor"
                :routePath="routePath + activeFolder"
                :enable-pagination="true"

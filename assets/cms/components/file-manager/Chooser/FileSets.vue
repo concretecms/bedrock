@@ -17,6 +17,7 @@
         </div>
         <div class="mt-3" v-show="activeSet">
             <files v-if="activeSet"
+                   key-prefix="file-sets"
                    :selectedFiles.sync="selectedFiles"
                    :resultsFormFactor="formFactor"
                    :routePath="routePath + activeSet"

@@ -8,6 +8,7 @@
                         :title="title"/>
 
         <files :selectedFiles.sync="selectedFiles"
+               key-prefix="file-manager"
                :resultsFormFactor="formFactor"
                :routePath="routePath + activeFolder"
                :enable-pagination="true"

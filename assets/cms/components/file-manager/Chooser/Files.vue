@@ -3,8 +3,8 @@
         <svg v-if="isLoading" class="ccm-loader-dots"><use xlink:href="#icon-loader-circles" /></svg>
         <div v-if="!isLoading">
             <div class="ccm-image-cell-grid container-fluid ps-0" v-if="resultsFormFactor === 'grid'">
-                <div v-for="row in rows" class="row text-center" :key="row.index">
-                    <div class="col-md-3" v-for="file in row" :key="(file.fID || file.treeNodeID) + 'grid'">
+                <div v-for="(row, index) in rows" class="row text-center" :key="keyPrefix + '-' + index">
+                    <div class="col-md-3" v-for="file in row" :key="keyPrefix + '-' + (file.fID || file.treeNodeID) + '-grid'">
                         <div class="ccm-image-cell" @click="onItemClick(file)">
                             <label class="form-label" :data-bs-content="getGridHoverContent(file)" :for="'file-' + (file.fID || file.treeNodeID)"><span v-html="file.resultsThumbnailImg"></span></label>
                             <div class="ccm-image-cell-title pt-1">
@@ -39,7 +39,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="file in fileList" :key="(file.fID || file.treeNodeID) + 'list'" @click="onItemClick(file)">
+                        <tr v-for="file in fileList" :key="keyPrefix + '-' + (file.fID || file.treeNodeID) + '-list'" @click="onItemClick(file)">
                             <td>
                                 <input type="checkbox" :disabled="!canChooseFile(file)" v-if="multipleSelection && !file.isFolder" v-model="selectedFiles" :id="'file-' + file.fID" :value="file.fID">
                                 <input type="radio" :disabled="!canChooseFile(file)" v-if="!multipleSelection && !file.isFolder" v-model="selectedFiles" :id="'file-' + file.fID" :value="file.fID">
@@ -111,6 +111,11 @@ export default {
     props: {
         filters: {
             type: Array
+        },
+        keyPrefix: {
+            type: String,
+            required: false,
+            default: ''
         },
         enableSort: {
             type: Boolean,

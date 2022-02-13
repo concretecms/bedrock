@@ -5,6 +5,7 @@
                         :title="title"/>
 
         <files :selectedFiles.sync="selectedFiles"
+               key-prefix="recent-uploads"
                :resultsFormFactor="formFactor"
                :filters="filters"
                routePath="/ccm/system/file/chooser/recent"

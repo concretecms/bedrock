@@ -31,6 +31,7 @@
     </div>
     <div>
       <files v-if="keywords"
+             :key-prefix="'external-file-provider' + id"
              :selectedFiles.sync="selectedFiles"
              :resultsFormFactor="formFactor"
              :routePath="routePath + id + '/search/' + keywords"

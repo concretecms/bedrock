@@ -4,8 +4,8 @@
             <div class="row h-100">
                 <div class="col-4 border-end p-3">
                     <ul class="nav flex-column">
-                        <li class="nav-item" v-for="item in choosers" :key="item.id">
-                            <a :class="{'nav-link': true, 'active': activeNavItem.id === item.id}"
+                        <li class="nav-item" v-for="item in choosers" :key="item.componentKey + '-' + item.id">
+                            <a :class="{'nav-link': true, 'active': activeNavItem.id === item.id && activeNavItem.componentKey === item.componentKey}"
                                @click.prevent="activateTab(item)"
                                href="javascript:void(0)">
                                 {{item.title}}
@@ -14,8 +14,8 @@
                     </ul>
                     <hr>
                     <ul class="nav flex-column">
-                        <li class="nav-item" v-for="item in uploaders" :key="item.id">
-                            <a :class="{'nav-link': true, 'active': activeNavItem.id === item.id}"
+                        <li class="nav-item" v-for="item in uploaders" :key="item.componentKey + '-' + item.id">
+                            <a :class="{'nav-link': true, 'active': activeNavItem.id === item.id && activeNavItem.componentKey === item.componentKey}"
                                @click.prevent="activateTab(item)"
                                href="javascript:void(0)">
                                 {{item.title}}

@@ -20,6 +20,7 @@
         </div>
         <div class="mt-3" v-show="activeSearchPreset">
             <files v-if="activeSearchPreset"
+                   key-prefix="saved-search"
                    :selectedFiles.sync="selectedFiles"
                    :resultsFormFactor="formFactor"
                    :filters="filters"

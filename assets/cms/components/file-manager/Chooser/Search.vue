@@ -13,6 +13,7 @@
         </div>
         <div>
             <files v-if="keywords"
+                   key-prefix="search"
                    :selectedFiles.sync="selectedFiles"
                    :resultsFormFactor="formFactor"
                    :routePath="routePath + keywords"
