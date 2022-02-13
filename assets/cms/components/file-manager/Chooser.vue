@@ -4,8 +4,8 @@
             <div class="row h-100">
                 <div class="col-4 border-end p-3">
                     <ul class="nav flex-column">
-                        <li class="nav-item" v-for="item in choosers" :key="item.id">
-                            <a :class="{'nav-link': true, 'active': activeNavItem.id === item.id}"
+                        <li class="nav-item" v-for="item in choosers" :key="item.componentKey + '-' + item.id">
+                            <a :class="{'nav-link': true, 'active': activeNavItem.id === item.id && activeNavItem.componentKey === item.componentKey}"
                                @click.prevent="activateTab(item)"
                                href="javascript:void(0)">
                                 {{item.title}}
@@ -14,8 +14,8 @@
                     </ul>
                     <hr>
                     <ul class="nav flex-column">
-                        <li class="nav-item" v-for="item in uploaders" :key="item.id">
-                            <a :class="{'nav-link': true, 'active': activeNavItem.id === item.id}"
+                        <li class="nav-item" v-for="item in uploaders" :key="item.componentKey + '-' + item.id">
+                            <a :class="{'nav-link': true, 'active': activeNavItem.id === item.id && activeNavItem.componentKey === item.componentKey}"
                                @click.prevent="activateTab(item)"
                                href="javascript:void(0)">
                                 {{item.title}}
@@ -32,6 +32,8 @@
                                    :extraData="activeNavItem.data || {}"
                                    :multipleSelection="multipleSelection"
                                    :selectedFiles.sync="selectedFiles"
+                                   :searchChooserIsEnabled="searchChooserIsEnabled()"
+                                   :resultsSearchQuery.sync="resultsSearchQuery"
                                    :resultsFormFactor.sync="resultsFormFactor"
                                    :filesReadyToUpload.sync="filesReadyToUpload"
                                    :filters="filters"
@@ -86,6 +88,7 @@ export default {
                 search: 'Search',
                 uploadFiles: 'Upload Files'
             },
+            resultsSearchQuery: '',
             filesReadyToUpload: 0,
             activeNavItem: null,
             resultsFormFactor: 'grid',
@@ -155,9 +158,23 @@ export default {
         },
         uploaders() {
             this.applyLocalization()
+        },
+        resultsSearchQuery(value) {
+            if (value) {
+                this.activateTabByKey('search')
+            }
         }
     },
     methods: {
+        searchChooserIsEnabled() {
+            var enabled = false
+            this.choosers.forEach(function(chooser) {
+                if (chooser.id === 'search') {
+                    enabled = true
+                }
+            })
+            return enabled
+        },
         applyLocalization() {
             if (this.choosers) {
                 for (const chooser of this.choosers) {
