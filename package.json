@@ -46,7 +46,7 @@
     "selectize-bootstrap4-theme": "^2.0.2",
     "spectrum-colorpicker": "^1.8.1",
     "tristate": "^1.2.0",
-    "underscore": "^1.11.0",
+    "underscore": "^1.13",
     "v-calendar": "^1.0.8",
     "vue": "^2.6.12",
     "vue-js-toggle-button": "^1.3.3",
