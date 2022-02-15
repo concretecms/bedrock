@@ -16,9 +16,9 @@
         var toggleStarEl
         toggleStarEl = function($star, state) {
             if (state) {
-                return $star.removeClass('fa-star-o').addClass('fa-star')
+                return $star.removeClass('far').addClass('fas')
             } else {
-                return $star.removeClass('fa-star').addClass('fa-star-o')
+                return $star.removeClass('fas').addClass('far')
             }
         }
         return $.fn.awesomeStarRating = function(options) {
@@ -39,7 +39,7 @@
             stars = []
             _results = []
             for (i = _i = 1; _i <= 5; i = ++_i) {
-                $star = $('<i class="fa"></i>')
+                $star = $('<i class="fa-star"></i>')
                 toggleStarEl($star, i <= ratingScore)
                 $ratingContainer.append($star)
                 stars[i] = $star
