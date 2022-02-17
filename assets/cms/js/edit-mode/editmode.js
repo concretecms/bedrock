@@ -330,7 +330,7 @@
                 var areas = my.getAreas()
                 var contenders
 
-                if (block instanceof Concrete.Layout) {
+                if (block instanceof Concrete.Layout || block instanceof Concrete.ContainerBlock) {
                     areas = [_(areas).find(function (a) {
                         return block.getArea() === a
                     })]
