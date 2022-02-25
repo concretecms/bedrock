@@ -203,7 +203,11 @@
             var hshift = mwidth / 2 - 5
             var vshift = mheight / 2 - 5
 
-            var available = ['bottom', 'top', 'right', 'left']; var all = available.slice(0)
+            // The right and left positions do weird things, and are especially weird without the arrow
+            // Which has been removed for better appearance. Let's limit this to something that's less
+            // jumpy and support just bottom and top.
+            var available = ['bottom', 'top'], all = available.slice(0);
+            //var available = ['bottom', 'top', 'right', 'left']; var all = available.slice(0)
 
             if (clientX < mwidth + 30) {
                 available = _(available).without('left')
@@ -229,10 +233,14 @@
             }
 
             var placement = available.shift()
+            if (!placement) {
+                // we have to have a valid placement
+                placement = 'bottom'
+            }
             $menu.removeClass(all).addClass('bs-popover-' + placement)
 
-            pageX -= 2
-            pageY -= 2
+            pageX += 5
+            pageY += 5
             switch (placement) {
             case 'left':
                 pageX = pageX - mwidth
