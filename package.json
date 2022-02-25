@@ -1,6 +1,6 @@
 {
   "name": "@concretecms/bedrock",
-  "version": "1.1.11",
+  "version": "1.1.12",
   "description": "The asset framework and dependencies for Concrete CMS.",
   "scripts": {
     "lint": "standardx \"**/*.{js,vue}\" && stylelint assets/**/*.{scss,vue}",
