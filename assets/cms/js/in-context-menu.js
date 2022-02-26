@@ -206,8 +206,8 @@
             // The right and left positions do weird things, and are especially weird without the arrow
             // Which has been removed for better appearance. Let's limit this to something that's less
             // jumpy and support just bottom and top.
-            var available = ['bottom', 'top'], all = available.slice(0);
-            //var available = ['bottom', 'top', 'right', 'left']; var all = available.slice(0)
+            var available = ['bottom', 'top']; var all = available.slice(0)
+            // var available = ['bottom', 'top', 'right', 'left']; var all = available.slice(0)
 
             if (clientX < mwidth + 30) {
                 available = _(available).without('left')
