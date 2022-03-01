@@ -8,7 +8,7 @@
                 <thead>
                 <tr>
                     <th><span>Type</span></th>
-                    <th :class="orderBy === 'cv.cvName' ? 'ccm-results-list-active-sort-' + orderByDirection : ''"><a href="#" @click="sortResults('cv.cvName', 'asc', $event)">{{ i118n.name }}</a></th>
+                    <th :class="orderBy === 'cv.cvName' ? 'ccm-results-list-active-sort-' + orderByDirection : ''"><a href="#" @click="sortResults('cv.cvName', 'asc', $event)">{{ i18n.name }}</a></th>
                     <th :class="orderBy === 'cv.cvDatePublic' ? 'ccm-results-list-active-sort-' + orderByDirection : ''"><a href="#" @click="sortResults('cv.cvDatePublic', 'asc', $event)">{{ i18n.date }}</a></th>
                     <th :class="orderBy === 'c.cDateModified' ? 'ccm-results-list-active-sort-' + orderByDirection : ''"><a href="#" @click="sortResults('c.cDateModified', 'desc', $event)">{{ i18n.lastModified }}</a></th>
                     <th><span>Author</span></th>
