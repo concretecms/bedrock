@@ -145,13 +145,13 @@
 .ccm-ui {
   div.dropdown-menu.ccm-inline-design-dropdown-menu,
   div.ccm-dropdown-menu {
+    @include border-radius($dropdown-border-radius);
     background-color: $dropdown-bg;
     border: $dropdown-border-width solid $dropdown-border-color;
     line-height: $line-height-base;
     min-width: 265px;
     padding: 20px;
     text-align: left;
-    @include border-radius($dropdown-border-radius);
 
     &.ccm-inline-design-dropdown-menu-doubled {
       min-width: 522px;
@@ -398,8 +398,10 @@
   }
 
   li.ccm-inline-toolbar-icon-selected {
-    a, a:hover {
+    a,
+    a:hover {
       background-color: $blue;
+
       i {
         color: white;
       }
