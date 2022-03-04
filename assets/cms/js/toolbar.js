@@ -341,6 +341,7 @@
         },
 
         disableDirectExit: function() {
+            ConcreteEvent.publish('ToolbarDirectExitDisabled')
             var $link = $('li.ccm-toolbar-page-edit a')
             if ($link.attr('data-launch-panel') != 'check-in' && $link.attr('data-disable-panel') != 'check-in') {
                 $link.attr('data-launch-panel', 'check-in').on('click', function() {
