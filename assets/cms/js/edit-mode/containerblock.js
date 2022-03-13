@@ -24,7 +24,7 @@ import _ from 'underscore'
         bindDelete: function ContainerBlockDelete() {
             var my = this
             var deleter = my.getElem().find('>ul a[data-inline-command=delete-block]')
-            deleter.on('click.containerDelete', function(e) {
+            deleter.unbind('click.containerDelete').on('click.containerDelete', function(e) {
                 e.preventDefault()
                 my.delete()
             })
