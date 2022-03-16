@@ -414,6 +414,10 @@
                         }
                         ConcreteAjaxRequest.validateResponse(r, function(ok) {
                             if (ok) {
+                                ConcreteEvent.fire('EditModeBlockMoveComplete', {
+                                    block: block,
+                                    area: targetArea
+                                })
                                 ConcreteToolbar.disableDirectExit()
                             } else {
                                 if (data.revert) {
