@@ -88,7 +88,7 @@ import './file-manager/file-manager'
 
 // Miscellaneous UI components
 import 'selectize'
-import 'spectrum-colorpicker'
+import 'spectrum-colorpicker2'
 import 'tristate/jquery.tristate'
 import 'jquery-text-counter/textcounter'
 import './jquery-awesome-rating'
