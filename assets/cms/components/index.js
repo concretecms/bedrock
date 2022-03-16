@@ -33,7 +33,6 @@ import ColorPageCustomizerWidget from './customizer/ColorPageCustomizerWidget'
 import ThemeCustomizerPreview from './customizer/ThemeCustomizerPreview'
 import ToolbarSliderWidget from './customizer/block/ToolbarSliderWidget'
 import ToolbarSectionWidget from './customizer/block/ToolbarSectionWidget'
-import ToolbarActionWidget from './customizer/block/ToolbarActionWidget'
 
 // Export our component library
 export default {
@@ -71,6 +70,5 @@ export default {
     ThemeCustomizerPreview,
     ToolbarSliderWidget,
     ToolbarSectionWidget,
-    ToolbarActionWidget,
     ColorPageCustomizerWidget
 }
