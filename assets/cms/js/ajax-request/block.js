@@ -2,7 +2,7 @@
 /* global ConcreteAjaxForm, ConcreteEvent, CCM_CID, Concrete, CCM_DISPATCHER_FILENAME, ConcreteToolbar, ConcreteAlert, ccmi18n */
 
 /* Block ajax */
-;(function(global, $) {
+; (function (global, $) {
     'use strict'
 
     function ConcreteAjaxBlockForm($form, options) {
@@ -49,7 +49,8 @@
             cID: cID,
             bID: resp.bID,
             arEnableGridContainer: arEnableGridContainer,
-            placeholder: ''
+            placeholder: '',
+            tempFilename: resp.tempFilename
         }, function (r) {
             var block; var edit_mode = Concrete.getEditMode(); var local_area = area.inEditMode(edit_mode)
 
@@ -132,7 +133,7 @@
             $(form).attr('action', newActionURL)
         }
         if (my.options.progressiveOperation) {
-            my.handleProgressiveOperation(resp, function(r) {
+            my.handleProgressiveOperation(resp, function (r) {
                 my.refreshBlock(r)
             })
         } else if (my.validateResponse(resp)) {
