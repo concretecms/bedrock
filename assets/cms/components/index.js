@@ -29,7 +29,11 @@ import IconSelector from './form/IconSelector'
 import CompletedProcessList from './CompletedProcessList'
 import RunningProcessList from './RunningProcessList'
 import ThemeCustomizer from './customizer/ThemeCustomizer'
+import ColorPageCustomizerWidget from './customizer/ColorPageCustomizerWidget'
 import ThemeCustomizerPreview from './customizer/ThemeCustomizerPreview'
+import ToolbarSliderWidget from './customizer/block/ToolbarSliderWidget'
+import ToolbarSectionWidget from './customizer/block/ToolbarSectionWidget'
+import ToolbarActionWidget from './customizer/block/ToolbarActionWidget'
 
 // Export our component library
 export default {
@@ -64,5 +68,9 @@ export default {
     RunningProcessList,
     CompletedProcessList,
     ThemeCustomizer,
-    ThemeCustomizerPreview
+    ThemeCustomizerPreview,
+    ToolbarSliderWidget,
+    ToolbarSectionWidget,
+    ToolbarActionWidget,
+    ColorPageCustomizerWidget
 }
