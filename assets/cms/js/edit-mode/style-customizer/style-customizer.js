@@ -1,4 +1,4 @@
-import './inline-toolbar'
+// import './inline-toolbar'
 import './palette'
 import './color'
 import './image'

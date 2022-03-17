@@ -11,7 +11,7 @@
         <div v-if="isLoading">
             <div class="btn-group">
                 <div class="btn btn-secondary"><svg class="ccm-loader-dots"><use xlink:href="#icon-loader-circles" /></svg></div>
-                <button type="button" @click="selectedFileID = null" class="ccm-item-selector-reset btn btn-secondary">
+                <button type="button" @click="clearFile" class="ccm-item-selector-reset btn btn-secondary">
                     <i class="fa fa-times-circle"></i>
                 </button>
             </div>
@@ -101,6 +101,10 @@ export default {
                 my.loadFile(r.fID)
             }, options)
         },
+        clearFile: function() {
+            this.selectedFileID = null
+            this.$emit('selectedfile', null)
+        },
         loadFile(fileId) {
             var my = this
             my.isLoading = true
@@ -108,6 +112,7 @@ export default {
                 my.selectedFile = r.files[0]
                 my.selectedFileID = fileId
                 my.isLoading = false
+                my.$emit('selectedfile', r.files[0])
             })
         }
 

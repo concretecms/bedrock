@@ -26,8 +26,7 @@ import _ from 'underscore'
 
         bindDrag: function layoutBindDrag() {
             var my = this
-            var peper = $('a[data-layout-command="move-block"]').parent()
-
+            var peper = $('[data-layout-command="move-block"]')
             $.pep.unbind(peper)
             peper.pep(my.getPepSettings())
         },

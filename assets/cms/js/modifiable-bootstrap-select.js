@@ -1,14 +1,14 @@
 /* eslint-disable no-new, no-unused-vars, camelcase, eqeqeq */
 
 /* Extend bootstrap-select */
-;(function (global, $) {
+; (function (global, $) {
     // grab a reference to existing functions
     var _init = $.fn.selectpicker.Constructor.prototype.init
     var _destroy = $.fn.selectpicker.Constructor.prototype.destroy
 
     // extend the prototype with own functions
     $.extend(true, $.fn.selectpicker.Constructor.prototype, {
-    // this will replace the original $.fn.selectpicker.Constructor.prototype.init function
+        // this will replace the original $.fn.selectpicker.Constructor.prototype.init function
         init: function () {
             var that = this
             var addNoResultClassName = function (addedNode) {
@@ -16,8 +16,8 @@
                 var $addedNodeBsSelect = $addedNode.closest('.bootstrap-select')
                 if (
                     $addedNode.hasClass('no-results') &&
-          $addedNodeBsSelect.length &&
-          $addedNodeBsSelect.find('select').selectpicker('liveSearch') == true
+                    $addedNodeBsSelect.length &&
+                    $addedNodeBsSelect.find('select').selectpicker('liveSearch') == true
                 ) {
                     $addedNode.addClass('ccm-enhanced-select-input-add-new-term')
                 }
@@ -84,6 +84,8 @@
                     }
 
                     select.selectpicker('refresh')
+                    var event = new Event('change', { detail: txt })
+                    select[0].dispatchEvent(event)
                     $searchbox.trigger('focus')
                 })
             }
@@ -96,9 +98,9 @@
 
             if (
                 this.options.liveSearch &&
-        this.options.allowAdd &&
-        this.allowAddMutationObserver &&
-        typeof this.allowAddMutationObserver != 'undefined'
+                this.options.allowAdd &&
+                this.allowAddMutationObserver &&
+                typeof this.allowAddMutationObserver != 'undefined'
             ) {
                 // free up memory if possible
                 this.allowAddMutationObserver.disconnect()
@@ -106,5 +108,5 @@
             }
         }
     })
-// }
+    // }
 })(window, jQuery); // eslint-disable-line semi
