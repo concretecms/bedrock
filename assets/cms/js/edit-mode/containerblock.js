@@ -19,20 +19,39 @@ import _ from 'underscore'
             elem.children('.ccm-block-cover').remove()
             my.bindDrag()
             my.bindDelete()
+            my.bindEditDesign()
         },
 
         bindDelete: function ContainerBlockDelete() {
             var my = this
-            var deleter = my.getElem().find('>ul a[data-inline-command=delete-block]')
+            var deleter = my.getElem().find('ul.ccm-edit-mode-inline-container a[data-inline-command=delete-block]')
             deleter.unbind('click.containerDelete').on('click.containerDelete', function(e) {
                 e.preventDefault()
                 my.delete()
             })
         },
 
+        bindEditDesign: function ContainerBlockEditDesign() {
+            var my = this
+            var menuElem = my.getElem().find('ul.ccm-edit-mode-inline-container a[data-inline-command=edit-container-design]')
+            menuElem.off('click.edit-mode')
+                .on('click.edit-mode', function (e) {
+                    e.preventDefault()
+                    // we are going to place this at the END of the list.
+                    var $link = $(this)
+                    var bID = parseInt($link.attr('data-container-block-id'))
+                    var editor = Concrete.getEditMode()
+                    var block = _.findWhere(editor.getBlocks(), { id: bID })
+                    Concrete.event.fire('EditModeBlockEditInline', {
+                        block: block, event: e, action: CCM_DISPATCHER_FILENAME + '/ccm/system/dialogs/block/design'
+                    })
+                    return false
+                })
+        },
+
         bindDrag: function ContainerBlockBindDrag() {
             var my = this
-            var mover = my.getElem().find('>ul a[data-inline-command=move-block]').parent()
+            var mover = my.getElem().find('ul.ccm-edit-mode-inline-container a[data-inline-command=move-block]').parent()
 
             $.pep.unbind(mover)
             mover.pep(my.getPepSettings())
