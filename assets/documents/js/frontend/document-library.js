@@ -9,7 +9,8 @@ import '../../../cms/js/file-manager/file-manager'
         options = $.extend({
             bID: 0,
             allowFileUploading: false,
-            allowInPageFileManagement: false
+            allowInPageFileManagement: false,
+            advancedSearchDisplayed: false
         }, options)
 
         this.options = options
@@ -119,6 +120,9 @@ import '../../../cms/js/file-manager/file-manager'
                 $details.show()
             }
         })
+        if (this.options.advancedSearchDisplayed) {
+            $('a[data-document-library-advanced-search]').trigger('click')
+        }
     }
 
     ConcreteDocumentLibrary.prototype.setupEditProperties = function() {
