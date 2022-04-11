@@ -27,7 +27,7 @@ import _ from 'underscore'
 
         addToDragArea: function StackBlockAddToDragArea(drag_area) {
             var my = this; var elem = my.getElem()
-            var block_type_id = elem.data('btid')
+            var bID = elem.data('block-id')
             var area = drag_area.getArea()
             var area_handle = area.getHandle()
             var dragAreaBlockID = 0
@@ -39,7 +39,7 @@ import _ from 'underscore'
 
             ConcretePanelManager.exitPanelMode()
 
-            var url = CCM_DISPATCHER_FILENAME + `/ccm/system/block/process/alias/${CCM_CID}/${area_handle}/${elem.data('cID')}/${dragAreaBlockID || '0'}/0`
+            var url = CCM_DISPATCHER_FILENAME + `/ccm/system/block/process/alias/${CCM_CID}/${area_handle}/0/${dragAreaBlockID || '0'}/0/${bID || '0'}`
 
             $.getJSON(url, { ccm_token: CCM_SECURITY_TOKEN }, function (response) {
                 my.handleAddResponse(response, area, dragAreaBlock)

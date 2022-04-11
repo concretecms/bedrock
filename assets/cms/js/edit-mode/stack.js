@@ -46,6 +46,7 @@ import _ from 'underscore'
 
             $.fn.dialog.showLoader()
             $.getJSON(CCM_DISPATCHER_FILENAME + '/ccm/system/page/add_stack', settings, function (response) {
+                ConcreteToolbar.disableDirectExit()
                 my.handleAddResponse(response, area, dragAreaBlock)
             })
         },
