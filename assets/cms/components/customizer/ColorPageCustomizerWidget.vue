@@ -23,7 +23,7 @@ export default {
             allowEmpty: true,
             color: this.color,
             showInitial: true,
-            showInput: false,
+            showInput: true,
             cancelText: i18n && i18n.cancel ? i18n.cancel : 'Cancel',
             chooseText: i18n && i18n.choose ? i18n.choose : 'Choose',
             clearText: i18n && i18n.clearColorSelection ? i18n.clearColorSelection : 'Clear Color Selection',
