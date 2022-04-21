@@ -173,7 +173,7 @@ ConcreteTree.prototype = {
                 }
                 if (selectedNodes) {
                     $.map(selectedNodes, function (node) {
-                        node.makeVisible()
+                        node.makeVisible({ scrollIntoView: false });
                     })
                 }
             },
