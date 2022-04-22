@@ -150,7 +150,7 @@ export default {
             new ConcreteAjaxRequest({
                 url: my.saveStylesAction,
                 data: {
-                    styles: my.customizerStyles,
+                    styles: JSON.stringify(my.customizerStyles),
                     customCss: my.customizerCustomCss,
                     applyTo: my.applyTo,
                     ccm_token: CCM_SECURITY_TOKEN
