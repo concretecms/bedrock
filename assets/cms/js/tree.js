@@ -76,9 +76,9 @@ ConcreteTree.prototype = {
         }
 
         if (CCM_CID !== undefined) {
-            ajaxData.cID = CCM_CID;
+            ajaxData.cID = CCM_CID
         } else {
-            ajaxData.cID = 0;
+            ajaxData.cID = 0
         }
 
         var persist = true
