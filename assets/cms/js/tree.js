@@ -75,6 +75,12 @@ ConcreteTree.prototype = {
             ajaxData.allowFolderSelection = 1
         }
 
+        if (typeof CCM_CID !== 'undefined') {
+            ajaxData.cID = CCM_CID
+        } else {
+            ajaxData.cID = 0
+        }
+
         var persist = true
 
         if (options.chooseNodeInForm) {
