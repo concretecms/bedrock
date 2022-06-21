@@ -14,7 +14,7 @@
     })
 
     function onDialogCreate($dialog) {
-        //$dialog.parent().addClass('animated fadeIn')
+        // $dialog.parent().addClass('animated fadeIn')
     }
 
     function onDialogOpen($dialog) {
