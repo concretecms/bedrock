@@ -12,7 +12,6 @@ export default {
     data() {
         return {
             selectedOption: this.selected,
-            emptyOptionLabel: this.emptyOptionLabel
         }
     },
     props: {
