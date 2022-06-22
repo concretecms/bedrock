@@ -14,7 +14,7 @@
     })
 
     function onDialogCreate($dialog) {
-        $dialog.parent().addClass('animated fadeIn')
+        // $dialog.parent().addClass('animated fadeIn')
     }
 
     function onDialogOpen($dialog) {
@@ -33,7 +33,11 @@
         var overlays = $('.ui-widget-overlay').length
 
         if (overlays == 1) {
-            $('.ui-widget-overlay').addClass('ui-widget-overlay-active')
+            var overlayFunction = function() {
+                var overlay = $('.ui-widget-overlay').get(0)
+                overlay.classList.add('ui-widget-overlay-active')
+            }
+            requestAnimationFrame(overlayFunction)
         }
 
         var $close = $dialog.parent().find('.ui-dialog-titlebar-close')
