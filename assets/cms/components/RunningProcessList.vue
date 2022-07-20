@@ -31,6 +31,7 @@
 </template>
 
 <script>
+/* global CCM_DISPATCHER_FILENAME, CCM_SERVER_EVENTS_URL, CCM_SECURITY_TOKEN */
 /* eslint-disable no-new */
 /* eslint eqeqeq: 0 */
 import Icon from './Icon'
@@ -117,8 +118,7 @@ export default {
             }
         })
 
-        if (typeof(CCM_SERVER_EVENTS_URL) !== 'undefined') {
-
+        if (typeof (CCM_SERVER_EVENTS_URL) !== 'undefined') {
             const eventSourceUrl = new URL(CCM_SERVER_EVENTS_URL)
             eventSourceUrl.searchParams.append('topic', '{+siteUrl}/concrete/events/processes/{+eventName}')
             const eventSource = new EventSource(eventSourceUrl, {
@@ -127,7 +127,7 @@ export default {
 
             eventSource.onmessage = event => {
                 var data = JSON.parse(event.data)
-                if (data.hasOwnProperty('batch')) {
+                if (Object.prototype.hasOwnProperty.call(data, 'batch')) {
                     // Batch Updated
                     var total = data.batch.totalJobs
                     var progress = total - data.batch.pendingJobs
@@ -139,7 +139,7 @@ export default {
                             thisProcess.batch = data.batch
                         }
                     })
-                } else if (data.hasOwnProperty('exitCode')) {
+                } else if (Object.prototype.hasOwnProperty.call(data, 'exitCode')) {
                     // Close process
                     my.processes.forEach(function (thisProcess) {
                         if (thisProcess.id == data.process.id) {
@@ -148,7 +148,7 @@ export default {
                             my.completeProcess(thisProcess)
                         }
                     })
-                } else if (data.hasOwnProperty('processId')) {
+                } else if (Object.prototype.hasOwnProperty.call(data, 'processId')) {
                     my.processes.forEach(function (thisProcess) {
                         if (thisProcess.id === data.processId) {
                             thisProcess.details.push(data.message)
