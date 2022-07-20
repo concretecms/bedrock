@@ -117,36 +117,46 @@ export default {
             }
         })
 
-        ConcreteEvent.subscribe('ConcreteServerEventProcessOutput', function(e, data) {
-            if (data.processId) {
-                my.processes.forEach(function (thisProcess) {
-                    if (thisProcess.id === data.processId) {
-                        thisProcess.details.push(data.message)
-                    }
-                })
-            }
-        })
-        ConcreteEvent.subscribe('ConcreteServerEventBatchUpdated', function(e, data) {
-            var total = data.batch.totalJobs
-            var progress = total - data.batch.pendingJobs
-            var percent = Math.round(progress / total * 100)
+        if (typeof(CCM_SERVER_EVENTS_URL) !== 'undefined') {
 
-            my.processes.forEach(function (thisProcess) {
-                if (thisProcess.batch && thisProcess.batch.id == data.batch.id) {
-                    thisProcess.progress = percent
-                    thisProcess.batch = data.batch
-                }
+            const eventSourceUrl = new URL(CCM_SERVER_EVENTS_URL)
+            eventSourceUrl.searchParams.append('topic', '{+siteUrl}/concrete/events/processes/{+eventName}')
+            const eventSource = new EventSource(eventSourceUrl, {
+                withCredentials: true
             })
-        })
-        ConcreteEvent.subscribe('ConcreteServerEventCloseProcess', function(e, data) {
-            my.processes.forEach(function (thisProcess) {
-                if (thisProcess.id == data.process.id) {
-                    thisProcess.dateCompleted = data.process.dateCompleted
-                    thisProcess.dateCompletedString = data.process.dateCompletedString
-                    my.completeProcess(thisProcess)
+
+            eventSource.onmessage = event => {
+                var data = JSON.parse(event.data)
+                if (data.hasOwnProperty('batch')) {
+                    // Batch Updated
+                    var total = data.batch.totalJobs
+                    var progress = total - data.batch.pendingJobs
+                    var percent = Math.round(progress / total * 100)
+
+                    my.processes.forEach(function (thisProcess) {
+                        if (thisProcess.batch && thisProcess.batch.id == data.batch.id) {
+                            thisProcess.progress = percent
+                            thisProcess.batch = data.batch
+                        }
+                    })
+                } else if (data.hasOwnProperty('exitCode')) {
+                    // Close process
+                    my.processes.forEach(function (thisProcess) {
+                        if (thisProcess.id == data.process.id) {
+                            thisProcess.dateCompleted = data.process.dateCompleted
+                            thisProcess.dateCompletedString = data.process.dateCompletedString
+                            my.completeProcess(thisProcess)
+                        }
+                    })
+                } else if (data.hasOwnProperty('processId')) {
+                    my.processes.forEach(function (thisProcess) {
+                        if (thisProcess.id === data.processId) {
+                            thisProcess.details.push(data.message)
+                        }
+                    })
                 }
-            })
-        })
+            }
+        }
     },
     watch: {
         processes: {

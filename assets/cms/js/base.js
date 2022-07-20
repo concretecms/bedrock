@@ -13,9 +13,6 @@ import 'ajax-bootstrap-select'
 import './modifiable-ajax-bootstrap-select'
 import 'dropzone/dist/dropzone'
 
-// Server events
-import './server-events'
-
 // jQuery UI components
 import 'jquery-ui/ui/widgets/button'
 import 'jquery-ui/ui/widgets/dialog'
