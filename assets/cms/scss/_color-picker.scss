@@ -1,23 +1,23 @@
 div.ccm-ui {
   .ccm-widget-colorpicker {
-    height: unset;
-    width: unset;
-    padding: 5px;
     border: 1px solid $input-border-color;
+    height: unset;
+    padding: 5px;
+    width: unset;
 
     .sp-preview {
-      width: 35px;
-      height: 30px;
       border: 1px solid $input-border-color;
       border-radius: 2px;
+      height: 30px;
       margin-right: 15px;
+      width: 35px;
     }
 
     .sp-dd {
-      line-height: 2.6rem;
-      font-size: 12px;
-      right: 2px;
       color: $input-color;
+      font-size: 12px;
+      line-height: 2.6rem;
+      right: 2px;
     }
 
     &.sp-replacer:hover,
