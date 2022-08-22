@@ -20,21 +20,24 @@
       </button>
     </div>
 
-    <div v-if="strengthMeter" class="d-flex align-items-center mt-2 password-strength-meter">
+    <div
+      v-if="strengthMeter"
+      class="d-flex align-items-center mt-2 password-strength-meter"
+    >
       <div
-        class="flex-grow-1 rounded h-100 me-2 bg-light"
+        class="flex-grow-1 rounded h-100 me-2 bg-light bar"
         :class="strength.id >= 0 ? 'active' : ''"
       ></div>
       <div
-        class="flex-grow-1 rounded h-100 me-2 bg-light"
+        class="flex-grow-1 rounded h-100 me-2 bg-light bar"
         :class="strength.id >= 1 ? 'active' : ''"
       ></div>
       <div
-        class="flex-grow-1 rounded h-100 me-2 bg-light"
+        class="flex-grow-1 rounded h-100 me-2 bg-light bar"
         :class="strength.id >= 2 ? 'active' : ''"
       ></div>
       <div
-        class="flex-grow-1 rounded h-100 me-0 bg-light"
+        class="flex-grow-1 rounded h-100 me-0 bg-light bar"
         :class="strength.id >= 3 ? 'active' : ''"
       ></div>
     </div>
@@ -112,16 +115,21 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 * {
   --var-active-color: #b8d935;
 }
 
 .password-strength-meter {
   height: 3px;
-}
 
-.active {
-  background-color: var(--var-active-color) !important;
+  .bar {
+    box-shadow: 0 0 0 0 var(--var-active-color) inset;
+    transition: all ease-in 200ms;
+
+    &.active {
+      box-shadow: 1000px 0 0 0 var(--var-active-color) inset;
+    }
+  }
 }
 </style>
