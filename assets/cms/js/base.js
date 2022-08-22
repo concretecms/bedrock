@@ -32,6 +32,7 @@ import './concrete'
 import './panels'
 import './toolbar'
 import './legacy-dialog'
+import './modal'
 import './alert'
 import './page-notification'
 

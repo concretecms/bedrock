@@ -18,6 +18,7 @@
     "backstretch": "^1.2.2",
     "blueimp-file-upload": "^10.31.0",
     "bootstrap": "^5.2.0",
+    "bootbox": "github:makeusabrew/bootbox#v6-wip",
     "bootstrap-select": "github:snapappointments/bootstrap-select",
     "bootstrap-tourist": "git+https://git@github.com/concrete5/bootstrap-tourist.git",
     "ckeditor4": "^4.17.1",
