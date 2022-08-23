@@ -1,19 +1,19 @@
+/* eslint-disable no-new, no-unused-vars, camelcase, eqeqeq */
+/* global bootstrap */
 // This is a bridge between our various old custom code and Bootstrap Modals. The ultimate goal is to first
 // Remove jQuery UI, on the way to removing jQuery (if the latter is ever an option.) So the first thing we need to
 // do is remove all instances of dialog-launch legacy jQuery UI dialogs in favor of a single modal BS modal approach.
 
 import bootbox from 'bootbox'
 
-
 class ConcreteModal {
-
     openExternal(url, title) {
         var my = this
         new ConcreteAjaxRequest({
             url: url,
             dataType: 'html',
             success: function (r) {
-                my.show({message: r, title: title})
+                my.show({ message: r, title: title })
             }
         })
     }
@@ -47,12 +47,11 @@ class ConcreteModal {
             $_dialog.find('[data-dialog-form]').submit()
         })
 
-
         // Change the Close button to be white.
         $_dialog.find('.btn-close').addClass('btn-close-white')
 
         // Show the dialog
-        //dialog._config.backdrop = 'static'
+        // dialog._config.backdrop = 'static'
         dialog.show()
 
         if (options.backdrop === 'static') {
@@ -62,7 +61,6 @@ class ConcreteModal {
         element.addEventListener('hide.bs.modal', function() {
             ConcreteModal.totalOpen--
         })
-
         ConcreteModal.totalOpen++
     }
 }
