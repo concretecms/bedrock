@@ -14,7 +14,6 @@ div.ccm-ui {
       }
     }
 
-
     &.flex-column {
       @include border-radius($list-group-border-radius);
 
@@ -29,8 +28,28 @@ div.ccm-ui {
           @include border-bottom-radius(inherit);
         }
 
-        & + .nav-item {
+        + .nav-item {
           border-top-width: 0;
+        }
+
+        a {
+          &:hover {
+            background-color: $gray-100;
+          }
+
+          &.active {
+            position: relative;
+
+            &::before {
+              background-color: $blue;
+              bottom: 0;
+              content: '';
+              left: 0;
+              position: absolute;
+              top: 0;
+              width: 2px;
+            }
+          }
         }
       }
     }
