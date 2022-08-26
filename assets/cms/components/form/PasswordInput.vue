@@ -31,6 +31,7 @@
         :title="bar.value"
       ></li>
     </ul>
+    <strong>TEST LANG: {{ i18n.veryStrong }}</strong>
   </div>
 </template>
 
@@ -40,46 +41,17 @@ import { passwordStrength } from 'check-password-strength'
 export default {
     data: () => {
         return {
+            i18n: {
+                invalid: 'Invalid',
+                tooWeak: 'Too Weak',
+                weak: 'Weak',
+                medium: 'Medium',
+                strong: 'Strong',
+                veryStrong: 'Very Strong'
+            },
             enteredPassword: '',
             passwordVisible: false,
-            passwordStrengthOptions: [
-                {
-                    id: -1,
-                    value: 'Invalid', // concretecms requirement: min 5 character
-                    minDiversity: 0,
-                    minLength: 0
-                },
-                {
-                    id: 0,
-                    value: 'Too weak',
-                    minDiversity: 1,
-                    minLength: 5
-                },
-                {
-                    id: 1,
-                    value: 'Weak',
-                    minDiversity: 2,
-                    minLength: 6
-                },
-                {
-                    id: 2,
-                    value: 'Medium',
-                    minDiversity: 4,
-                    minLength: 8
-                },
-                {
-                    id: 3,
-                    value: 'Strong',
-                    minDiversity: 4,
-                    minLength: 12
-                },
-                {
-                    id: 4,
-                    value: 'Very Strong',
-                    minDiversity: 4,
-                    minLength: 16
-                }
-            ]
+            passwordStrengthOptions: []
         }
     },
     props: {
@@ -116,6 +88,54 @@ export default {
                 (option) => option.id >= 0
             )
         }
+    },
+    mounted() {
+        if (window.ccmi18n_passwordInput) {
+            for (const key in this.i18n) {
+                if (window.ccmi18n_passwordInput[key]) {
+                    this.i18n[key] = window.ccmi18n_passwordInput[key]
+                }
+            }
+        }
+
+        this.passwordStrengthOptions = [
+            {
+                id: -1,
+                value: this.i18n.invalid, // concretecms requirement: min 5 character
+                minDiversity: 0,
+                minLength: 0
+            },
+            {
+                id: 0,
+                value: this.i18n.tooWeak,
+                minDiversity: 1,
+                minLength: 5
+            },
+            {
+                id: 1,
+                value: this.i18n.weak,
+                minDiversity: 2,
+                minLength: 6
+            },
+            {
+                id: 2,
+                value: this.i18n.medium,
+                minDiversity: 4,
+                minLength: 8
+            },
+            {
+                id: 3,
+                value: this.i18n.strong,
+                minDiversity: 4,
+                minLength: 12
+            },
+            {
+                id: 4,
+                value: this.i18n.veryStrong,
+                minDiversity: 4,
+                minLength: 16
+            }
+        ]
     }
 }
 </script>
