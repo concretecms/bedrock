@@ -31,7 +31,6 @@
         :title="bar.value"
       ></li>
     </ul>
-    <strong>TEST LANG: {{ i18n.veryStrong }}</strong>
   </div>
 </template>
 
