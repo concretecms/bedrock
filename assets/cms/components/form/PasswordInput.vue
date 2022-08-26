@@ -20,27 +20,17 @@
       </button>
     </div>
 
-    <div
+    <ul
       v-if="strengthMeter"
       class="d-flex align-items-center mt-2 password-strength-meter"
     >
-      <div
+      <li
+        v-for="bar in bars"
         class="flex-grow-1 rounded h-100 me-2 bg-light bar"
-        :class="strength.id >= 0 ? 'active' : ''"
-      ></div>
-      <div
-        class="flex-grow-1 rounded h-100 me-2 bg-light bar"
-        :class="strength.id >= 1 ? 'active' : ''"
-      ></div>
-      <div
-        class="flex-grow-1 rounded h-100 me-2 bg-light bar"
-        :class="strength.id >= 2 ? 'active' : ''"
-      ></div>
-      <div
-        class="flex-grow-1 rounded h-100 me-0 bg-light bar"
-        :class="strength.id >= 3 ? 'active' : ''"
-      ></div>
-    </div>
+        :class="strength.id >= bar.id ? 'active' : ''"
+        :title="bar.value"
+      ></li>
+    </ul>
   </div>
 </template>
 
@@ -48,37 +38,11 @@
 import { passwordStrength } from 'check-password-strength'
 
 export default {
-    data() {
+    data: () => {
         return {
             enteredPassword: '',
-            passwordVisible: false
-        }
-    },
-    props: {
-        name: {
-            type: String
-        },
-        toggler: {
-            type: Boolean,
-            default: true
-        },
-        strengthMeter: {
-            type: Boolean,
-            default: false
-        }
-    },
-    computed: {
-        inputType() {
-            return this.passwordVisible ? 'text' : 'password'
-        },
-        iconClasses() {
-            return {
-                'fa-eye': !this.passwordVisible,
-                'fa-eye-slash': this.passwordVisible
-            }
-        },
-        strength() {
-            return passwordStrength(this.enteredPassword, [
+            passwordVisible: false,
+            passwordStrengthOptions: [
                 {
                     id: -1,
                     value: 'Invalid', // concretecms requirement: min 5 character
@@ -107,9 +71,50 @@ export default {
                     id: 3,
                     value: 'Strong',
                     minDiversity: 4,
-                    minLength: 10
+                    minLength: 12
+                },
+                {
+                    id: 4,
+                    value: 'Very Strong',
+                    minDiversity: 4,
+                    minLength: 16
                 }
-            ])
+            ]
+        }
+    },
+    props: {
+        name: {
+            type: String
+        },
+        toggler: {
+            type: Boolean,
+            default: true
+        },
+        strengthMeter: {
+            type: Boolean,
+            default: false
+        }
+    },
+    computed: {
+        inputType() {
+            return this.passwordVisible ? 'text' : 'password'
+        },
+        iconClasses() {
+            return {
+                'fa-eye': !this.passwordVisible,
+                'fa-eye-slash': this.passwordVisible
+            }
+        },
+        strength() {
+            return passwordStrength(
+                this.enteredPassword,
+                this.passwordStrengthOptions
+            )
+        },
+        bars() {
+            return this.passwordStrengthOptions.filter(
+                (option) => option.id >= 0
+            )
         }
     }
 }
@@ -122,13 +127,20 @@ export default {
 
 .password-strength-meter {
   height: 3px;
+  list-style: none;
+  padding: 0;
 
   .bar {
     box-shadow: 0 0 0 0 var(--var-active-color) inset;
+    cursor: help;
     transition: all ease-in 200ms;
 
     &.active {
       box-shadow: 1000px 0 0 0 var(--var-active-color) inset;
+    }
+
+    &:last-child {
+      margin-right: 0 !important;
     }
   }
 }
