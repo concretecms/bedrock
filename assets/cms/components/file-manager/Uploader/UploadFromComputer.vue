@@ -57,6 +57,10 @@ export default {
             type: Object,
             default: () => ({})
         },
+        dropzoneOptions: {
+            type: Object,
+            default: () => ({})
+        },
         replaceFileId: {
             type: Number,
             required: false,
@@ -72,7 +76,7 @@ export default {
         },
         dropzoneSettings() {
             const me = this
-            return {
+            const dropzoneOptions = {
                 url: `${CCM_DISPATCHER_FILENAME}/ccm/system/file/upload`,
                 previewTemplate: this.itemTemplate,
                 autoProcessQueue: false,
@@ -161,6 +165,37 @@ export default {
                     $fileElement.addClass('in-progress')
                 }
             }
+            if (this.dropzoneOptions) {
+                for (const key in this.dropzoneOptions) {
+                    switch (key) {
+                        case '_dontResizeMimeTypes':
+                            const skipMimeTypes = this.dropzoneOptions._dontResizeMimeTypes
+                            if (skipMimeTypes && skipMimeTypes.length) {
+                                dropzoneOptions.transformFile = function(file, done) {
+                                    if (
+                                        (this.options.resizeWidth || this.options.resizeHeight)
+                                        && file && file.type && file.type.match(/image.*/)
+                                        && skipMimeTypes.indexOf(file.type) < 0
+                                    ) {
+                                        return this.resizeImage(
+                                            file,
+                                            this.options.resizeWidth,
+                                            this.options.resizeHeight,
+                                            this.options.resizeMethod,
+                                            done
+                                        )
+                                    }
+                                    return done(file)
+                                }
+                            }
+                            break
+                        default:
+                            dropzoneOptions[key] = this.dropzoneOptions[key]
+                            break
+                    }
+                }
+            }
+            return dropzoneOptions;
         }
     },
     mounted() {

@@ -2,6 +2,7 @@
     <div>
         <upload-from-computer
             :upload-directory-id="uploadDirectoryId"
+            :dropzone-options="dropzoneOptions"
             @upload-complete="$emit('upload-complete')"
             @uploadProgressStateChange="isUploadInProgress = $event"/>
 
@@ -22,6 +23,12 @@ export default {
     components: {
         UploadFromComputer,
         ConcreteFileDirectoryInput
+    },
+    props: {
+        dropzoneOptions: {
+            type: Object,
+            default: () => ({})
+        }
     },
     data: () => ({
         uploadDirectoryId: 0,

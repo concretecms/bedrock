@@ -974,8 +974,7 @@
 
                 initYourComputerTab: function () {
                     fileUploader.uploadedFiles = []
-
-                    $dialogEl.find('.ccm-file-upload-container').dropzone({
+                    const dropzoneOptions = {
                         url: CCM_DISPATCHER_FILENAME + '/ccm/system/file/upload',
                         previewTemplate: fileUploader.templates.getPreviewItem().html(),
                         autoProcessQueue: false,
@@ -1096,7 +1095,38 @@
                             $dialogEl.find('.ccm-directory-selector').attr('disabled', 'disabled').selectpicker('refresh')
                             $dialogEl.find('.ccm-file-uploader-create-new-directory-button').addClass('disabled')
                         }
-                    })
+                    }
+                    if (this.options && this.options.dropzone) {
+                        for (const key in this.options.dropzone) {
+                            switch (key) {
+                                case '_dontResizeMimeTypes':
+                                    const skipMimeTypes = this.options.dropzone._dontResizeMimeTypes
+                                    if (skipMimeTypes && skipMimeTypes.length) {
+                                        dropzoneOptions.transformFile = function(file, done) {
+                                            if (
+                                                (this.options.resizeWidth || this.options.resizeHeight)
+                                                && file && file.type && file.type.match(/image.*/)
+                                                && skipMimeTypes.indexOf(file.type) < 0
+                                            ) {
+                                                return this.resizeImage(
+                                                    file,
+                                                    this.options.resizeWidth,
+                                                    this.options.resizeHeight,
+                                                    this.options.resizeMethod,
+                                                    done
+                                                )
+                                            }
+                                            return done(file)
+                                        }
+                                    }
+                                    break
+                                default:
+                                    dropzoneOptions[key] = this.options.dropzone[key]
+                                    break
+                            }
+                        }
+                    }
+                    $dialogEl.find('.ccm-file-upload-container').dropzone(dropzoneOptions)
                 },
 
                 uploadComplete: function () {
