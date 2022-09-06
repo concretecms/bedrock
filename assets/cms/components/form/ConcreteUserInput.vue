@@ -1,6 +1,6 @@
 <template>
     <div class="ccm-item-selector-group">
-        <input type="hidden" :name="inputName" :value="selectedUserID" />
+        <input type="hidden" :name="inputName" :value="selectedUserID" v-if="inputName !== ''" />
 
         <div class="ccm-item-selector-choose" v-if="!selectedUser && !isLoading">
             <button type="button" @click="openChooser" class="btn btn-secondary">
@@ -43,7 +43,7 @@ export default {
     props: {
         inputName: {
             type: String,
-            required: true
+            default: ''
         },
         userId: {
             type: Number,
