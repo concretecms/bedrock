@@ -2,12 +2,6 @@
     <div class="ccm-item-selector-group">
         <input type="hidden" :name="inputName" :value="selectedUserID" v-if="inputName !== ''" />
 
-        <div class="ccm-item-selector-choose" v-if="!selectedUser && !isLoading">
-            <button type="button" @click="openChooser" class="btn btn-secondary">
-                {{chooseText}}
-            </button>
-        </div>
-
         <div v-if="isLoading">
             <div class="btn-group">
                 <div class="btn btn-secondary"><svg class="ccm-loader-dots"><use xlink:href="#icon-loader-circles" /></svg></div>
@@ -17,7 +11,13 @@
             </div>
         </div>
 
-        <div class="ccm-item-selector-loaded" v-if="selectedUser !== null">
+        <div class="ccm-item-selector-choose" v-else-if="!selectedUser">
+            <button type="button" @click="openChooser" class="btn btn-secondary">
+                {{chooseText}}
+            </button>
+        </div>
+
+        <div class="ccm-item-selector-loaded" v-else="selectedUser !== null">
             <div class="btn-group">
                 <div class="btn btn-secondary">
                     <span v-html="selectedUser.avatar"></span>
