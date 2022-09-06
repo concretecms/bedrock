@@ -75,18 +75,16 @@ export default {
             this.selectedUserID = selectedUsers[0]
         },
         openChooser: function() {
-            var my = this
-            window.ConcreteUserManager.launchDialog(function(r) {
-                my.loadUser(r.id)
+            window.ConcreteUserManager.launchDialog((r) => {
+                this.loadUser(r.id)
             })
         },
         loadUser(userId) {
-            var my = this
-            my.isLoading = true
-            window.ConcreteUserManager.getUserDetails(userId, function(r) {
-                my.isLoading = false
-                my.selectedUser = r.users[0]
-                my.selectedUserID = userId
+            this.isLoading = true
+            window.ConcreteUserManager.getUserDetails(userId, (r) => {
+                this.isLoading = false
+                this.selectedUser = r.users[0]
+                this.selectedUserID = userId
             })
         },
         reset() {
