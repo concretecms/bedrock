@@ -46,10 +46,12 @@ export default {
             required: true
         },
         userId: {
-            type: Number
+            type: Number,
+            default: 0
         },
         chooseText: {
-            type: String
+            type: String,
+            default: 'Choose a User'
         }
     },
     watch: {
