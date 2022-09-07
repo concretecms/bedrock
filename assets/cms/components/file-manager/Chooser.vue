@@ -37,6 +37,7 @@
                                    :resultsFormFactor.sync="resultsFormFactor"
                                    :filesReadyToUpload.sync="filesReadyToUpload"
                                    :filters="filters"
+                                   :dropzone-options="dropzoneOptions"
                                    @upload-complete="activateTabByKey('recent-uploads')"
                                    ref="c"
                         />
@@ -133,6 +134,10 @@ export default {
         },
         filters: {
             type: Array
+        },
+        dropzoneOptions: {
+            type: Object,
+            default: () => ({})
         }
     },
     created() {
