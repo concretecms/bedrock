@@ -167,35 +167,36 @@ export default {
             }
             if (this.dropzoneOptions) {
                 for (const key in this.dropzoneOptions) {
+                    let skipMimeTypes
                     switch (key) {
-                        case '_dontResizeMimeTypes':
-                            const skipMimeTypes = this.dropzoneOptions._dontResizeMimeTypes
-                            if (skipMimeTypes && skipMimeTypes.length) {
-                                dropzoneOptions.transformFile = function(file, done) {
-                                    if (
-                                        (this.options.resizeWidth || this.options.resizeHeight)
-                                        && file && file.type && file.type.match(/image.*/)
-                                        && skipMimeTypes.indexOf(file.type) < 0
-                                    ) {
-                                        return this.resizeImage(
-                                            file,
-                                            this.options.resizeWidth,
-                                            this.options.resizeHeight,
-                                            this.options.resizeMethod,
-                                            done
-                                        )
-                                    }
-                                    return done(file)
+                    case '_dontResizeMimeTypes':
+                        skipMimeTypes = this.dropzoneOptions._dontResizeMimeTypes
+                        if (skipMimeTypes && skipMimeTypes.length) {
+                            dropzoneOptions.transformFile = function(file, done) {
+                                if (
+                                    (this.options.resizeWidth || this.options.resizeHeight) &&
+                                            file && file.type && file.type.match(/image.*/) &&
+                                            skipMimeTypes.indexOf(file.type) < 0
+                                ) {
+                                    return this.resizeImage(
+                                        file,
+                                        this.options.resizeWidth,
+                                        this.options.resizeHeight,
+                                        this.options.resizeMethod,
+                                        done
+                                    )
                                 }
+                                return done(file)
                             }
-                            break
-                        default:
-                            dropzoneOptions[key] = this.dropzoneOptions[key]
-                            break
+                        }
+                        break
+                    default:
+                        dropzoneOptions[key] = this.dropzoneOptions[key]
+                        break
                     }
                 }
             }
-            return dropzoneOptions;
+            return dropzoneOptions
         }
     },
     mounted() {

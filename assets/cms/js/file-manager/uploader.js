@@ -1098,15 +1098,16 @@
                     }
                     if (this.options && this.options.dropzone) {
                         for (const key in this.options.dropzone) {
+                            let skipMimeTypes
                             switch (key) {
                                 case '_dontResizeMimeTypes':
-                                    const skipMimeTypes = this.options.dropzone._dontResizeMimeTypes
+                                    skipMimeTypes = this.options.dropzone._dontResizeMimeTypes
                                     if (skipMimeTypes && skipMimeTypes.length) {
                                         dropzoneOptions.transformFile = function(file, done) {
                                             if (
-                                                (this.options.resizeWidth || this.options.resizeHeight)
-                                                && file && file.type && file.type.match(/image.*/)
-                                                && skipMimeTypes.indexOf(file.type) < 0
+                                                (this.options.resizeWidth || this.options.resizeHeight) &&
+                                                file && file.type && file.type.match(/image.*/) &&
+                                                skipMimeTypes.indexOf(file.type) < 0
                                             ) {
                                                 return this.resizeImage(
                                                     file,
