@@ -42,8 +42,8 @@ export default {
     },
     computed: {
         isLoading() {
-            return this.isLoadingUserID > 0 
-        },
+            return this.isLoadingUserID > 0
+        }
     },
     props: {
         inputName: {
@@ -91,21 +91,22 @@ export default {
             })
         },
         loadUser(userId) {
-            if (this.isLoadingUserID == userId) {
-                return;
+            userId = parseInt(userId)
+            if (this.isLoadingUserID === userId) {
+                return
             }
             this.isLoadingUserID = userId
             window.ConcreteUserManager.getUserDetails(userId, (r) => {
                 if (this.isLoadingUserID !== userId) {
-                    return;
-                } 
+                    return
+                }
                 this.selectedUserID = userId
                 this.selectedUser = r.users[0]
                 this.$nextTick(() => {
                     if (this.isLoadingUserID === userId) {
                         this.isLoadingUserID = 0
                     }
-                });
+                })
             })
         },
         reset() {
