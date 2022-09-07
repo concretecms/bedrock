@@ -130,8 +130,8 @@ export default {
 
                 queuecomplete: function () {
                     if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
+                        const fileIds = []
                         if (me.uploadedFiles.length !== 0) {
-                            const fileIds = []
                             me.uploadedFiles.forEach(function(file) {
                                 fileIds.push(file.fID)
                             })
@@ -139,7 +139,7 @@ export default {
                             // ConcreteEvent.publish('FileManagerSelectFile', { fID: fileIds })
                             me.uploadedFiles = []
                         }
-                        me.uploadComplete()
+                        me.uploadComplete(fileIds)
                     }
                     me.refresh()
                 },
@@ -206,14 +206,14 @@ export default {
         $(me.$refs.dropzoneElement).dropzone(settings)
         $(window).on('resize', _.throttle(me.refresh, 100))
 
-        ConcreteEvent.subscribe('FileUploaderUploadSelectedFiles', function(e) {
-            me.dropzone.options.autoProcessQueue = true
-            me.dropzone.processQueue()
+        ConcreteEvent.subscribe('FileUploaderUploadSelectedFiles', () => {
+            this.startUploading()
         })
     },
     watch: {
         filesInQueue() {
             const filesInQueue = this.filesInQueue
+            this.$emit('files-ready-to-upload', filesInQueue)
             ConcreteEvent.publish('FileUploaderFilesReadyToUpload', filesInQueue)
         },
         isUploadInProgress(val, oldVal) {
@@ -258,8 +258,12 @@ export default {
 
             this.dropzone.removeAllFiles(true)
         },
-        uploadComplete() {
-            this.$emit('upload-complete')
+        startUploading() {
+            this.dropzone.options.autoProcessQueue = true
+            this.dropzone.processQueue()
+        },
+        uploadComplete(fileIds) {
+            this.$emit('upload-complete', fileIds)
 
             ConcreteAlert.notify({
                 title: 'Complete',
