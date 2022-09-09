@@ -47,7 +47,7 @@
 
         getTree: function() {
             var my = this
-            return my.$sitemap.fancytree('getTree')
+            return $.ui.fancytree.getTree(my.$sitemap)
         },
 
         setupSiteTreeSelector: function(tree) {
@@ -340,10 +340,10 @@
             }
             ConcreteEvent.unsubscribe('SitemapDeleteRequestComplete.sitemap')
             ConcreteEvent.subscribe('SitemapDeleteRequestComplete.sitemap', function(e) {
-                var node = my.$sitemap.fancytree('getActiveNode')
+                var node = $.ui.fancytree.getTree($(my.$sitemap)).getActiveNode()
                 var parent = node.parent
                 my.reloadNode(parent)
-                $(my.$sitemap).fancytree('getTree').visit(function(node) {
+                $.ui.fancytree.getTree($(my.$sitemap)).visit(function(node) {
                     // update the trash node when a page is deleted
                     if (node.data.isTrash) {
                         var isTrashNodeExpanded = node.expanded
@@ -456,7 +456,7 @@
             if (pg.length) {
                 pg.find('a:not([disabled])').unbind('click').on('click', function() {
                     var href = $(this).attr('href')
-                    var root = my.$sitemap.fancytree('getRootNode')
+                    var root = $.ui.fancytree.getTree(my.$sitemap).getRootNode()
                     jQuery.fn.dialog.showLoader()
                     $.ajax({
                         dataType: 'json',
@@ -482,7 +482,7 @@
 
             (my.options.onDisplaySingleLevel || $.noop).call(this, node)
 
-            var root = my.$sitemap.fancytree('getRootNode')
+            var root = $.ui.fancytree.getTree(my.$sitemap).getRootNode()
             // my.$sitemap.fancytree('option', 'minExpandLevel', minExpandLevel);
             var ajaxData = $.extend({
                 dataType: 'json',
