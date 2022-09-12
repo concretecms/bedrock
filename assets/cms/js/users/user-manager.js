@@ -2,7 +2,8 @@
 class ConcreteUserManager {
     static launchDialog(callback, opts) {
         const options = {
-            multipleSelection: ''
+            multipleSelection: false,
+            hideUsername: false
         }
 
         $.extend(options, opts)

@@ -1,6 +1,10 @@
 <template>
     <div>
-        <search :selectedUsers.sync="selectedUsers" :multiple-selection="multipleSelection"/>
+        <search
+            :selectedUsers.sync="selectedUsers"
+            :multiple-selection="multipleSelection"
+            :hide-username="hideUsername"
+        />
         <div class="dialog-buttons">
             <button class="btn btn-secondary" data-dialog-action="cancel">{{ i18n.cancel }}</button>
             <button type="button" @click="chooseUsers" :disabled="selectedUsers.length === 0" class="btn btn-primary">{{ i18n.choose }}</button>
@@ -21,6 +25,10 @@ export default {
         multipleSelection: {
             type: Boolean,
             default: true
+        },
+        hideUsername: {
+            type: Boolean,
+            default: false
         }
     },
     data() {

@@ -24,6 +24,7 @@
             <users v-if="keywords"
                 :selectedUsers.sync="selectedUsers"
                 :multipleSelection="multipleSelection"
+                :hideUsername="hideUsername"
                 :routePath="this.routePath + keywords"/>
         </div>
     </div>
@@ -57,6 +58,10 @@ export default {
         multipleSelection: {
             type: Boolean,
             default: true
+        },
+        hideUsername: {
+            type: Boolean,
+            default: false
         }
     },
     watch: {
