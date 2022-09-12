@@ -13,12 +13,10 @@
 </template>
 
 <script>
-import Users from './Chooser/Users'
 import Search from './Chooser/Search'
 
 export default {
     components: {
-        Users,
         Search
     },
     props: {
