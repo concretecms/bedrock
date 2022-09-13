@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div :class="{'card': true, 'card-body': true, 'process-card': true}"
+        <div :class="{'card': format === 'card', 'card-body': format === 'card', 'process-card': format === 'card'}"
         v-for="process in processes" :key="process.id">
             <div class="row">
                 <div class="col-md-9 running-process-name">
@@ -43,6 +43,11 @@ export default {
         processes: {
             type: Array,
             required: true
+        },
+        format: {
+            type: String,
+            required: false,
+            default: 'card' /* card or empty */
         }
     },
     data: () => ({
