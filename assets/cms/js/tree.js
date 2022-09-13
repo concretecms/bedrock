@@ -155,7 +155,7 @@ ConcreteTree.prototype = {
                 if (options.removeNodesByKey.length) {
                     for (var i = 0; i < options.removeNodesByKey.length; i++) {
                         var nodeID = options.removeNodesByKey[i]
-                        var node = $tree.fancytree('getTree').getNodeByKey(String(nodeID))
+                        var node = $.ui.fancytree.getTree($tree).getNodeByKey(String(nodeID))
                         if (node) {
                             node.remove()
                         }
@@ -168,7 +168,7 @@ ConcreteTree.prototype = {
 
                 var selectedNodes
                 if (options.chooseNodeInForm) {
-                    selectedNodes = $tree.fancytree('getTree')
+                    selectedNodes = $.ui.fancytree.getTree($tree)
                     selectedNodes = selectedNodes.getSelectedNodes()
                     if (selectedNodes.length) {
                         var keys = $.map(selectedNodes, function (node) {
@@ -332,7 +332,7 @@ ConcreteTree.prototype = {
                     ConcreteAlert.dialog(ccmi18n.error, r.errors.join('<br>'))
                 } else {
                     jQuery.fn.dialog.closeTop()
-                    var node = $tree.fancytree('getTree').getNodeByKey(String(r.treeNodeParentID))
+                    var node = $.ui.fancytree.getTree($tree).getNodeByKey(String(r.treeNodeParentID))
                     jQuery.fn.dialog.showLoader()
                     my.reloadNode(node, function () {
                         jQuery.fn.dialog.hideLoader()
@@ -411,23 +411,23 @@ ConcreteTree.setupTreeEvents = function (my) {
         var node
         if (nodes.length) {
             for (var i = 0; i < nodes.length; i++) {
-                node = $tree.fancytree('getTree').getNodeByKey(String(nodes[i].treeNodeParentID))
+                node = $.ui.fancytree.getTree($tree).getNodeByKey(String(nodes[i].treeNodeParentID))
                 node.addChildren(nodes)
             }
         } else {
-            node = $tree.fancytree('getTree').getNodeByKey(String(nodes.treeNodeParentID))
+            node = $.ui.fancytree.getTree($tree).getNodeByKey(String(nodes.treeNodeParentID))
             node.addChildren(nodes)
         }
     })
     ConcreteEvent.subscribe('ConcreteTreeUpdateTreeNode.concreteTree', function (e, r) {
         var $tree = $('[data-tree=' + my.options.treeID + ']')
-        var node = $tree.fancytree('getTree').getNodeByKey(String(r.node.key))
+        var node = $.ui.fancytree.getTree($tree).getNodeByKey(String(r.node.key))
         node.fromDict(r.node)
         node.render()
     })
     ConcreteEvent.subscribe('ConcreteTreeDeleteTreeNode.concreteTree', function (e, r) {
         var $tree = $('[data-tree=' + my.options.treeID + ']')
-        var node = $tree.fancytree('getTree').getNodeByKey(String(r.node.treeNodeID))
+        var node = $.ui.fancytree.getTree($tree).getNodeByKey(String(r.node.treeNodeID))
         node.remove()
     })
 }
