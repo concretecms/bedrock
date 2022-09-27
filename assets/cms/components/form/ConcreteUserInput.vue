@@ -1,5 +1,5 @@
 <template>
-    <div class="ccm-item-selector-group">
+    <div :class="cssClasses">
         <input type="hidden" :name="inputName" :value="selectedUserID" v-if="inputName !== ''" />
 
         <div v-if="isLoading">
@@ -43,9 +43,21 @@ export default {
     computed: {
         isLoading() {
             return this.isLoadingUserID > 0
+        },
+        cssClasses() {
+            let classes = ['ccm-item-selector-group']
+            if (this.cssClass) {
+                classes = [...classes, this.cssClass]
+            }
+            return classes
         }
     },
     props: {
+        cssClass: {
+            type: String,
+            default: '',
+            required: false,
+        },
         inputName: {
             type: String,
             default: ''
@@ -63,7 +75,18 @@ export default {
             default: false
         }
     },
+    prop: ['userId'],
+    model: {
+        prop: 'userId',
+        event: 'change'
+    },
     watch: {
+        userId: {
+            immediate: true,
+            handler(value) {
+                this.selectedUserID = this.userId
+            }
+        },
         selectedUserID: {
             immediate: true,
             handler(value) {
@@ -77,9 +100,6 @@ export default {
         }
     },
     mounted() {
-        if (this.userId) {
-            this.selectedUserID = this.userId
-        }
     },
     methods: {
         chooseFile: function(selectedUsers) {
