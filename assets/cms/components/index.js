@@ -20,6 +20,7 @@ import ConcreteFileChooser from './file-manager/Chooser'
 import ConcreteExpressEntrySelector from './express/Selector'
 import ConcreteUserChooser from './user/Chooser'
 import ConcreteGroupChooser from './groups/Chooser'
+import ConcreteGroupInput from './form/ConcreteGroupInput'
 import ConcreteFileUploader from './file-manager/Uploader/UploadFromComputer'
 import Board from './Board'
 import BoardSlot from './BoardSlot'
@@ -55,6 +56,7 @@ export default {
     ConcreteExpressEntrySelector,
     ConcreteFileUploader,
     ConcreteGroupChooser,
+    ConcreteGroupInput,
     ConcretePageChooserSearch,
     ConcretePageInput,
     ConcreteUserInput,
