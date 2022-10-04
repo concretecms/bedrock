@@ -302,82 +302,84 @@
     }
 
     $.fn.dialog.activateDialogContents = function($dialog) {
-        // handle buttons
-        $dialog.find('button[data-dialog-action=cancel]').on('click', function() {
-            $.fn.dialog.closeTop()
-        })
-        $dialog.find('[data-dialog-form]').each(function() {
-            var $form = $(this)
-            var options = {}
-            if ($form.attr('data-dialog-form-processing') == 'progressive') {
-                options.progressiveOperation = true
-                options.progressiveOperationElement = 'div[data-dialog-form-element=progress-bar]'
-            }
-            $form.concreteAjaxForm(options)
-        })
-
-        $dialog.find('button[data-dialog-action=submit]').on('click', function() {
-            $dialog.find('[data-dialog-form]').submit()
-        })
-
-        fixDialogButtons($dialog)
-
-        // make dialogs
-        $dialog.find('.dialog-launch').dialog()
-
-        // automated close handling
-        $dialog.find('.ccm-dialog-close').on('click', function() {
-            $dialog.dialog('close')
-        })
-
-        const tooltipTriggerList = [].slice.call($dialog.find('.launch-tooltip'))
-        tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl, { container: '#ccm-tooltip-holder' })
-        })
-
-        // help handling
-        if ($dialog.find('.dialog-help').length > 0) {
-            $dialog.find('.dialog-help').hide()
-            var helpContent = $dialog.find('.dialog-help').html()
-            var helpText
-            if (ccmi18n.helpPopup) {
-                helpText = ccmi18n.helpPopup
-            } else {
-                helpText = 'Help'
-            }
-            var button = $('<button class="btn-help"><svg><use xlink:href="#icon-dialog-help" /></svg></button>')
-            var container = $('#ccm-tooltip-holder')
-            button.insertBefore($dialog.parent().find('.ui-dialog-titlebar-close'))
-
-            button.popover({
-                content: function() {
-                    return helpContent
-                },
-                placement: 'bottom',
-                html: true,
-                container: container,
-                trigger: 'click'
+        setTimeout(function () {
+            // handle buttons
+            $dialog.find('button[data-dialog-action=cancel]').on('click', function () {
+                $.fn.dialog.closeTop()
             })
-            button.on('shown.bs.popover', function() {
-                var binding = function() {
-                    button.popover('hide', button)
-                    binding = $.noop
+            $dialog.find('[data-dialog-form]').each(function () {
+                var $form = $(this)
+                var options = {}
+                if ($form.attr('data-dialog-form-processing') == 'progressive') {
+                    options.progressiveOperation = true
+                    options.progressiveOperationElement = 'div[data-dialog-form-element=progress-bar]'
                 }
-
-                button.on('hide.bs.popover', function(event) {
-                    button.unbind(event)
-                    binding = $.noop
-                })
-
-                $('body').mousedown(function(e) {
-                    if ($(e.target).closest(container).length || $(e.target).closest(button).length) {
-                        return
-                    }
-                    $(this).unbind(e)
-                    binding()
-                })
+                $form.concreteAjaxForm(options)
             })
-        }
+
+            $dialog.find('button[data-dialog-action=submit]').on('click', function () {
+                $dialog.find('[data-dialog-form]').submit()
+            })
+
+            fixDialogButtons($dialog)
+
+            // make dialogs
+            $dialog.find('.dialog-launch').dialog()
+
+            // automated close handling
+            $dialog.find('.ccm-dialog-close').on('click', function () {
+                $dialog.dialog('close')
+            })
+
+            const tooltipTriggerList = [].slice.call($dialog.find('.launch-tooltip'))
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl, {container: '#ccm-tooltip-holder'})
+            })
+
+            // help handling
+            if ($dialog.find('.dialog-help').length > 0) {
+                $dialog.find('.dialog-help').hide()
+                var helpContent = $dialog.find('.dialog-help').html()
+                var helpText
+                if (ccmi18n.helpPopup) {
+                    helpText = ccmi18n.helpPopup
+                } else {
+                    helpText = 'Help'
+                }
+                var button = $('<button class="btn-help"><svg><use xlink:href="#icon-dialog-help" /></svg></button>')
+                var container = $('#ccm-tooltip-holder')
+                button.insertBefore($dialog.parent().find('.ui-dialog-titlebar-close'))
+
+                button.popover({
+                    content: function () {
+                        return helpContent
+                    },
+                    placement: 'bottom',
+                    html: true,
+                    container: container,
+                    trigger: 'click'
+                })
+                button.on('shown.bs.popover', function () {
+                    var binding = function () {
+                        button.popover('hide', button)
+                        binding = $.noop
+                    }
+
+                    button.on('hide.bs.popover', function (event) {
+                        button.unbind(event)
+                        binding = $.noop
+                    })
+
+                    $('body').mousedown(function (e) {
+                        if ($(e.target).closest(container).length || $(e.target).closest(button).length) {
+                            return
+                        }
+                        $(this).unbind(e)
+                        binding()
+                    })
+                })
+            }
+        }, 10)
     }
 
     $.fn.dialog.getTop = function() {

@@ -45,7 +45,7 @@ export default {
     props: {
         inputName: {
             type: String,
-            required: true
+            default: ''
         },
         fileId: {
             type: Number
@@ -56,6 +56,11 @@ export default {
         filters: {
             type: Array
         }
+    },
+    prop: ['fileId'],
+    model: {
+        prop: 'fileId',
+        event: 'change'
     },
     watch: {
         selectedFileID: {
@@ -72,7 +77,7 @@ export default {
                         this.$emit('change', null)
                     }
                 }
-                if (!this.isFirstRun) {
+                if (!this.isFirstRun && this.inputName) {
                     // Fire the jQuery change event.
                     // @deprecated - do not use this unless you have to. Use this component directly instead and listen
                     // to its change event. This will be removed when the jQuery dependency is removed.
