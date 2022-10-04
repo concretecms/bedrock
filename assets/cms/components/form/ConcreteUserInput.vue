@@ -56,7 +56,7 @@ export default {
         cssClass: {
             type: String,
             default: '',
-            required: false,
+            required: false
         },
         inputName: {
             type: String,

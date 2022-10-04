@@ -333,7 +333,9 @@
 
             const tooltipTriggerList = [].slice.call($dialog.find('.launch-tooltip'))
             tooltipTriggerList.map(function (tooltipTriggerEl) {
-                return new bootstrap.Tooltip(tooltipTriggerEl, {container: '#ccm-tooltip-holder'})
+                return new bootstrap.Tooltip(tooltipTriggerEl, {
+                    container: '#ccm-tooltip-holder'
+                })
             })
 
             // help handling
