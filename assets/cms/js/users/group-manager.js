@@ -1,8 +1,8 @@
-/* global ccmi18n, CCM_DISPATCHER_FILENAME, ConcreteAlert, ConcreteAjaxRequest, ConcreteEvent */
+/* global ccmi18n, CCM_DISPATCHER_FILENAME, ConcreteAjaxRequest, ConcreteEvent */
 class ConcreteUserGroupManager {
     static launchDialog(callback, opts) {
         const options = {
-            displayDialogButtons: true,
+            displayDialogButtons: true
         }
 
         $.extend(options, opts)
@@ -32,9 +32,9 @@ class ConcreteUserGroupManager {
             success(r) {
                 if (r.error) {
                     if (callbackFailure) {
-                        callbackFailure(r);
+                        callbackFailure(r)
                     } else {
-                        ConcreteAjaxRequest.validateResponse(r);
+                        ConcreteAjaxRequest.validateResponse(r)
                     }
                 } else if (callbackSuccess) {
                     callbackSuccess(r)
@@ -46,7 +46,9 @@ class ConcreteUserGroupManager {
                 callbackFailure(r)
             }
         }
-        new ConcreteAjaxRequest(options);
+        /* eslint-disable no-new */
+        new ConcreteAjaxRequest(options)
+        /* eslint-enable no-new */
     }
 }
 

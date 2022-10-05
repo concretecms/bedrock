@@ -87,7 +87,7 @@ export default {
             if (my.mode === 'select') {
                 options.onClick = function(node) {
                     if (node.data.gID) {
-                        my.triggerSelect(node.data.gID, node.data.gName ?? node.title, node.data.gDisplayName ?? node.title)
+                        my.triggerSelect(node.data.gID, node.data.gName ? node.data.gName : node.title, node.data.gDisplayName ? node.data.gDisplayName : node.title)
                     } else {
                         return false
                     }

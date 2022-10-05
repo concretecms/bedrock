@@ -79,16 +79,16 @@ export default {
     mounted() {
         this.loadGroup(true)
     },
-    beforeMount() {
+    beforeUnmount() {
         this.mounted = false
     },
     methods: {
         setSelectedGroup(group, triggerChange) {
-            const currentlySelectedGroupID = this.selectedGroup?.gID || 0
-            const newlySelectedGroupID = group?.gID || 0
+            const currentlySelectedGroupID = this.selectedGroup ? (parseInt(this.selectedGroup.gID) || 0) : 0
+            const newlySelectedGroupID = group ? (parseInt(group.gID) || 0) : 0
             this.isLoadingGroupId = 0
             this.selectedGroup = group
-            if (triggerChange && currentlySelectedGroupID != newlySelectedGroupID) {
+            if (triggerChange && currentlySelectedGroupID !== newlySelectedGroupID) {
                 this.$emit('change', this.selectedGroup)
             }
         },
@@ -103,8 +103,8 @@ export default {
                 this.setSelectedGroup(null, !initial)
                 return
             }
-            const currentGroupId = this.selectedGroup?.gID || 0
-            if (wantedGroupId == currentGroupId) {
+            const currentGroupId = this.selectedGroup ? (parseInt(this.selectedGroup.gID) || 0) : 0
+            if (wantedGroupId === currentGroupId) {
                 this.isLoadingGroupId = 0
                 return
             }
@@ -116,7 +116,6 @@ export default {
                         return
                     }
                     this.setSelectedGroup(r.groups[0], !initial)
-                    
                 },
                 (r) => {
                     if (this.isLoadingGroupId !== wantedGroupId) {
