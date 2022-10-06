@@ -87,7 +87,7 @@ export default {
             if (my.mode === 'select') {
                 options.onClick = function(node) {
                     if (node.data.gID) {
-                        my.triggerSelect(node.data.gID, node.title)
+                        my.triggerSelect(node.data.gID, node.data.gName ? node.data.gName : node.title, node.data.gDisplayName ? node.data.gDisplayName : node.title)
                     } else {
                         return false
                     }
@@ -122,12 +122,13 @@ export default {
                 window.location.href = CCM_DISPATCHER_FILENAME + '/dashboard/users/groups/edit/' + group.gID
             }
             if (this.mode === 'select') {
-                this.triggerSelect(group.gID, group.gDisplayName)
+                this.triggerSelect(group.gID, group.gName, group.gDisplayName)
             }
         },
-        triggerSelect(gID, gName) {
-            ConcreteEvent.publish('SelectGroup', { gID: gID, gName: gName })
-            this.$emit('select', { gID: gID, gName: gName })
+        triggerSelect(gID, gName, gDisplayName) {
+            gID = parseInt(gID) || 0
+            ConcreteEvent.publish('SelectGroup', { gID, gName, gDisplayName })
+            this.$emit('select', { gID, gName, gDisplayName })
         },
         performSearch(event) {
             this.searchSubmitted = 'searching'
