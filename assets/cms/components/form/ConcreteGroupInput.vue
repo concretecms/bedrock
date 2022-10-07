@@ -84,8 +84,8 @@ export default {
     },
     methods: {
         setSelectedGroup(group, triggerChange) {
-            const currentlySelectedGroupID = this.selectedGroup ? (parseInt(this.selectedGroup.gID) || 0) : 0
-            const newlySelectedGroupID = group ? (parseInt(group.gID) || 0) : 0
+            const currentlySelectedGroupID = parseInt(this.selectedGroup?.gID) || 0
+            const newlySelectedGroupID = parseInt(group?.gID) || 0
             this.isLoadingGroupId = 0
             this.selectedGroup = group
             if (triggerChange && currentlySelectedGroupID !== newlySelectedGroupID) {
@@ -103,7 +103,7 @@ export default {
                 this.setSelectedGroup(null, !initial)
                 return
             }
-            const currentGroupId = this.selectedGroup ? (parseInt(this.selectedGroup.gID) || 0) : 0
+            const currentGroupId = parseInt(this.selectedGroup?.gID) || 0
             if (wantedGroupId === currentGroupId) {
                 this.isLoadingGroupId = 0
                 return
