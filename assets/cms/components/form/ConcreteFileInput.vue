@@ -1,6 +1,6 @@
 <template>
     <div class="ccm-item-selector-group">
-        <input type="hidden" :name="inputName" :value="selectedFileID" />
+        <input type="hidden" :name="inputName" :value="selectedFileID" ref="input" />
 
         <div class="ccm-item-selector-choose" v-if="!selectedFile && !isLoading">
             <button type="button" @click="openChooser" class="btn btn-secondary">
@@ -81,7 +81,7 @@ export default {
                     // Fire the jQuery change event.
                     // @deprecated - do not use this unless you have to. Use this component directly instead and listen
                     // to its change event. This will be removed when the jQuery dependency is removed.
-                    $('input[name=' + this.inputName + ']').trigger('change')
+                    $(this.$refs.input).trigger('change')
                 }
                 this.isFirstRun = false
             }
