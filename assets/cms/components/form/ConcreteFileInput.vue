@@ -48,7 +48,8 @@ export default {
             default: ''
         },
         fileId: {
-            type: Number
+            type: Number,
+            default: 0
         },
         chooseText: {
             type: String
@@ -63,6 +64,12 @@ export default {
         event: 'change'
     },
     watch: {
+        fileId: {
+            immediate: true,
+            handler(value) {
+                this.selectedFileID = this.fileId
+            }
+        },
         selectedFileID: {
             immediate: true,
             handler(value) {
