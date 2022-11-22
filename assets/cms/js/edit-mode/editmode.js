@@ -374,6 +374,8 @@
                 Concrete.event.fire('EditModeSelectableContender')
                 html.removeClass('ccm-block-dragging')
 
+                my.setDragging(false)
+
                 if (data.block instanceof Concrete.BlockType) return
                 my.scanBlocks()
             })
