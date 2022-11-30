@@ -83,6 +83,14 @@
                 e.stopPropagation()
                 return false
             }).pep(my.getPepSettings())
+
+            my.getPeper().on('mouseover', function(e) {
+                my.getElem().addClass('ccm-block-move-hover')
+            })
+
+            my.getPeper().on('mouseout', function(e) {
+                my.getElem().removeClass('ccm-block-move-hover')
+            })
         },
 
         /**
@@ -580,6 +588,23 @@
 
             _.defer(function () {
                 Concrete.event.fire('EditModeBlockDragStart', { block: my, pep: pep, event: event })
+            })
+        },
+
+        /**
+         * Sets an area as accepting a block drag operation. By default all areas will be set up as possible
+         * in this block.js, but extending classes like layout.js and containerblock.js can restrict this
+         * to just their own areas.
+         *
+         * Note: This payload is JUST visual - other operations deeper within on dragstop actually handle rejecting
+         * this operation. This is only so that when we drag layouts and blocks around we don't see drop areas
+         * that _look_ like they will work, only to have the operation rejected when we attempt to drop.
+         *
+         * @param areas
+         */
+        setupAreaDragPayloads: function setupAreaDragPayloads(areas) {
+            _(areas).map((areas) => {
+                areas.getElem().addClass('ccm-area-accepts-block-drag-payload')
             })
         },
 

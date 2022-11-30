@@ -19,6 +19,7 @@
             menuLauncherHoverParentClass: 'ccm-parent-menu-item-hover',
             enabled: true,
             enableClickProxy: true,
+            onShow: false,
             onHide: false
         }, options)
 
@@ -280,6 +281,10 @@
             ConcreteMenuManager.activeMenu = my
 
             ConcreteEvent.publish('ConcreteMenuShow', { menu: my, menuElement: $menu })
+
+            if (my.options.onShow) {
+                my.options.onShow(my)
+            }
         },
 
         hide: function (e) {

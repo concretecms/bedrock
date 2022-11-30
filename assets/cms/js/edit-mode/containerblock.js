@@ -16,24 +16,54 @@ import _ from 'underscore'
             var my = this
             Concrete.Block.prototype.init.call(my, elem, edit_mode, $())
 
+            var notch = elem.siblings('.ccm-edit-mode-title-notch-wrapper').find('.ccm-edit-mode-title-notch')
+            my.setAttr('notch', notch)
+
             elem.children('.ccm-block-cover').remove()
             my.bindDrag()
             my.bindDelete()
             my.bindEditDesign()
+            my.bindNotchMenu()
+        },
+
+        getMenu: function() {
+            var my = this
+            return $('[data-container-menu=' + my.getId() + ']')
+        },
+
+        bindNotchMenu: function() {
+            var my = this
+            var menu_config = {
+                highlightClassName: 'ccm-edit-mode-title-notch-highlight',
+                menuActiveClass: 'ccm-edit-mode-title-notch-highlight',
+                menu: my.getMenu(),
+                onShow: function(menu) {
+                    my.getElem().addClass('ccm-block-edit-container-highlight')
+                },
+                onHide: function(menu) {
+                    my.getElem().removeClass('ccm-block-edit-container-highlight')
+                }
+            }
+            new ConcreteMenu(my.getNotch(), menu_config)
         },
 
         bindDelete: function ContainerBlockDelete() {
             var my = this
-            var deleter = my.getElem().find('ul.ccm-edit-mode-inline-container a[data-inline-command=delete-block]')
+            var deleter = my.getMenu().find('a[data-inline-command=delete-block]')
             deleter.unbind('click.containerDelete').on('click.containerDelete', function(e) {
                 e.preventDefault()
                 my.delete()
             })
         },
 
+        setupAreaDragPayloads: function setupAreaDragPayloads(areas) {
+            var my = this
+            my.getArea().getElem().addClass('ccm-area-accepts-block-drag-payload')
+        },
+
         bindEditDesign: function ContainerBlockEditDesign() {
             var my = this
-            var menuElem = my.getElem().find('ul.ccm-edit-mode-inline-container a[data-inline-command=edit-container-design]')
+            var menuElem = my.getMenu().find('a[data-inline-command=edit-container-design]')
             menuElem.off('click.edit-mode')
                 .on('click.edit-mode', function (e) {
                     e.preventDefault()
@@ -51,7 +81,7 @@ import _ from 'underscore'
 
         bindDrag: function ContainerBlockBindDrag() {
             var my = this
-            var mover = my.getElem().find('ul.ccm-edit-mode-inline-container a[data-inline-command=move-block]').parent()
+            var mover = my.getNotch().find('a[data-inline-command=move-block]').parent()
 
             $.pep.unbind(mover)
             mover.pep(my.getPepSettings())
