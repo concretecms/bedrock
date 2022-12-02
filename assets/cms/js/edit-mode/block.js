@@ -603,8 +603,10 @@
          * @param areas
          */
         setupAreaDragPayloads: function setupAreaDragPayloads(areas) {
-            _(areas).map((areas) => {
-                areas.getElem().addClass('ccm-area-accepts-block-drag-payload')
+            _(areas).map((area) => {
+                if (area.acceptsBlockType(this.getHandle())) {
+                    area.getElem().addClass('ccm-area-accepts-block-drag-payload')
+                }
             })
         },
 

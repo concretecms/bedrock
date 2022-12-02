@@ -83,6 +83,7 @@ import _ from 'underscore'
 
         setupAreaDragPayloads: function setupAreaDragPayloads(areas) {
             var my = this
+
             my.getArea().getElem().addClass('ccm-area-accepts-block-drag-payload')
         },
 
