@@ -22,6 +22,7 @@ import ConcreteUserChooser from './user/Chooser'
 import ConcreteGroupChooser from './groups/Chooser'
 import ConcreteGroupInput from './form/ConcreteGroupInput'
 import ConcreteFileUploader from './file-manager/Uploader/UploadFromComputer'
+import ConcreteWelcomeModal from './WelcomeModal'
 import Board from './Board'
 import BoardSlot from './BoardSlot'
 import BoardInstanceRule from './BoardInstanceRule'
@@ -62,6 +63,7 @@ export default {
     ConcreteUserInput,
     ConcreteEventOccurrenceInput,
     ConcreteFileDirectoryInput,
+    ConcreteWelcomeModal,
     Board,
     BoardSlot,
     BoardInstanceRule,

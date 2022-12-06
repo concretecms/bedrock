@@ -14,6 +14,44 @@
         $searchResults.css('right', $(window).width() - $searchInput.offset().left - $searchResults.width() - 1)
     }
 
+    function setupWelcomeModal() {
+        if (document.querySelectorAll('div[data-wrapper=concrete-welcome-modal]').length) {
+            Concrete.Vue.activateContext('cms', function (Vue, config) {
+                new Vue({
+                    el: 'div[data-wrapper=concrete-welcome-modal]',
+                    components: config.components
+                })
+            })
+        }
+
+        $(document.body).on('click', 'a[data-launch=help-modal]', function(e) {
+            e.stopPropagation()
+            e.preventDefault()
+
+            var $wrapper = $('div[data-wrapper=help-modal]');
+            if (!$wrapper.length) {
+                $('<div />', {'data-wrapper': 'help-modal'}).appendTo($(document.body))
+            }
+
+            var url = $(this).attr('href')
+            new ConcreteAjaxRequest({
+                url: url,
+                dataType: 'html',
+                success: function (r) {
+                    var $element = $(r)
+                    $('div[data-wrapper=help-modal]').append($element)
+                    Concrete.Vue.activateContext('cms', function (Vue, config) {
+                        new Vue({
+                            el: 'div[data-wrapper=help-modal]',
+                            components: config.components
+                        })
+                    })
+                }
+            })
+
+        })
+    }
+
     function setupHelpNotifications() {
         var manager = ConcreteHelpGuideManager.get()
         if (manager.getGuideToLaunchOnRefresh()) {
@@ -324,6 +362,7 @@
                 setupTooltips()
                 setupPageAlerts()
                 setupHelpNotifications()
+                setupWelcomeModal()
                 setupMobileNav()
             }
         },
