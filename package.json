@@ -17,7 +17,7 @@
     "ajax-bootstrap-select": "^1.4.5",
     "backstretch": "^1.2.2",
     "blueimp-file-upload": "^10.31.0",
-    "bootbox": "github:makeusabrew/bootbox#v6-wip",
+    "bootbox": "github:makeusabrew/bootbox#master",
     "bootstrap": "^5.2.0",
     "bootstrap-select": "github:snapappointments/bootstrap-select",
     "bootstrap-tourist": "git+https://git@github.com/concrete5/bootstrap-tourist.git",
