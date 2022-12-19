@@ -98,13 +98,14 @@ class ConcreteAlert {
             icon: 'check-circle',
             title: false,
             message: false,
+            plainTextMessage: false,
             delay: 2000,
             callback: () => {}
         }, defaults)
 
         const notifyOptions = {
             text: options.message,
-            textTrusted: true,
+            textTrusted: !options.plainTextMessage,
             icon: 'fas fa-' + options.icon,
             type: options.type,
             delay: options.delay,
