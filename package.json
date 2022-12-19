@@ -71,7 +71,7 @@
     "babel-preset-vue": "^2.0.2",
     "caniuse-lite": "^1.0",
     "eslint-plugin-vue": "^6.2.2",
-    "laravel-mix": "^5.0.9",
+    "laravel-mix": "^6.0.49",
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.32.13",
     "sass-loader": "^8.0.2",
