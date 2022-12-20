@@ -1,7 +1,7 @@
 <template>
     <div class="ccm-ui">
         <div class="modal fade" role="dialog" tabindex="-1" id="concrete-welcome-modal">
-            <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title"><slot name="title"></slot></h4>
