@@ -49,10 +49,19 @@
         },
 
         error: function(r, my) {
-            ConcreteEvent.fire('AjaxRequestError', {
-                response: r
-            })
-            ConcreteAlert.dialog(ccmi18n.error, ConcreteAjaxRequest.renderErrorResponse(r, true))
+            if (r.readyState !== 0) {
+                // This happens in Firefox. I don't know why. It happens when an AJAX request is in process and then
+                // the page is navigated away from. I feel like Chrome handles this transparently, or maybe jQuery
+                // handles it better behind the scenes and doesn't send the error object on to the 'error' handler
+                // of the jquery .ajax() method. Regardless, sometimes incomplete AJAX requests in Firefox
+                // trigger the error handler without real data, so they just show "Undefined" as a popup.
+                // (e.g. https://github.com/concretecms/concretecms/issues/11135)
+                // So let's only pop the dialog if the readyState is NOT 0.
+                ConcreteEvent.fire('AjaxRequestError', {
+                    response: r
+                })
+                ConcreteAlert.dialog(ccmi18n.error, ConcreteAjaxRequest.renderErrorResponse(r, true))
+            }
         },
 
         validateResponse: function(r, callback) {
