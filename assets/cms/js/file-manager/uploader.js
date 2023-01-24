@@ -392,7 +392,6 @@
                             .addClass('ccm-directory-selector-container')
 
                         const $selectDirectoryFormGroup = $('<div/>')
-                            .addClass('form-group')
 
                         const selectDirectoryId = 'input-' + fileUploader.getUniqueId()
 
@@ -427,10 +426,9 @@
 
                         const $div = $('<div/>')
                             .addClass('ccm-file-uploader-new-directory-name-container')
-                            .addClass('hidden-container')
+                            .addClass('mt-3 hidden-container')
 
                         const $formGroup = $('<div/>')
-                            .addClass('form-group')
 
                         const inputId = 'input-' + fileUploader.getUniqueId()
 
@@ -1177,7 +1175,6 @@
                     $dialogEl.dialog({
                         title: ccmi18n_fileuploader.dialogTitle,
                         width: '80%',
-                        height: '800',
                         modal: true,
                         autoOpen: false,
                         buttons: [{
