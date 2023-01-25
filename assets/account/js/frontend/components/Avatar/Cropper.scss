@@ -49,7 +49,7 @@
     overflow: hidden;
     position: relative;
     transition: all 0.3s;
-    z-index: 10000;
+    z-index: 999;
 
     > img.ccm-avatar-current {
       display: inline;
