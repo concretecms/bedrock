@@ -1,13 +1,18 @@
 <template>
-    <select @change="componentUpdated" class="selectpicker" v-model="selectedFont">
-        <option value="" :data-content="'<span>Default</span>'">Default</option>
-        <option v-for="font in customFonts" :value="font" :data-content="'<span style=\'font-family: ' + font + '\'>' + font + '</span>'">{{ font }}</option>
-        <option v-for="font in standardFonts" :value="font" :data-content="'<span style=\'font-family: ' + font + '\'>' + font + '</span>'">{{ font }}</option>
+    <select @change="componentUpdated" v-model="selectedFont">
+        <option value="__default__" data-font="">Default</option>
+        <optgroup label="Theme Fonts">
+            <option v-for="font in customFonts" :data-font="font" :value="font">{{ font }}</option>
+        </optgroup>
+        <optgroup label="Standard Fonts">
+            <option v-for="font in standardFonts" :data-font="font" :value="font">{{ font }}</option>
+        </optgroup>
     </select>
 </template>
 
 <script>
-/* globals WebFont */
+/* eslint-disable no-new, no-unused-vars, camelcase, eqeqeq */
+/* globals TomSelect, WebFont */
 export default {
     components: {},
     data() {
@@ -16,7 +21,16 @@ export default {
         }
     },
     mounted() {
-        $('select.selectpicker').selectpicker()
+        new TomSelect(this.$el, {
+            render: {
+                option: function (data, escape) {
+                    return `<div style="font-family: ${data.font}">${data.text}</div>`
+                },
+                item: function (item, escape) {
+                    return `<div style="font-family: ${item.font}">${item.text}</div>`
+                }
+            }
+        })
         var googleFontFamilies = []
         this.styleValue.style.fonts.forEach(function(font) {
             if (font.type === 'google') {
@@ -33,10 +47,16 @@ export default {
     },
     methods: {
         componentUpdated: function () {
+            var componentUpdatedFontFamily = this.selectedFont
+            if (this.selectedFont == '__default__') {
+                // This is a TomSelect limitation. we want to send an empty string but when
+                // I put an empty string in my value the option doesn't get added to the list.
+                componentUpdatedFontFamily = ''
+            }
             this.$emit('update', {
                 variable: this.styleValue.style.variable,
                 value: {
-                    fontFamily: this.selectedFont
+                    fontFamily: componentUpdatedFontFamily
                 }
             })
         }

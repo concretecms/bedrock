@@ -44,6 +44,7 @@
     "selectize": "^0.12.6",
     "selectize-bootstrap4-theme": "^2.0.2",
     "spectrum-colorpicker2": "^2.0.0",
+    "tom-select": "^2.2.2",
     "tristate": "^1.2.0",
     "underscore": "^1.13",
     "v-calendar": "^1.0.8",

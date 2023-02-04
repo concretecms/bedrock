@@ -36,13 +36,9 @@
                         var $content = $container.append(
                             renderFieldRowTemplate({ field: r })
                         )
-                        var selects = $content.find('select.ccm-enhanced-select')
-                        if (selects.length) {
-                            selects.selectpicker({
-                                liveSearch: true,
-                                width: '100%'
-                            })
-                        }
+                        $content.find('[data-vue]').each(function() {
+                            $(this).concreteVue({ context: $(this).attr('data-vue') })
+                        })
                     }
                 })
             }
@@ -73,13 +69,9 @@
             })
         }
 
-        var selects = $container.find('select.ccm-enhanced-select')
-        if (selects.length) {
-            selects.selectpicker({
-                liveSearch: true,
-                width: '100%'
-            })
-        }
+        $container.find('[data-vue]').each(function() {
+            $(this).concreteVue({ context: $(this).attr('data-vue') })
+        })
     }
 
     // jQuery Plugin

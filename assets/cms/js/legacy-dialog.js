@@ -326,6 +326,11 @@
             // make dialogs
             $dialog.find('.dialog-launch').dialog()
 
+            // Handle vue components within
+            $dialog.find('[data-vue]').each(function() {
+                $(this).concreteVue({ context: $(this).attr('data-vue') })
+            })
+
             // automated close handling
             $dialog.find('.ccm-dialog-close').on('click', function () {
                 $dialog.dialog('close')

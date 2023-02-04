@@ -1,4 +1,3 @@
-// import './inline-toolbar'
 import './palette'
 import './color'
 import './image'

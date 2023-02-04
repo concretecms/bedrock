@@ -43,7 +43,6 @@ export default {
             validator: value => ['grid', 'list'].indexOf(value) !== -1
         },
         startFolder: {
-            type: String,
             required: true
         },
         title: {

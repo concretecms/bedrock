@@ -1,5 +1,5 @@
 /* eslint-disable no-new, no-unused-vars, camelcase, eqeqeq */
-/* global _, ccmi18n_sitemap, CCM_DISPATCHER_FILENAME, CCM_SECURITY_TOKEN, CCM_REL, Concrete, ConcreteAlert, ConcretePageMenu, ccm_parseJSON, ConcreteProgressiveOperation, ConcreteEvent */
+/* global TomSelect, _, ccmi18n_sitemap, CCM_DISPATCHER_FILENAME, CCM_SECURITY_TOKEN, CCM_REL, Concrete, ConcreteAlert, ConcretePageMenu, ccm_parseJSON, ConcreteProgressiveOperation, ConcreteEvent */
 
 /* Base search class for AJAX forms in the UI */
 ;(function(global, $) {
@@ -60,13 +60,14 @@
                     my.$element.find('div.ccm-sitemap-tree-selector-wrapper').append($(my.localesWrapperTemplate))
                     var $menu = my.$element.find('div.ccm-sitemap-tree-selector-wrapper select')
 
+                    // @todo - refactor TomSelect to bring back nice styling of flags, etc...
                     if (tree.entryGroups && tree.entryGroups.length) {
                         $.each(tree.entryGroups, function (gi, group) {
                             var $optgroup = $('<optgroup label="' + group.label + '">')
 
                             $.each(tree.entries, function (ti, entry) {
                                 if (entry.class == group.value) {
-                                    var $option = '<option value="' + entry.siteTreeID + '" data-content=\'<div class="option">' + entry.element + '</div>\''
+                                    var $option = '<option value="' + entry.siteTreeID + '"'
 
                                     if (entry.isSelected) {
                                         $option += ' selected'
@@ -81,7 +82,7 @@
                         })
                     } else {
                         $.each(tree.entries, function (ti, entry) {
-                            var $option = '<option value="' + entry.siteTreeID + '" data-content=\'<div class="option">' + entry.element + '</div>\''
+                            var $option = '<option value="' + entry.siteTreeID + '"'
 
                             if (entry.isSelected) {
                                 $option += ' selected'
@@ -92,19 +93,13 @@
                         })
                     }
 
-                    $menu.selectpicker({
-                        liveSearch: true,
-                        maxOptions: 1
-                    })
+                    var menuSelect = new TomSelect($menu.get(0))
 
-                    $menu.on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-                        var treeID = $(this).selectpicker('val')
-                        if (treeID != previousValue) {
-                            var source = my.getTree().options.source
-                            my.options.siteTreeID = treeID
-                            source.data.siteTreeID = treeID
-                            my.getTree().reload(source)
-                        }
+                    menuSelect.on('change', function (treeID) {
+                        var source = my.getTree().options.source
+                        my.options.siteTreeID = treeID
+                        source.data.siteTreeID = treeID
+                        my.getTree().reload(source)
                     })
                 }
             }

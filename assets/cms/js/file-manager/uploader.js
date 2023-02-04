@@ -1,5 +1,6 @@
 /* global ccmi18n_fileuploader, CCM_SECURITY_TOKEN, NProgress, ConcreteEvent */
 /* eslint indent: [2, 4, {"SwitchCase": 1}] */
+/* eslint-disable no-new */
 
 (function ($) {
     $.fn.concreteFileUploader = function (options) {
@@ -384,71 +385,32 @@
 
                         $column.append($tabContent)
 
-                        /*
-                         * Add folder selector
-                         */
+                        let directoryId = 0
+                        if (fileUploader.isFunction(fileUploader.options.folderID)) {
+                            directoryId = parseInt(fileUploader.options.folderID())
+                        }
 
-                        const $selectDirectoryContainer = $('<div/>')
-                            .addClass('ccm-directory-selector-container')
+                        const $directoryContainer = $('<div/>')
+                            .attr('style', 'min-height: 200px')
+                        $directoryContainer.html('<concrete-file-directory-input input-label="Upload files to" :directory-id="' + directoryId + '" input-name="uploadDirectoryId" :show-add-directory-button="true" @change="currentFolder = $event"></concrete-file-directory-input>')
 
-                        const $selectDirectoryFormGroup = $('<div/>')
+                        $('<input />').attr('type', 'hidden').attr('name', 'fileUploaderDirectoryId').appendTo($directoryContainer)
+                        $column.append($directoryContainer)
 
-                        const selectDirectoryId = 'input-' + fileUploader.getUniqueId()
-
-                        // noinspection JSUnresolvedVariable
-                        const $selectDirectoryLabel = $('<label/>')
-                            .addClass('form-label')
-                            .attr('for', selectDirectoryId)
-                            .html(ccmi18n_fileuploader.uploadFilesTo)
-
-                        const $selectDirectoryInputGroup = $('<div/>')
-                            .addClass('input-group')
-
-                        const $select = $('<select/>')
-                            .addClass('ccm-directory-selector')
-                            .attr('data-size', 5)
-                            .attr('data-live-search', 'true')
-                            .attr('id', selectDirectoryId)
-
-                        // noinspection JSUnresolvedVariable
-                        const $a = $('<a/>')
-                            .attr('href', 'javascript:void(0);')
-                            .addClass('btn btn-outline-secondary ccm-file-uploader-create-new-directory-button')
-                            .html(ccmi18n_fileuploader.createNewDirectoryButton)
-
-                        $selectDirectoryInputGroup.append($select)
-                        $selectDirectoryInputGroup.append($a)
-                        $selectDirectoryFormGroup.append($selectDirectoryLabel)
-                        $selectDirectoryFormGroup.append($selectDirectoryInputGroup)
-
-                        $selectDirectoryContainer.append($selectDirectoryFormGroup)
-                        $column.append($selectDirectoryContainer)
-
-                        const $div = $('<div/>')
-                            .addClass('ccm-file-uploader-new-directory-name-container')
-                            .addClass('mt-3 hidden-container')
-
-                        const $formGroup = $('<div/>')
-
-                        const inputId = 'input-' + fileUploader.getUniqueId()
-
-                        const $label = $('<label/>')
-                            .addClass('form-label')
-                            .attr('for', inputId)
-                            .html(ccmi18n_fileuploader.directoryName)
-
-                        // noinspection JSUnresolvedVariable
-                        const $input = $('<input/>')
-                            .attr('type', 'text')
-                            .attr('placeholder', ccmi18n_fileuploader.directoryPlaceholder)
-                            .attr('id', inputId)
-                            .addClass('ccm-file-uploader-new-directory-name')
-                            .addClass('form-control')
-
-                        $formGroup.append($label)
-                        $formGroup.append($input)
-                        $div.append($formGroup)
-                        $column.append($div)
+                        Concrete.Vue.activateContext('cms', function (Vue, config) {
+                            new Vue({
+                                el: $directoryContainer.get(0),
+                                components: config.components,
+                                data: {
+                                    currentFolder: 0
+                                },
+                                watch: {
+                                    currentFolder() {
+                                        $('input[name=fileUploaderDirectoryId]').val(this.currentFolder)
+                                    }
+                                }
+                            })
+                        })
 
                         $row.append($column)
 
@@ -586,9 +548,6 @@
 
                     fileUploader.refresh()
 
-                    $dialogEl.find('.ccm-directory-selector').removeAttr('disabled').selectpicker('refresh')
-                    $dialogEl.find('.ccm-file-uploader-create-new-directory-button').removeClass('disabled')
-
                     let error = ''
 
                     for (error of errors) {
@@ -625,7 +584,7 @@
                             ccm_token: CCM_SECURITY_TOKEN,
                             send_file: fileIds,
                             removeFilesAfterPost: removeFilesAfterPost,
-                            currentFolder: $dialogEl.find('select.ccm-directory-selector').find('option:selected').val()
+                            currentFolder: $('input[name=fileUploaderDirectoryId]').val()
                         }, fileUploader.options.formData),
                         dataType: 'json',
                         success: function (data) {
@@ -652,7 +611,7 @@
                         data: $.extend({
                             ccm_token: CCM_SECURITY_TOKEN,
                             url_upload: $dialogEl.find('.ccm-remote-file-url:not(.d-none)').val(),
-                            currentFolder: $dialogEl.find('select.ccm-directory-selector').find('option:selected').val()
+                            currentFolder: $('input[name=fileUploaderDirectoryId]').val()
                         }, fileUploader.options.formData),
                         dataType: 'json',
                         success: function (data) {
@@ -711,98 +670,6 @@
 
                 renderContainer: function () {
                     $dialogEl.append(fileUploader.templates.getDialog())
-                },
-
-                createDirectory: function (directoryName) {
-                    $.ajax({
-                        url: CCM_DISPATCHER_FILENAME + '/ccm/system/file/create_directory' + '?_=' + new Date().getTime(),
-                        method: 'POST',
-                        data: {
-                            ccm_token: CCM_SECURITY_TOKEN,
-                            directoryName: directoryName,
-                            currentFolder: $dialogEl.find('select.ccm-directory-selector').find('option:selected').val()
-                        },
-                        dataType: 'json',
-                        success: function (data) {
-                            if (!data.error) {
-                                // re-fetch the directories and select the new folder
-                                // noinspection JSUnresolvedVariable
-                                fileUploader.fetchDirectories(data.directoryId, function () {
-                                    fileUploader.upload()
-                                })
-                            } else {
-                                fileUploader.raiseError(data.errors)
-                            }
-                        }
-                    })
-                },
-
-                fetchDirectories: function (selectedDirectoryId, clb) {
-                    $.ajax({
-                        url: CCM_DISPATCHER_FILENAME + '/ccm/system/file/fetch_directories' + '?_=' + new Date().getTime(),
-                        method: 'POST',
-                        data: {
-                            ccm_token: CCM_SECURITY_TOKEN
-                        },
-                        dataType: 'json',
-                        success: function (data) {
-                            if (!data.error) {
-                                const $selectBox = $dialogEl.find('select.ccm-directory-selector')
-
-                                if (typeof selectedDirectoryId === 'undefined' || selectedDirectoryId === null) {
-                                    selectedDirectoryId = $selectBox.find('option:selected').val()
-                                }
-
-                                $selectBox.empty()
-
-                                let directory = ''
-
-                                for (directory of data.directories) {
-                                    const $option = $('<option/>')
-
-                                    // noinspection JSUnresolvedVariable
-                                    $option
-                                        .attr('data-icon', 'fas fa-folder')
-                                        .addClass('level-' + directory.directoryLevel)
-                                        .attr('value', directory.directoryId)
-                                        .html(directory.directoryName)
-
-                                    $selectBox.append($option)
-                                }
-
-                                // refresh options
-                                $selectBox.selectpicker('refresh')
-
-                                if ($selectBox.find('option[value=\'' + selectedDirectoryId + '\']').length) {
-                                    // re-selected previous selected option
-                                    $selectBox.selectpicker('val', '' + selectedDirectoryId)
-                                } else {
-                                    // the option is not available, select first options instead
-                                    const firstDirectoryId = $selectBox.find('option:first').val()
-
-                                    $selectBox.selectpicker('val', '' + firstDirectoryId)
-                                }
-
-                                $dialogEl.find('.ccm-file-uploader-new-directory-name').val('')
-
-                                if (!$dialogEl.find('.ccm-file-uploader-new-directory-name-container').hasClass('hidden-container')) {
-                                    $dialogEl.find('.ccm-file-uploader-create-new-directory-button').trigger('click')
-                                }
-
-                                if (typeof clb === 'function') {
-                                    clb()
-                                }
-                            } else {
-                                fileUploader.raiseError(data.errors)
-                            }
-                        }
-                    })
-                },
-
-                initDirectorySelector: function () {
-                    $dialogEl.find('select.ccm-directory-selector')
-                        .selectpicker()
-                        .addClass('form-control')
                 },
 
                 fetchFilesFromIncomingDirectory: function () {
@@ -939,11 +806,6 @@
 
                             break
                     }
-
-                    if (!$dialogEl.find('.ccm-file-uploader-new-directory-name-container').hasClass('hidden-container') &&
-                        $dialogEl.find('.ccm-file-uploader-new-directory-name').val().length === 0) {
-                        $dialogEl.closest('.ui-dialog').find('.ccm-file-uploader-submit-button').attr('disabled', 'disabled')
-                    }
                 },
 
                 reset: function () {
@@ -1018,11 +880,9 @@
                         },
 
                         sending: function (file, xhr, formData) {
-                            const $selectBox = $dialogEl.find('select.ccm-directory-selector')
-
                             formData.append('responseFormat', 'dropzone')
                             formData.append('ccm_token', CCM_SECURITY_TOKEN)
-                            formData.append('currentFolder', $selectBox.find('option:selected').val())
+                            formData.append('currentFolder', $('input[name=fileUploaderDirectoryId]').val())
 
                             if (typeof fileUploader.options.formData === 'object') {
                                 let key = ''
@@ -1044,9 +904,6 @@
                                 fileUploader.inProgress = false
 
                                 fileUploader.dropzone.options.autoProcessQueue = false
-
-                                $dialogEl.find('.ccm-directory-selector').removeAttr('disabled').selectpicker('refresh')
-                                $dialogEl.find('.ccm-file-uploader-create-new-directory-button').removeClass('disabled')
 
                                 if (fileUploader.uploadedFiles.length !== 0) {
                                     if (typeof fileUploader.options.formData.fID === 'undefined') {
@@ -1089,9 +946,6 @@
 
                             $fileElement.find('.ccm-file-upload-progress-text-value').html(parseInt(progress) + '%')
                             $fileElement.addClass('in-progress')
-
-                            $dialogEl.find('.ccm-directory-selector').attr('disabled', 'disabled').selectpicker('refresh')
-                            $dialogEl.find('.ccm-file-uploader-create-new-directory-button').addClass('disabled')
                         }
                     }
                     if (this.options && this.options.dropzone) {
@@ -1186,21 +1040,7 @@
                             text: ccmi18n_fileuploader.continueButton,
                             click: function (e) {
                                 e.preventDefault()
-
-                                if (!$dialogEl.find('.ccm-file-uploader-new-directory-name-container').hasClass('hidden-container')) {
-                                    /*
-                                     * Create the directory before uploading.
-                                     *
-                                     * In this case the upload will be started after the directory has been created.
-                                     */
-
-                                    fileUploader.createDirectory(
-                                        $dialogEl.find('.ccm-file-uploader-new-directory-name').val()
-                                    )
-                                } else {
-                                    fileUploader.upload()
-                                }
-
+                                fileUploader.upload()
                                 return false
                             }
                         }],
@@ -1232,12 +1072,6 @@
 
                             fileUploader.forceClose = false
 
-                            // select the first value in directory input
-                            const $selectBox = $dialogEl.find('select.ccm-directory-selector')
-
-                            $selectBox.val($selectBox.find('option:first').val())
-                            $selectBox.selectpicker('refresh')
-
                             // reset everything
                             fileUploader.reset()
 
@@ -1246,12 +1080,6 @@
                         },
 
                         open: function () {
-                            if (fileUploader.isFunction(fileUploader.options.folderID)) {
-                                fileUploader.fetchDirectories(parseInt(fileUploader.options.folderID()))
-                            } else {
-                                fileUploader.fetchDirectories()
-                            }
-
                             /*
                              * Ugly polyfill to re-initialize the bootstrap tab navigation
                              * because within a dynamic window the tab's wont work after
@@ -1314,7 +1142,6 @@
 
                             // init components
                             fileUploader.initTabNavigation()
-                            fileUploader.initDirectorySelector()
                             fileUploader.initCreateNewFolderFunctionality()
 
                             fileUploader.initYourComputerTab()

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="h-100">
         <div class="container-fluid h-100">
             <div class="row h-100">
                 <div class="col-4 border-end p-3">
