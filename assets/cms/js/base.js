@@ -7,11 +7,8 @@ import PNotify from './pnotify'
 import 'json5'
 import 'jquery.cookie'
 import 'jquery-form'
-import 'bootstrap-select/js/bootstrap-select'
-import './modifiable-bootstrap-select'
-import 'ajax-bootstrap-select'
-import './modifiable-ajax-bootstrap-select'
 import 'dropzone/dist/dropzone'
+import TomSelect from 'tom-select'
 
 // jQuery UI components
 import 'jquery-ui/ui/widgets/button'
@@ -85,7 +82,6 @@ import './file-manager/uploader'
 import './file-manager/file-manager'
 
 // Miscellaneous UI components
-import 'selectize'
 import 'spectrum-colorpicker2'
 import 'tristate/jquery.tristate'
 import 'jquery-text-counter/textcounter'
@@ -102,10 +98,12 @@ import './calendar'
 // Vue components.
 import components from '@concretecms/bedrock/assets/cms/components/index'
 import VueManager from '@concretecms/bedrock/assets/cms/js/vue/Manager'
+import './jquery-vue'
 
 window.NProgress = NProgress
 window._ = _
 window.PNotify = PNotify
+window.TomSelect = TomSelect
 
 // Register our core components with the vue manager
 VueManager.bindToWindow(window)
