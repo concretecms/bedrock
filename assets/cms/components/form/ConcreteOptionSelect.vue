@@ -1,11 +1,29 @@
 <template>
-    <select multiple :name="inputName" />
+    <concrete-ajax-select
+        :name="inputName"
+        :access-token="accessToken"
+        :data-source-url="dataSourceUrl"
+        :selected-options-url="selectedOptionsUrl"
+        :value="value"
+        @change="updateSelected"
+        :form-data="formData"
+        :max-items="maxItems"
+        :remove-button="maxItems != 1"
+    >
+    </concrete-ajax-select>
 </template>
 
 <script>
 /* eslint-disable no-new, no-unused-vars, camelcase, eqeqeq */
-/* globals TomSelect, WebFont */
+/* globals TomSelect */
+import ConcreteAjaxSelect from './ConcreteAjaxSelect'
 export default {
+    components: { ConcreteAjaxSelect },
+    prop: ['value'],
+    model: {
+        prop: 'value',
+        event: 'change'
+    },
     props: {
         dataSourceUrl: {
             type: String,
@@ -35,94 +53,38 @@ export default {
             required: false
         }
     },
-    prop: ['value'],
-    model: {
-        prop: 'value',
-        event: 'change'
-    },
-    created() {
-        var my = this
-        if (this.value) {
-            var formData = this.getFormData()
-            this.value.forEach((optionId) => {
-                formData.append('optionId[]', optionId)
-            })
-            var url = this.selectedOptionsUrl
-            fetch(url, {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(json => {
-                    if (my.select) {
-                        json.forEach((item) => {
-                            my.select.addOption(item)
-                            my.select.addItem(item.id)
-                        })
-                    }
-                }).catch(() => {})
-        }
-    },
-    mounted() {
-        var my = this
-        var config = {
-            maxOptions: null,
-            searchField: 'primary_label',
-            labelField: 'primary_label',
-            valueField: 'id',
-            createOnBlur: true,
-            create: true,
-            onItemAdd: function() {
-                // Without this method, Tom Select persists the search string even after we search for something,
-                // requiring us to delete the string in order to continue searching for something else - it's kind
-                // of annoying.
-                this.setTextboxValue('')
-                this.refreshOptions()
-            },
-            load: function(query, callback) {
-                var url = my.dataSourceUrl
-                var formData = my.getFormData()
-                formData.append('query', query)
-                fetch(url, {
-                    method: 'POST',
-                    body: formData
-                })
-                    .then(response => response.json())
-                    .then(json => {
-                        callback(json)
-                    }).catch(() => {
-                        callback()
-                    })
-            },
-            render: {
-                option: function (item, escape) {
-                    return `<div>
-                                ${escape(item.primary_label)}
-                            </div>`
-                },
-                item: function (item, escape) {
-                    return `<div>
-                                ${escape(item.primary_label)}
-                            </div>`
-                }
+    computed: {
+        maxItems() {
+            if (this.allowMultipleValues) {
+                return null
+            } else {
+                return 1
+            }
+        },
+        formData() {
+            return {
+                akID: this.attributeKeyId,
+                optionId: this.value
             }
         }
-        if (!this.allowMultipleValues) {
-            config.maxItems = 1
-        } else {
-            config.plugins = ['remove_button']
+    },
+    data() {
+        return {
+            selectedValue: null
         }
-        my.select = new TomSelect(this.$el, config)
-        my.select.on('change', function(value) {
-            my.$emit('change', value)
-        })
+    },
+    watch: {
+        entryId: {
+            immediate: true,
+            handler: function(value) {
+                this.selectedValue = value
+            }
+        }
     },
     methods: {
-        getFormData() {
-            var formData = new FormData()
-            formData.append('akID', this.attributeKeyId)
-            formData.append('accessToken', this.accessToken)
-            return formData
+        updateSelected(value) {
+            this.selectedValue = value
+            this.$emit('change', this.selectedValue)
         }
     }
 }
