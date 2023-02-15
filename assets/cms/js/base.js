@@ -8,7 +8,6 @@ import 'json5'
 import 'jquery.cookie'
 import 'jquery-form'
 import 'dropzone/dist/dropzone'
-import TomSelect from 'tom-select'
 
 // jQuery UI components
 import 'jquery-ui/ui/widgets/button'
@@ -32,6 +31,7 @@ import './legacy-dialog'
 import './modal'
 import './alert'
 import './page-notification'
+import './select-combo-box'
 
 // Edit Mode
 import './edit-mode'
@@ -72,11 +72,6 @@ import './users'
 // Express
 import './express'
 
-// Style customizer
-
-// In-page editable fields
-// TBD
-
 // File Manager
 import './file-manager/uploader'
 import './file-manager/file-manager'
@@ -103,7 +98,6 @@ import './jquery-vue'
 window.NProgress = NProgress
 window._ = _
 window.PNotify = PNotify
-window.TomSelect = TomSelect
 
 // Register our core components with the vue manager
 VueManager.bindToWindow(window)

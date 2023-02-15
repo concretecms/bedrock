@@ -21,6 +21,7 @@ import ConcreteExpressEntrySelector from './express/Selector'
 import ConcreteUserChooser from './user/Chooser'
 import ConcreteGroupChooser from './groups/Chooser'
 import ConcreteSelect from './form/ConcreteSelect'
+import ConcreteAjaxSelect from './form/ConcreteAjaxSelect'
 import ConcreteExpressEntrySelect from './form/ConcreteExpressEntrySelect'
 import ConcretePageSelect from './form/ConcretePageSelect'
 import ConcreteUserSelect from './form/ConcreteUserSelect'
@@ -68,6 +69,7 @@ export default {
     ConcretePageChooserSearch,
     ConcretePageInput,
     ConcreteSelect,
+    ConcreteAjaxSelect,
     ConcretePageSelect,
     ConcreteUserSelect,
     ConcreteOptionSelect,
