@@ -52,6 +52,11 @@ export default {
         maxItems: {
             required: false,
             default: 1
+        },
+        allowCreate: {
+            type: Boolean,
+            required: false,
+            default: false
         }
     },
     data() {
@@ -104,6 +109,11 @@ export default {
                 this.setTextboxValue('')
                 this.refreshOptions()
             }
+        }
+
+        if (this.allowCreate) {
+            config.createOnBlur = true
+            config.create = true
         }
 
         my.select = new TomSelect(this.$el, config)

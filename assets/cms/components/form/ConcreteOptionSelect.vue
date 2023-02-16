@@ -9,6 +9,7 @@
         :form-data="formData"
         :max-items="maxItems"
         :remove-button="maxItems != 1"
+        :allow-create="true"
     >
     </concrete-ajax-select>
 </template>
