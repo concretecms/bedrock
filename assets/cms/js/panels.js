@@ -337,6 +337,10 @@ function ConcretePanel(options) {
             $('[data-panel-detail-form]').submit()
         })
 
+        $content.find('[data-vue]').each(function() {
+            $(this).concreteVue({ context: $(this).attr('data-vue') })
+        })
+
         ConcreteEvent.subscribe('AjaxFormSubmitSuccess', function (e, data) {
             if ($('[data-panel-detail-form="' + data.form + '"]').data('action-after-save') == 'reload') {
                 window.location.reload()
@@ -413,6 +417,10 @@ function ConcretePanel(options) {
         })
 
         $panel.find('.dialog-launch').dialog()
+        $panel.find('[data-vue]').each(function() {
+            $(this).concreteVue({ context: $(this).attr('data-vue') })
+        })
+
         $panel.find('[data-launch-panel-detail]').unbind('.detail').on('click.detail', function () {
             $.fn.dialog.showLoader()
             $('.ccm-panel-menu-item-active').removeClass('ccm-panel-menu-item-active')

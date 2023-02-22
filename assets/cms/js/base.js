@@ -7,10 +7,6 @@ import PNotify from './pnotify'
 import 'json5'
 import 'jquery.cookie'
 import 'jquery-form'
-import 'bootstrap-select/js/bootstrap-select'
-import './modifiable-bootstrap-select'
-import 'ajax-bootstrap-select'
-import './modifiable-ajax-bootstrap-select'
 import 'dropzone/dist/dropzone'
 
 // jQuery UI components
@@ -35,6 +31,7 @@ import './legacy-dialog'
 import './modal'
 import './alert'
 import './page-notification'
+import './select-combo-box'
 
 // Edit Mode
 import './edit-mode'
@@ -75,17 +72,11 @@ import './users'
 // Express
 import './express'
 
-// Style customizer
-
-// In-page editable fields
-// TBD
-
 // File Manager
 import './file-manager/uploader'
 import './file-manager/file-manager'
 
 // Miscellaneous UI components
-import 'selectize'
 import 'spectrum-colorpicker2'
 import 'tristate/jquery.tristate'
 import 'jquery-text-counter/textcounter'
@@ -102,6 +93,7 @@ import './calendar'
 // Vue components.
 import components from '@concretecms/bedrock/assets/cms/components/index'
 import VueManager from '@concretecms/bedrock/assets/cms/js/vue/Manager'
+import './jquery-vue'
 
 window.NProgress = NProgress
 window._ = _

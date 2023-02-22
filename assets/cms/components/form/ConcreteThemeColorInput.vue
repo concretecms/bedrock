@@ -1,16 +1,18 @@
 <template>
-    <div class="mb-3 ccm-context-theme">
-        <select :name="inputName" data-select="theme-colors" data-width="100%">
-            <option v-for="color in colorCollection.colors" :selected="selectedColor == color.variable" :data-content="dataContentAttribute(color)" :value="color.variable">{{ color.name }}</option>
+    <div class="ccm-context-theme">
+        <select :name="inputName" v-model="selectedColor">
+            <option v-for="color in colorCollection.colors" :selected="selectedColor == color.variable" :value="color.variable">{{ color.name }}</option>
         </select>
     </div>
 </template>
 
 <script>
+/* eslint-disable no-new, no-unused-vars, camelcase, eqeqeq */
+/* globals TomSelect */
 export default {
     data() {
         return {
-            selectedColor: ''
+            selectedColor: this.color
         }
     },
     props: {
@@ -35,18 +37,21 @@ export default {
         }
     },
     mounted() {
-        if (this.color) {
-            this.selectedColor = this.color
-        }
-
-        var $el = this.$el
-        setTimeout(function() {
-            $($el.querySelector('select[data-select=theme-colors]')).selectpicker()
-        }, 5)
+        var my = this
+        new TomSelect(this.$el.querySelector('select'), {
+            render: {
+                option: function (data, escape) {
+                    return my.dataContentAttribute(data)
+                },
+                item: function (item, escape) {
+                    return my.dataContentAttribute(item)
+                }
+            }
+        })
     },
     methods: {
-        dataContentAttribute: function(color) {
-            return "<span style='background-color: var(--bs-" + color.variable + ")' class='btn me-2 p-2'></span> " + color.name
+        dataContentAttribute: function(item) {
+            return '<div><span style="background-color: var(--bs-' + item.value + ')" class="btn me-2 p-2"></span> ' + item.text + '</div>'
         }
     }
 }
