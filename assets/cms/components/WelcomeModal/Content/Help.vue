@@ -2,9 +2,38 @@
     <div class="modal-content">
         <concrete-welcome-header title="Take a few minutes to learn the basics"></concrete-welcome-header>
         <div class="modal-body">
-            <div class="offset-lg-3 col-lg-9">
-                <span v-html="body"></span>
-            </div>
+            <transition appear name="concrete-fade" mode="out-in">
+                <div key="loading" v-if="!Array.isArray(itemsToDisplay)">
+                    <div class="placeholder-wave">
+                        <section>
+                            <span class="placeholder col-4 bg-black"></span>
+                            <span class="placeholder col-10 bg-secondary"></span>
+                            <span class="placeholder col-3 bg-primary"></span>
+                        </section>
+                        <section class="mt-4">
+                            <span class="placeholder col-4 bg-black"></span>
+                            <span class="placeholder col-10 bg-secondary"></span>
+                            <span class="placeholder col-3 bg-primary"></span>
+                        </section>
+                        <section class="mt-4">
+                            <span class="placeholder col-4 bg-black"></span>
+                            <span class="placeholder col-10 bg-secondary"></span>
+                            <span class="placeholder col-3 bg-primary"></span>
+                        </section>
+                    </div>
+                </div>
+                <div v-else key="items">
+                    <section :class="{'mt-4': i > 0}" v-for="(item, i) in itemsToDisplay">
+                        <h5>{{ item.title }}</h5>
+                        <div class="text-muted">{{ item.description }}</div>
+                        <div class="ccm-help-media">
+                            <component :key="action.component" v-for="action in item.actions" :is="action.component"
+                                       v-bind="action.componentProps"
+                            ></component>
+                        </div>
+                    </section>
+                </div>
+            </transition>
         </div>
         <div class="modal-footer d-flex">
             <button class="btn btn-primary ms-auto" @click="markSlideAsViewed">Got It!</button>
@@ -14,17 +43,29 @@
 
 <script>
 import ConcreteWelcomeHeader from '../Header'
+import ConcreteWelcomeActionVideo from './Action/Video'
+import ConcreteWelcomeActionGuide from './Action/Guide'
+import ConcreteWelcomeActionExternalLink from './Action/ExternalLink'
+
 export default {
     components: {
-        ConcreteWelcomeHeader
+        ConcreteWelcomeHeader,
+        ConcreteWelcomeActionVideo,
+        ConcreteWelcomeActionGuide,
+        ConcreteWelcomeActionExternalLink
     },
     props: {
-        body: {
-            type: String,
-            required: true,
+        items: {
+            type: Array,
+            required: false,
         },
+        itemAccessToken: {
+            type: String,
+            required: true
+        }
     },
     data: () => ({
+        itemsToDisplay: null
     }),
     methods: {
         markSlideAsViewed() {
@@ -32,25 +73,20 @@ export default {
         }
     },
     mounted() {
-        if ($.fn.magnificPopup) {
-            $(this.$el).find('a[data-lightbox=iframe]').magnificPopup({
-                disableOn: 700,
-                type: 'iframe',
-                mainClass: 'mfp-fade',
-                removalDelay: 160,
-                preloader: false,
-                fixedContentPos: false
-            });
+        var my = this
+        if (my.items) {
+            this.itemsToDisplay = my.items
+        } else {
+            new ConcreteAjaxRequest({
+                url: `${CCM_DISPATCHER_FILENAME}/ccm/system/dialogs/help/get_items`,
+                data: {
+                    ccm_token: my.itemAccessToken
+                },
+                success: r => {
+                    my.itemsToDisplay = r
+                }
+            })
         }
-        $(this.$el).find('a[data-launch-guide]').on('click', function(e) {
-            e.preventDefault();
-            var guide = $(this).data('launch-guide'),
-                tour = ConcreteHelpGuideManager.getGuide(guide);
-            if (tour === undefined) {
-                return;
-            }
-            tour.start();
-        });
     }
 }
 </script>
