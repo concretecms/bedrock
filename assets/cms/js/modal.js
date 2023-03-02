@@ -7,13 +7,15 @@
 import bootbox from 'bootbox'
 
 class ConcreteModal {
-    openExternal(url, title) {
+    openExternal(url, title, options) {
         var my = this
         new ConcreteAjaxRequest({
             url: url,
             dataType: 'html',
             success: function (r) {
-                my.show({ message: r, title: title })
+                options.message = r
+                options.title = title
+                my.show(options)
             }
         })
     }
@@ -23,7 +25,8 @@ class ConcreteModal {
             className: 'ccm-ui',
             centerVertical: true,
             show: false,
-            backdrop: 'static'
+            backdrop: 'static',
+            container: '#ccm-tooltip-holder' // This was we get the .ccm-ui namespace for things like transition, etc..
         })
         const $_dialog = bootbox.dialog(options)
         const element = $_dialog.get(0)
