@@ -1,5 +1,5 @@
 /* eslint-disable no-new, no-unused-vars, camelcase, eqeqeq */
-/* global CCM_DISPATCHER_FILENAME, ConcreteEvent, ConcreteHelpGuideManager, ConcretePanelManager, bootstrap */
+/* global CCM_DISPATCHER_FILENAME, ConcreteModal, ConcreteEvent, ConcreteHelpGuideManager, ConcretePanelManager, bootstrap */
 
 /* Basic toolbar class */
 ;(function(global, $) {
@@ -12,6 +12,28 @@
 
     if ($searchInput.length) {
         $searchResults.css('right', $(window).width() - $searchInput.offset().left - $searchResults.width() - 1)
+    }
+
+    function setupAnnouncementAndHelp() {
+        if (document.querySelectorAll('div[data-wrapper=concrete-announcement-broadcast]').length) {
+            Concrete.Vue.activateContext('cms', function (Vue, config) {
+                new Vue({
+                    el: 'div[data-wrapper=concrete-announcement-broadcast]',
+                    components: config.components
+                })
+            })
+        }
+
+        $(document.body).on('click', 'a[data-launch=help-modal]', function (e) {
+            e.stopPropagation()
+            e.preventDefault()
+
+            const modal = new ConcreteModal()
+            const url = new URL($(this).attr('href'))
+            modal.openExternal(url, ccmi18n.helpPopup, {
+                size: 'lg'
+            })
+        })
     }
 
     function setupHelpNotifications() {
@@ -324,6 +346,7 @@
                 setupTooltips()
                 setupPageAlerts()
                 setupHelpNotifications()
+                setupAnnouncementAndHelp()
                 setupMobileNav()
             }
         },

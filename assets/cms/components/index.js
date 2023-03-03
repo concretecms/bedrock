@@ -30,6 +30,8 @@ import ConcreteLocaleSelect from './form/ConcreteLocaleSelect'
 import ConcreteToolbarSiteList from './toolbar/ConcreteToolbarSiteList'
 import ConcreteGroupInput from './form/ConcreteGroupInput'
 import ConcreteFileUploader from './file-manager/Uploader/UploadFromComputer'
+import ConcreteAnnouncementBroadcast from './Announcement/Broadcast'
+import ConcreteHelpModal from './Help/Modal'
 import Board from './Board'
 import BoardSlot from './BoardSlot'
 import BoardInstanceRule from './BoardInstanceRule'
@@ -78,6 +80,8 @@ export default {
     ConcreteUserInput,
     ConcreteEventOccurrenceInput,
     ConcreteFileDirectoryInput,
+    ConcreteAnnouncementBroadcast,
+    ConcreteHelpModal,
     Board,
     BoardSlot,
     BoardInstanceRule,
