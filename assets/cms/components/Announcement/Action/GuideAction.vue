@@ -21,8 +21,8 @@ export default {
     methods: {
         launchGuide() {
             var tour = ConcreteHelpGuideManager.getGuide(this.guide)
-            const announcementModal = document.getElementById('concrete-announcement-modal')
-            const modal = bootstrap.Modal.getOrCreateInstance(announcementModal)
+            const announcementModal = $(this.$el).closest('.modal')
+            const modal = bootstrap.Modal.getOrCreateInstance(announcementModal.get(0))
             if (modal) {
                 modal.hide()
             }
