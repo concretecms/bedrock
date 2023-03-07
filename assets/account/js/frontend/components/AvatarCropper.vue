@@ -51,8 +51,8 @@
     </div>
 </template>
 <script>
-import { Cropper } from 'vue-advanced-cropper';
-import 'vue-advanced-cropper/dist/style.css';
+import { Cropper } from 'vue-advanced-cropper'
+import 'vue-advanced-cropper/dist/style.css'
 export default {
     components: {
         Cropper
@@ -60,11 +60,11 @@ export default {
     props: {
         width: {
             type: Number,
-            required: true,
+            required: true
         },
         height: {
             type: Number,
-            required: true,
+            required: true
         },
         accessToken: {
             type: String,
@@ -87,37 +87,37 @@ export default {
     }),
     computed: {
         stencilSize: function() {
-            let stencilSize = {}
+            const stencilSize = {}
             stencilSize.width = this.width
             stencilSize.height = this.height
             return stencilSize
         },
         canvas: function() {
-            let canvas = {}
-            canvas.maxWidth  = this.width
+            const canvas = {}
+            canvas.maxWidth = this.width
             canvas.maxHeight = this.height
             return canvas
         }
     },
     methods: {
         zoomIn() {
-            this.$refs.cropper.zoom(1.2);
+            this.$refs.cropper.zoom(1.2)
         },
         zoomOut() {
-            this.$refs.cropper.zoom(0.8);
+            this.$refs.cropper.zoom(0.8)
         },
         dragover(e) {
-            e.preventDefault();
-            this.isDragging = true;
+            e.preventDefault()
+            this.isDragging = true
         },
         dragleave() {
-            this.isDragging = false;
+            this.isDragging = false
         },
         drop(e) {
-            e.preventDefault();
-            this.$refs.file.files = e.dataTransfer.files;
-            this.onChange();
-            this.isDragging = false;
+            e.preventDefault()
+            this.$refs.file.files = e.dataTransfer.files
+            this.onChange()
+            this.isDragging = false
         },
         onChange() {
             var files = this.$refs.file.files
@@ -125,25 +125,25 @@ export default {
                 if (this.image && this.image.src) {
                     URL.revokeObjectURL(this.image.src)
                 }
-                const blob = URL.createObjectURL(files[0]);
-                const reader = new FileReader();
+                const blob = URL.createObjectURL(files[0])
+                const reader = new FileReader()
                 reader.onload = (e) => {
                     this.image = {
                         src: blob,
                         type: files[0].type
-                    };
-                };
-                reader.readAsArrayBuffer(files[0]);
+                    }
+                }
+                reader.readAsArrayBuffer(files[0])
             }
         },
         saveAvatar() {
             this.saveInProgress = true
-            const { canvas } = this.$refs.cropper.getResult();
+            const { canvas } = this.$refs.cropper.getResult()
             if (canvas) {
                 const form = new FormData()
                 form.append('ccm_token', this.accessToken)
                 canvas.toBlob(blob => {
-                    form.append('file', blob);
+                    form.append('file', blob)
                     // You can use axios, superagent and other libraries instead here
                     fetch(this.uploadUrl, {
                         method: 'POST',
