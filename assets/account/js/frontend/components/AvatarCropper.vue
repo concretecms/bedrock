@@ -13,7 +13,6 @@
                         :stencil-size="stencilSize"
                         :canvas="canvas"
                         image-restriction="stencil"
-                        class="upload-example-cropper"
                         :src="image.src"
                     />
                     <div class="ccm-account-avatar-cropper-controls">
@@ -81,7 +80,6 @@ export default {
     },
     data: () => ({
         isDragging: false,
-        zoom: 100,
         image: null,
         saveInProgress: false
     }),
