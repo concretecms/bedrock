@@ -31,6 +31,7 @@ import ConcreteToolbarSiteList from './toolbar/ConcreteToolbarSiteList'
 import ConcreteGroupInput from './form/ConcreteGroupInput'
 import ConcreteFileUploader from './file-manager/Uploader/UploadFromComputer'
 import ConcreteAnnouncementBroadcast from './Announcement/Broadcast'
+import ConcreteThumbnailEditor from './Image/ThumbnailEditor'
 import ConcreteHelpModal from './Help/Modal'
 import Board from './Board'
 import BoardSlot from './BoardSlot'
@@ -76,6 +77,7 @@ export default {
     ConcreteUserSelect,
     ConcreteOptionSelect,
     ConcreteLocaleSelect,
+    ConcreteThumbnailEditor,
     ConcreteToolbarSiteList,
     ConcreteUserInput,
     ConcreteEventOccurrenceInput,
