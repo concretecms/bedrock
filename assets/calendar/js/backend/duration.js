@@ -1,5 +1,5 @@
 /* eslint-disable no-new, no-unused-vars, camelcase, eqeqeq */
-/* global moment, _ */
+/* global TomSelect, moment, _ */
 
 ;(function(global, $) {
     'use strict'
@@ -132,18 +132,16 @@
         setupTimes: function () {
             var my = this
             var $startTime = my.$element.find('select[data-select=start-time]')
-            $startTime.selectpicker({
-                liveSearch: true,
-                liveSearchStyle: 'startsWith'
-            })
-            $startTime.on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+            var $endTime = my.$element.find('select[data-select=end-time]')
+            var startTimeSelect = new TomSelect($startTime.get(0))
+            var endTimeSelect = new TomSelect($endTime.get(0))
+
+            $startTime.data('TomSelect', startTimeSelect)
+            $startTime.on('change', function () {
                 my.calculateEndDate()
             })
 
-            my.$element.find('select[data-select=end-time]').selectpicker({
-                liveSearch: true,
-                liveSearchStyle: 'startsWith'
-            })
+            $endTime.data('TomSelect', endTimeSelect)
         },
 
         getSelectedEndDate: function () {
@@ -243,8 +241,10 @@
 
             my.$element.find('input[name=' + my.options.namespace + '_pdEndDate_pub_' + my.getSetID() + ']').datepicker('setDate', endDateFormatted)
 
-            var $bsSelect = my.$element.find('select[name=' + my.options.namespace + '_pdEndDateSelectTime_' + my.getSetID() + ']')
-            $bsSelect.selectpicker('val', endTime)
+            var $select = my.$element.find('select[name=' + my.options.namespace + '_pdEndDateSelectTime_' + my.getSetID() + ']')
+            $select.val(endTime)
+            // TomSelect specifically. Need to do this to update the value.
+            $select.data('TomSelect').sync()
         },
 
         setupDates: function () {
@@ -392,7 +392,7 @@
                 my.$element.find('select[data-select=start-time]').parent().hide()
                 my.$element.find('select[data-select=end-time]').parent().hide()
             } else {
-                my.$element.find('div[data-column=date]').removeClass().addClass('col-sm-6')
+                my.$element.find('div[data-column=date]').removeClass().addClass('col-sm-5')
                 my.$element.find('select[data-select=start-time]').parent().show()
                 my.$element.find('select[data-select=end-time]').parent().show()
             }

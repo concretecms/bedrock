@@ -1,6 +1,10 @@
 <template>
     <div>
-        <search :selectedUsers.sync="selectedUsers" :multiple-selection="multipleSelection"/>
+        <search
+            :selectedUsers.sync="selectedUsers"
+            :multiple-selection="multipleSelection"
+            :hide-username="hideUsername"
+        />
         <div class="dialog-buttons">
             <button class="btn btn-secondary" data-dialog-action="cancel">{{ i18n.cancel }}</button>
             <button type="button" @click="chooseUsers" :disabled="selectedUsers.length === 0" class="btn btn-primary">{{ i18n.choose }}</button>
@@ -9,18 +13,20 @@
 </template>
 
 <script>
-import Users from './Chooser/Users'
 import Search from './Chooser/Search'
 
 export default {
     components: {
-        Users,
         Search
     },
     props: {
         multipleSelection: {
             type: Boolean,
             default: true
+        },
+        hideUsername: {
+            type: Boolean,
+            default: false
         }
     },
     data() {

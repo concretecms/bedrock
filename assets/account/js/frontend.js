@@ -1,6 +1,6 @@
 /* eslint-disable no-new */
 
-import AvatarCropper from './frontend/components/Avatar/Cropper.vue'
+import AvatarCropper from './frontend/components/AvatarCropper.vue'
 
 $(function() {
     window.Concrete.Vue.createContext('frontend', {

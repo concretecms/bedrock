@@ -6,7 +6,7 @@
                 <thead>
                     <tr>
                         <th></th>
-                        <th @click="sortBy('name')" :class="getSortColumnClassName('name')"><a href="javascript:void(0)">{{ i18n.username }}</a></th>
+                        <th v-if="!hideUsername" @click="sortBy('name')" :class="getSortColumnClassName('name')"><a href="javascript:void(0)">{{ i18n.username }}</a></th>
                         <th @click="sortBy('email')" :class="getSortColumnClassName('email')"><a href="javascript:void(0)">{{ i18n.email }}</a></th>
                         <th @click="sortBy('dateAdded')" :class="getSortColumnClassName('dateAdded')"><a href="javascript:void(0)">{{ i18n.date }}</a></th>
                         <th>{{ i18n.status }}</th>
@@ -19,7 +19,7 @@
                             <input type="checkbox" v-if="multipleSelection" v-model="selectedUsers" :id="'user-' + user.id" :value="user">
                             <input type="radio" v-if="!multipleSelection" v-model="selectedUsers" :id="'user-' + user.id" :value="user">
                         </td>
-                        <td>{{user.name}}</td>
+                        <td v-if="!hideUsername">{{user.name}}</td>
                         <td>{{user.email}}</td>
                         <td>{{user.dateAdded}}</td>
                         <td>{{user.status}}</td>
@@ -56,6 +56,10 @@ export default {
             required: true
         },
         multipleSelection: {
+            type: Boolean,
+            default: true
+        },
+        hideUsername: {
             type: Boolean,
             default: true
         }

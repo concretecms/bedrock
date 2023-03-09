@@ -322,6 +322,12 @@
                 }
             }
 
+            my.bindEvent('EditModeBlockDragInitialization', function(event, data) {
+                var block = data.block
+                var areas = my.getAreas()
+                block.setupAreaDragPayloads(areas)
+            })
+
             my.bindEvent('EditModeBlockDrag', _.throttle(function editModeEditModeBlockDragEventHandler(event, data) {
                 if (!my.getDragging()) {
                     return
@@ -373,6 +379,12 @@
                 Concrete.event.fire('EditModeContenders', [])
                 Concrete.event.fire('EditModeSelectableContender')
                 html.removeClass('ccm-block-dragging')
+
+                _(my.getAreas()).map((area) => {
+                    area.getElem().removeClass('ccm-area-accepts-block-drag-payload')
+                })
+
+                my.setDragging(false)
 
                 if (data.block instanceof Concrete.BlockType) return
                 my.scanBlocks()

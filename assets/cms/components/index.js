@@ -20,7 +20,19 @@ import ConcreteFileChooser from './file-manager/Chooser'
 import ConcreteExpressEntrySelector from './express/Selector'
 import ConcreteUserChooser from './user/Chooser'
 import ConcreteGroupChooser from './groups/Chooser'
+import ConcreteSelect from './form/ConcreteSelect'
+import ConcreteAjaxSelect from './form/ConcreteAjaxSelect'
+import ConcreteExpressEntrySelect from './form/ConcreteExpressEntrySelect'
+import ConcretePageSelect from './form/ConcretePageSelect'
+import ConcreteUserSelect from './form/ConcreteUserSelect'
+import ConcreteOptionSelect from './form/ConcreteOptionSelect'
+import ConcreteLocaleSelect from './form/ConcreteLocaleSelect'
+import ConcreteToolbarSiteList from './toolbar/ConcreteToolbarSiteList'
+import ConcreteGroupInput from './form/ConcreteGroupInput'
 import ConcreteFileUploader from './file-manager/Uploader/UploadFromComputer'
+import ConcreteAnnouncementBroadcast from './Announcement/Broadcast'
+import ConcreteThumbnailEditor from './Image/ThumbnailEditor'
+import ConcreteHelpModal from './Help/Modal'
 import Board from './Board'
 import BoardSlot from './BoardSlot'
 import BoardInstanceRule from './BoardInstanceRule'
@@ -52,14 +64,26 @@ export default {
     ConcreteFileInput,
     ConcreteThemeColorInput,
     ConcreteExpressEntryInput,
+    ConcreteExpressEntrySelect,
     ConcreteExpressEntrySelector,
     ConcreteFileUploader,
     ConcreteGroupChooser,
+    ConcreteGroupInput,
     ConcretePageChooserSearch,
     ConcretePageInput,
+    ConcreteSelect,
+    ConcreteAjaxSelect,
+    ConcretePageSelect,
+    ConcreteUserSelect,
+    ConcreteOptionSelect,
+    ConcreteLocaleSelect,
+    ConcreteThumbnailEditor,
+    ConcreteToolbarSiteList,
     ConcreteUserInput,
     ConcreteEventOccurrenceInput,
     ConcreteFileDirectoryInput,
+    ConcreteAnnouncementBroadcast,
+    ConcreteHelpModal,
     Board,
     BoardSlot,
     BoardInstanceRule,

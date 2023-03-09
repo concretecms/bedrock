@@ -51,9 +51,12 @@ export default class Manager {
      * @param {Function} callback (Vue, options) => new Vue(options)
      */
     activateContext(context, callback) {
-        return callback(Vue, {
-            components: this.getContext(context)
-        })
+        // This is stupid but sometimes activateContext and extendContext are called essentially simultaneously and we need this to fire after
+        setTimeout(() => {
+            return callback(Vue, {
+                components: this.getContext(context)
+            })
+        }, 10)
     }
 
     /**

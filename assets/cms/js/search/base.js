@@ -54,7 +54,6 @@
         this.setupCheckboxes()
         this.setupSort()
         this.setupPagination()
-        this.setupSelectize()
         this.setupAdvancedSearch()
         this.setupCustomizeColumns()
         this.updateResults(options.result)
@@ -118,23 +117,6 @@
         var $form = cs.$element.find('form[data-search-form]')
         var data = $form.serializeArray()
         return data
-    }
-
-    ConcreteAjaxSearch.prototype.setupSelectize = function() {
-        var selects = this.$element.find('.ccm-enhanced-select')
-        console.log('base')
-        if (selects.length) {
-            selects.selectpicker({
-                liveSearch: true,
-                width: '100%'
-            })
-        }
-        // var selects = this.$element.find('.selectize-select')
-        // if (selects.length) {
-        //     selects.selectize({
-        //         plugins: ['remove_button']
-        //     })
-        // }
     }
 
     /**
