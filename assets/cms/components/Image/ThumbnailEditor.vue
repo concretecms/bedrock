@@ -6,15 +6,14 @@
             :stencil-props="{
                 handlers: {},
                 movable: true,
-                resizable: false,
-                aspectRatio: 1
+                resizable: false
             }"
             :stencil-size="stencilSize"
             :canvas="canvas"
             :resize-image="{
                 adjustStencil: false
             }"
-            image-restriction="none"
+            image-restriction="fit-area"
             :src="src"
         />
         <div class="ccm-image-thumbnail-editor-controls">
