@@ -13,7 +13,7 @@
     </div>
 </template>
 <script>
-/* global bootstrap */
+/* global bootstrap ConcreteModal */
 import ConcreteAnnouncementModal from './Modal/Modal'
 
 export default {
