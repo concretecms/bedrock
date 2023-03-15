@@ -58,6 +58,8 @@ export default {
         if (modal) {
             modal.show()
         }
+        ConcreteModal.fixBackdrop()
+        $('#concrete-announcement-modal').appendTo('#ccm-tooltip-holder')
     }
 }
 </script>
