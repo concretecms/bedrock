@@ -13,7 +13,7 @@
     </div>
 </template>
 <script>
-/* global bootstrap */
+/* global bootstrap ConcreteModal */
 import ConcreteAnnouncementModal from './Modal/Modal'
 
 export default {
@@ -58,6 +58,8 @@ export default {
         if (modal) {
             modal.show()
         }
+        ConcreteModal.fixBackdrop()
+        $('#concrete-announcement-modal').appendTo('#ccm-tooltip-holder')
     }
 }
 </script>

@@ -20,6 +20,10 @@ class ConcreteModal {
         })
     }
 
+    static fixBackdrop(element = '#ccm-tooltip-holder') {
+        $('.modal-backdrop').appendTo(element)
+    }
+
     show(options) {
         options = $.extend(options, {
             className: 'ccm-ui',
@@ -57,17 +61,12 @@ class ConcreteModal {
         // dialog._config.backdrop = 'static'
         dialog.show()
 
+        ConcreteModal.fixBackdrop(options.container)
+
         if (options.backdrop === 'static') {
             dialog._config.backdrop = 'static'
         }
-
-        element.addEventListener('hide.bs.modal', function() {
-            ConcreteModal.totalOpen--
-        })
-        ConcreteModal.totalOpen++
     }
 }
-
-ConcreteModal.totalOpen = 0
 
 global.ConcreteModal = ConcreteModal
