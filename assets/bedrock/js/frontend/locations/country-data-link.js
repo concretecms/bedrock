@@ -185,7 +185,7 @@ Link.prototype = {
                         .val(spCode)
                         .text(name)
 
-                    if (spCode === selectedStateprovince) {
+                    if (spCode == selectedStateprovince) {
                         $o.attr('selected', 'selected')
                     }
                     me.$stateprovinceSelect.append($o)
