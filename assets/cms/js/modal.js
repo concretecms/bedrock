@@ -9,6 +9,9 @@ import bootbox from 'bootbox'
 class ConcreteModal {
     openExternal(url, title, options) {
         var my = this
+        if (!options) {
+            options = {}
+        }
         new ConcreteAjaxRequest({
             url: url,
             dataType: 'html',
