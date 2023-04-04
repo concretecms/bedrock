@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 var USE_MUTATIONOBSERVER = !!(window.MutationObserver && window.MutationObserver.prototype && window.MutationObserver.prototype.observe)
 
 function loadDataForCountry(countryCode, callback) {
