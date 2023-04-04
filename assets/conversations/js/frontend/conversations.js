@@ -130,7 +130,9 @@ window._ = _
                         var target = $('a' + window.location.hash).offset()
                         $('html, body').animate({ scrollTop: target.top }, 800, 'linear')
                     }
-                    window.obj = oldobj
+                    if (oldobj) {
+                        window.obj = oldobj
+                    }
                     obj.attachBindings()
                     obj.publish('conversationLoaded')
                 })
