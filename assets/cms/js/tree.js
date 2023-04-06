@@ -218,7 +218,17 @@ ConcreteTree.prototype = {
 
                 return true
             },
-
+            expand: function(event, data) {
+                //only if 'selected' array is available execute code.
+                if (options.ajaxData.selected) {
+                    //since the expand options is triggered we can asume that there are children.
+                    data.node.children.forEach(function(nodeChild){
+                        if (options.ajaxData.selected.includes(nodeChild.key)) {
+                            nodeChild.setSelected(!0);
+                        }
+                    });
+                }
+            },
             dnd: {
                 preventRecursiveMoves: true, // Prevent dropping nodes on own descendants,
                 focusOnClick: true,
