@@ -37,8 +37,6 @@
 }
 </style>
 <script>
-import moment from 'moment-timezone'
-
 export default {
     props: {
         rule: Object,
@@ -82,14 +80,14 @@ export default {
         },
         startDate: function() {
             if (this.rule.startDate > 0) {
-                const momentDate = moment.unix(this.rule.startDate).tz(this.rule.timezone)
-                return momentDate.format('MMMM D, YYYY h:mm a')
+                var date = new Date(this.rule.startDate * 1000); // Note: this currently does not take into account timezone. We used to use moment but it was too much.
+                return date.toLocaleString() + ' (' + this.rule.timezone + ')'
             }
         },
         endDate: function() {
             if (this.rule.endDate > 0) {
-                const momentDate = moment.unix(this.rule.endDate).tz(this.rule.timezone)
-                return momentDate.format('MMMM D, YYYY h:mm a')
+                var date = new Date(this.rule.endDate * 1000); // Note: this currently does not take into account timezone. We used to use moment but it was too much.
+                return date.toLocaleString() + ' (' + this.rule.timezone + ')'
             }
         }
     },

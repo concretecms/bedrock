@@ -1,6 +1,3 @@
-import { ToggleButton } from 'vue-js-toggle-button'
-import VCalendar from 'v-calendar/lib/components/calendar.umd'
-import VDatePicker from 'v-calendar/lib/components/date-picker.umd'
 import Toggle from './form/Toggle'
 import ContextMenu from './menu/ContextMenu'
 import MenuButton from './menu/MenuButton'
@@ -35,7 +32,6 @@ import ConcreteThumbnailEditor from './Image/ThumbnailEditor'
 import ConcreteHelpModal from './Help/Modal'
 import Board from './Board'
 import BoardSlot from './BoardSlot'
-import BoardInstanceRule from './BoardInstanceRule'
 import BoardInstanceRuleList from './BoardInstanceRuleList'
 import IconSelector from './form/IconSelector'
 import CompletedProcessList from './CompletedProcessList'
@@ -49,10 +45,7 @@ import PasswordInput from './form/PasswordInput'
 
 // Export our component library
 export default {
-    VCalendar,
-    VDatePicker,
     Toggle,
-    ToggleButton,
     ContextMenu,
     MenuButton,
     MenuDivider,
@@ -86,7 +79,6 @@ export default {
     ConcreteHelpModal,
     Board,
     BoardSlot,
-    BoardInstanceRule,
     BoardInstanceRuleList,
     IconSelector,
     RunningProcessList,
