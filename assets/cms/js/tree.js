@@ -229,6 +229,14 @@ ConcreteTree.prototype = {
                     });
                 }
             },
+            collapse: function(event, data) {
+                //loop over child nodes and check if node is still selected. If not remove it from the 'options.ajaxData.selected' array.
+                data.node.children.forEach(function(nodeChild) {
+                    if (options.ajaxData.selected.includes(nodeChild.key) && !nodeChild.isSelected()) {
+                        delete options.ajaxData.selected.splice(options.ajaxData.selected.indexOf(nodeChild.key), 1);
+                    }
+                });
+            },
             dnd: {
                 preventRecursiveMoves: true, // Prevent dropping nodes on own descendants,
                 focusOnClick: true,
