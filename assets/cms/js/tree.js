@@ -224,7 +224,7 @@ ConcreteTree.prototype = {
                     //since the expand options is triggered we can asume that there are children.
                     data.node.children.forEach(function(nodeChild){
                         if (options.ajaxData.selected.includes(nodeChild.key)) {
-                            nodeChild.setSelected(!0);
+                            nodeChild.setSelected(true);
                         }
                     });
                 }
