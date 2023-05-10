@@ -79,7 +79,7 @@ export default {
                 })
             })
 
-            menu.$menu.find('a[data-menu-action=unpin-item],a[data-menu-action=delete-custom-slot').on('click', function () {
+            menu.$menu.find('a[data-menu-action=unpin-item],a[data-menu-action=delete-custom-slot]').on('click', function () {
                 new ConcreteAjaxRequest({
                     url: CCM_DISPATCHER_FILENAME + '/ccm/system/board/instance/clear_slot',
                     data: {
