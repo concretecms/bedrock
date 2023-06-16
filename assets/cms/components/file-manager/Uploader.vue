@@ -7,7 +7,7 @@
             @uploadProgressStateChange="isUploadInProgress = $event"/>
 
         <concrete-file-directory-input
-            input-label="Upload files to"
+            :input-label="i18n.uploadFilesTo"
             input-name="uploadDirectoryId"
             :show-add-directory-button="true"
             :disabled="isUploadInProgress"
@@ -31,8 +31,20 @@ export default {
         }
     },
     data: () => ({
+        i18n: {
+            uploadFilesTo: "Upload files to"
+        },
         uploadDirectoryId: 0,
         isUploadInProgress: false
-    })
+    }),
+    mounted() {
+        if (window.ccmi18n_fileuploader) {
+            for (const key in this.i18n) {
+                if (window.ccmi18n_fileuploader[key]) {
+                    this.i18n[key] = window.ccmi18n_fileuploader[key]
+                }
+            }
+        }
+    }
 }
 </script>
