@@ -69,8 +69,8 @@ export default {
   data: () => ({
     i18n: {
       search: 'Search',
-      initialExternalFileProviderChooserTip: "Let's get some info on what you're looking for.",
-      uploadFilesTo: "Upload files to"
+      initialExternalFileProviderChooserTip: 'Let\'s get some info on what you\'re looking for.',
+      uploadFilesTo: 'Upload files to'
     },
     uploadDirectoryId: 0,
     fileTypes: [],

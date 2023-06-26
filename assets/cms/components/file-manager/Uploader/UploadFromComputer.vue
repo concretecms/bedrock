@@ -17,7 +17,7 @@
 export default {
     data: () => ({
         i18n: {
-            dropFilesHere: "Drop files here or click to upload"
+            dropFilesHere: 'Drop files here or click to upload'
         },
         dropzone: null,
         uploadedFiles: [],

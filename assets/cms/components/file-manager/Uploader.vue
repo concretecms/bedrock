@@ -32,7 +32,7 @@ export default {
     },
     data: () => ({
         i18n: {
-            uploadFilesTo: "Upload files to"
+            uploadFilesTo: 'Upload files to'
         },
         uploadDirectoryId: 0,
         isUploadInProgress: false
