@@ -43,7 +43,7 @@
 
     <concrete-file-directory-input
         v-show="keywords != ''"
-        input-label="Upload files to"
+        :input-label="i18n.uploadFilesTo"
         input-name="uploadDirectoryId"
         :show-add-directory-button="true"
         ref="folderSelector"
@@ -69,7 +69,8 @@ export default {
   data: () => ({
     i18n: {
       search: 'Search',
-      initialExternalFileProviderChooserTip: "Let's get some info on what you're looking for."
+      initialExternalFileProviderChooserTip: 'Let\'s get some info on what you\'re looking for.',
+      uploadFilesTo: 'Upload files to'
     },
     uploadDirectoryId: 0,
     fileTypes: [],
@@ -132,6 +133,9 @@ export default {
           this.i18n[key] = window.ccmi18n_filemanager[key]
         }
       }
+    }
+    if (window.ccmi18n_fileuploader && window.ccmi18n_fileuploader.uploadFilesTo) {
+      this.i18n.uploadFilesTo = window.ccmi18n_fileuploader.uploadFilesTo
     }
     this.formFactor = this.resultsFormFactor
     this.getFileTypes()
