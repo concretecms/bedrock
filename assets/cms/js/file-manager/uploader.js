@@ -575,7 +575,7 @@
                         fileIds.push($(this).val())
                     })
 
-                    var removeFilesAfterPost = $dialogEl.find('input[name=removeFilesAfterPost').is(':checked') ? 1 : 0
+                    var removeFilesAfterPost = $dialogEl.find('input[name=removeFilesAfterPost]').is(':checked') ? 1 : 0
 
                     $.ajax({
                         url: CCM_DISPATCHER_FILENAME + '/ccm/system/file/import_incoming',
