@@ -82,6 +82,8 @@
         ConcreteEvent.publish('AjaxFormSubmitSuccess', { response: r, form: my.$form.attr('data-dialog-form') })
         if (r.redirectURL) {
             window.location.href = r.redirectURL
+        } else if (r.reloadCurrentPage) {
+            window.location.reload()
         } else {
             if (my.$form.attr('data-dialog-form')) {
                 $.fn.dialog.closeTop()
