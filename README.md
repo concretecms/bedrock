@@ -1,14 +1,5 @@
 # Concrete CMS Bedrock
-Bedrock is Concrete's front end library
+Bedrock is Concrete's front end library. It is used to support Concrete itself, Concrete's backend (the "Dashboard" theme that's built-in to Concrete CMS), Concrete's shipping theme (Atomik) and third party themes that want to ensure that they remain compatible with all major Concrete features. It is a superset of Bootstrap 5.
 
-
-### Developing Components
-This repository makes use of [storybook](https://storybook.js.org/docs/basics/introduction/) to allow for a clean development environment as well as a reference for how components should be used.   
-Run `npm run storybook` to begin working with storybook.
-
-#### Adding a story
-If you're working on an existing component it's worth checking for a `.stories.js` file for it in `/stories/` before creating a new one.
-
-1. Create a new `something.stories.js` file in `/stories/` underneath a directory that makes sense
-2. Copy the contents of `/stories/stories.js.sample` into your new file as a boilerplate
-3. Update component name and other placeholder values to match the component you're working on
+## More Information
+https://documentation.concretecms.org/tutorials/submitting-user-interface-pull-requests-for-concrete-cms-version-9
