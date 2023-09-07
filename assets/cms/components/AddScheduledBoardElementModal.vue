@@ -91,11 +91,13 @@
 </template>
 
 <script>
+/* eslint-disable no-new */
+/* global moment */
 export default {
     props: {
         scheduleBoardElementAction: {
             type: String,
-            required: true,
+            required: true
         },
         selectedInstanceIds: {
             type: Array,
@@ -106,7 +108,7 @@ export default {
         },
         scheduleBoardElementToken: {
             type: String,
-            required: true,
+            required: true
         },
         totalSlots: {
             type: Number,
@@ -120,11 +122,11 @@ export default {
         },
         timezone: {
             type: String,
-            required: true,
+            required: true
         },
         timezones: {
             type: Object,
-            required: true,
+            required: true
         },
         selectedElement: {
             type: Number,
@@ -152,11 +154,11 @@ export default {
         endTime: '23:59',
         scheduleBoardTimezone: '',
         scheduleBoardBoardSlot: 0,
-        lockType: 'L',
+        lockType: 'L'
     }),
     methods: {
         submit() {
-            let my = this
+            const my = this
             let valid = true
             if (!this.startDateFormatted) {
                 this.invalidStartDate = true
@@ -202,16 +204,16 @@ export default {
     computed: {
         startDateFormatted() {
             if (this.startDate) {
-                return moment(this.startDate).format("YYYY-MM-DD")
+                return moment(this.startDate).format('YYYY-MM-DD')
             }
             return null
         },
         endDateFormatted() {
             if (this.endDate) {
-                return moment(this.endDate).format("YYYY-MM-DD")
+                return moment(this.endDate).format('YYYY-MM-DD')
             }
             return null
-        },
+        }
     },
     mounted() {
         this.scheduleBoardSelectedElement = this.selectedElement
