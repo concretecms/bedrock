@@ -183,7 +183,7 @@ export default {
                     data: {
                         ccm_token: my.scheduleBoardElementToken,
                         elementId: this.scheduleBoardSelectedElement,
-                        slot: this.slot,
+                        slot: this.scheduleBoardBoardSlot,
                         startDate: this.startDateFormatted,
                         endDate: this.endDateFormatted,
                         startTime: this.startTime,
