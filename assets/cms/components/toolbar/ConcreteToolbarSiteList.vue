@@ -42,7 +42,7 @@ export default {
     },
     mounted() {
         var config = {}
-        config.maxOptions = null
+        config.maxOptions = 100
         config.options = this.options
         config.maxItems = 1
         config.items = [this.selectedSite]
