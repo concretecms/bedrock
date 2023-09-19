@@ -93,7 +93,7 @@
                         })
                     }
 
-                    var menuSelect = new TomSelect($menu.get(0))
+                    var menuSelect = new TomSelect($menu.get(0), { maxOptions: null })
 
                     menuSelect.on('change', function (treeID) {
                         var source = my.getTree().options.source
