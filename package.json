@@ -64,7 +64,7 @@
   "homepage": "https://github.com/concrete5/concrete5#readme",
   "devDependencies": {
     "@babel/core": "^7.12.3",
-    "@storybook/vue": "^6.5.13",
+    "@storybook/vue": "^7.4.6",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.2.1",
     "@vue/babel-preset-jsx": "^1.2.4",
     "babel-loader": "^8.2.1",
@@ -76,8 +76,8 @@
     "sass": "^1.32.13",
     "sass-loader": "^8.0.2",
     "standardx": "^5.0.0",
-    "stylelint": "^13.7.2",
-    "stylelint-config-sass-guidelines": "^7.1.0",
+    "stylelint": "^15.10.3",
+    "stylelint-config-sass-guidelines": "^10.0.0",
     "vue-template-compiler": "^2.6.12"
   }
 }
