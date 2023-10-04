@@ -390,6 +390,12 @@
                             directoryId = parseInt(fileUploader.options.folderID())
                         }
 
+                        // Fix in #11691
+                        const $directoryInput = $('<input />').attr('type', 'hidden').attr('name', 'fileUploaderDirectoryId').val(directoryId)
+                        $column.append($directoryInput)
+
+                        /*
+                        // Commented out for the time being to fix #11691
                         const $directoryContainer = $('<div/>')
                             .attr('style', 'min-height: 200px')
                         $directoryContainer.html('<concrete-file-directory-input input-label="Upload files to" :directory-id="' + directoryId + '" input-name="uploadDirectoryId" :show-add-directory-button="true" @change="currentFolder = $event"></concrete-file-directory-input>')
@@ -411,6 +417,7 @@
                                 }
                             })
                         })
+                        */
 
                         $row.append($column)
 
