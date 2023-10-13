@@ -15,8 +15,16 @@ CKEDITOR.plugins.add('concreteinline', {
 
         editor.addCommand('c5cancel', {
             exec: function (editor) {
-                ConcreteEvent.fire('EditModeExitInline')
-                editor.destroy()
+                if (editor.checkDirty()) {
+                    ConcreteAlert.confirm(ccmi18n_editor.cancelPrompt, function () {
+                        $.fn.dialog.closeTop();
+                        ConcreteEvent.fire('EditModeExitInline')
+                        editor.destroy()
+                    }, 'btn-danger', ccmi18n_editor.cancelPromptButton);
+                } else {
+                    ConcreteEvent.fire('EditModeExitInline')
+                    editor.destroy()
+                }
             }
         })
 
