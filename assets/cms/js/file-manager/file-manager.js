@@ -28,8 +28,8 @@ class ConcreteFileManager {
             data: data,
             title: ccmi18n_filemanager.chooseFile,
             onOpen: function(dialog) {
-                ConcreteEvent.unsubscribe('FileManagerSelectFile')
-                ConcreteEvent.subscribe('FileManagerSelectFile', function(e, r) {
+                ConcreteEvent.unsubscribe('FileManagerSelectFile.core')
+                ConcreteEvent.subscribe('FileManagerSelectFile.core', function(e, r) {
                     var response = r || {}
                     if (!options.multipleSelection) {
                         response.fID = r.fID[0]
