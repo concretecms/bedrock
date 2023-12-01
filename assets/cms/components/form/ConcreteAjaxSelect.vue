@@ -88,11 +88,11 @@ export default {
             render: {
                 option: function (item, escape) {
                     return (typeof (my.$parent.renderOption) === 'function')
-                        ? my.$parent.renderOption(item) : my.renderOption(item)
+                        ? my.$parent.renderOption(item, escape) : my.renderOption(item, escape)
                 },
                 item: function (item, escape) {
                     return (typeof (my.$parent.renderItem) === 'function')
-                        ? my.$parent.renderItem(item) : my.renderItem(item)
+                        ? my.$parent.renderItem(item, escape) : my.renderItem(item, escape)
                 }
             }
         }
@@ -162,11 +162,11 @@ export default {
             formData.append('accessToken', this.accessToken)
             return formData
         },
-        renderOption(item) {
-            return `<div>${(item.primary_label)}</div>`
+        renderOption(item, escape) {
+            return `<div>${escape(item.primary_label)}</div>`
         },
-        renderItem(item) {
-            return `<div>${(item.primary_label)}</div>`
+        renderItem(item, escape) {
+            return `<div>${escape(item.primary_label)}</div>`
         }
     }
 }

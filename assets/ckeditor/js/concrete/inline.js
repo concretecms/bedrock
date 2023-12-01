@@ -1,5 +1,4 @@
 /* eslint-disable eqeqeq */
-/* global ccmi18n_editor */
 CKEDITOR.plugins.add('concreteinline', {
 
     init: function (editor) {
@@ -16,16 +15,8 @@ CKEDITOR.plugins.add('concreteinline', {
 
         editor.addCommand('c5cancel', {
             exec: function (editor) {
-                if (editor.checkDirty()) {
-                    ConcreteAlert.confirm(ccmi18n_editor.cancelPrompt, function () {
-                        $.fn.dialog.closeTop()
-                        ConcreteEvent.fire('EditModeExitInline')
-                        editor.destroy()
-                    }, 'btn-danger', ccmi18n_editor.cancelPromptButton)
-                } else {
-                    ConcreteEvent.fire('EditModeExitInline')
-                    editor.destroy()
-                }
+                ConcreteEvent.fire('EditModeExitInline')
+                editor.destroy()
             }
         })
 
