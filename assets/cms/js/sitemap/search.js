@@ -94,6 +94,7 @@ var ConcretePageAjaxSearchMenu = {
             '<div class="dropdown-divider"></div>',
             '<a class="dropdown-item dialog-launch" dialog-on-close="ConcreteSitemap.exitEditMode(<%=item.cID%>)" dialog-width="90%" dialog-height="70%" dialog-modal="false" dialog-title="' + ccmi18n_sitemap.pageAttributesTitle + '" href="' + CCM_DISPATCHER_FILENAME + '/ccm/system/dialogs/page/attributes?cID=<%=item.cID%>">' + ccmi18n_sitemap.pageAttributes + '</a></li>',
             '<% } %>',
+            '<a class="dropdown-item" href="<%- item.link %>?ccmCheckoutFirst=1">' + ccmi18n_sitemap.editInComposer + '</a></li>',
             '<% if (item.canEditPageSpeedSettings) { %>',
             '<a class="dropdown-item dialog-launch" dialog-on-close="ConcreteSitemap.exitEditMode(<%=item.cID%>)" dialog-width="550" dialog-height="280" dialog-modal="false" dialog-title="' + ccmi18n_sitemap.speedSettingsTitle + '" href="' + CCM_DISPATCHER_FILENAME + '/ccm/system/panels/details/page/caching?cID=<%=item.cID%>">' + ccmi18n_sitemap.speedSettings + '</a></li>',
             '<% } %>',
