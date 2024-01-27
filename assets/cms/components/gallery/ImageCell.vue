@@ -78,6 +78,6 @@ const props = defineProps({
         type: String,
         required: true
     },
-    alt: String,
+    alt: String
 })
 </script>

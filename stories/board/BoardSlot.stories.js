@@ -1,11 +1,11 @@
-import BoardSlot from "../../assets/cms/components/BoardSlot.vue";
+import BoardSlot from '../../assets/cms/components/BoardSlot.vue'
 
 /**
  * @TODO Make this a better representation of how this component should be used
  */
 export default {
     component: BoardSlot,
-    title: 'Boards/BoardSlot',
+    title: 'Boards/BoardSlot'
 }
 
 export const basicUsage = {
@@ -20,8 +20,8 @@ export const basicUsage = {
         style: 'max-width: 500px;position:relative'
     },
     render: (args) => ({
-        components: {BoardSlot},
-        setup: () => ({args}),
-        template: `<BoardSlot v-bind="args">Content</BoardSlot>`
+        components: { BoardSlot },
+        setup: () => ({ args }),
+        template: '<BoardSlot v-bind="args">Content</BoardSlot>'
     })
 }

@@ -1,9 +1,9 @@
-import CompletedProcessList from "../../assets/cms/components/CompletedProcessList.vue";
-import {action} from "@storybook/addon-actions";
+import CompletedProcessList from '../../assets/cms/components/CompletedProcessList.vue'
+import { action } from '@storybook/addon-actions'
 
 export default {
     title: 'CompletedProcessList',
-    component: CompletedProcessList,
+    component: CompletedProcessList
 }
 
 window.ConcreteAjaxRequest = function (d) {
@@ -25,7 +25,7 @@ export const basicUsage = {
                 name: 'foo',
                 hasDetails: false,
                 dateStartedString: 'Started date',
-                dateCompletedString: 'Ended date',
+                dateCompletedString: 'Ended date'
             },
             {
                 id: 'baz',

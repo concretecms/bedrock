@@ -1,10 +1,10 @@
 import IconButton, { types as buttonTypes } from '../../assets/cms/components/IconButton.vue'
 import { types, icons } from '../../assets/cms/components/iconlist'
-import { action } from '@storybook/addon-actions';
+import { action } from '@storybook/addon-actions'
 
 const flatTypes = {}
-for (let i in icons) {
-    for (let ii in icons[i]) {
+for (const i in icons) {
+    for (const ii in icons[i]) {
         flatTypes[`${i}.${ii}`] = icons[i][ii]
     }
 }
@@ -14,44 +14,44 @@ export default {
     component: IconButton,
     tags: ['autodocs'],
     render: (args) => ({
-        components: {IconButton},
+        components: { IconButton },
         setup: () => ({ args, click: action('click') }),
-        template: '<IconButton @click="click" v-bind="args">{{args.content}}</IconButton>',
+        template: '<IconButton @click="click" v-bind="args">{{args.content}}</IconButton>'
     }),
     argTypes: {
         type: {
-            description: "The type of button, pulls from `IconButton.vue`",
+            description: 'The type of button, pulls from `IconButton.vue`',
             options: buttonTypes,
             control: 'select'
         },
         disabled: {
-            description: "HTML disabled attribute"
+            description: 'HTML disabled attribute'
         },
         icon: {
-            description: "The icon to use, pulls from `iconlist.js`",
+            description: 'The icon to use, pulls from `iconlist.js`',
             options: flatTypes,
-            control: 'select',
+            control: 'select'
         },
         iconType: {
-            description: "The type of icon to use, pulls from `iconlist.js`",
+            description: 'The type of icon to use, pulls from `iconlist.js`',
             options: types,
             control: 'select'
         },
         labelPosition: {
-            description: "Which side to put the label on",
-            options: ["left", "right"],
+            description: 'Which side to put the label on',
+            options: ['left', 'right'],
             control: 'radio'
         },
         buttonType: {
-            description: "HTML button type",
-            options: ["button", "submit", "reset"],
+            description: 'HTML button type',
+            options: ['button', 'submit', 'reset'],
             control: 'radio'
         },
         buttonClass: {
-            description: "Additional classes to apply to this button",
+            description: 'Additional classes to apply to this button',
             control: 'text'
-        },
-    },
+        }
+    }
 }
 
 export const withLabel = {
@@ -60,17 +60,16 @@ export const withLabel = {
         buttonType: 'reset',
         icon: icons.fas.times,
         iconType: types.fas,
-        content: "Cancel",
+        content: 'Cancel'
     }
 }
-
 
 export const iconButton = {
     args: {
         type: buttonTypes.add,
         disabled: false,
         icon: icons.fas.trashAlt,
-        iconType: types.fas,
+        iconType: types.fas
     }
 }
 export const disabled = {
@@ -78,14 +77,14 @@ export const disabled = {
         type: buttonTypes.add,
         disabled: true,
         icon: icons.fas.trashAlt,
-        iconType: types.fas,
+        iconType: types.fas
     }
 }
 
 export const allButtonTypes = {
     render: () => ({
-        components: {IconButton},
-        setup: () => ({types: buttonTypes, click: action('click')}),
+        components: { IconButton },
+        setup: () => ({ types: buttonTypes, click: action('click') }),
         template: `
             <div class='ccm-ui'>
                 <div class='d-flex relative'>
@@ -107,7 +106,7 @@ export const allButtonTypes = {
                     </div>
                 </div>
             </div>
-        `,
+        `
 
     })
 }

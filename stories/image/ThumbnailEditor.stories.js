@@ -1,6 +1,6 @@
-import ThumbnailEditor from "../../assets/cms/components/Image/ThumbnailEditor.vue";
+import ThumbnailEditor from '../../assets/cms/components/Image/ThumbnailEditor.vue'
 import './ThumbnailEditor.scss'
-import {action} from "@storybook/addon-actions";
+import { action } from '@storybook/addon-actions'
 
 window.ConcreteAjaxRequest = action('ConcreteAjaxRequest')
 
@@ -8,7 +8,7 @@ export default {
     component: ThumbnailEditor,
     title: 'Image/ThumbnailEditor',
     decorators: [
-        () => ({template: `<div style='position: relative; margin: 0 auto;width: 500px; height: 500px'><story/></div>`})
+        () => ({ template: '<div style=\'position: relative; margin: 0 auto;width: 500px; height: 500px\'><story/></div>' })
     ]
 }
 
@@ -22,5 +22,5 @@ export const basicUsage = {
         },
         src: '/images/examplejpeg.jpeg',
         uploadUrl: '/upload'
-    },
+    }
 }

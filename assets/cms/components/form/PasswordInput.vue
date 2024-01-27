@@ -92,7 +92,7 @@ export default {
     watch: {
         enteredPassword(v) {
             this.$emit('change', v)
-        },
+        }
     },
     mounted() {
         if (window.ccmi18n_passwordInput) {

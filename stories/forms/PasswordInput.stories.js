@@ -1,5 +1,5 @@
-import PasswordInput from "../../assets/cms/components/form/PasswordInput.vue";
-import {action} from "@storybook/addon-actions";
+import PasswordInput from '../../assets/cms/components/form/PasswordInput.vue'
+import { action } from '@storybook/addon-actions'
 
 export default {
     component: PasswordInput,

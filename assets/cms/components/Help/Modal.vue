@@ -20,11 +20,11 @@
 </template>
 <script setup>
 import AnnouncementItem from '../Announcement/Item/Item.vue'
-import {computed, useSlots} from "vue";
+import { computed, useSlots } from 'vue'
 
 const slots = useSlots()
 
-const props = defineProps({
+defineProps({
     items: {
         type: Array,
         required: false,

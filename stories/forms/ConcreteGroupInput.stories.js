@@ -1,5 +1,5 @@
-import ConcreteGroupInput from "../../assets/cms/components/form/ConcreteGroupInput.vue";
-import {action} from "@storybook/addon-actions";
+import ConcreteGroupInput from '../../assets/cms/components/form/ConcreteGroupInput.vue'
+import { action } from '@storybook/addon-actions'
 
 window.ConcreteUserGroupManager = {
     getGroupDetails(id, success, failure) {
@@ -22,7 +22,7 @@ window.ConcreteUserGroupManager = {
 
 export default {
     title: 'Forms/ConcreteGroupInput',
-    component: ConcreteGroupInput,
+    component: ConcreteGroupInput
 }
 
 export const basicUsage = {
@@ -31,7 +31,7 @@ export const basicUsage = {
         groupId: 0,
         chooseText: 'Choose a Group',
         readonly: false,
-        onChange: action('change'),
+        onChange: action('change')
     }
 }
 export const preSelected = {
@@ -40,6 +40,6 @@ export const preSelected = {
         groupId: 50,
         chooseText: 'Choose a Group',
         readonly: false,
-        onChange: action('change'),
+        onChange: action('change')
     }
 }

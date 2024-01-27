@@ -69,7 +69,7 @@ export default {
     },
     computed: {
         showSlot() {
-            return this.hasTextContent({children: this.$slots.default ? this.$slots.default() : []})
+            return this.hasTextContent({ children: this.$slots.default ? this.$slots.default() : [] })
         }
     },
     methods: {
@@ -78,11 +78,11 @@ export default {
                 return false
             }
 
-            for (let child of node.children) {
+            for (const child of node.children) {
                 if (typeof child === 'string' && child.length > 0) {
                     return true
                 }
-                
+
                 if (this.hasTextContent(child)) {
                     return true
                 }

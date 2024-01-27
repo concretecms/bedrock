@@ -1,8 +1,8 @@
 import Icon, { icons, types as iconTypes } from '../../assets/cms/components/Icon.vue'
 
 const flatTypes = {}
-for (let i in icons) {
-    for (let ii in icons[i]) {
+for (const i in icons) {
+    for (const ii in icons[i]) {
         flatTypes[`${i}.${ii}`] = icons[i][ii]
     }
 }
@@ -14,13 +14,13 @@ export default {
     argTypes: {
         icon: {
             options: flatTypes,
-            control: 'select',
+            control: 'select'
         },
         type: {
             options: iconTypes,
             control: 'select'
         }
-    },
+    }
 }
 
 export const basicUsage = {

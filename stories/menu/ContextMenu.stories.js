@@ -1,20 +1,20 @@
-import ContextMenu from "../../assets/cms/components/menu/ContextMenu.vue";
-import MenuItem from "../../assets/cms/components/menu/MenuItem.vue";
-import MenuDivider from "../../assets/cms/components/menu/MenuDivider.vue";
-import {icons} from "../../assets/cms/components/iconlist"
-import {action} from "@storybook/addon-actions";
+import ContextMenu from '../../assets/cms/components/menu/ContextMenu.vue'
+import MenuItem from '../../assets/cms/components/menu/MenuItem.vue'
+import MenuDivider from '../../assets/cms/components/menu/MenuDivider.vue'
+import { icons } from '../../assets/cms/components/iconlist'
+import { action } from '@storybook/addon-actions'
 
 export default {
     component: ContextMenu,
-    title: "Menu",
+    title: 'Menu'
 }
-w
+
 export const contextMenuBasicUsage = {
     args: {
         show: true
     },
     render: (args) => ({
-        components: {ContextMenu, MenuItem, MenuDivider},
+        components: { ContextMenu, MenuItem, MenuDivider },
         setup: () => ({
             args,
             itemClick: (e) => action('click')(e.target.innerText)

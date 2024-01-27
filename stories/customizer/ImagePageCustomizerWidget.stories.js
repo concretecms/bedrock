@@ -1,5 +1,5 @@
-import ImagePageCustomizerWidget from "../../assets/cms/components/customizer/ImagePageCustomizerWidget.vue";
-import {action} from "@storybook/addon-actions";
+import ImagePageCustomizerWidget from '../../assets/cms/components/customizer/ImagePageCustomizerWidget.vue'
+import { action } from '@storybook/addon-actions'
 
 export default {
     component: ImagePageCustomizerWidget,
@@ -15,7 +15,7 @@ export const basicUsage = {
         styleValue: {
             value: {
                 imageURL: '',
-                imageFileId: 4,
+                imageFileId: 4
             },
             style: {
                 variable: 'passed-in-variable',

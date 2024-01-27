@@ -1,12 +1,11 @@
-import Uploader from "../../../assets/cms/components/file-manager/Uploader.vue";
+import Uploader from '../../../assets/cms/components/file-manager/Uploader.vue'
 import _ from 'underscore'
-import "dropzone"
-import "../../../assets/cms/js/events"
-import "./UploadFromComputer.scss"
-import TomSelect from "tom-select";
+import 'dropzone'
+import '../../../assets/cms/js/events'
+import './UploadFromComputer.scss'
+import TomSelect from 'tom-select'
 import 'tom-select/dist/css/tom-select.bootstrap5.css'
-import {action} from "@storybook/addon-actions"
-
+import { action } from '@storybook/addon-actions'
 
 /**
  * @TODO Make sure events are working properly
@@ -20,9 +19,9 @@ window.ConcreteAjaxRequest = action('ConcreteAjaxRequest')
 
 export default {
     component: Uploader,
-    title: 'FileManager/Uploader/Uploader',
+    title: 'FileManager/Uploader/Uploader'
 }
 
 export const basicUsage = {
-    args: {},
+    args: {}
 }

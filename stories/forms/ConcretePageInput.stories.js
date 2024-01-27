@@ -1,8 +1,8 @@
-import ConcretePageInput from "../../assets/cms/components/form/ConcretePageInput.vue";
+import ConcretePageInput from '../../assets/cms/components/form/ConcretePageInput.vue'
 
 export default {
     component: ConcretePageInput,
-    title: 'Forms/ConcretePageInput',
+    title: 'Forms/ConcretePageInput'
 }
 
 export const basicUsage = {

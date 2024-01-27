@@ -1,5 +1,5 @@
-import Selector from "../../assets/cms/components/express/Selector.vue";
-import {action} from "@storybook/addon-actions";
+import Selector from '../../assets/cms/components/express/Selector.vue'
+import { action } from '@storybook/addon-actions'
 
 /**
  * @TODO Make this work as expected

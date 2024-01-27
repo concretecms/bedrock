@@ -1,4 +1,4 @@
-import ConcreteUserInput from "../../assets/cms/components/form/ConcreteUserInput.vue";
+import ConcreteUserInput from '../../assets/cms/components/form/ConcreteUserInput.vue'
 
 export default {
     component: ConcreteUserInput,

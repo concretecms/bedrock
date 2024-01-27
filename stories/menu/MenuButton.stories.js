@@ -1,29 +1,29 @@
 import MenuButton from '../../assets/cms/components/menu/MenuButton.vue'
-import {icons, types} from '../../assets/cms/components/iconlist'
-import {ref} from "vue";
-import {action} from "@storybook/addon-actions";
+import { icons, types } from '../../assets/cms/components/iconlist'
+import { ref } from 'vue'
+import { action } from '@storybook/addon-actions'
 
 const flatTypes = {}
-for (let i in icons) {
-    for (let ii in icons[i]) {
+for (const i in icons) {
+    for (const ii in icons[i]) {
         flatTypes[`${i}.${ii}`] = icons[i][ii]
     }
 }
 
 export default {
     component: MenuButton,
-    title: "Menu",
+    title: 'Menu',
     argTypes: {
         icon: {
-            description: "The icon to use, pulls from `iconlist.js`",
+            description: 'The icon to use, pulls from `iconlist.js`',
             options: flatTypes,
-            control: 'select',
-        },
-        iconType: {
-            description: "The type of icon to use, pulls from `iconlist.js`",
-            options: types,
             control: 'select'
         },
+        iconType: {
+            description: 'The type of icon to use, pulls from `iconlist.js`',
+            options: types,
+            control: 'select'
+        }
     }
 }
 
@@ -32,7 +32,7 @@ export const menuButtonBasicUsage = {
         active: true
     },
     render: (args) => ({
-        components: {MenuButton, ...MenuButton.components},
+        components: { MenuButton, ...MenuButton.components },
         setup: () => ({
             args,
             active: ref(args.active),
@@ -51,6 +51,6 @@ export const menuButtonBasicUsage = {
                     <MenuItem @click='click' icon='${icons.fas.trash}'>Delete</MenuItem>
                 </ContextMenu>
             </MenuButton>
-        `,
+        `
     })
 }

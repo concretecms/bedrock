@@ -1,6 +1,6 @@
-import AddScheduledBoardElementModal from "../../assets/cms/components/AddScheduledBoardElementModal.vue";
-import moment from "moment";
-import {action} from "@storybook/addon-actions";
+import AddScheduledBoardElementModal from '../../assets/cms/components/AddScheduledBoardElementModal.vue'
+import moment from 'moment'
+import { action } from '@storybook/addon-actions'
 
 window.moment = moment
 
@@ -21,9 +21,9 @@ export const basicUsage = {
         },
         selectedElement: 5,
         elements: [
-            {id: 5, name: 'Foo'}
+            { id: 5, name: 'Foo' }
         ],
         class: 'show',
         style: 'display:block'
-    },
+    }
 }

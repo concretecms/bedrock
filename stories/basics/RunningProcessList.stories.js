@@ -1,7 +1,7 @@
-import RunningProcessList from "../../assets/cms/components/RunningProcessList.vue";
-import {action} from "@storybook/addon-actions";
+import RunningProcessList from '../../assets/cms/components/RunningProcessList.vue'
+import { action } from '@storybook/addon-actions'
 
-let progress = 0
+const progress = 0
 window.ConcreteAjaxRequest = function(data) {
     action('ConcreteAjaxRequest')(data)
     if (data.url === '/ccm/system/processes/get_configuration') {
@@ -16,7 +16,7 @@ window.CCM_DISPATCHER_FILENAME = ''
 
 export default {
     component: RunningProcessList,
-    title: 'Basics/RunningProcessList',
+    title: 'Basics/RunningProcessList'
 }
 
 export const basicUsage = {
@@ -25,17 +25,17 @@ export const basicUsage = {
             {
                 id: 1,
                 name: 'Process',
-                batch: {totalJobs: 9, pendingJobs: 6},
+                batch: { totalJobs: 9, pendingJobs: 6 },
                 details: ['foo', 'baz'],
                 progress: 25
             },
             {
                 id: 2,
                 name: 'Another one',
-                batch: {totalJobs: 10, pendingJobs: 5},
+                batch: { totalJobs: 10, pendingJobs: 5 },
                 details: ['foo', 'baz'],
                 progress: 33
             }
         ]
-    },
+    }
 }

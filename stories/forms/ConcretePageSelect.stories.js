@@ -1,17 +1,16 @@
-import ConcretePageSelect from "../../assets/cms/components/form/ConcretePageSelect.vue";
-import "tom-select/dist/css/tom-select.bootstrap5.css";
-import TomSelect from "tom-select";
-import {action} from "@storybook/addon-actions";
-import {rest} from "msw";
+import ConcretePageSelect from '../../assets/cms/components/form/ConcretePageSelect.vue'
+import 'tom-select/dist/css/tom-select.bootstrap5.css'
+import TomSelect from 'tom-select'
+import { action } from '@storybook/addon-actions'
+import { rest } from 'msw'
 
 window.TomSelect = TomSelect
 window.CCM_DISPATCHER_FILENAME = ''
 
-
 const mockProducts = [
-    {"id":270,"primary_label":"Products"},
-    {"id":271,"primary_label":"Some other page"},
-    {"id":272,"primary_label":"A quick brown fox jumps over the lazy dog"},
+    { id: 270, primary_label: 'Products' },
+    { id: 271, primary_label: 'Some other page' },
+    { id: 272, primary_label: 'A quick brown fox jumps over the lazy dog' }
 ]
 export default {
     title: 'Forms/ConcretePageSelect',

@@ -1,9 +1,9 @@
 import ImageDetail from '../../assets/cms/components/gallery/ImageDetail.vue'
-import {action} from "@storybook/addon-actions";
+import { action } from '@storybook/addon-actions'
 
 export default {
     title: 'Gallery/Image Detail',
-    component: ImageDetail,
+    component: ImageDetail
 }
 
 const imageData = {

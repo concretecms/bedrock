@@ -1,8 +1,8 @@
-import ConcreteExpressEntryInput from "../../assets/cms/components/form/ConcreteExpressEntryInput.vue";
+import ConcreteExpressEntryInput from '../../assets/cms/components/form/ConcreteExpressEntryInput.vue'
 
 export default {
     component: ConcreteExpressEntryInput,
-    title: 'Forms/ConcreteExpressEntryInput',
+    title: 'Forms/ConcreteExpressEntryInput'
 }
 
 export const basicUsage = {

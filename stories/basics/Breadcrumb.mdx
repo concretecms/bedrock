@@ -1,0 +1,9 @@
+import {Canvas, Controls} from "@storybook/blocks";
+import * as Breadcrumb from "./Breadcrumb.stories";
+
+# Breadcrumb component
+Requires an array of `breadcrumbItems`: `{name: string, children: {name: string}[]}`. Children are displayed as a dropdown
+and an `itemClick` event is sent when an item is clicked
+
+<Canvas of={Breadcrumb.basicUsage} />
+<Controls of={Breadcrumb.basicUsage} />

@@ -1,4 +1,4 @@
-import Broadcast from "../../assets/cms/components/Announcement/Broadcast.vue";
+import Broadcast from '../../assets/cms/components/Announcement/Broadcast.vue'
 
 /**
  * @TODO: Make this render properly
@@ -6,7 +6,7 @@ import Broadcast from "../../assets/cms/components/Announcement/Broadcast.vue";
 
 export default {
     component: Broadcast,
-    title: 'Announcement/Broadcast',
+    title: 'Announcement/Broadcast'
 }
 
 export const basicUsage = {
@@ -15,5 +15,5 @@ export const basicUsage = {
             announcements: [
             ]
         }
-    },
+    }
 }
