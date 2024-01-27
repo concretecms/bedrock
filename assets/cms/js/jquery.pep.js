@@ -701,7 +701,8 @@
         this.objectPlaced = true
 
         this.offset = (this.options.constrainTo === 'parent' || this.hasNonBodyRelative())
-            ? this.$el.position() : this.$el.offset()
+            ? this.$el.position()
+            : this.$el.offset()
 
         // better to leave absolute position alone if
         // it already has one.

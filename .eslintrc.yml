@@ -8,7 +8,8 @@ rules:
   - error
   - 4
   space-before-function-paren: 0
-  no-callback-literal: 0
+  no-var: 0
+  array-callback-return: 0
 globals:
   # Basic global 3rd party stuff
   _: readonly

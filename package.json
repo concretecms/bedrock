@@ -80,7 +80,7 @@
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.32.13",
     "sass-loader": "^8.0.2",
-    "standardx": "^5.0.0",
+    "standardx": "^7.0.0",
     "storybook": "^7.6.6",
     "storybook-addon-mock": "^4.3.0",
     "stylelint": "^13.7.2",

@@ -58,7 +58,7 @@ const model = defineModel({ type: Boolean, required: true })
 
 const emit = defineEmits(['change'])
 
-const props = defineProps({
+defineProps({
     affirmativeTitle: {
         type: String,
         default: 'Yes'

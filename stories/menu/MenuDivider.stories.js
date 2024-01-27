@@ -2,7 +2,6 @@ import ContextMenu from '../../assets/cms/components/menu/ContextMenu.vue'
 import MenuItem from '../../assets/cms/components/menu/MenuItem.vue'
 import MenuDivider from '../../assets/cms/components/menu/MenuDivider.vue'
 import { action } from '@storybook/addon-actions'
-import { icons } from '../../assets/cms/components/iconlist'
 
 export default {
     component: MenuDivider,

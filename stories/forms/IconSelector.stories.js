@@ -1,4 +1,3 @@
-import jQuery from 'jquery'
 import 'bootstrap'
 import TomSelect from 'tom-select'
 import IconSelector from '../../assets/cms/components/form/IconSelector.vue'
@@ -19,7 +18,9 @@ export default {
                 form,
                 formData(form) {
                     const result = {}
-                    const data = $(form).serializeArray().map(({ name, value }) => result[name] = value)
+                    $(form).serializeArray().map(({ name, value }) => {
+                        result[name] = value
+                    })
                     return result
                 }
             }

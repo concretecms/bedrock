@@ -73,11 +73,13 @@ ConcreteStyleCustomizerPalette.prototype = {
 
         offset.left -=
             Math.min(offset.left, (offset.left + dpWidth > viewWidth && viewWidth > dpWidth)
-                ? Math.abs(offset.left + dpWidth - viewWidth) : 0)
+                ? Math.abs(offset.left + dpWidth - viewWidth)
+                : 0)
 
         offset.top -=
             Math.min(offset.top, ((offset.top + dpHeight > viewHeight && viewHeight > dpHeight)
-                ? Math.abs(dpHeight + inputHeight - extraY) : extraY))
+                ? Math.abs(dpHeight + inputHeight - extraY)
+                : extraY))
 
         return offset
     },

@@ -1,7 +1,6 @@
 import RunningProcessList from '../../assets/cms/components/RunningProcessList.vue'
 import { action } from '@storybook/addon-actions'
 
-const progress = 0
 window.ConcreteAjaxRequest = function(data) {
     action('ConcreteAjaxRequest')(data)
     if (data.url === '/ccm/system/processes/get_configuration') {
