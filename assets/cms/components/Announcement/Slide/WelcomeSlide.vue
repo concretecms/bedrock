@@ -40,8 +40,8 @@
 
 <script>
 /* eslint-disable no-new */
-import AnnouncementHeader from '../Header/Header'
-import AnnouncementItem from '../Item/Item'
+import AnnouncementHeader from '../Header/Header.vue'
+import AnnouncementItem from '../Item/Item.vue'
 
 export default {
     components: {
@@ -58,6 +58,7 @@ export default {
             required: true
         }
     },
+    emits: ['mark-announcement-as-viewed', 'advance-broadcast'],
     data: () => ({
         itemsToDisplay: null
     }),

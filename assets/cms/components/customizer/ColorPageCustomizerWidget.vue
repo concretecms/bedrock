@@ -12,6 +12,7 @@ export default {
             color: this.styleValue.value
         }
     },
+    emits: ['update'],
     mounted() {
         var my = this
         const i18n = window.ccmi18n_styleCustomizer || null

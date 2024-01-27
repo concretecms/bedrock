@@ -21,7 +21,7 @@
 
 <script>
 /* eslint-disable no-new */
-import AnnouncementHeader from '../Header/Header'
+import AnnouncementHeader from '../Header/Header.vue'
 export default {
     components: {
         AnnouncementHeader
@@ -32,8 +32,7 @@ export default {
             required: true
         }
     },
-    data: () => ({
-    }),
+    emits: ['mark-announcement-as-viewed', 'advance-broadcast'],
     methods: {
         skip() {
             this.$emit('mark-announcement-as-viewed')

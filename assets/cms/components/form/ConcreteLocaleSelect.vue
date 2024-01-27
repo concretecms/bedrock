@@ -11,6 +11,7 @@ export default {
             selectedValue: this.value
         }
     },
+    emits: ['change'],
     props: {
         value: {
         },
@@ -47,6 +48,7 @@ export default {
             const select = new TomSelect(this.$el, config)
             select.on('change', (option) => {
                 this.selectedValue = option
+                this.$emit('change', option)
             })
             select.sync()
         })

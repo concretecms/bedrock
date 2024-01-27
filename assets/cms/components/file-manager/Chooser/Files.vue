@@ -79,7 +79,7 @@
 <script>
 /* global CCM_DISPATCHER_FILENAME, bootstrap, ConcreteAjaxRequest */
 /* eslint-disable no-new */
-import Pagination from '../../Pagination'
+import Pagination from '../../Pagination.vue'
 
 export default {
     components: {

@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import Icon from '../../Icon'
-import Users from '../Chooser/Users'
+import Icon from '../../Icon.vue'
+import Users from '../Chooser/Users.vue'
 
 export default {
     components: {

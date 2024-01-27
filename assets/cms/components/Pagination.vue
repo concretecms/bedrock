@@ -1,5 +1,5 @@
 <template>
-    <div class="ccm-search-results-pagination">
+    <div class="ccm-search-results-pagination" :data-render="render">
         <nav :aria-label="ariaLabel">
             <ul class="pagination">
                 <li :class="{'page-item': true, 'disabled': prevDisabled}">
@@ -108,7 +108,8 @@ export default {
             },
             targetNumberOfLinks: 7,
             currentPage,
-            localNumberOfPages: 1
+            localNumberOfPages: 1,
+            render: 0,
         }
     },
     computed: {
@@ -265,6 +266,11 @@ export default {
                 }
             }
         }
+
+        this.$watch(() => this.$props.perPage, function() {
+            console.log('update!')
+            this.render++
+        })
     }
 }
 </script>

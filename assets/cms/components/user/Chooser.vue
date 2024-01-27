@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Search from './Chooser/Search'
+import Search from './Chooser/Search.vue'
 
 export default {
     components: {

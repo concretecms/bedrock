@@ -1,20 +1,19 @@
-<template functional>
-    <i v-if='$options.methods.isFontAwesome(props.type)' class="icon"
+<template>
+    <i v-if='$options.methods.isFontAwesome(type)' class="icon"
         :class="[{
-            fas: props.type === props.iconTypes.fas,
-            far: props.type === props.iconTypes.far,
-            fab: props.type === props.iconTypes.fab,
-        }, (props.icon || []).indexOf('fa-') === 0 ? props.icon : `fa-${props.icon}`]"
-        :style="{ color: props.color }"
+            fas: type === iconTypes.fas,
+            far: type === iconTypes.far,
+            fab: type === iconTypes.fab,
+        }, (icon || []).indexOf('fa-') === 0 ? icon : `fa-${icon}`]"
+        :style="{ color: color }"
     />
-    <svg v-else-if='$options.methods.isSvg(props.type)' viewport='0 0 20 20' width='20px' height='20px'>
-        <use :xlink:href='`${props.spritePath}#icon-${props.icon}`' :style='`fill: ${props.color}`'></use>
+    <svg v-else-if='$options.methods.isSvg(type)' viewport='0 0 20 20' width='20px' height='20px'>
+        <use :xlink:href='`${spritePath}#icon-${icon}`' :style='`fill: ${color}`'></use>
     </svg>
     <span v-else>{{ i18n.invalidIconType }}</span>
 </template>
 
 <script>
-import Vue from 'vue'
 import { icons, types } from './iconlist'
 
 // Reexport the icons and types to make them easy to get at
@@ -30,7 +29,7 @@ export default {
     props: {
         spritePath: {
             type: String,
-            default: Vue.config.spritePath || '/concrete/images/icons/bedrock/sprites.svg'
+            default: '/concrete/images/icons/bedrock/sprites.svg'
         },
         icon: {
             type: String,

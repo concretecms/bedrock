@@ -1,21 +1,20 @@
-<template functional>
+<template>
     <button
-        v-bind="{type: props.buttonType, style: props.style}"
-        @click='listeners.click'
+        v-bind="{type: buttonType}"
         class='btn'
-        :class="[$options.classMap[props.type] || $options.defaultClass, props.buttonClass]"
-        :disabled="props.disabled"
+        :class="[$options.classMap[type] || $options.defaultClass, buttonClass]"
+        :disabled="disabled"
         >
-        <Icon v-bind="{icon: props.icon, type: props.iconType, color: props.iconColor}" v-if="props.labelPosition === 'right'" />
-        <span class="label" v-if="$options.methods.showSlot(children)">
+        <Icon v-bind="{icon: icon, type: iconType, color: iconColor}" v-if="labelPosition === 'right'" />
+        <span class="label" v-if="showSlot">
             <slot />
         </span>
-        <Icon v-bind="{icon: props.icon, type: props.iconType, color: props.iconColor}" v-if="props.labelPosition !== 'right'" />
+        <Icon v-bind="{icon: icon, type: iconType, color: iconColor}" v-if="labelPosition !== 'right'" />
     </button>
 </template>
 
 <script>
-import Icon from './Icon'
+import Icon from './Icon.vue'
 
 export const types = {
     add: 'add',
@@ -68,15 +67,25 @@ export default {
     components: {
         Icon
     },
+    computed: {
+        showSlot() {
+            return this.hasTextContent({children: this.$slots.default ? this.$slots.default() : []})
+        }
+    },
     methods: {
-        showSlot(children) {
-            if (children && children.length) {
-                // Handle blank children
-                if (children[0].tag === undefined && !children[0].text.trim()) {
-                    return false
-                }
+        hasTextContent(node) {
+            if (!node.children) {
+                return false
+            }
 
-                return true
+            for (let child of node.children) {
+                if (typeof child === 'string' && child.length > 0) {
+                    return true
+                }
+                
+                if (this.hasTextContent(child)) {
+                    return true
+                }
             }
 
             return false

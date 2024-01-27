@@ -27,7 +27,7 @@
                                 {{ lang.saveInProgress }}
                             </button>
                         </template>
-                        <button @click="saveAvatar" class="btn btn-primary float-end" v-else>{{ lang.save }}</button>
+                        <button @click.prevent="saveAvatar" class="btn btn-primary float-end" v-else>{{ lang.save }}</button>
                     </div>
                 </template>
                 <template v-else>
@@ -76,8 +76,13 @@ export default {
         uploadUrl: {
             type: String,
             required: true
+        },
+        reloadOnSave: {
+            type: Boolean,
+            default: true,
         }
     },
+    emits: ['save'],
     data: () => ({
         isDragging: false,
         image: null,
@@ -147,7 +152,12 @@ export default {
                         method: 'POST',
                         body: form
                     }).then(() => {
-                        window.location.reload()
+                        if (this.reloadOnSave) {
+                            window.location.reload()
+                        } else {
+                            this.$emit('save', blob)
+                            this.saveInProgress = false
+                        }
                     })
                 })
             }

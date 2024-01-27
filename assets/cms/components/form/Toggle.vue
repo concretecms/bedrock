@@ -1,15 +1,15 @@
-<template functional>
-    <div class='ccm-toggle' :class='[props.value ? "on" : "off", props.class]'>
-        <span class='affirmative' @click='$options.methods.handleClick(true, props, listeners)'>
-            <span class='title'>{{props.affirmativeTitle}}</span>
+<template>
+    <div class='ccm-toggle' :class='[model ? "on" : "off"]'>
+        <span class='affirmative' @click='set(true)'>
+            <span class='title'>{{affirmativeTitle}}</span>
             <span class='icon'>
-                <Icon :type='props.value ? "fas" : "far"' :icon='props.value ? "dot-circle" : "circle"' />
+                <Icon :type='model ? "fas" : "far"' :icon='model ? "dot-circle" : "circle"' />
             </span>
         </span>
-        <span class='negative' @click='$options.methods.handleClick(false, props, listeners)'>
-            <span class='title'>{{props.negativeTitle}}</span>
+        <span class='negative' @click='set(false)'>
+            <span class='title'>{{negativeTitle}}</span>
             <span class='icon'>
-                <Icon :type='!props.value ? "fas" : "far"' :icon='!props.value ? "dot-circle" : "circle"' />
+                <Icon :type='!model ? "fas" : "far"' :icon='!model ? "dot-circle" : "circle"' />
             </span>
         </span>
     </div>
@@ -51,38 +51,28 @@
 }
 </style>
 
-<script>
-import Icon from '../Icon'
+<script setup>
+import Icon from '../Icon.vue'
 
-export default {
-    components: {
-        Icon
+const model = defineModel({ type: Boolean, required: true })
+
+const emit = defineEmits(['change'])
+
+const props = defineProps({
+    affirmativeTitle: {
+        type: String,
+        default: 'Yes'
     },
-    props: {
-        value: {
-            type: Boolean,
-            required: true
-        },
-        affirmativeTitle: {
-            type: String,
-            default: 'Yes'
-        },
-        negativeTitle: {
-            type: String,
-            default: 'No'
-        }
-    },
-    methods: {
-        handleClick(newValue, props, listeners) {
-            if (props.value !== newValue) {
-                if (listeners.change) {
-                    listeners.change(newValue)
-                }
-                if (listeners.input) {
-                    listeners.input(newValue)
-                }
-            }
-        }
+    negativeTitle: {
+        type: String,
+        default: 'No'
+    }
+})
+
+function set(to) {
+    if (model.value !== to) {
+        model.value = to
+        emit('change', to)
     }
 }
 </script>

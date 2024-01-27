@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import ConcreteAnnouncementVideoAction from '../Action/VideoAction'
-import ConcreteAnnouncementGuideAction from '../Action/GuideAction'
-import ConcreteAnnouncementExternalLinkAction from '../Action/ExternalLinkAction'
+import ConcreteAnnouncementVideoAction from '../Action/VideoAction.vue'
+import ConcreteAnnouncementGuideAction from '../Action/GuideAction.vue'
+import ConcreteAnnouncementExternalLinkAction from '../Action/ExternalLinkAction.vue'
 
 export default {
     components: {
@@ -41,10 +41,6 @@ export default {
         showSidebar() {
             return this.item.icon || this.indentIfIconEmpty
         }
-    },
-    data: () => ({
-    }),
-    methods: {
     }
 }
 </script>

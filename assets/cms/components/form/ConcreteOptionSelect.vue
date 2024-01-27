@@ -17,7 +17,7 @@
 <script>
 /* eslint-disable no-new, no-unused-vars, camelcase, eqeqeq */
 /* globals TomSelect */
-import ConcreteAjaxSelect from './ConcreteAjaxSelect'
+import ConcreteAjaxSelect from './ConcreteAjaxSelect.vue'
 export default {
     components: { ConcreteAjaxSelect },
     prop: ['value'],

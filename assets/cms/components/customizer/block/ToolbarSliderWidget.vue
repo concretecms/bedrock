@@ -50,6 +50,7 @@ export default {
             default: true
         }
     },
+    emits: ['input'],
     methods: {
         handleInput(event) {
             let newValue = parseInt(event.target.value)

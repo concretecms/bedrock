@@ -14,7 +14,7 @@
 </template>
 <script>
 /* global bootstrap ConcreteModal */
-import ConcreteAnnouncementModal from './Modal/Modal'
+import ConcreteAnnouncementModal from './Modal/Modal.vue'
 
 export default {
     components: {

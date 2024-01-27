@@ -1,5 +1,5 @@
 <template>
-    <select :name="name" :title="title" v-model="selectedOption" ref="iconSelector">
+    <select :id="id" :name="name" :title="title" v-model="selectedOption">
         <option v-for="icon in icons" :value="icon.value">{{ icon.label }}</option>
     </select>
 </template>
@@ -13,7 +13,8 @@ import { icons } from '../iconlist'
 export default {
     data() {
         return {
-            selectedOption: this.selected
+            selectedOption: this.selected,
+            tomSelect: null,
         }
     },
     props: {
@@ -32,6 +33,12 @@ export default {
             type: String,
             require: false,
             default: '** None Selected'
+        }
+    },
+    emits: ['update'],
+    watch: {
+        selectedOption(v) {
+            this.$emit('update', v)
         }
     },
     computed: {
@@ -60,8 +67,9 @@ export default {
         }
     },
     mounted() {
-        new TomSelect(this.$el, {
+        this.tomSelect = new TomSelect(this.$el, {
             maxOptions: null,
+            name: 'foo',
             render: {
                 option: function (data, escape) {
                     return '<div class="d-flex align-items-center"><span class="d-flex align-items-center justify-content-center me-2" style="width: 32px"><i class="' + data.value + '"></i></span><span>' + data.text + '</span></div>'
@@ -71,6 +79,10 @@ export default {
                 }
             }
         })
+    },
+    unmounted() {
+        this.tomSelect?.destroy()
+        console.log('test')
     }
 }
 </script>

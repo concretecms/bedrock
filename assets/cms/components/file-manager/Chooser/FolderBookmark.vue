@@ -20,8 +20,8 @@
 <script>
 /* global CCM_DISPATCHER_FILENAME, ConcreteAjaxRequest */
 /* eslint-disable no-new */
-import ChooserHeader from './Header'
-import Files from './Files'
+import ChooserHeader from './Header.vue'
+import Files from './Files.vue'
 
 export default {
     components: {
@@ -71,6 +71,7 @@ export default {
             })
         }
     },
+    emits: ['update:selectedFiles', 'update:resultsFormFactor'],
     watch: {
         activeFolder(value) {
             this.fetchBreadcrumb(value)

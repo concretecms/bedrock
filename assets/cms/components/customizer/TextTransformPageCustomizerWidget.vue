@@ -8,7 +8,7 @@
 <script>
 
 export default {
-    components: {},
+    emits: ['update'],
     data() {
         return {
             textTransform: this.styleValue.value.textTransform

@@ -1,12 +1,12 @@
-<template functional>
+<template>
     <div class="ccm-image-cell-grid">
-      <div class="ccm-image-cell text-center" :class="{ active: props.isActive }">
-          <button type="button" class="delete" @click="listeners.delete">
+      <div class="ccm-image-cell text-center" :class="{ active: isActive }">
+          <button type="button" class="delete" @click="emit('delete')">
               <Icon icon="times" type="fas" color="#fff"/>
           </button>
-          <div @click="listeners.click">
-              <img :src="props.src" :style="{ width: props.size + 'px', height: props.size + 'px' }" />
-              <p>{{ props.fileSize }}</p>
+          <div @click="emit('click')">
+              <img :alt="alt" :src="src" :style="{ width: size + 'px', height: size + 'px' }" />
+              <p>{{ fileSize }}</p>
           </div>
       </div>
     </div>
@@ -56,30 +56,28 @@
   }
 </style>
 
-<script>
-import Icon from '../Icon'
+<script setup>
+import Icon from '../Icon.vue'
 
-export default {
-    components: {
-        Icon
+const emit = defineEmits(['click', 'delete'])
+
+const props = defineProps({
+    isActive: {
+        type: Boolean,
+        default: false
     },
-    props: {
-        isActive: {
-            type: Boolean,
-            default: false
-        },
-        src: {
-            type: String,
-            required: true
-        },
-        fileSize: {
-            type: String,
-            required: true
-        },
-        size: {
-            type: String,
-            required: true
-        }
-    }
-}
+    src: {
+        type: String,
+        required: true
+    },
+    fileSize: {
+        type: String,
+        required: true
+    },
+    size: {
+        type: String,
+        required: true
+    },
+    alt: String,
+})
 </script>

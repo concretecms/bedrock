@@ -33,7 +33,6 @@ form.flyout-menu-form {
 
 <script>
 export default {
-    components: {},
     data() {
         return {
             dropdown: null,
@@ -63,20 +62,5 @@ export default {
             }
         })
     },
-    methods: {
-        /*
-        save() {
-            this.$emit('save')
-            // close the dropdown
-            this.dropdown.hide()
-        }
-         */
-    },
-    computed: {},
-    props: {
-        label: {
-            type: String
-        }
-    }
 }
 </script>

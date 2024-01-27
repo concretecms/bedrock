@@ -34,7 +34,7 @@
 /* global CCM_DISPATCHER_FILENAME, CCM_SERVER_EVENTS_URL, CCM_SECURITY_TOKEN */
 /* eslint-disable no-new */
 /* eslint eqeqeq: 0 */
-import Icon from './Icon'
+import Icon from './Icon.vue'
 export default {
     components: {
         Icon

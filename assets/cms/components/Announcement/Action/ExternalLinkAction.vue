@@ -15,11 +15,5 @@ export default {
             required: true
         }
     },
-    data: () => ({
-    }),
-    methods: {
-    },
-    mounted() {
-    }
 }
 </script>

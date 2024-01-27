@@ -15,6 +15,7 @@
 /* globals TomSelect, WebFont */
 export default {
     components: {},
+    emits: ['update'],
     data() {
         return {
             selectedFont: this.styleValue.value.fontFamily

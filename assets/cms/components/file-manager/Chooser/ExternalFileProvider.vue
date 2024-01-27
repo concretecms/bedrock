@@ -54,10 +54,10 @@
 
 <script>
 /* eslint indent: [2, 2, {"SwitchCase": 1}] */
-import Icon from '../../Icon'
-import ChooserHeader from './Header'
-import Files from './Files'
-import ConcreteFileDirectoryInput from '../../form/ConcreteFileDirectoryInput'
+import Icon from '../../Icon.vue'
+import ChooserHeader from './Header.vue'
+import Files from './Files.vue'
+import ConcreteFileDirectoryInput from '../../form/ConcreteFileDirectoryInput.vue'
 
 export default {
   components: {
@@ -98,7 +98,7 @@ export default {
     },
     extraData: {
       type: Object,
-      required: false
+      default: () => ({})
     },
     multipleSelection: {
       type: Boolean,

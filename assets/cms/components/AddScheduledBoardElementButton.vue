@@ -2,30 +2,24 @@
     <button class="btn btn-primary float-end"
             type="button"
             :disabled="disabled"
-            data-bs-toggle="modal" :data-bs-target="modalTarget">{{buttonText}}</button>
-
+            data-bs-toggle="modal" :data-bs-target="modalTarget">
+        {{buttonText}}
+    </button>
 </template>
 
-<script>
-export default {
-    props: {
-        disabled: {
-            type: Boolean,
-            default: false
-        },
-        buttonText: {
-            type: String,
-            required: true
-        },
-        modalTarget: {
-            type: String,
-            default: '#modal-add-scheduled-board-element'
-        }
+<script setup>
+const props = defineProps({
+    disabled: {
+        type: Boolean,
+        default: false
     },
-    data: () => ({}),
-    methods: {},
-    mounted() {
-
+    buttonText: {
+        type: String,
+        required: true
+    },
+    modalTarget: {
+        type: String,
+        default: '#modal-add-scheduled-board-element'
     }
-}
+})
 </script>

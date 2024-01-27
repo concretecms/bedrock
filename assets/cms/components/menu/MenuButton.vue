@@ -1,22 +1,22 @@
-<template functional>
+<template>
     <div class='menubutton-wrapper dropdown'>
         <IconButton
-            @click='listeners.click'
+            @click='(...args) => $emit("click", ...args)'
             v-bind="{
-                type: props.active ? $options.buttonTypes.save : $options.buttonTypes.outline,
-                icon: props.icon,
-                iconType: props.iconType
+                type: active ? $options.buttonTypes.save : $options.buttonTypes.outline,
+                icon: icon,
+                iconType: iconType
             }">
-            {{ props.title }}
+            {{ title }}
         </IconButton>
         <slot></slot>
     </div>
 </template>
 <script>
-import ContextMenu from './ContextMenu'
-import MenuItem from './MenuItem'
-import MenuDivider from './MenuDivider'
-import IconButton, { types as buttonTypes } from '../IconButton'
+import ContextMenu from './ContextMenu.vue'
+import MenuItem from './MenuItem.vue'
+import MenuDivider from './MenuDivider.vue'
+import IconButton, { types as buttonTypes } from '../IconButton.vue'
 import { icons, types } from '../iconlist'
 
 export default {
@@ -28,6 +28,7 @@ export default {
         MenuDivider,
         ...IconButton.components
     },
+    emits: ['click'],
     props: {
         title: String,
         icon: {
