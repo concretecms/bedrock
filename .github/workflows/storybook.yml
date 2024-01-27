@@ -1,14 +1,19 @@
-name: Build and Publish storybook to GitHub Pages
-
 on:
   push:
     branches:
       - "main"
       - "feature/vue3"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: bitovi/github-actions-storybook-to-github-pages@v1.0.0
+      - id: build-publish
+        uses: bitovi/github-actions-storybook-to-github-pages@v1.0.2
         with:
           path: storybook-static
