@@ -18,31 +18,21 @@
         </div>
     </div>
 </template>
-<script>
-import AnnouncementItem from '../Announcement/Item/Item'
-import ConcreteAnnouncementExternalLinkButton from '../Announcement/Button/ExternalLinkButton'
-export default {
-    components: {
-        AnnouncementItem,
-        ConcreteAnnouncementExternalLinkButton
-    },
-    props: {
-        items: {
-            type: Array,
-            required: false,
-            default: []
-        }
-    },
-    data: () => ({
-    }),
-    computed: {
-        hasSidebarSlot() {
-            return !!this.$slots.sidebar
-        }
-    },
-    methods: {
-    },
-    mounted() {
+<script setup>
+import AnnouncementItem from '../Announcement/Item/Item.vue'
+import {computed, useSlots} from "vue";
+
+const slots = useSlots()
+
+const props = defineProps({
+    items: {
+        type: Array,
+        required: false,
+        default: () => []
     }
-}
+})
+
+const hasSidebarSlot = computed(() => {
+    return typeof slots.sidebar !== 'undefined'
+})
 </script>

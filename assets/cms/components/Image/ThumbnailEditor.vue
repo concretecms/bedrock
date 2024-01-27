@@ -48,7 +48,9 @@ export default {
         },
         lang: {
             type: Object,
-            required: true
+            default: () => ({
+                save: 'Save'
+            })
         },
         src: {
             type: String,

@@ -57,14 +57,14 @@
 
 <script>
 /* global ConcreteEvent */
-import RecentUploads from './Chooser/RecentUploads'
-import FileManager from './Chooser/FileManager'
-import FileSets from './Chooser/FileSets'
-import SavedSearch from './Chooser/SavedSearch'
-import Search from './Chooser/Search'
-import ExternalFileProvider from './Chooser/ExternalFileProvider'
-import FileUpload from './Chooser/FileUpload'
-import FolderBookmark from './Chooser/FolderBookmark'
+import RecentUploads from './Chooser/RecentUploads.vue'
+import FileManager from './Chooser/FileManager.vue'
+import FileSets from './Chooser/FileSets.vue'
+import SavedSearch from './Chooser/SavedSearch.vue'
+import Search from './Chooser/Search.vue'
+import ExternalFileProvider from './Chooser/ExternalFileProvider.vue'
+import FileUpload from './Chooser/FileUpload.vue'
+import FolderBookmark from './Chooser/FolderBookmark.vue'
 
 export default {
     components: {
@@ -104,7 +104,7 @@ export default {
     props: {
         choosers: {
             type: Array,
-            default: [
+            default: () => [
                 {
                     key: 'recent-uploads',
                     title: null // use the detault one if null
@@ -121,7 +121,7 @@ export default {
         },
         uploaders: {
             type: Array,
-            default: [
+            default: () => [
                 {
                     key: 'file-upload',
                     title: null // use the detault one if null

@@ -130,6 +130,9 @@ export default {
             }
         })
     },
+    unmounted() {
+        this.selectMenu?.destroy()
+    },
     methods: {
         createDirectory() {
             const me = this

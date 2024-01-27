@@ -40,7 +40,7 @@
 <script>
 /* eslint-disable no-new */
 /* eslint eqeqeq: 0 */
-import BoardInstanceRule from './BoardInstanceRule'
+import BoardInstanceRule from './BoardInstanceRule.vue'
 
 export default {
     components: {

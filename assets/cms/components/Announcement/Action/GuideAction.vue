@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a href="#" @click="launchGuide">
+        <a href="#" @click.prevent="launchGuide">
             <i class="fas fa-cog"></i>
             Run Guide
         </a>

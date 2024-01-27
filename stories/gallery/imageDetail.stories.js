@@ -1,8 +1,9 @@
-import ImageDetail from '../../assets/cms/components/gallery/ImageDetail'
+import ImageDetail from '../../assets/cms/components/gallery/ImageDetail.vue'
+import {action} from "@storybook/addon-actions";
 
 export default {
     title: 'Gallery/Image Detail',
-    component: ImageDetail
+    component: ImageDetail,
 }
 
 const imageData = {
@@ -40,13 +41,13 @@ export const basicUsage = () => ({
     },
     data: () => ({
         clickDelete: 0,
-        image: imageData
+        image: imageData,
+        action: action('delete')
     }),
     template: `
     <div class="ccm-ui" style="display:flex;">
         <div style="width:800px; flex:1;">
-            <p>Click Delete: {{clickDelete}}</p>
-            <ImageDetail @delete="clickDelete++" :image="image"/>
+            <ImageDetail @delete="action" :image="image"/>
         </div>
         <div style="flex:1; background-color:#f4f4f4; padding:10px; margin:10px;">
             <pre>{{JSON.stringify(image, null, 2)}}</pre>

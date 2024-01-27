@@ -11,8 +11,8 @@
 
 <script>
 /* eslint-disable no-new */
-import ChooserHeader from './Header'
-import Uploader from '../Uploader'
+import ChooserHeader from './Header.vue'
+import Uploader from '../Uploader.vue'
 
 export default {
     components: {

@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import ConcreteFileInput from '../../components/form/ConcreteFileInput'
-import FlyoutMenu from './flyout/FlyoutMenu'
+import ConcreteFileInput from '../../components/form/ConcreteFileInput.vue'
+import FlyoutMenu from './flyout/FlyoutMenu.vue'
 
 export default {
     components: {

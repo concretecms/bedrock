@@ -59,6 +59,7 @@ export default {
             default: false
         }
     },
+    emits: ['change'],
     data() {
         return {}
     },
@@ -120,6 +121,9 @@ export default {
         my.select.on('change', function (value) {
             my.$emit('change', value)
         })
+    },
+    unmounted() {
+        this.select?.destroy()
     },
     watch: {
         value: {

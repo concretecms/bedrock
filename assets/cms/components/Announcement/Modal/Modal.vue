@@ -11,9 +11,9 @@
 </template>
 <script>
 /* eslint-disable no-new */
-import ConcreteAnnouncementFeatureSlide from '../Slide/FeatureSlide'
-import ConcreteAnnouncementWelcomeSlide from '../Slide/WelcomeSlide'
-import ConcreteAnnouncementCollectSiteInformationSlide from '../Slide/CollectSiteInformationSlide'
+import ConcreteAnnouncementFeatureSlide from '../Slide/FeatureSlide.vue'
+import ConcreteAnnouncementWelcomeSlide from '../Slide/WelcomeSlide.vue'
+import ConcreteAnnouncementCollectSiteInformationSlide from '../Slide/CollectSiteInformationSlide.vue'
 
 export default {
     components: {

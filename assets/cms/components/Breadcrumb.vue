@@ -38,6 +38,7 @@ export default {
             required: true
         }
     },
+    emits: ['itemClick'],
     methods: {
         isItemActive(itemIndex) {
             return (this.breadcrumbItems.length - itemIndex) === 1

@@ -29,18 +29,20 @@
                     ref="imageContainer"
                     :class="activeImage !== null ? 'active-image' : ''">
                     <draggable class="image-container" v-model="$props.gallery" group="people" @start="drag=true" @end="drag=false">
-                      <div v-for="(image, index) in $props.gallery" :key="index">
-                        <div ref="cell" class="ccm-image-cell-container">
-                          <ImageCell
-                              :src="image.thumbUrl"
-                              :file-size="image.fileSize"
-                              size="120"
-                              :isActive="activeImage === index ? true : false"
-                              @click="openImage(image, index, $event)"
-                              @delete="deleteImage(index)"
-                          />
-                        </div>
-                      </div>
+                        <template #item>
+                          <div v-for="(image, index) in $props.gallery" :key="index">
+                              <div ref="cell" class="ccm-image-cell-container">
+                                  <ImageCell
+                                      :src="image.thumbUrl"
+                                      :file-size="image.fileSize"
+                                      size="120"
+                                      :isActive="activeImage === index ? true : false"
+                                      @click="openImage(image, index, $event)"
+                                      @delete="deleteImage(index)"
+                                  />
+                              </div>
+                          </div>
+                        </template>
                     </draggable>
 
                 </div>
@@ -130,8 +132,8 @@
 </style>
 
 <script>
-import ImageCell from './ImageCell'
-import ImageDetail from './ImageDetail'
+import ImageCell from './ImageCell.vue'
+import ImageDetail from './ImageDetail.vue'
 import draggable from 'vuedraggable'
 
 export default {

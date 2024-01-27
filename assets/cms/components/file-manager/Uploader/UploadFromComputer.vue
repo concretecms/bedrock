@@ -221,6 +221,7 @@ export default {
             this.startUploading()
         })
     },
+    emits: ['files-ready-to-upload', 'uploadProgressStateChange', 'upload-complete'],
     watch: {
         filesInQueue() {
             const filesInQueue = this.filesInQueue

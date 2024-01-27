@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import Pagination from '../Pagination'
+import Pagination from '../Pagination.vue'
 
 /**
  * @vue-data {Number} currentPage - Number of the page that is displayed and highlighted in pagination.
@@ -57,6 +57,7 @@ import Pagination from '../Pagination'
  */
 export default {
     components: { Pagination },
+    emits: ['click'],
     data: () => ({
         i18n: {
             name: 'Name',

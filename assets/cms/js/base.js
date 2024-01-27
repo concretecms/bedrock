@@ -91,8 +91,8 @@ import './help/help'
 import './calendar'
 
 // Vue components.
-import components from '@concretecms/bedrock/assets/cms/components/index'
-import VueManager from '@concretecms/bedrock/assets/cms/js/vue/Manager'
+import components from '../components/index'
+import VueManager from './vue/Manager'
 import './jquery-vue'
 
 window.NProgress = NProgress

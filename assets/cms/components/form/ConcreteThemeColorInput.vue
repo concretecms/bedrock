@@ -15,6 +15,7 @@ export default {
             selectedColor: this.color
         }
     },
+    emits: ['change'],
     props: {
         colorCollection: {
             type: Object,

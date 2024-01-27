@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import UploadFromComputer from './Uploader/UploadFromComputer'
-import ConcreteFileDirectoryInput from '../form/ConcreteFileDirectoryInput'
+import UploadFromComputer from './Uploader/UploadFromComputer.vue'
+import ConcreteFileDirectoryInput from '../form/ConcreteFileDirectoryInput.vue'
 
 export default {
     components: {

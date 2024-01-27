@@ -15,8 +15,6 @@ export default {
             required: true
         }
     },
-    data: () => ({
-    }),
     mounted() {
         $(this.$refs.link).magnificPopup({
             disableOn: 700,

@@ -1,8 +1,4 @@
-import GalleryEdit from '../../assets/cms/components/gallery/GalleryEdit'
-
-import Vue from 'vue'
-
-Vue.component('GalleryEdit', GalleryEdit)
+import GalleryEdit from '../../assets/cms/components/gallery/GalleryEdit.vue'
 
 export default {
     title: 'Gallery/Gallery Edit',

@@ -38,14 +38,14 @@
 </template>
 
 <script>
-import ColorPageCustomizerWidget from './ColorPageCustomizerWidget'
-import FontFamilyPageCustomizerWidget from './FontFamilyPageCustomizerWidget'
-import SizePageCustomizerWidget from './SizePageCustomizerWidget'
-import FontWeightPageCustomizerWidget from './FontWeightPageCustomizerWidget'
-import FontStylePageCustomizerWidget from './FontStylePageCustomizerWidget'
-import TextTransformPageCustomizerWidget from './TextTransformPageCustomizerWidget'
-import TextDecorationPageCustomizerWidget from './TextDecorationPageCustomizerWidget'
-import FlyoutMenu from './flyout/FlyoutMenu'
+import ColorPageCustomizerWidget from './ColorPageCustomizerWidget.vue'
+import FontFamilyPageCustomizerWidget from './FontFamilyPageCustomizerWidget.vue'
+import SizePageCustomizerWidget from './SizePageCustomizerWidget.vue'
+import FontWeightPageCustomizerWidget from './FontWeightPageCustomizerWidget.vue'
+import FontStylePageCustomizerWidget from './FontStylePageCustomizerWidget.vue'
+import TextTransformPageCustomizerWidget from './TextTransformPageCustomizerWidget.vue'
+import TextDecorationPageCustomizerWidget from './TextDecorationPageCustomizerWidget.vue'
+import FlyoutMenu from './flyout/FlyoutMenu.vue'
 
 export default {
     components: {
@@ -92,6 +92,7 @@ export default {
             }
         }
         this.styleValue.value.values.forEach(function(styleValue) {
+            console.log(styleValue)
             if (styleValue.style.type === 'color') {
                 my.colorSubTypeValue = styleValue
             }

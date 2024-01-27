@@ -1,5 +1,5 @@
 <template>
-    <select :name="name" :multiple="multiple" v-model="selectedValue">
+    <select :name="name" :multiple="multiple" v-model="selectedValue" @change="$emit('change', selectedValue)">
         <template v-if="hasOptGroups">
             <optgroup v-for="(optgroupOptions, optgroupLabel) in options" :label="optgroupLabel">
                 <option v-for="(label, value) in optgroupOptions" :value="value">
@@ -42,6 +42,7 @@ export default {
             required: true
         }
     },
+    emits: ['change'],
     watch: {
 
     },

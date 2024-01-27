@@ -23,9 +23,9 @@
 
 <script>
 /* eslint-disable no-new */
-import AnnouncementHeader from '../Header/Header'
-import AnnouncementItem from '../Item/Item'
-import ConcreteAnnouncementExternalLinkButton from '../Button/ExternalLinkButton'
+import AnnouncementHeader from '../Header/Header.vue'
+import AnnouncementItem from '../Item/Item.vue'
+import ConcreteAnnouncementExternalLinkButton from '../Button/ExternalLinkButton.vue'
 
 export default {
     components: {
@@ -57,6 +57,7 @@ export default {
             default: 1
         }
     },
+    emits: ['advance-broadcast', 'mark-announcement-as-viewed'],
     data: () => ({
         itemsToDisplay: null
     }),

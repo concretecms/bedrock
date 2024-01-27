@@ -1,19 +1,13 @@
-<template functional>
-<div v-if='listeners.click' href='#' @click='listeners.click' v-bind='{...attrs, ...props}' :class='{"dropdown-item": true, "d-flex": true, disabled: props.disabled === true}'>
-    <span class='menu-icon flex d-flex' v-if='props.icon'>
-        <Icon v-bind='{
-            type: props.iconType,
-            icon: props.icon
-        }' />
+<template>
+<div v-if='!href' href='#' v-bind='{...attrs, ...props}' :class='{"dropdown-item": true, "d-flex": true, disabled: disabled === true}'>
+    <span class='menu-icon flex d-flex' v-if='icon'>
+        <Icon :type='iconType' :icon='icon' />
     </span>
     <span class='flex'><slot></slot></span>
 </div>
-<a v-else :href='props.href' v-bind='{...attrs, ...props}' :class='{"dropdown-item": true, "d-flex": true, disabled: props.disabled}'>
-    <span class='menu-icon flex d-flex' v-if='props.icon'>
-        <Icon v-bind='{
-            type: props.iconType,
-            icon: props.icon
-        }' />
+<a v-else :href='href' v-bind='{...attrs, ...props}' :class='{"dropdown-item": true, "d-flex": true, disabled: disabled}'>
+    <span class='menu-icon flex d-flex' v-if='icon'>
+        <Icon :type='iconType' :icon='icon' />
     </span>
     <span class='flex'><slot></slot></span>
 </a>
@@ -41,7 +35,7 @@
 }
 </style>
 <script>
-import Icon from '../Icon'
+import Icon from '../Icon.vue'
 
 export default {
     components: {

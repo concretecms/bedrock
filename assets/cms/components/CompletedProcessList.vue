@@ -14,13 +14,13 @@
             </div>
         </div>
         <transition-group tag="div" class="process-card-wrapper" name="process-card-animation">
-            <div :class="{'card': true, 'card-body': true, 'process-card': true, 'process-card-expandable': detailsAction != '' && process.hasDetails}"
+            <div :class="{'card': true, 'card-body': true, 'process-card': true, 'process-card-expandable': detailsAction !== '' && process.hasDetails}"
             v-for="process in processes" :key="process.id"
-                 @click="detailsAction != '' && process.hasDetails ? toggleProcess(process) : null">
+                 @click="detailsAction !== '' && process.hasDetails ? toggleProcess(process) : null">
                 <div class="row">
                     <div class="col-md-4">
                         <div>
-                            <span v-if="detailsAction != '' && process.hasDetails" class="d-inline-block" style="width: 20px;">
+                            <span v-if="detailsAction !== '' && process.hasDetails" class="d-inline-block" style="width: 20px;">
                                 <icon :icon="openProcesses.includes(process.id) ? 'chevron-down' : 'chevron-right'"></icon>
                             </span>
                             {{process.name}}
@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-md-2 d-flex">
                         <div class="ml-auto">
-                            <a v-if="deleteAction != ''" href="#" class="ccm-hover-icon" @click.stop="deleteProcess(process)">
+                            <a v-if="deleteAction !== ''" href="#" class="ccm-hover-icon" @click.prevent="deleteProcess(process)">
                                 <icon icon="trash"></icon>
                             </a>
                         </div>
@@ -80,7 +80,7 @@
 <script>
 /* eslint-disable no-new */
 /* eslint eqeqeq: 0 */
-import Icon from './Icon'
+import Icon from './Icon.vue'
 export default {
     components: {
         Icon

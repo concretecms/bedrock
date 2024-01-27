@@ -1,11 +1,22 @@
-import ImageCell from '../../assets/cms/components/gallery/ImageCell'
+import ImageCell from '../../assets/cms/components/gallery/ImageCell.vue'
+import {action} from "@storybook/addon-actions";
 
 export default {
     title: 'Gallery/Image Cell',
-    component: ImageCell
+    component: ImageCell,
 }
 
-export const basicUsage = () => ({
+export const basicUsage = {
+    args: {
+        src: 'https://via.placeholder.com/120',
+        fileSize: '104 KB',
+        size: '120',
+        onClick: action('click'),
+        onDelete: action('delete'),
+    }
+}
+
+export const basicUsage2 = () => ({
     components: {
         ImageCell,
         ...ImageCell.components
@@ -23,7 +34,7 @@ export const basicUsage = () => ({
     `
 })
 
-export const activeState = () => ({
+export const activeState2 = () => ({
     components: {
         ImageCell,
         ...ImageCell.components

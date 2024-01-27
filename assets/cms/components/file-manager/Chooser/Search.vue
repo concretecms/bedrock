@@ -27,9 +27,9 @@
 
 <script>
 /* eslint-disable no-new */
-import Icon from '../../Icon'
-import ChooserHeader from './Header'
-import Files from '../Chooser/Files'
+import Icon from '../../Icon.vue'
+import ChooserHeader from './Header.vue'
+import Files from '../Chooser/Files.vue'
 
 export default {
     components: {

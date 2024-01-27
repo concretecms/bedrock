@@ -80,8 +80,8 @@
 <script>
 /* global CCM_DISPATCHER_FILENAME, ConcreteAjaxRequest */
 /* eslint-disable indent */
-import Pagination from '../Pagination'
-import Icon from '../Icon'
+import Pagination from '../Pagination.vue'
+import Icon from '../Icon.vue'
 
 export default {
   components: {

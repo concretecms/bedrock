@@ -31,11 +31,12 @@
 </template>
 
 <script>
-import Icon from '../../Icon'
-import PageList from './../PageList'
+import Icon from '../../Icon.vue'
+import PageList from './../PageList.vue'
 
 export default {
     components: { Icon, PageList },
+    emits: ['select'],
     data: () => ({
         i18n: {
             search: 'Search',
@@ -50,11 +51,13 @@ export default {
             this.keywords = this.searchText
         },
         choosePage (page) {
-            window.ConcreteEvent.publish('SitemapSelectPage', {
+            window.ConcreteEvent?.publish('SitemapSelectPage', {
                 instance: this,
                 cID: page.cID,
                 title: page.name
             })
+
+            this.$emit('select', page)
         }
     },
     mounted() {
