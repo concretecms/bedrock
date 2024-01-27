@@ -1,7 +1,6 @@
 import ConcreteExpressEntrySelect from '../../assets/cms/components/form/ConcreteExpressEntrySelect.vue'
 import TomSelect from 'tom-select'
 import 'tom-select/dist/css/tom-select.bootstrap5.css'
-import ConcreteAjaxSelect from '../../assets/cms/components/form/ConcreteAjaxSelect.vue'
 import { rest } from 'msw'
 
 window.TomSelect = TomSelect

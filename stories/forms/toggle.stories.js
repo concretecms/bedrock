@@ -1,6 +1,5 @@
 import Toggle from '../../assets/cms/components/form/Toggle.vue'
 import { action } from '@storybook/addon-actions'
-import { ref } from 'vue'
 
 // Set up the values for all stories in this file
 export default {

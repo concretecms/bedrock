@@ -89,11 +89,13 @@ export default {
             render: {
                 option: function (item, escape) {
                     return (typeof (my.$parent.renderOption) === 'function')
-                        ? my.$parent.renderOption(item, escape) : my.renderOption(item, escape)
+                        ? my.$parent.renderOption(item, escape)
+                        : my.renderOption(item, escape)
                 },
                 item: function (item, escape) {
                     return (typeof (my.$parent.renderItem) === 'function')
-                        ? my.$parent.renderItem(item, escape) : my.renderItem(item, escape)
+                        ? my.$parent.renderItem(item, escape)
+                        : my.renderItem(item, escape)
                 }
             }
         }

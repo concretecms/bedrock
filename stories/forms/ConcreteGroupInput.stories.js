@@ -12,8 +12,8 @@ window.ConcreteUserGroupManager = {
             ]
         })
     },
-    launchDialog(callback) {
-        callback({
+    launchDialog(result) {
+        result({
             gID: 1,
             gDisplayName: 'Example'
         })

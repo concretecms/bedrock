@@ -1,4 +1,4 @@
-/* eslint-disable no-new, no-unused-vars, camelcase, standard/no-callback-literal, eqeqeq */
+/* eslint-disable no-new, no-unused-vars, camelcase, eqeqeq */
 /* global ccmi18n, ConcreteEvent, ConcreteAlert */
 
 ;(function(global, $) {
@@ -64,7 +64,7 @@
             }
         },
 
-        validateResponse: function(r, callback) {
+        validateResponse: function(r, resultCallback) {
             if (r.error) {
                 ConcreteEvent.fire('AjaxRequestError', {
                     response: r
@@ -73,22 +73,22 @@
                     ccmi18n.error,
                     ConcreteAjaxRequest.renderJsonError(r),
                     function() {
-                        if (callback) {
-                            callback(false, r)
+                        if (resultCallback) {
+                            resultCallback(false, r)
                         }
                     }
                 )
                 return false
-            } else if (callback) {
-                callback(true, r)
+            } else if (resultCallback) {
+                resultCallback(true, r)
             }
             return true
         },
 
-        success: function(r, my, callback) {
+        success: function(r, my, resultCallback) {
             if (my.options.dataType != 'json' || my.options.skipResponseValidation || my.validateResponse(r)) {
-                if (callback) {
-                    callback(r)
+                if (resultCallback) {
+                    resultCallback(r)
                 }
             }
         },

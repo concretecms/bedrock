@@ -1,6 +1,5 @@
 
 // Set up the values for all stories in this file
-import Toggle from '../../assets/cms/components/form/Toggle.vue'
 import ConcreteFileDirectoryInput from '../../assets/cms/components/form/ConcreteFileDirectoryInput.vue'
 import _ from 'underscore'
 import { action } from '@storybook/addon-actions'

@@ -61,7 +61,7 @@ import Icon from '../Icon.vue'
 
 const emit = defineEmits(['click', 'delete'])
 
-const props = defineProps({
+defineProps({
     isActive: {
         type: Boolean,
         default: false
