@@ -1,5 +1,5 @@
-import FontStylePageCustomizerWidget from "../../assets/cms/components/customizer/FontStylePageCustomizerWidget.vue";
-import {action} from "@storybook/addon-actions";
+import FontStylePageCustomizerWidget from '../../assets/cms/components/customizer/FontStylePageCustomizerWidget.vue'
+import { action } from '@storybook/addon-actions'
 
 export default {
     component: FontStylePageCustomizerWidget,
@@ -10,7 +10,7 @@ export const basicUsage = {
     args: {
         styleValue: {
             style: {
-                variable: 'passed-in-variable',
+                variable: 'passed-in-variable'
             },
             value: {
                 fontStyle: 'italic'

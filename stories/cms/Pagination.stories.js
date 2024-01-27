@@ -1,5 +1,5 @@
-import Pagination from "../../assets/cms/components/Pagination.vue";
-import {action} from "@storybook/addon-actions";
+import Pagination from '../../assets/cms/components/Pagination.vue'
+import { action } from '@storybook/addon-actions'
 
 export default {
     title: 'Pagination',

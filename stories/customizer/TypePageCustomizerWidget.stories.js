@@ -1,11 +1,11 @@
-import TypePageCustomizerWidget from "../../assets/cms/components/customizer/TypePageCustomizerWidget.vue";
+import TypePageCustomizerWidget from '../../assets/cms/components/customizer/TypePageCustomizerWidget.vue'
 
 /**
  * @TODO Get this rendering as expected
  */
 export default {
     component: TypePageCustomizerWidget,
-    title: 'Customizer/TypePageCustomizerWidget',
+    title: 'Customizer/TypePageCustomizerWidget'
 }
 
 export const basicUsage = {
@@ -18,5 +18,5 @@ export const basicUsage = {
                 name: 'foo'
             }
         }
-    },
+    }
 }

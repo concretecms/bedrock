@@ -1,4 +1,4 @@
-import {action} from "@storybook/addon-actions";
+import { action } from '@storybook/addon-actions'
 import _ from 'underscore'
 
 /**
@@ -12,7 +12,7 @@ window.ConcreteAjaxRequest = function(data) {
     action('ConcreteAjaxRequest')(data)
     data.success({
         data: [
-            {id: 1, name: 'foo', email: 'foo@example.com', dateAdded: 'date added', status: 'cool', totalLogins: 1337}
+            { id: 1, name: 'foo', email: 'foo@example.com', dateAdded: 'date added', status: 'cool', totalLogins: 1337 }
         ]
     })
 }

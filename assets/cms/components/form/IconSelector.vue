@@ -14,7 +14,7 @@ export default {
     data() {
         return {
             selectedOption: this.selected,
-            tomSelect: null,
+            tomSelect: null
         }
     },
     props: {

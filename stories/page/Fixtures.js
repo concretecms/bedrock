@@ -1,4 +1,4 @@
-import {action} from "@storybook/addon-actions";
+import { action } from '@storybook/addon-actions'
 
 window.CCM_DISPATCHER_FILENAME = 'foo'
 window.ConcreteAjaxRequest = function(options) {
@@ -7,7 +7,7 @@ window.ConcreteAjaxRequest = function(options) {
     options.success({
         meta: {
             ccm: {
-                pagination_show: true,
+                pagination_show: true
             },
             pagination: {
                 total: 1337,
@@ -15,7 +15,7 @@ window.ConcreteAjaxRequest = function(options) {
                 per_page: 20,
                 current_page: 1,
                 total_pages: 1337
-            },
+            }
         },
         data: [{
             cID: 100,

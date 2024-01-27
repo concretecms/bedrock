@@ -1,5 +1,5 @@
-import Files from "../../../assets/cms/components/file-manager/Chooser/Files.vue";
-import {action} from "@storybook/addon-actions";
+import Files from '../../../assets/cms/components/file-manager/Chooser/Files.vue'
+import { action } from '@storybook/addon-actions'
 import _ from 'underscore'
 
 /**
@@ -13,11 +13,11 @@ window.CCM_SECURITY_TOKEN = ''
 
 export default {
     component: Files,
-    title: 'FileManager/Chooser/Files',
+    title: 'FileManager/Chooser/Files'
 }
 
 export const basicUsage = {
     args: {
         routePath: '/foo'
-    },
+    }
 }

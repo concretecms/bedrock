@@ -109,7 +109,7 @@ export default {
             targetNumberOfLinks: 7,
             currentPage,
             localNumberOfPages: 1,
-            render: 0,
+            render: 0
         }
     },
     computed: {

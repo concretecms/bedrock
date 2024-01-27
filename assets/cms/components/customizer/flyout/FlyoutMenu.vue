@@ -61,6 +61,6 @@ export default {
                 my.dropdownMenu = null
             }
         })
-    },
+    }
 }
 </script>

@@ -1,8 +1,8 @@
-import ConcreteFileInput from "../../assets/cms/components/form/ConcreteFileInput.vue";
+import ConcreteFileInput from '../../assets/cms/components/form/ConcreteFileInput.vue'
 
 export default {
     component: ConcreteFileInput,
-    title: 'Forms/ConcreteFileInput',
+    title: 'Forms/ConcreteFileInput'
 }
 
 export const basicUsage = {

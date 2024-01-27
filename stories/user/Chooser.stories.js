@@ -1,4 +1,4 @@
-import Chooser from "../../assets/cms/components/user/Chooser.vue";
+import Chooser from '../../assets/cms/components/user/Chooser.vue'
 import './main'
 
 /**
@@ -7,9 +7,9 @@ import './main'
 
 export default {
     component: Chooser,
-    title: 'User/Chooser',
+    title: 'User/Chooser'
 }
 
 export const basicUsage = {
-    args: {},
+    args: {}
 }

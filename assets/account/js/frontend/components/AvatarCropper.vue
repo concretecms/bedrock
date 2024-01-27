@@ -79,7 +79,7 @@ export default {
         },
         reloadOnSave: {
             type: Boolean,
-            default: true,
+            default: true
         }
     },
     emits: ['save'],

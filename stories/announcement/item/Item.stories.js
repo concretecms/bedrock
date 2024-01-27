@@ -1,10 +1,10 @@
-import Item from "../../../assets/cms/components/Announcement/Item/Item.vue";
+import Item from '../../../assets/cms/components/Announcement/Item/Item.vue'
 import 'magnific-popup'
 import 'magnific-popup/dist/magnific-popup.css'
 
 export default {
     component: Item,
-    title: 'Announcement/Item/Item',
+    title: 'Announcement/Item/Item'
 }
 
 export const basicUsage = {
@@ -17,22 +17,22 @@ export const basicUsage = {
                 {
                     component: 'ConcreteAnnouncementVideoAction',
                     componentProps: {
-                        url: 'javascript:void',
+                        url: 'javascript:void'
                     }
                 },
                 {
                     component: 'ConcreteAnnouncementGuideAction',
                     componentProps: {
-                        guide: 'foo',
+                        guide: 'foo'
                     }
                 },
                 {
                     component: 'ConcreteAnnouncementExternalLinkAction',
                     componentProps: {
-                        url: 'javascript:void',
+                        url: 'javascript:void'
                     }
                 }
             ]
-        },
-    },
+        }
+    }
 }

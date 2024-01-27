@@ -1,9 +1,9 @@
 import ImageCell from '../../assets/cms/components/gallery/ImageCell.vue'
-import {action} from "@storybook/addon-actions";
+import { action } from '@storybook/addon-actions'
 
 export default {
     title: 'Gallery/Image Cell',
-    component: ImageCell,
+    component: ImageCell
 }
 
 export const basicUsage = {
@@ -12,7 +12,7 @@ export const basicUsage = {
         fileSize: '104 KB',
         size: '120',
         onClick: action('click'),
-        onDelete: action('delete'),
+        onDelete: action('delete')
     }
 }
 

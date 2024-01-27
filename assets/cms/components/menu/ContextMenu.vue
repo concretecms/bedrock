@@ -5,7 +5,7 @@
 </template>
 <script setup>
 const props = defineProps({
-    show: {type: Boolean, required: true},
+    show: { type: Boolean, required: true },
     class: String
 })
 </script>

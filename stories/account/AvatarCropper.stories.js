@@ -1,6 +1,6 @@
 import AvatarCropper from '../../assets/account/js/frontend/components/AvatarCropper.vue'
-import {rest} from "msw";
-import {ref} from "vue";
+import { rest } from 'msw'
+import { ref } from 'vue'
 
 const result = ref(null)
 // Set up the values for all stories in this file
@@ -9,8 +9,8 @@ export default {
     component: AvatarCropper,
     decorators: [
         () => ({
-            setup: () => ({result}),
-            template: `<div style='margin: 0 auto;width: 500px'><story/><div v-if="result"><h5 class="mt-3">Result:</h5><img :src="result" /></div></div>`
+            setup: () => ({ result }),
+            template: '<div style=\'margin: 0 auto;width: 500px\'><story/><div v-if="result"><h5 class="mt-3">Result:</h5><img :src="result" /></div></div>'
         })
     ],
     parameters: {
@@ -30,7 +30,7 @@ export const basicUsage = {
         uploadUrl: '/mock-upload',
         src: 'https://via.placeholder.com/150',
         accessToken: '',
-        lang: {header: 'Provided Header', reset: 'Provided Reset', upload: 'Provided Upload', save: 'Provided Save', saveInProgress: 'Provided SaveInProgress'},
+        lang: { header: 'Provided Header', reset: 'Provided Reset', upload: 'Provided Upload', save: 'Provided Save', saveInProgress: 'Provided SaveInProgress' },
         reloadOnSave: false,
         onSave: (data) => {
             result.value = (window.URL || window.webkitURL).createObjectURL(data)
@@ -45,7 +45,7 @@ export const differentSizes = {
         height: 300,
         uploadUrl: '/mock-upload',
         src: 'https://via.placeholder.com/400x300',
-        lang: {header: 'Provided Header', reset: 'Provided Reset', upload: 'Provided Upload', save: 'Provided Save', saveInProgress: 'Provided SaveInProgress'},
+        lang: { header: 'Provided Header', reset: 'Provided Reset', upload: 'Provided Upload', save: 'Provided Save', saveInProgress: 'Provided SaveInProgress' },
         reloadOnSave: false,
         onSave: (data) => {
             result.value = (window.URL || window.webkitURL).createObjectURL(data)

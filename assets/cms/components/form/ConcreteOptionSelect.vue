@@ -54,6 +54,7 @@ export default {
             required: false
         }
     },
+    emits: ['change'],
     computed: {
         maxItems() {
             if (this.allowMultipleValues) {

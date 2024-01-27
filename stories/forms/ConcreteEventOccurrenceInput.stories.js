@@ -1,8 +1,8 @@
-import ConcreteEventOccurrenceInput from "../../assets/cms/components/form/ConcreteEventOccurrenceInput.vue";
+import ConcreteEventOccurrenceInput from '../../assets/cms/components/form/ConcreteEventOccurrenceInput.vue'
 
 export default {
     component: ConcreteEventOccurrenceInput,
-    title: "Forms/ConcreteEventOccurrenceInput"
+    title: 'Forms/ConcreteEventOccurrenceInput'
 }
 
 window.CCM_DISPATCHER_FILENAME = ''

@@ -1,4 +1,4 @@
-import ThemeCustomizerPreview from "../../assets/cms/components/customizer/ThemeCustomizerPreview.vue";
+import ThemeCustomizerPreview from '../../assets/cms/components/customizer/ThemeCustomizerPreview.vue'
 
 import '../../assets/cms/js/events'
 

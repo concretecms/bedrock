@@ -1,4 +1,4 @@
-import AddScheduledBoardElementButton from "../../assets/cms/components/AddScheduledBoardElementButton.vue";
+import AddScheduledBoardElementButton from '../../assets/cms/components/AddScheduledBoardElementButton.vue'
 
 export default {
     component: AddScheduledBoardElementButton,
@@ -28,5 +28,5 @@ export const basicUsage = {
         disabled: false,
         buttonText: 'foo',
         modalTarget: '.modal'
-    },
+    }
 }

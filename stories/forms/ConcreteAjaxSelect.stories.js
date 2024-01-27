@@ -1,14 +1,14 @@
-import ConcreteAjaxSelect from "../../assets/cms/components/form/ConcreteAjaxSelect.vue";
-import "tom-select/dist/css/tom-select.bootstrap5.css";
-import TomSelect from "tom-select";
-import {rest} from "msw";
+import ConcreteAjaxSelect from '../../assets/cms/components/form/ConcreteAjaxSelect.vue'
+import 'tom-select/dist/css/tom-select.bootstrap5.css'
+import TomSelect from 'tom-select'
+import { rest } from 'msw'
 
 window.TomSelect = TomSelect
 
 const items = [
-    {"id":270,"primary_label":"Products"},
-    {"id":271,"primary_label":"Some other page"},
-    {"id":272,"primary_label":"A quick brown fox jumped over the lazy dog."},
+    { id: 270, primary_label: 'Products' },
+    { id: 271, primary_label: 'Some other page' },
+    { id: 272, primary_label: 'A quick brown fox jumped over the lazy dog.' }
 ]
 
 export default {
@@ -22,8 +22,8 @@ export default {
             rest.post('/data-source-url', (req, res, ctx) => {
                 return res(ctx.json(items))
             })
-        ],
-    },
+        ]
+    }
 }
 
 export const basicUsage = {
@@ -33,6 +33,6 @@ export const basicUsage = {
         formData: {
             pageId: 1
         },
-        accessToken: '',
+        accessToken: ''
     }
 }
