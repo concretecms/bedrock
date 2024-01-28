@@ -13,14 +13,22 @@ window.bootstrap = bootstrap
 
 $.fn.modal = (...args) => new bootstrap.Modal(...args)
 
-// Initialize MSW
-initialize({
+const mswOptions = {
   onUnhandledRequest({method, url}) {
     if (url.pathname.startsWith('/ccm')) {
       console.error(`Unhandled ${method} request to ${url}`)
     }
   }
-});
+}
+
+if (window.location.host.slice(-10) === '.github.io') {
+  mswOptions.serviceWorker = {
+    url: '/' + window.location.pathname.split('/')[1] + '/mockServiceWorker.js'
+  }
+}
+
+// Initialize MSW
+initialize(mswOptions);
 
 /** @type { import('@storybook/vue3').Preview } */
 const preview = {
