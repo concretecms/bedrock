@@ -1,6 +1,7 @@
 /** @type { import('@storybook/vue3-vite').StorybookConfig } */
 export default {
   stories: [
+    "../stories/Docs.mdx",
     "../stories/**/*.mdx",
     "../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)",
   ],
