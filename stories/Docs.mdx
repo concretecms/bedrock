@@ -1,0 +1,21 @@
+# Bedrock Storybook
+This is an initial pass at adding full storybook coverage to bedrock. All components should have stories but some might
+not be fully functional or might not best represent the current state of the component.
+
+## Todos:
+Search the stories for `@TODO` to find some remaining todos.
+Beyond the stated todos, stories.js files can be improved by adding more stories, or by adding a `.mdx` docs page like
+this one to better describe and demonstrate a components features
+
+## Noteworthy stuff:
+- [`Breadcrumb` has an example MDX docs page](?path=/docs/basics-breadcrumb--docs)
+- [`Icon` has an `autodocs` docs page](?path=/docs/basics-icon--docs)
+- `ConcreteAjaxSelect` shows how to use [`MSW`](https://storybook.js.org/addons/msw-storybook-addon) to mock http
+requests
+
+
+## Working on storybook
+The main files controlling storybook are:
+- `/.storybook/assets/main.js` Overall configuration for storybook
+- `/.storybook/assets/preview.js` Configuration for the frame stories are rendered in. Use this file to add global
+things to `window` for example.
