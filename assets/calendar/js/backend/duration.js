@@ -133,8 +133,8 @@
             var my = this
             var $startTime = my.$element.find('select[data-select=start-time]')
             var $endTime = my.$element.find('select[data-select=end-time]')
-            var startTimeSelect = new TomSelect($startTime.get(0))
-            var endTimeSelect = new TomSelect($endTime.get(0))
+            var startTimeSelect = new TomSelect($startTime.get(0), { maxOptions: null })
+            var endTimeSelect = new TomSelect($endTime.get(0), { maxOptions: null })
 
             $startTime.data('TomSelect', startTimeSelect)
             $startTime.on('change', function () {
