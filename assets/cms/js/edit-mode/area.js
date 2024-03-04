@@ -341,11 +341,11 @@
                 if (my.getDragAreas().length) {
                     throw new Error('No block supplied')
                 }
-                elem = $('<div class="ccm-area-drag-area"/>')
+                elem = $('<div class="ccm-area-drag-area ccm-ui"/>')
                 drag_area = new Concrete.DragArea(elem, my, block)
                 my.getBlockContainer().prepend(elem)
             } else {
-                elem = $('<div class="ccm-area-drag-area"/>')
+                elem = $('<div class="ccm-area-drag-area ccm-ui"/>')
                 drag_area = new Concrete.DragArea(elem, my, block)
                 block.getContainer().after(elem)
             }
