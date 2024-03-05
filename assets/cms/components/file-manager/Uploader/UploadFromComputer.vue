@@ -68,6 +68,10 @@ export default {
             type: Number,
             required: false,
             default: null
+        },
+        reloadOnReplace: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
@@ -274,6 +278,10 @@ export default {
             this.dropzone.processQueue()
         },
         uploadComplete(fileIds) {
+            if (this.replaceFileId && fileIds && fileIds.length && this.reloadOnReplace) {
+                window.location.reload()
+                return
+            }
             this.$emit('upload-complete', fileIds)
 
             ConcreteAlert.notify({
