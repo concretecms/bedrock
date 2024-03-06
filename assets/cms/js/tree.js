@@ -138,10 +138,10 @@ ConcreteTree.prototype = {
             },
             select: function (select, data) {
                 if (options.chooseNodeInForm) {
-                    var keys = $.map(data.tree.getSelectedNodes(), function (node) {
-                        return node.key
-                    })
+                    const keys = my.getSelectedNodeKeys(data.tree.getRootNode(), ajaxData.treeNodeSelectedIDs)
+                    if (keys.length) {
                     options.onSelect(keys)
+                }
                 }
             },
 
@@ -168,12 +168,9 @@ ConcreteTree.prototype = {
 
                 var selectedNodes
                 if (options.chooseNodeInForm) {
-                    selectedNodes = $.ui.fancytree.getTree($tree)
-                    selectedNodes = selectedNodes.getSelectedNodes()
-                    if (selectedNodes.length) {
-                        var keys = $.map(selectedNodes, function (node) {
-                            return node.key
-                        })
+                    const tree = $.ui.fancytree.getTree($tree)
+                    const keys = my.getSelectedNodeKeys(tree.getRootNode(), ajaxData.treeNodeSelectedIDs)
+                    if (keys.length) {
                         options.onSelect(keys)
                     }
                 }
@@ -308,6 +305,30 @@ ConcreteTree.prototype = {
                 }
             }
         })
+    },
+
+    getSelectedNodeKeys: function (node, selected) {
+        var my = this
+
+        // Initialize selected and deselected arrays
+        selected = selected || []
+        // Walk through all child nodes
+        if (node.hasChildren()) {
+            node.getChildren().forEach(function (child) {
+                // If the node is selected and not already in the selected array, add it
+                if (child.isSelected() && !selected.includes(parseInt(child.key))) {
+                    selected.push(parseInt(child.key))
+                }
+                // If the node is not selected and is in the selected array, remove it
+                if (!child.isSelected() && selected.includes(parseInt(child.key))) {
+                    selected.splice(selected.indexOf(parseInt(child.key)), 1)
+                }
+                // call the function recursively and merge the result with the selected array
+                selected = my.getSelectedNodeKeys(child, selected)
+            })
+        }
+
+        return selected
     },
 
     getLoadNodePromise: function (node) {
