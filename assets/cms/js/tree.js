@@ -138,8 +138,17 @@ ConcreteTree.prototype = {
             },
             select: function (select, data) {
                 if (options.chooseNodeInForm) {
-                    const keys = my.getSelectedNodeKeys(data.tree.getRootNode(), ajaxData.treeNodeSelectedIDs)
+                    let keys = [];
+                    if (selectMode == 1) {
+                        keys = [data.node.key]
+                        my.deselectNodes(data.tree.getRootNode(), data.node)
+                    } else {
+                        keys = my.getSelectedNodeKeys(data.tree.getRootNode(), ajaxData.treeNodeSelectedIDs)
+                    }
+                    // Call onSelect callback
                     options.onSelect(keys)
+                    // Update selected nodes for ajax request to avoid hidden nodes to be selected unexpectedly
+                    ajaxData.treeNodeSelectedIDs = keys
                 }
             },
 
@@ -226,11 +235,13 @@ ConcreteTree.prototype = {
             },
             collapse: function(event, data) {
                 // loop over child nodes and check if node is still selected. If not remove it from the 'options.ajaxData.selected' array.
-                data.node.children.forEach(function(nodeChild) {
-                    if (options.ajaxData.selected.includes(parseInt(nodeChild.key)) && !nodeChild.isSelected()) {
-                        options.ajaxData.selected.splice(options.ajaxData.selected.indexOf(nodeChild.key), 1)
-                    }
-                })
+                if (options.ajaxData.selected) {
+                    data.node.children.forEach(function(nodeChild) {
+                        if (options.ajaxData.selected.includes(parseInt(nodeChild.key)) && !nodeChild.isSelected()) {
+                            options.ajaxData.selected.splice(options.ajaxData.selected.indexOf(nodeChild.key), 1)
+                        }
+                    })
+                }
             },
             dnd: {
                 preventRecursiveMoves: true, // Prevent dropping nodes on own descendants,
@@ -336,6 +347,22 @@ ConcreteTree.prototype = {
         }
 
         return selected
+    },
+
+    deselectNodes: function (parentNode, selectedNode) {
+        var my = this
+
+        // Walk through all child nodes
+        if (parentNode.hasChildren()) {
+            parentNode.getChildren().forEach(function (child) {
+                // If the node is not the selected node, deselect it
+                if (parseInt(child.key) !== parseInt(selectedNode.key)) {
+                    child.setSelected(false)
+                }
+                // call the function recursively
+                my.deselectNodes(child, selectedNode)
+            })
+        }
     },
 
     getLoadNodePromise: function (node) {
