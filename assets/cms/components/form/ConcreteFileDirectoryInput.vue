@@ -122,10 +122,10 @@ export default {
             searchField: 'directoryName',
             render: {
                 option: function (data, escape) {
-                    return `<div class="level-${data.directoryLevel}"><i class="fa fa-folder"></i> ${data.directoryName}</div>`
+                    return `<div class="level-${data.directoryLevel}"><i class="fa fa-folder"></i> ${data.directoryName.replace(/[^a-zA-Z0-9-_ ]/g, '')}</div>`
                 },
                 item: function (item, escape) {
-                    return `<div class="level-${item.directoryLevel}"><i class="fa fa-folder"></i> ${item.directoryName}</div>`
+                    return `<div class="level-${item.directoryLevel}"><i class="fa fa-folder"></i> ${item.directoryName.replace(/[^a-zA-Z0-9-_ ]/g, '')}</div>`
                 }
             }
         })
