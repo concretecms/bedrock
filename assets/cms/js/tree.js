@@ -138,7 +138,7 @@ ConcreteTree.prototype = {
             },
             select: function (select, data) {
                 if (options.chooseNodeInForm) {
-                    let keys = [];
+                    let keys = []
                     if (selectMode == 1) {
                         keys = [data.node.key]
                         my.deselectNodes(data.tree.getRootNode(), data.node)
