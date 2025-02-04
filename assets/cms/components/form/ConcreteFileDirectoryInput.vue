@@ -2,16 +2,18 @@
     <div>
         <div class="ccm-directory-selector-container">
             <div class="form-group">
-                <label class="form-label" :for="directorySelectInputId" v-if="inputLabel">{{inputLabel}}</label>
+                <label class="form-label" :for="directorySelectInputId" v-if="inputLabel">{{ inputLabel }}</label>
                 <div v-if="showAddDirectoryButton" class="input-group">
-                    <input :id="directorySelectInputId" :name="inputName" v-model="selectedDirectoryID" ref="directoryInput" :disabled="disabled" />
+                    <input :id="directorySelectInputId" :name="inputName" v-model="selectedDirectoryID"
+                           ref="directoryInput" :disabled="disabled"/>
                     <button type="button"
                             :class="{'btn': true, 'btn-secondary': true, 'ccm-create-new-directory-button': true, 'disabled': disabled === true}"
                             @click="toggleDirectoryInput" :disabled="disabled">
                         {{ i18n.createNewFolder }}
                     </button>
                 </div>
-                <input v-else :id="directorySelectInputId" :name="inputName" v-model="selectedDirectoryID" ref="directoryInput" :disabled="disabled" />
+                <input v-else :id="directorySelectInputId" :name="inputName" v-model="selectedDirectoryID"
+                       ref="directoryInput" :disabled="disabled"/>
             </div>
         </div>
         <div v-if="showAddDirectoryButton" v-show="showAddDirectoryInput" class="ccm-new-directory-name-container">
@@ -113,6 +115,7 @@ export default {
             this.selectedDirectoryID = this.directoryId
         }
 
+        var my = this
         this.selectMenu = new TomSelect(this.$refs.directoryInput, {
             maxOptions: 200,
             maxItems: 1,
@@ -122,15 +125,20 @@ export default {
             searchField: 'directoryName',
             render: {
                 option: function (data, escape) {
-                    return `<div class="level-${data.directoryLevel}"><i class="fa fa-folder"></i> ${data.directoryName}</div>`
+                    return `<div class="level-${data.directoryLevel}"><i class="fa fa-folder"></i> ${my.sanitizeDirectoryName(data.directoryName)} </div>`
                 },
                 item: function (item, escape) {
-                    return `<div class="level-${item.directoryLevel}"><i class="fa fa-folder"></i> ${item.directoryName}</div>`
+                    return `<div class="level-${item.directoryLevel}"><i class="fa fa-folder"></i> ${my.sanitizeDirectoryName(item.directoryName)} </div>`
                 }
             }
         })
     },
     methods: {
+        sanitizeDirectoryName(directoryName) {
+            const div = document.createElement('div')
+            div.textContent = directoryName
+            return div.innerHTML
+        },
         createDirectory() {
             const me = this
             if (!me.showAddDirectoryInput || me.disabled) {
