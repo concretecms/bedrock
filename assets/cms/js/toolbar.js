@@ -2,7 +2,9 @@
 /* global CCM_DISPATCHER_FILENAME, ConcreteModal, ConcreteEvent, ConcreteHelpGuideManager, ConcretePanelManager, bootstrap */
 
 /* Basic toolbar class */
-;(function(global, $) {
+import { isDarkMode } from './dark-mode'
+
+;(function(global, $, isDarkMode) {
     'use strict'
 
     var $toolbar = $('#ccm-toolbar')
@@ -79,7 +81,19 @@
 
     function setupTooltips() {
         if ($('#ccm-tooltip-holder').length == 0) {
-            $('<div />').attr('id', 'ccm-tooltip-holder').attr('class', 'ccm-ui').prependTo(document.body)
+            // we need the holder and holder inner because dark mode requires that .ccm-ui come INSIDE
+            // data-bs-theme.
+            const $tooltipHolder = $('<div />')
+            if (isDarkMode()) {
+                $tooltipHolder.attr('data-bs-theme', 'dark')
+            } else {
+                $tooltipHolder.attr('data-bs-theme', 'light')
+            }
+            const $tooltipHolderInner = $('<div />')
+                .attr('id', 'ccm-tooltip-holder')
+                .attr('class', 'ccm-ui')
+            $tooltipHolderInner.prependTo($tooltipHolder)
+            $tooltipHolder.prependTo(document.body)
         }
 
         const tooltipTriggerList = [].slice.call(document.querySelectorAll('.launch-tooltip'))
@@ -147,6 +161,13 @@
         ConcreteEvent.subscribe('PanelClose', function(e) {
             $('a[data-toolbar-action=check-in]').unbind('click.close-check-in')
         })
+    }
+
+    function setupAutoDarkMode() {
+        if ($('#ccm-toolbar').parent().attr('data-bs-theme-select') === 'auto') {
+            const scheme = global.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+            $('#ccm-toolbar').parent().attr('data-bs-theme', scheme)
+        }
     }
 
     function setupIntelligentSearch() {
@@ -341,6 +362,7 @@
             if ($toolbar.length > 0) {
                 $toolbar.find('.dialog-launch').dialog()
 
+                setupAutoDarkMode()
                 setupIntelligentSearch()
                 setupPanels()
                 setupTooltips()
@@ -375,4 +397,4 @@
             }
         }
     }
-})(window, jQuery); // eslint-disable-line semi
+})(window, jQuery, isDarkMode); // eslint-disable-line semi
