@@ -1,6 +1,7 @@
 /* eslint-disable no-new, no-unused-vars, camelcase, eqeqeq */
 /* global _, ccmi18n, Concrete, ConcreteEvent, CCM_CID, bootstrap */
 
+import { isDarkMode } from './dark-mode'
 var html = $('html')
 var baseClasses = $('div.ccm-page').attr('class')
 
@@ -267,7 +268,7 @@ function ConcretePanel(options) {
         var $detail = $('<div />', {
             id: detailID,
             class: 'ccm-panel-detail'
-        }).appendTo(document.body)
+        }).appendTo(ConcretePanelManager.getPanelPortal())
 
         var $content = $('<div />', {
             class: 'ccm-ui ccm-panel-detail-content'
@@ -565,7 +566,7 @@ var ConcretePanelManager = (function () {
                 $('<div />', {
                     id: panel.getDOMID(),
                     class: 'ccm-panel ' + panel.getPositionClass()
-                }).appendTo($(document.body))
+                }).appendTo(ConcretePanelManager.getPanelPortal())
 
                 $('<div />', {
                     class: 'ccm-panel-content-wrapper ccm-ui'
@@ -578,6 +579,26 @@ var ConcretePanelManager = (function () {
                 if (panels[i].getIdentifier() == panelID) {
                     return panels[i]
                 }
+            }
+        },
+
+        getPanelPortal: function () {
+            const $panelPortal = $('#ccm-panel-portal')
+            if ($panelPortal.length === 0) {
+                const $panelPortalOuter = $('<div />')
+                if (isDarkMode()) {
+                    $panelPortalOuter.attr('data-bs-theme', 'dark')
+                } else {
+                    $panelPortalOuter.attr('data-bs-theme', 'light')
+                }
+                const $panelPortal = $('<div />')
+                    .attr('id', 'ccm-panel-portal')
+                    .attr('class', 'ccm-ui')
+                $panelPortal.prependTo($panelPortalOuter)
+                $panelPortalOuter.prependTo(document.body)
+                return $('#ccm-panel-portal') // I think we need to do this due to a jQuery cache?
+            } else {
+                return $panelPortal
             }
         }
 
