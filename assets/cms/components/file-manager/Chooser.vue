@@ -152,10 +152,17 @@ export default {
                 }
             }
         }
+
         this.applyLocalization()
         ConcreteEvent.subscribe('FileUploaderFilesReadyToUpload', function(e, filesReadyToUpload) {
             my.filesReadyToUpload = filesReadyToUpload
         })
+
+        const fileChooserItemKey = $.cookie('ConcreteFileChooserItemKey')
+        if (fileChooserItemKey) {
+          this.activateTabByKey(fileChooserItemKey)
+        }
+
     },
     watch: {
         choosers() {
@@ -222,18 +229,21 @@ export default {
         activateTabByKey(key) {
             var my = this
             this.choosers.forEach(function(chooser) {
-                if (chooser.id === key) {
+                if (chooser.componentKey === key) {
                     my.activateTab(chooser)
                 }
             })
             this.uploaders.forEach(function(uploader) {
-                if (uploader.id === key) {
+                if (uploader.componentKey === key) {
                     my.activateTab(uploader)
                 }
             })
         },
         activateTab(item) {
             this.activeNavItem = item
+
+            // Store the last selected tab ID in a cookie (expires in 7 days)
+            $.cookie('ConcreteFileChooserItemKey', item.componentKey, { expires: 7, path: '/' })
 
             // Reset Selected Files because the component always rerender after Tab switch
             // Otherwise we have to use keep-alive built-in component [@see https://vuejs.org/v2/api/#keep-alive]
