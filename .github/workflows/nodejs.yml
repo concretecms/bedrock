@@ -15,17 +15,11 @@ name: SCSS and JS style requirements
 on:
   push:
     branches:
-    - master
-    - feature/*
-    - 1.5.x
-    - 1.6.x
-    - 2.0.x
-
+      - 1.*
+      - 2.*
   pull_request:
-    branches:
-    - master
-    - feature/*
-    - misc-fixes-*
+    - 1.*
+    - 2.*
 
 jobs:
   build:
