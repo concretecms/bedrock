@@ -17,11 +17,15 @@ on:
     branches:
     - master
     - feature/*
+    - 1.5.x
+    - 1.6.x
+    - 2.0.x
 
   pull_request:
     branches:
     - master
     - feature/*
+    - misc-fixes-*
 
 jobs:
   build:
