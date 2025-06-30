@@ -160,9 +160,8 @@ export default {
 
         const fileChooserItemKey = $.cookie('ConcreteFileChooserItemKey')
         if (fileChooserItemKey) {
-          this.activateTabByKey(fileChooserItemKey)
+            this.activateTabByKey(fileChooserItemKey)
         }
-
     },
     watch: {
         choosers() {
