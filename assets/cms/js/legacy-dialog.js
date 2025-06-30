@@ -277,7 +277,7 @@
         var finalSettings = { autoOpen: false, data: {} }
         $.extend(finalSettings, defaults, options)
 
-        finalSettings.classes = {"ui-dialog": finalSettings.dialogClass}
+        finalSettings.classes = { 'ui-dialog': finalSettings.dialogClass }
 
         if (finalSettings.element) {
             $(finalSettings.element).jqdialog(finalSettings).jqdialog()
