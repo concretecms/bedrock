@@ -18,8 +18,9 @@ on:
       - 1.*
       - 2.*
   pull_request:
-    - 1.*
-    - 2.*
+    branches:
+      - 1.*
+      - 2.*
 
 jobs:
   build:
