@@ -16,6 +16,6 @@ $(window).on('mousemove keydown keyup', function() {
         cache: false,
         dataType: 'json',
         type: 'GET',
-        url: CCM_DISPATCHER_FILENAME + '/ccm/system/heartbeat'
+        url: CCM_DISPATCHER_FILENAME + '/ccm/system/heartbeat?cID=' + (Number(window.CCM_CID) || '')
     })
 })
