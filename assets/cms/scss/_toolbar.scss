@@ -83,6 +83,11 @@ div#ccm-toolbar {
 
       }
 
+      > a.ccm-toolbar-icon {
+        height: 100%;
+        width: 100%;
+      }
+
       > a:hover {
         background-color: $gray-200;
         color: $gray-900;
