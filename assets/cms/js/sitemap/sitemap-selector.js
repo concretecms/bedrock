@@ -33,20 +33,48 @@
             },
             init: function() {
                 if (options.selected) {
-                    if (options.mode == 'multiple') {
-                        $.each(options.selected, function(i, cID) {
-                            var node = $.ui.fancytree.getTree(my.$element.find('.ccm-sitemap-tree')).getNodeByKey(String(cID))
+                    var tree = $.ui.fancytree.getTree(my.$element.find('.ccm-sitemap-tree'))
+
+                    var paths
+                    if (options.mode === 'multiple') {
+                        paths = options.selectedPath.map(pathGroup => pathGroup.map(String))
+                    } else {
+                        paths = []
+                        paths.push(options.selectedPath.map(String))
+                    }
+
+                    var promise = Promise.resolve()
+
+                    paths.forEach(function(pathGroup) {
+                        pathGroup.forEach(function(nodeKey) {
+                            promise = promise.then(function() {
+                                var node = tree.getNodeByKey(nodeKey)
+                                if (node) {
+                                    return node.setExpanded(true)
+                                }
+                            })
+                        })
+
+                        promise = promise.then(function() {
+                            return Promise.resolve()
+                        })
+                    })
+
+                    promise.then(function() {
+                        if (options.mode === 'multiple') {
+                            options.selected.forEach(function(cID) {
+                                var node = tree.getNodeByKey(String(cID))
+                                if (node) {
+                                    node.setSelected(true)
+                                }
+                            })
+                        } else {
+                            var node = tree.getNodeByKey(String(options.selected))
                             if (node) {
                                 node.setSelected(true)
                             }
-                        })
-                    } else {
-                        var tree = $.ui.fancytree.getTree(my.$element.find('.ccm-sitemap-tree'))
-                        var node = tree.getNodeByKey(String(options.selected))
-                        if (node) {
-                            node.setSelected(true)
                         }
-                    }
+                    })
                 }
             },
             onSelectNode: function(node, flag) {
