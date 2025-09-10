@@ -343,7 +343,7 @@ export default {
 
         // Remove the data-dialog=theme-customizer-custom-css div if it appears
         // inside a div with the [role=dialog]. Fixes https://github.com/concretecms/concretecms/issues/12575
-        let $customCssDialog = $('div[role=dialog] div[data-dialog=theme-customizer-custom-css]')
+        const $customCssDialog = $('div[role=dialog] div[data-dialog=theme-customizer-custom-css]')
         if ($customCssDialog.length) {
             $customCssDialog.remove()
         }
