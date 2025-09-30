@@ -121,10 +121,10 @@ export default {
             var my = this
             my.isLoading = true
             ConcreteFileManager.getFileDetails(fileId, function (r) {
-                my.selectedFile = r.files[0]
-                my.selectedFileID = fileId
+                my.selectedFile = r ? r.files[0] : null
+                my.selectedFileID = r ? fileId : 0
                 my.isLoading = false
-                my.$emit('selectedfile', r.files[0])
+                my.$emit('selectedfile', my.selectedFile)
             })
         }
 

@@ -183,7 +183,7 @@ export default {
             ConcreteFileManager.launchDialog(function(data) {
                 for (var fID of data.fID) {
                     ConcreteFileManager.getFileDetails(fID, function (file) {
-                        file = file.files[0] || {}
+                        file = file?.files[0] || {}
                         me.gallery.push({
                             id: file.fID,
                             title: file.title,
