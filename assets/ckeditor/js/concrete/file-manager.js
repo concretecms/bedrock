@@ -15,6 +15,9 @@
                             jQuery.fn.dialog.showLoader()
                             ConcreteFileManager.getFileDetails(data.fID, function (r) {
                                 jQuery.fn.dialog.hideLoader()
+                                if (!r) {
+                                    return
+                                }
                                 var file = r.files[0]
                                 if ((dialog.getName() == 'image' || dialog.getName() == 'image2') && dialog._.currentTabId == 'info') {
                                     CKEDITOR.tools.callFunction(editor._.filebrowserFn, file.urlInline, function () {
