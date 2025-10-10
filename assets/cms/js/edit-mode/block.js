@@ -210,7 +210,7 @@
                     }
                     $.fn.dialog.hideLoader()
                     _.defer(function () {
-                        my.getEditMode().scanBlocks()
+                        Concrete.getEditMode().scanBlocks()
                         my.showSuccessfulAdd()
                         Concrete.forceRefresh()
 
