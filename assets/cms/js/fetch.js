@@ -98,6 +98,26 @@
     }
 
     /**
+     * Check a JSON response for errors.
+     *
+     * @param {any} responseData
+     *
+     * @throws {Error} If the response data contains errors (the thrown error will have a responseData property)
+     */
+    function checkJsonResponse(responseData) {
+        if (responseData?.errors?.length) {
+            const error = new Error(responseData.errors[0]);
+            error.responseData = responseData;
+            throw error;
+        }
+        if (responseData?.error) {
+            const error = new Error(responseData.error);
+            error.responseData = responseData;
+            throw error;
+        }
+    }
+
+    /**
      * Fetch JSON data from a URL.
      *
      * @param {string} url The URL to fetch data from
@@ -129,12 +149,7 @@
         } catch {
             throw new Error(responseText);
         }
-        if (responseData?.errors?.length) {
-            throw new Error(responseData.errors[0]);
-        }
-        if (responseData?.error) {
-            throw new Error(responseData.error);
-        }
+        checkJsonResponse(responseData);
         if (!response.ok) {
             throw new Error(responseText);
         }
@@ -179,18 +194,18 @@
         );
         const response = await fetch(url, request);
         const responseText = await response.text();
+        let responseData
         try {
             // Try to see if it's JSON with errors
-            const responseData = JSON.parse(responseText);
-            if (responseData?.errors?.length) {
-                throw new Error(responseData.errors[0]);
-            }
-            if (responseData?.error) {
-                throw new Error(responseData.error);
-            }
+            responseData = JSON.parse(responseText);
         } catch {
             // Not JSON, that's fine
+            responseData = null;
         }
+        if (responseData) {
+            checkJsonResponse(responseData);
+        }
+
         if (!response.ok) {
             throw new Error(responseText);
         }
