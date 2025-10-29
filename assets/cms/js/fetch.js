@@ -48,7 +48,7 @@
     }
 
     /**
-     * Prepare the request options for fetch().
+     * Prepare the request options for window.fetch().
      *
      * @param {RequestInit|Record<string, any>|null|undefined} request
      * @param {Record<string, string>|null|undefined} headers Additional headers to add (will not override existing ones)
@@ -199,8 +199,8 @@
 
     global.ConcreteFetch = {
         buildRequestBody,
-        fetchJson,
-        fetchHtml,
+        json: fetchJson,
+        html: fetchHtml,
     };
 
 })(global);
