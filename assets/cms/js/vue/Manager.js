@@ -60,6 +60,24 @@ export default class Manager {
     }
 
     /**
+     * Activates a particular context (and its components) for a particular selector, returning a promise.
+     *
+     * @param {String} context
+     *
+     * @returns {Promise<{Vue: typeof Vue, options: Record<string, any>}>
+     *
+     * @example
+     * const {Vue, options} = await Concrete.Vue.activateContextAsync('cms')
+     */
+    activateContextAsync(context) {
+        return new Promise((resolve) => {
+            this.activateContext(context, (Vue, options) => {
+                resolve({ Vue, options })
+            })
+        })
+    }
+
+    /**
      * For a given string `context`, adds the passed components to make them available within that context.
      *
      * @param {String} context The name of the context to extend
