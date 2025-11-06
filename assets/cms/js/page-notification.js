@@ -14,7 +14,7 @@ const modules = new Map([
 class PageNotification {
     constructor() {
         const notificationsBoxHTML = `
-    <div class="ccm-notifications-box">
+    <div class="ccm-notifications-box ccm-ui">
         <div class="ccm-notifications-box-header">
             <div data-bs-toggle="collapse" data-bs-target=".ccm-notifications-box-body" aria-expanded="true" role="button">${ccmi18n.notifications}</div>
             <a href="#" class="btn-close ccm-notifications-box-close"></a></div>
