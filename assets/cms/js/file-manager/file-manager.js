@@ -51,6 +51,7 @@ class ConcreteFileManager {
             data: { fID: fID },
             error: function(r) {
                 ConcreteAlert.dialog(ccmi18n.error, r.responseText)
+                callback(null)
             },
             success: function(r) {
                 callback(r)
