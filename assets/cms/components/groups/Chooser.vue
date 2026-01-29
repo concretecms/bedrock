@@ -142,7 +142,10 @@ export default {
         },
         triggerSelect(gID, gName, gDisplayName) {
             gID = parseInt(gID) || 0
-            ConcreteEvent.publish('SelectGroup', { gID, gName, gDisplayName })
+            // Fallback to legacy event if no Vue listener is defined
+            if (!this.$listeners.select) {
+              ConcreteEvent.publish('SelectGroup', {gID, gName, gDisplayName})
+            }
             this.$emit('select', { gID, gName, gDisplayName })
         },
         performSearch(event) {
