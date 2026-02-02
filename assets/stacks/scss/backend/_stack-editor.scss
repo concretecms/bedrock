@@ -2,12 +2,13 @@
 
 #ccm-stack-editor {
   margin-top: 100px;
+
   .ccm-dashboard-breadcrumb {
+    font-size: 1rem;
     margin-bottom: 0;
     margin-top: 0;
     padding-bottom: 0;
     padding-top: 0;
-    font-size: 1rem;
 
     a.dropdown-toggle {
       color: $gray-600;
@@ -16,9 +17,5 @@
 
   .ccm-stack-editor-column {
     transition: width 0.1s cubic-bezier(0.19, 1, 0.22, 1);
-  }
-
-  #ccm-stack-editor {
-    margin-top: $ccm-toolbar-height * 2;
   }
 }
