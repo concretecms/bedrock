@@ -176,7 +176,7 @@ window._ = _
                     updateStatus: function(data) {
                         if (data.status == 'ready') {
                             var $form = $('form[data-conversation-form=subscribe]')
-                            $('button').on('click', $form, function(e) {
+                            $('button.btn-primary').on('click', $form, function(e) {
                                 e.preventDefault()
                                 e.stopPropagation()
                                 $.ajax({
