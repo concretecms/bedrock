@@ -1,6 +1,6 @@
 /* eslint-disable no-new, no-unused-vars, camelcase, eqeqeq */
 
-/* global ccmi18n, ccmi18n_tree, CCM_DISPATCHER_FILENAME, ConcreteAlert, ConcreteEvent, ConcreteMenu */
+/* global ccmi18n, CCM_SECURITY_TOKEN, ccmi18n_tree, CCM_DISPATCHER_FILENAME, ConcreteAlert, ConcreteEvent, ConcreteMenu */
 
 function ConcreteTree($element, options) {
     var my = this
@@ -40,6 +40,9 @@ ConcreteTree.prototype = {
             },
             {
                 name: 'treeNodeParentID', value: treeNodeParentID
+            },
+            {
+                name: 'ccm_token', value: CCM_SECURITY_TOKEN
             }
         ]
 
@@ -296,6 +299,8 @@ ConcreteTree.prototype = {
                             value: data.otherNode.data.treeNodeID
                         }, {
                             name: 'treeNodeParentID', value: treeNodeParentID
+                        }, {
+                            name: 'ccm_token', value: CCM_SECURITY_TOKEN
                         }]
                         var childNodes = targetNode.parent.getChildren()
                         if (childNodes) {
