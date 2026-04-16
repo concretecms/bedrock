@@ -33,6 +33,14 @@ import _ from 'underscore'
 
         bindNotchMenu: function() {
             var my = this
+            // Remove stale ConcreteMenu event handlers left by previous
+            // instances. ContainerBlock doesn't store a reference to its
+            // ConcreteMenu, so it isn't destroyed during scanBlocks reset.
+            // Without this cleanup, mousemove.concreteMenu handlers
+            // accumulate on the notch across drag cycles, causing the
+            // click-proxy overlay to be re-established over the notch
+            // even after it's been reset.
+            my.getNotch().off('.concreteMenu')
             var menu_config = {
                 highlightClassName: 'ccm-edit-mode-title-notch-highlight',
                 menuActiveClass: 'ccm-edit-mode-title-notch-highlight',
@@ -54,11 +62,6 @@ import _ from 'underscore'
                 e.preventDefault()
                 my.delete()
             })
-        },
-
-        setupAreaDragPayloads: function setupAreaDragPayloads(areas) {
-            var my = this
-            my.getArea().getElem().addClass('ccm-area-accepts-block-drag-payload')
         },
 
         bindEditDesign: function ContainerBlockEditDesign() {
@@ -83,6 +86,10 @@ import _ from 'underscore'
             var my = this
             var mover = my.getNotch().find('a[data-inline-command=move-block]').parent()
 
+            // Ensure the drag handle paints above the ConcreteMenu click-proxy
+            // overlay (z-index 500). Without this, the proxy intercepts mousedown
+            // events and pep never sees them.
+            mover.css({ position: 'relative', zIndex: 501 })
             $.pep.unbind(mover)
             mover.pep(my.getPepSettings())
         }

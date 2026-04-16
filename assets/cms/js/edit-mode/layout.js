@@ -29,6 +29,7 @@ import _ from 'underscore'
 
         bindNotchMenu: function() {
             var my = this
+            my.getNotch().off('.concreteMenu')
             var $menuElem = $('[data-layout-menu=' + my.getId() + ']')
             var menu_config = {
                 highlightClassName: 'ccm-edit-mode-title-notch-highlight',
@@ -77,14 +78,9 @@ import _ from 'underscore'
         bindDrag: function layoutBindDrag() {
             var my = this
             var peper = $('[data-layout-command="move-block"]')
+            peper.css({ position: 'relative', zIndex: 501 })
             $.pep.unbind(peper)
             peper.pep(my.getPepSettings())
-        },
-
-        setupAreaDragPayloads: function setupAreaDragPayloads(areas) {
-            var my = this
-
-            my.getArea().getElem().addClass('ccm-area-accepts-block-drag-payload')
         },
 
         addToDragArea: function layoutAddToDragArea() {

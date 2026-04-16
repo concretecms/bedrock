@@ -336,11 +336,10 @@
                 var areas = my.getAreas()
                 var contenders
 
-                if (block instanceof Concrete.Layout || block instanceof Concrete.ContainerBlock) {
-                    areas = [_(areas).find(function (a) {
-                        return block.getArea() === a
-                    })]
-                }
+                var ownElem = block.getElem()[0]
+                areas = _(areas).filter(function (area) {
+                    return !ownElem.contains(area.getElem()[0])
+                })
 
                 contenders = _.flatten(_(areas).map(function (area) {
                     var drag_areas = area.contendingDragAreas(pep, block)
