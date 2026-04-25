@@ -1,4 +1,5 @@
-/* eslint-disable eqeqeq */
+/* eslint-disable eqeqeq, camelcase */
+/* global ccmi18n_editor */
 (function () {
     CKEDITOR.plugins.add('concretefilemanager', {
         requires: 'filebrowser',
@@ -65,6 +66,10 @@
                     if (browseButton !== null) {
                         browseButton.hidden = false
                         browseButton.onClick = makeButtonClickHandler()
+                        if (typeof ccmi18n_editor !== 'undefined' && ccmi18n_editor.selectFile) {
+                            browseButton.label = ccmi18n_editor.selectFile
+                            browseButton.title = ccmi18n_editor.selectFile
+                        }
                     }
                 }
             })
