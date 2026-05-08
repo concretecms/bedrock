@@ -133,10 +133,21 @@ ConcreteProgressiveOperation.prototype.execute = function() {
         ConcreteEvent.publish('TaskActivityWindowShow', { token: my.options.response.viewToken })
         my.consumeIfNecessary(my.options.response)
     } else {
+        var data = my.options.data
+        if ($.isArray(data)) {
+            data = data.slice()
+            if (!data.some(function(item) {
+                return item && item.name === 'ccm_token'
+            })) {
+                data.push({ name: 'ccm_token', value: CCM_SECURITY_TOKEN })
+            }
+        } else {
+            data = $.extend({}, data, { ccm_token: CCM_SECURITY_TOKEN })
+        }
         $.concreteAjax({
             url: my.options.url,
             type: 'POST',
-            data: my.options.data,
+            data: data,
             dataType: 'json',
             success: function(r) {
                 ConcreteEvent.publish('TaskActivityWindowShow', { token: r.viewToken })
