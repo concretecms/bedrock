@@ -121,11 +121,12 @@
             var my = this
             var targetDragAreas = targetArea.getDragAreas()
             var myElem
+            var containerWrapper = my.getContainer()
 
             afterBlock = afterBlock || null
             my.getArea().removeBlock(my)
-            my.getContainer().remove()
             if (my.getWraps()) {
+                containerWrapper.remove()
                 myElem = $(targetArea.getBlockTemplate()())
                 if (myElem.children().length) {
                     myElem.find('div.block').replaceWith(my.getElem())
@@ -133,7 +134,7 @@
                     myElem.append(my.getElem())
                 }
             } else {
-                myElem = my.getElem()
+                myElem = containerWrapper.detach()
             }
             if (targetDragAreas.length > 0) {
                 var targetDragArea
