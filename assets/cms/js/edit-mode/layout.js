@@ -29,6 +29,9 @@ import _ from 'underscore'
 
         bindNotchMenu: function() {
             var my = this
+            // Clear stale ConcreteMenu handlers so the click-proxy overlay isn't
+            // re-established over the notch across drag cycles.
+            my.getNotch().off('.concreteMenu')
             var $menuElem = $('[data-layout-menu=' + my.getId() + ']')
             var menu_config = {
                 highlightClassName: 'ccm-edit-mode-title-notch-highlight',
@@ -77,6 +80,9 @@ import _ from 'underscore'
         bindDrag: function layoutBindDrag() {
             var my = this
             var peper = $('[data-layout-command="move-block"]')
+            // Paint the drag handle above the ConcreteMenu click-proxy overlay
+            // (z-index 500) so it can receive mousedown.
+            peper.css({ position: 'relative', zIndex: 501 })
             $.pep.unbind(peper)
             peper.pep(my.getPepSettings())
         },
