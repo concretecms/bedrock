@@ -110,7 +110,7 @@ export default {
                 options.filters = my.filters
             }
             ConcreteFileManager.launchDialog(function(r) {
-                my.loadFile(r.fID)
+                my.selectedFileID = r.fID
             }, options)
         },
         clearFile: function() {
