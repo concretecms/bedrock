@@ -54,14 +54,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/concrete5/bedrock.git"
+    "url": "git+https://github.com/concretecms/bedrock.git"
   },
   "author": "Andrew Embler",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/concrete5/concrete5/issues"
+    "url": "https://github.com/concretecms/bedrock/issues"
   },
-  "homepage": "https://github.com/concrete5/concrete5#readme",
+  "homepage": "https://github.com/concretecms/bedrock#readme",
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@storybook/vue": "^6.5.13",
