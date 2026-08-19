@@ -409,6 +409,7 @@ window._ = _
                     cnvID: obj.options.cnvID,
                     cID: obj.options.cID,
                     blockID: obj.options.blockID,
+                    bID: obj.options.blockID,
                     itemsPerPage: obj.options.itemsPerPage,
                     displayMode: obj.options.displayMode,
                     blockAreaHandle: obj.options.blockAreaHandle,
@@ -646,6 +647,15 @@ window._ = _
             }, {
                 name: 'displaySocialLinks',
                 value: obj.options.displaySocialLinks
+            }, {
+                name: 'cID',
+                value: obj.options.cID
+            }, {
+                name: 'blockAreaHandle',
+                value: obj.options.blockAreaHandle
+            }, {
+                name: 'bID',
+                value: obj.options.blockID
             }]
 
             $.ajax({
@@ -701,6 +711,15 @@ window._ = _
             }, {
                 name: 'displaySocialLinks',
                 value: obj.options.displaySocialLinks
+            }, {
+                name: 'cID',
+                value: obj.options.cID
+            }, {
+                name: 'blockAreaHandle',
+                value: obj.options.blockAreaHandle
+            }, {
+                name: 'bID',
+                value: obj.options.blockID
             }]
 
             $.ajax({
