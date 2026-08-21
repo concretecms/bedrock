@@ -52,7 +52,7 @@ import _ from 'underscore'
                     my.getElem().removeClass('ccm-block-edit-container-highlight')
                 }
             }
-            new ConcreteMenu(my.getNotch(), menu_config)
+            my.setAttr('notchMenu', new ConcreteMenu(my.getNotch(), menu_config))
         },
 
         bindDelete: function ContainerBlockDelete() {
