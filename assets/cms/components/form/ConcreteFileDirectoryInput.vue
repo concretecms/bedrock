@@ -89,6 +89,7 @@ export default {
         pickerMode: 'tree',
         rootDirectoryID: 0,
         searchMenu: null,
+        searchQuery: '',
         searchRequestID: 0,
         selectedDirectory: null,
         selectedDirectoryID: 0,
@@ -258,6 +259,14 @@ export default {
                     }
                 }
             })
+            this.searchMenu.on('type', query => {
+                this.searchQuery = query
+            })
+            this.searchMenu.on('blur', () => {
+                if (this.searchQuery && !this.searchMenu.items.length) {
+                    this.searchMenu.setTextboxValue(this.searchQuery)
+                }
+            })
             this.updateDisabledState()
         },
         initializeTree() {
@@ -336,6 +345,7 @@ export default {
             const directoryID = parseInt(directory.directoryId)
             const changed = directoryID !== this.selectedDirectoryID
             this.hasMoreSearchResults = false
+            this.searchQuery = ''
             this.selectedDirectory = directory
             this.selectedDirectoryID = directoryID
             if (this.searchMenu) {
