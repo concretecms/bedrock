@@ -5,15 +5,14 @@
                 <label class="form-label" v-if="inputLabel">
                     {{ inputLabel }}<template v-if="selectedDirectory">: {{ selectedDirectoryLabel }}</template>
                 </label>
-                <input type="hidden" :id="directorySelectInputId" :name="inputName"
-                       :value="selectedDirectoryID" :disabled="disabled">
+                <input type="hidden" :name="inputName" :value="selectedDirectoryID" :disabled="disabled">
 
                 <div class="d-flex align-items-center justify-content-between gap-2 mb-2">
                     <div class="btn-group btn-group-sm" role="group">
                         <button type="button" class="btn btn-secondary"
                                 :class="{'active': pickerMode === 'tree'}"
                                 :aria-pressed="pickerMode === 'tree'"
-                                @click="pickerMode = 'tree'" :disabled="disabled">
+                                @click="showTree" :disabled="disabled">
                             {{ i18n.browseFolders }}
                         </button>
                         <button type="button" class="btn btn-secondary"
@@ -83,11 +82,12 @@ export default {
         },
         directoryInputId: _.uniqueId('input-'),
         directorySearchInputId: _.uniqueId('input-'),
-        directorySelectInputId: _.uniqueId('input-'),
         hasMoreSearchResults: false,
         newDirectoryName: '',
         pickerMode: 'tree',
+        preserveSearchOnBlur: false,
         rootDirectoryID: 0,
+        searchFocusTimeout: null,
         searchMenu: null,
         searchQuery: '',
         searchRequestID: 0,
@@ -142,11 +142,16 @@ export default {
         }
 
         this.initializeSearch()
+        document.addEventListener('mousedown', this.trackSearchScrollbarInteraction, true)
         this.fetchInitialDirectory()
     },
     beforeDestroy() {
+        clearTimeout(this.searchFocusTimeout)
+        document.removeEventListener('mousedown', this.trackSearchScrollbarInteraction, true)
+        document.removeEventListener('mouseup', this.resetSearchScrollbarInteraction, true)
         $(this.$refs.directoryTree).off('.directoryPicker')
         if (this.searchMenu) {
+            this.searchMenu.control_input.removeEventListener('input', this.handleSearchInput)
             this.searchMenu.destroy()
         }
         if ($.ui.fancytree.getTree(this.$refs.directoryTree)) {
@@ -227,9 +232,11 @@ export default {
                             query
                         },
                         success: r => {
-                            if (requestID === this.searchRequestID) {
-                                this.hasMoreSearchResults = r.hasMoreDirectories === true
+                            if (requestID !== this.searchRequestID) {
+                                callback()
+                                return
                             }
+                            this.hasMoreSearchResults = r.hasMoreDirectories === true
                             callback(r.directories)
                         },
                         error: () => {
@@ -250,21 +257,28 @@ export default {
                 },
                 shouldLoad: query => query.length > 0
             })
+            this.searchMenu.control_input.addEventListener('input', this.handleSearchInput)
             this.searchMenu.on('change', directoryID => {
                 if (directoryID) {
-                    const directory = this.searchMenu.options[directoryID]
-                    if (directory) {
+                    this.loadDirectory(directoryID, directory => {
                         this.setSelectedDirectory(directory)
-                        this.$nextTick(() => this.initializeTree())
-                    }
+                    })
                 }
             })
-            this.searchMenu.on('type', query => {
-                this.searchQuery = query
-            })
             this.searchMenu.on('blur', () => {
-                if (this.searchQuery && !this.searchMenu.items.length) {
+                if (this.preserveSearchOnBlur && this.searchQuery && !this.searchMenu.items.length) {
                     this.searchMenu.setTextboxValue(this.searchQuery)
+                } else {
+                    this.searchQuery = ''
+                    this.clearSearchResults()
+                }
+            })
+            this.searchMenu.on('dropdown_close', () => {
+                if (this.searchMenu.isFocused && !this.searchMenu.items.length &&
+                    !this.searchMenu.control_input.value &&
+                    (this.hasMoreSearchResults || Object.keys(this.searchMenu.options).length)) {
+                    this.searchQuery = ''
+                    this.clearSearchResults()
                 }
             })
             this.updateDisabledState()
@@ -287,6 +301,7 @@ export default {
                 if (rootNode) {
                     rootNode.setTitle(this.i18n.fileManager)
                 }
+                this.revealSelectedDirectory()
             })
             $tree.concreteTree({
                 ajaxData: {
@@ -296,18 +311,42 @@ export default {
                 treeNodeParentID: this.rootDirectoryID,
                 selectNodesByKey: selectedNodes,
                 onSelect: nodes => {
-                    if (nodes.length) {
-                        const requestID = ++this.treeSelectionRequestID
-                        this.loadDirectory(nodes[0], directory => {
-                            if (requestID === this.treeSelectionRequestID) {
-                                this.setSelectedDirectory(directory)
-                            }
-                        })
+                    if (!nodes.length) {
+                        return
                     }
+
+                    const directoryID = parseInt(nodes[0])
+                    const tree = $.ui.fancytree.getTree(this.$refs.directoryTree)
+                    const node = tree ? tree.getNodeByKey(String(directoryID)) : null
+                    if (!node || !node.isSelected() || directoryID === this.selectedDirectoryID) {
+                        return
+                    }
+
+                    const requestID = ++this.treeSelectionRequestID
+                    this.loadDirectory(directoryID, directory => {
+                        if (requestID === this.treeSelectionRequestID) {
+                            this.setSelectedDirectory(directory)
+                        }
+                    })
                 },
-                chooseNodeInForm: 'single'
+                chooseNodeInForm: 'single',
+                selectNodeOnTitleClick: true
             })
             this.updateDisabledState()
+        },
+        clearSearchResults() {
+            ++this.searchRequestID
+            this.hasMoreSearchResults = false
+            this.searchMenu.clearOptions()
+        },
+        handleSearchInput(event) {
+            this.searchQuery = event.target.value
+            if (this.searchQuery) {
+                return
+            }
+
+            this.clearSearchResults()
+            this.searchMenu.close(false)
         },
         loadDirectory(directoryID, callback) {
             new ConcreteAjaxRequest({
@@ -341,6 +380,54 @@ export default {
                 }
             })
         },
+        revealSelectedDirectory() {
+            const tree = $.ui.fancytree.getTree(this.$refs.directoryTree)
+            if (!tree || !this.selectedDirectoryID) {
+                return
+            }
+
+            const directoryPathIDs = this.selectedDirectory &&
+                Array.isArray(this.selectedDirectory.directoryPathIds)
+                ? this.selectedDirectory.directoryPathIds
+                : [this.selectedDirectoryID]
+            const directoryPathKeys = directoryPathIDs.map(directoryID => String(directoryID))
+            const nodesToCollapse = []
+            tree.getRootNode().visit(node => {
+                if (node.expanded && directoryPathKeys.indexOf(node.key) === -1) {
+                    nodesToCollapse.push(node)
+                }
+            })
+            nodesToCollapse.reverse().forEach(node => node.setExpanded(false))
+            const revealNode = index => {
+                const node = tree.getNodeByKey(String(directoryPathIDs[index]))
+                if (!node) {
+                    return
+                }
+                if (index === directoryPathIDs.length - 1) {
+                    node.setSelected(true)
+                    node.makeVisible({ scrollIntoView: true })
+                    return
+                }
+
+                $.when(node.setExpanded(true)).done(() => revealNode(index + 1))
+            }
+            revealNode(0)
+        },
+        resetSearchScrollbarInteraction() {
+            const restoreFocus = this.preserveSearchOnBlur && this.searchQuery &&
+                this.searchMenu && !this.searchMenu.isFocused
+            if (restoreFocus) {
+                this.searchFocusTimeout = setTimeout(() => {
+                    this.searchFocusTimeout = null
+                    this.preserveSearchOnBlur = false
+                    if (this.searchMenu && this.searchQuery) {
+                        this.searchMenu.focus()
+                    }
+                })
+            } else {
+                this.preserveSearchOnBlur = false
+            }
+        },
         setSelectedDirectory(directory) {
             const directoryID = parseInt(directory.directoryId)
             const changed = directoryID !== this.selectedDirectoryID
@@ -354,6 +441,34 @@ export default {
             }
             if (changed) {
                 this.$emit('change', directoryID)
+            }
+        },
+        showTree() {
+            this.pickerMode = 'tree'
+            this.$nextTick(() => this.revealSelectedDirectory())
+        },
+        trackSearchScrollbarInteraction(event) {
+            this.preserveSearchOnBlur = false
+            document.removeEventListener('mouseup', this.resetSearchScrollbarInteraction, true)
+            if (!this.searchMenu || !this.searchMenu.isFocused) {
+                return
+            }
+
+            const dialogContent = this.$el.closest('.ui-dialog-content')
+            if (!dialogContent) {
+                return
+            }
+
+            const scrollbarWidth = dialogContent.offsetWidth - dialogContent.clientWidth
+            const bounds = dialogContent.getBoundingClientRect()
+            this.preserveSearchOnBlur = scrollbarWidth > 0 &&
+                event.clientX >= bounds.right - scrollbarWidth && event.clientX <= bounds.right &&
+                event.clientY >= bounds.top && event.clientY <= bounds.bottom
+            if (this.preserveSearchOnBlur) {
+                document.addEventListener('mouseup', this.resetSearchScrollbarInteraction, {
+                    capture: true,
+                    once: true
+                })
             }
         },
         toggleDirectoryInput() {
