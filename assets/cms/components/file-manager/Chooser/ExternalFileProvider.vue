@@ -45,6 +45,7 @@
         v-show="keywords != ''"
         :input-label="i18n.uploadFilesTo"
         input-name="uploadDirectoryId"
+        :directory-id="extraData.uploadDirectoryId"
         :show-add-directory-button="true"
         ref="folderSelector"
         @change="uploadDirectoryId = $event"/>
@@ -139,7 +140,6 @@ export default {
     }
     this.formFactor = this.resultsFormFactor
     this.getFileTypes()
-    this.$refs.folderSelector.selectedDirectoryID = this.extraData.uploadDirectoryId
   }
 }
 </script>

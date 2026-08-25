@@ -12,6 +12,7 @@ function ConcreteTree($element, options) {
         treeID: false,
         onClick: false,
         allowFolderSelection: true,
+        selectNodeOnTitleClick: false,
         selectNodesByKey: [],
         removeNodesByKey: [],
         removeNodesByCallback: false,
@@ -205,6 +206,9 @@ ConcreteTree.prototype = {
                 }
 
                 if (options.chooseNodeInForm && data.targetType != 'checkbox') {
+                    if (options.selectNodeOnTitleClick && data.targetType == 'title') {
+                        data.node.setSelected(true)
+                    }
                     return false
                 }
 
