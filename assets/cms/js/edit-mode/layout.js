@@ -44,7 +44,7 @@ import _ from 'underscore'
                     my.getElem().removeClass('ccm-block-edit-layout-highlight')
                 }
             }
-            new ConcreteMenu(my.getNotch(), menu_config)
+            my.setAttr('notchMenu', new ConcreteMenu(my.getNotch(), menu_config))
 
             $menuElem.find('a[data-menu-action=edit-container-layout]')
                 .off('click.edit-mode')
