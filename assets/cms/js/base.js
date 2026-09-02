@@ -19,6 +19,7 @@ import 'jquery-ui/ui/widgets/sortable'
 import 'jquery-ui/ui/widgets/slider'
 
 // Core backend
+import './fetch'
 import './events'
 import './asset-loader'
 import './page-indexer'
