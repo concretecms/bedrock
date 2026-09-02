@@ -383,6 +383,7 @@
             var i
 
             node.setStatus('loading')
+            params.push({ name: 'ccm_token', value: CCM_SECURITY_TOKEN })
             for (i = 0; i < childNodes.length; i++) {
                 var childNode = childNodes[i]
                 params.push({ name: 'cID[]', value: childNode.data.cID })
