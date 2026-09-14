@@ -87,7 +87,7 @@ export default {
                                     process.dateCompletedString = responseProcess.dateCompletedString
                                     process.batch = responseProcess.batch
 
-                                    if (process.progress < 100) {
+                                    if (!process.dateCompleted) {
                                         pollAgain = true
                                     } else {
                                         my.completeProcess(process)
