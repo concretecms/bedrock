@@ -10,6 +10,23 @@
         my.$element = $element
         my.options = options
 
+        ConcreteEvent.unsubscribe('SitemapDeleteRequestComplete.desktopDraftList')
+        ConcreteEvent.subscribe('SitemapDeleteRequestComplete.desktopDraftList', function() {
+            my.showLoader()
+            $.concreteAjax({
+                loader: false,
+                dataType: 'html',
+                url: my.options.reloadUrl,
+                method: 'get',
+                success: function(r) {
+                    my.$element.replaceWith(r)
+                },
+                complete: function() {
+                    my.hideLoader()
+                }
+            })
+        })
+
         my.$element.on('click', 'div.ccm-pagination-wrapper a', function(e) {
             e.preventDefault()
             my.showLoader()
