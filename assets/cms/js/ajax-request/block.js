@@ -37,7 +37,7 @@
     ConcreteAjaxBlockForm.prototype.refreshBlock = function (resp) {
         var my = this
         var cID = (resp.cID) ? resp.cID : CCM_CID
-        var editor = new Concrete.getEditMode()
+        var editor = Concrete.getEditMode()
         var area = editor.getAreaByID(resp.aID)
         var arEnableGridContainer = area.getEnableGridContainer() ? 1 : 0
         var action = CCM_DISPATCHER_FILENAME + '/ccm/system/block/render'
