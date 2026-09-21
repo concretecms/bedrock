@@ -2,6 +2,93 @@
     'use strict'
 
     /**
+     * The error thrown when a request fails.
+     *
+     * It's a regular Error (with the same message as before), with a few additional properties.
+     */
+    class FetchError extends Error {
+        /**
+         * @param {FetchErrorKind} kind
+         * @param {string} message
+         * @param {{status?: number, responseText?: string, responseData?: any, cause?: any}} [details]
+         */
+        constructor(kind, message, details) {
+            super(message)
+            this.name = 'FetchError'
+            /**
+             * @type {FetchErrorKind}
+             */
+            this.kind = kind
+            /**
+             * The HTTP status code (0 if we got no response at all).
+             *
+             * @type {number}
+             */
+            this.status = details?.status || 0
+            /**
+             * The body of the response, if we received one.
+             *
+             * @type {string|undefined}
+             */
+            this.responseText = details?.responseText
+            /**
+             * The parsed body of the response, if it was parseable.
+             *
+             * @type {any}
+             */
+            this.responseData = details?.responseData
+            if (details?.cause !== undefined) {
+                this.cause = details.cause
+            }
+        }
+    }
+
+    /**
+     * The reason why a request failed.
+     *
+     * @example
+     * try {
+     *     await ConcreteFetch.json('/api/data', { timeout: 30000 })
+     * } catch (error) {
+     *     if (error.kind === ConcreteFetch.FetchError.KIND.TIMEOUT) {
+     *         window.alert('The server is taking too long, please try again later.')
+     *     }
+     * }
+     */
+    FetchError.KIND = Object.freeze({
+        /**
+         * The request never got an answer (offline, DNS problems, CORS, connection reset, ...).
+         */
+        NETWORK: 'network',
+        /**
+         * The request took longer than the timeout option.
+         */
+        TIMEOUT: 'timeout',
+        /**
+         * The request has been aborted with an AbortSignal.
+         */
+        ABORTED: 'aborted',
+        /**
+         * The response told us about an error (see the responseData property).
+         */
+        SERVER: 'server',
+        /**
+         * The response has an error HTTP status, but no details about the error.
+         */
+        HTTP: 'http',
+        /**
+         * The response was not in the expected format (for example: JSON was expected).
+         */
+        INVALID_RESPONSE: 'invalid-response'
+    })
+
+    /**
+     * The reason why a request failed: one of the values of FetchError.KIND.
+     *
+     * @typedef {typeof FetchError.KIND[keyof typeof FetchError.KIND]} FetchErrorKind
+     */
+
+    /**
      * Recursively add fields to URLSearchParams.
      * Used by buildRequestBody().
      *
@@ -57,9 +144,14 @@
      */
     function prepareRequest(request, headers) {
         if (request) {
+            // An AbortSignal does not survive structuredClone(): let's keep the one we received
+            const signal = request.signal
             try {
                 request = global.structuredClone(request)
             } catch {}
+            if (signal) {
+                request.signal = signal
+            }
         } else {
             request = {}
         }
@@ -94,26 +186,68 @@
             // We want to use $_POST on the server side
             request.headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'
         }
+        if (typeof request.timeout === 'number' && request.timeout > 0) {
+            // Not a fetch() option: let's turn it into a signal, so that callers don't have to
+            const timeoutSignal = AbortSignal.timeout(request.timeout)
+            request.signal = request.signal ? AbortSignal.any([request.signal, timeoutSignal]) : timeoutSignal
+        }
+        delete request.timeout
         return request
+    }
+
+    /**
+     * Perform a request, telling apart the reasons why we may not get a response at all.
+     *
+     * @param {string} url
+     * @param {RequestInit} request
+     *
+     * @throws {FetchError}
+     *
+     * @returns {Promise<Response>}
+     */
+    async function performRequest(url, request) {
+        try {
+            return await fetch(url, request)
+        } catch (error) {
+            if (error?.name === 'TimeoutError') {
+                throw new FetchError(FetchError.KIND.TIMEOUT, 'The request took too long to complete.', { cause: error })
+            }
+            if (error?.name === 'AbortError') {
+                throw new FetchError(FetchError.KIND.ABORTED, 'The request has been canceled.', { cause: error })
+            }
+            throw new FetchError(FetchError.KIND.NETWORK, error?.message || 'Unable to contact the server.', { cause: error })
+        }
+    }
+
+    /**
+     * Build the error to be thrown when we received a response with an error HTTP status.
+     *
+     * @param {Response} response
+     * @param {string} responseText
+     * @param {any} [responseData]
+     *
+     * @returns {FetchError}
+     */
+    function buildHttpError(response, responseText, responseData) {
+        return new FetchError(FetchError.KIND.HTTP, responseText, { status: response.status, responseText, responseData })
     }
 
     /**
      * Check a JSON response for errors.
      *
      * @param {any} responseData
+     * @param {Response} response
+     * @param {string} responseText
      *
-     * @throws {Error} If the response data contains errors (the thrown error will have a responseData property)
+     * @throws {FetchError} If the response data contains errors (the thrown error will have a responseData property)
      */
-    function checkJsonResponse(responseData) {
+    function checkJsonResponse(responseData, response, responseText) {
+        const details = { status: response.status, responseText, responseData }
         if (responseData?.errors?.length) {
-            const error = new Error(responseData.errors[0])
-            error.responseData = responseData
-            throw error
+            throw new FetchError(FetchError.KIND.SERVER, responseData.errors[0], details)
         }
         if (responseData?.error) {
-            const error = new Error(responseData.error)
-            error.responseData = responseData
-            throw error
+            throw new FetchError(FetchError.KIND.SERVER, responseData.error, details)
         }
     }
 
@@ -121,9 +255,9 @@
      * Fetch JSON data from a URL.
      *
      * @param {string} url The URL to fetch data from
-     * @param {RequestInit|Record<string, any>|null|undefined} request The request options and body
+     * @param {RequestInit|Record<string, any>|null|undefined} request The request options and body (plus an optional timeout, in milliseconds)
      *
-     * @throws {Error} If the response contains an error or is not ok
+     * @throws {FetchError} If the request failed, if the response contains an error, or if it is not ok
      *
      * @returns {Promise<any>} The JSON response
      *
@@ -141,17 +275,20 @@
      */
     async function fetchJson(url, request) {
         request = prepareRequest(request, { Accept: 'application/json' })
-        const response = await fetch(url, request)
+        const response = await performRequest(url, request)
         const responseText = await response.text()
         let responseData
         try {
             responseData = JSON.parse(responseText)
         } catch {
-            throw new Error(responseText)
+            if (!response.ok) {
+                throw buildHttpError(response, responseText)
+            }
+            throw new FetchError(FetchError.KIND.INVALID_RESPONSE, responseText, { status: response.status, responseText })
         }
-        checkJsonResponse(responseData)
+        checkJsonResponse(responseData, response, responseText)
         if (!response.ok) {
-            throw new Error(responseText)
+            throw buildHttpError(response, responseText, responseData)
         }
         return responseData
     }
@@ -160,9 +297,9 @@
      * Fetch an HTML chunk from a URL.
      *
      * @param {string} url The URL to fetch data from
-     * @param {RequestInit|Record<string, any>|undefined} request The request options and body
+     * @param {RequestInit|Record<string, any>|undefined} request The request options and body (plus an optional timeout, in milliseconds)
      *
-     * @throws {Error} If the response contains an error or is not ok
+     * @throws {FetchError} If the request failed, if the response contains an error, or if it is not ok
      *
      * @returns {Promise<string>} The HTML response
      *
@@ -192,7 +329,7 @@
                 ].join(', ')
             }
         )
-        const response = await fetch(url, request)
+        const response = await performRequest(url, request)
         const responseText = await response.text()
         let responseData
         try {
@@ -203,11 +340,11 @@
             responseData = null
         }
         if (responseData) {
-            checkJsonResponse(responseData)
+            checkJsonResponse(responseData, response, responseText)
         }
 
         if (!response.ok) {
-            throw new Error(responseText)
+            throw buildHttpError(response, responseText, responseData)
         }
         return responseText
     }
@@ -215,6 +352,7 @@
     global.ConcreteFetch = {
         buildRequestBody,
         json: fetchJson,
-        html: fetchHtml
+        html: fetchHtml,
+        FetchError
     }
 })(global)
