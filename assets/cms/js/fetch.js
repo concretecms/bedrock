@@ -1,6 +1,10 @@
 ;(function(global) {
     'use strict'
 
+    if (global.ConcreteFetch) {
+        return
+    }
+
     /**
      * The error thrown when a request fails.
      *
