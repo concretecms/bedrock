@@ -9,6 +9,7 @@
         <concrete-file-directory-input
             :input-label="i18n.uploadFilesTo"
             input-name="uploadDirectoryId"
+            :directory-id="uploadDirectoryId || undefined"
             :show-add-directory-button="true"
             :disabled="isUploadInProgress"
             @change="uploadDirectoryId = $event"/>
@@ -28,15 +29,21 @@ export default {
         dropzoneOptions: {
             type: Object,
             default: () => ({})
+        },
+        extraData: {
+            type: Object,
+            default: () => ({})
         }
     },
-    data: () => ({
-        i18n: {
-            uploadFilesTo: 'Upload files to'
-        },
-        uploadDirectoryId: 0,
-        isUploadInProgress: false
-    }),
+    data() {
+        return {
+            i18n: {
+                uploadFilesTo: 'Upload files to'
+            },
+            uploadDirectoryId: parseInt(this.extraData.uploadDirectoryId, 10) || 0,
+            isUploadInProgress: false
+        }
+    },
     mounted() {
         if (window.ccmi18n_fileuploader) {
             for (const key in this.i18n) {

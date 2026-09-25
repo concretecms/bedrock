@@ -4,6 +4,7 @@
 
         <uploader
             :dropzone-options="dropzoneOptions"
+            :extra-data="extraData"
             @upload-complete="$emit('upload-complete')"
         />
     </div>
@@ -32,6 +33,10 @@ export default {
             default: true
         },
         dropzoneOptions: {
+            type: Object,
+            default: () => ({})
+        },
+        extraData: {
             type: Object,
             default: () => ({})
         }
