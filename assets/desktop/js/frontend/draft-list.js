@@ -10,45 +10,43 @@
         my.$element = $element
         my.options = options
 
-        ConcreteEvent.unsubscribe('SitemapDeleteRequestComplete.desktopDraftList')
-        ConcreteEvent.subscribe('SitemapDeleteRequestComplete.desktopDraftList', function() {
-            my.showLoader()
-            $.concreteAjax({
-                loader: false,
-                dataType: 'html',
-                url: my.options.reloadUrl,
-                method: 'get',
-                success: function(r) {
-                    my.$element.replaceWith(r)
-                },
-                complete: function() {
-                    my.hideLoader()
-                }
+        var events = global.ConcreteEvent
+        if (events && typeof events.subscribe === 'function') {
+            if (typeof events.unsubscribe === 'function') {
+                events.unsubscribe('SitemapDeleteRequestComplete.desktopDraftList')
+            }
+            events.subscribe('SitemapDeleteRequestComplete.desktopDraftList', function() {
+                my.reload()
             })
-        })
+        }
 
         my.$element.on('click', 'div.ccm-pagination-wrapper a', function(e) {
             e.preventDefault()
-            my.showLoader()
             window.scrollTo(0, 0)
-            $.concreteAjax({
-                loader: false,
-                dataType: 'html',
-                url: $(this).attr('href'),
-                method: 'get',
-                success: function(r) {
-                    my.$element.replaceWith(r)
-                },
-                complete: function() {
-                    my.hideLoader()
-                }
-            })
+            my.reload($(this).attr('href'))
         })
 
         my.$element.find('.dialog-launch').dialog()
     }
 
     ConcreteDraftList.prototype = {
+        reload: function(url) {
+            var my = this
+            my.showLoader()
+            $.concreteAjax({
+                loader: false,
+                dataType: 'html',
+                url: url || my.options.reloadUrl,
+                method: 'get',
+                success: function(r) {
+                    my.$element.replaceWith(r)
+                },
+                complete: function() {
+                    my.hideLoader()
+                }
+            })
+        },
+
         showLoader: function() {
             var my = this
             my.$element.find('.ccm-block-desktop-draft-list-for-me-loader').removeClass('invisible')
