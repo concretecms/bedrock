@@ -93,14 +93,14 @@ export default {
                 // For EXACT mode: corners maintain locked aspect ratio
                 // For PROPORTIONAL mode: corners allow free resizing
                 handlers: {
-                    eastNorth: true,   // top-right corner
-                    north: false,      // top edge
-                    westNorth: true,   // top-left corner
-                    west: false,       // left edge
-                    westSouth: true,   // bottom-left corner
-                    south: false,      // bottom edge
-                    eastSouth: true,   // bottom-right corner
-                    east: false        // right edge
+                    eastNorth: true, // top-right corner
+                    north: false, // top edge
+                    westNorth: true, // top-left corner
+                    west: false, // left edge
+                    westSouth: true, // bottom-left corner
+                    south: false, // bottom edge
+                    eastSouth: true, // bottom-right corner
+                    east: false // right edge
                 },
                 movable: true,
                 resizable: true,
@@ -115,20 +115,20 @@ export default {
                 linesClasses: {
                     default: 'ccm-thumbnail-stencil-line',
                     north: 'ccm-thumbnail-stencil-line--north',
-                    east: 'ccm-thumbnail-stencil-line--east', 
+                    east: 'ccm-thumbnail-stencil-line--east',
                     south: 'ccm-thumbnail-stencil-line--south',
                     west: 'ccm-thumbnail-stencil-line--west'
                 },
                 // Add custom class to preview for border styling
                 previewClass: 'ccm-thumbnail-stencil-preview'
             }
-            
+
             // Only lock aspect ratio for EXACT mode
             if (this.aspectRatio !== undefined) {
                 props.minAspectRatio = this.aspectRatio
                 props.maxAspectRatio = this.aspectRatio
             }
-            
+
             return props
         },
         resizeImageConfig: function() {
@@ -158,30 +158,30 @@ export default {
         },
         zoomOut() {
             if (this.$refs.cropper) {
-                // Zoom out by 5% (0.95x) for finer control  
+                // Zoom out by 5% (0.95x) for finer control
                 this.$refs.cropper.zoom(0.95)
             }
         },
         save() {
             var my = this
             this.saveInProgress = true
-            
+
             // Get the cropped result
             const result = this.$refs.cropper.getResult()
             const sourceCanvas = result.canvas
-            
+
             if (sourceCanvas) {
                 // Create a new canvas at the exact thumbnail size
                 const canvas = document.createElement('canvas')
                 canvas.width = this.width
                 canvas.height = this.height
-                
+
                 // Draw the cropped image at the exact size
                 const ctx = canvas.getContext('2d')
                 ctx.imageSmoothingEnabled = true
                 ctx.imageSmoothingQuality = 'high'
                 ctx.drawImage(sourceCanvas, 0, 0, this.width, this.height)
-                
+
                 const form = new FormData()
                 form.append('ccm_token', this.accessToken)
                 // Convert canvas to data URL for preview update
@@ -203,12 +203,12 @@ export default {
                                 fvID: my.fileVersionId,
                                 imgData: imgData
                             }
-                            
+
                             // Trigger namespaced events for different listeners
                             // Each dialog/page has its own namespace to avoid unbinding conflicts
                             Concrete.event.trigger('ImageEditorDidSave.thumbnails.thumbnailsDialog', eventData)
                             Concrete.event.trigger('ImageEditorDidSave.thumbnails.detailsPage', eventData)
-                            
+
                             // Show success notification
                             ConcreteAlert.notify({
                                 message: ccmi18n_filemanager.thumbnailImageSaved,
@@ -225,58 +225,58 @@ export default {
 <style scoped>
 /* Stencil preview border - always visible solid white outline */
 >>> .ccm-thumbnail-stencil-preview {
-    border: 2px solid rgba(255, 255, 255, 0.9);
-    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
 }
 
 /* Stencil edge lines - dashed white lines for clear visibility */
 >>> .ccm-thumbnail-stencil-line {
-    border-style: dashed;
-    border-color: rgba(255, 255, 255, 0.7);
-    border-width: 1px;
+  border-color: rgba(255, 255, 255, 0.7);
+  border-style: dashed;
+  border-width: 1px;
 }
 
 /* Individual line borders - only show border on the relevant edge */
 >>> .ccm-thumbnail-stencil-line--north {
-    border-bottom-width: 0;
-    border-left-width: 0;
-    border-right-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
 }
 
 >>> .ccm-thumbnail-stencil-line--east {
-    border-top-width: 0;
-    border-bottom-width: 0;
-    border-left-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-top-width: 0;
 }
 
 >>> .ccm-thumbnail-stencil-line--south {
-    border-top-width: 0;
-    border-left-width: 0;
-    border-right-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-top-width: 0;
 }
 
 >>> .ccm-thumbnail-stencil-line--west {
-    border-top-width: 0;
-    border-bottom-width: 0;
-    border-right-width: 0;
+  border-bottom-width: 0;
+  border-right-width: 0;
+  border-top-width: 0;
 }
 
 /* Resize handlers - make corner handles more visible and easier to grab */
 >>> .vue-handler-wrapper {
-    opacity: 1;
+  opacity: 1;
 }
 
 >>> .vue-simple-handler {
-    background: rgba(255, 255, 255, 0.9);
-    border: 2px solid rgba(0, 0, 0, 0.4);
-    width: 12px;
-    height: 12px;
-    border-radius: 2px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
+  height: 12px;
+  width: 12px;
 }
 
 >>> .vue-simple-handler:hover {
-    background: rgba(255, 255, 255, 1);
-    border-color: rgba(0, 0, 0, 0.6);
-    transform: scale(1.3);
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(0, 0, 0, 0.6);
+  transform: scale(1.3);
 }
 </style>
